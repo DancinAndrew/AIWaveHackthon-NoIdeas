@@ -1,8 +1,29 @@
+# macOS
 .DS_Store
+
+# Secrets and local environment
 .env
+.env.*
+!.env.example
+
+# Python and uv
 .venv/
 venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Lambda packaging
 package/
 lambda_deploy.zip
-__pycache__/
-*.pyc
+
+# Local scratch files
+tmp/
+_tmp_*

@@ -1,14 +1,13 @@
 [project]
 name = "aiwave-hackathon"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI 生活管家的服務需求理解、媒合與案件追蹤平台"
+readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "anthropic[bedrock]>=0.120.2",
+    "aws-lambda-powertools>=2.0.0",
     "boto3>=1.43.62",
-    "fastapi>=0.141.1",
+    "flask>=3.0.0",
     "pydantic-settings>=2.14.2",
-    "python-dotenv>=1.2.2",
     "supabase>=2.31.0",
-    "uvicorn[standard]>=0.52.0",
 ]
