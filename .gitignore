@@ -30,3 +30,6 @@ _tmp_*
 # Frontend
 frontend/node_modules/
 frontend/package-lock.json
+
+# packages/backend (reference)
+packages/backend/node_modules/

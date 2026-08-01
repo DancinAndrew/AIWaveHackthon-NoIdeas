@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>生活管家 Agent 控制台</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --panel: #171a23;
+    --panel-2: #1e222d;
+    --line: #2a2f3d;
+    --text: #e6e8ef;
+    --muted: #949cb0;
+    --accent: #4da3ff;
+    --accent-2: #7ee0a2;
+    --warn: #ffb454;
+    --danger: #ff6b6b;
+    --user-bubble: #2b5f9e;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Microsoft JhengHei", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 12px 20px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 16px; margin: 0; font-weight: 600; }
+  .pill {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--muted);
+  }
+  .pill strong { color: var(--text); font-weight: 600; }
+  .pill.ok { border-color: #2f6b46; color: var(--accent-2); }
+  .pill.bad { border-color: #6b2f2f; color: var(--danger); }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(380px, 1fr) minmax(420px, 1fr);
+    gap: 16px;
+    padding: 16px 20px 24px;
+    align-items: start;
+  }
+  @media (max-width: 1000px) { main { grid-template-columns: 1fr; } }
+
+  section.card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  section.card > h2 {
+    font-size: 13px;
+    margin: 0;
+    padding: 10px 14px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: .04em;
+  }
+  .card-body { padding: 14px; }
+
+  /* ---- 聊天 ---- */
+  #log {
+    height: 46vh;
+    min-height: 320px;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .msg { max-width: 84%; padding: 9px 13px; border-radius: 12px; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { align-self: flex-end; background: var(--user-bubble); }
+  .msg.agent { align-self: flex-start; background: var(--panel-2); border: 1px solid var(--line); }
+  .msg.sys { align-self: center; background: transparent; color: var(--muted); font-size: 12px; max-width: 100%; }
+  .msg.err { align-self: center; background: #3a1e1e; border: 1px solid #6b2f2f; color: #ffc9c9; max-width: 100%; }
+
+  form.composer { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--line); }
+  input[type=text] {
+    flex: 1; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit;
+  }
+  input[type=text]:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  button {
+    padding: 10px 16px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--accent); color: #06121f; font: inherit; font-weight: 600; cursor: pointer;
+  }
+  button.ghost { background: transparent; color: var(--muted); font-weight: 400; }
+  button:disabled { opacity: .5; cursor: progress; }
+
+  .prompts { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 12px; }
+  .prompts button { font-size: 12px; padding: 5px 10px; background: var(--panel-2); color: var(--muted); font-weight: 400; }
+
+  /* ---- 右側資料 ---- */
+  .kv { display: grid; grid-template-columns: 92px 1fr; gap: 4px 10px; }
+  .kv dt { color: var(--muted); font-size: 12px; }
+  .kv dd { margin: 0; }
+  .badge { display: inline-block; font-size: 11px; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); border: 1px solid var(--line); color: var(--muted); }
+  .badge.on { border-color: #2f6b46; color: var(--accent-2); }
+  .badge.wait { border-color: #6b5a2f; color: var(--warn); }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+  .vendor { border: 1px solid var(--line); border-radius: 8px; padding: 12px; margin-bottom: 10px; background: var(--panel-2); }
+  .vendor.top { border-color: var(--accent); }
+  .vendor-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .vendor-name { font-weight: 600; }
+  .score { font-size: 12px; color: var(--accent); white-space: nowrap; }
+  .price { font-size: 18px; font-weight: 600; margin: 6px 0 2px; }
+  .reasons { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 12px; }
+  .risk { margin-top: 8px; font-size: 12px; color: var(--warn); }
+
+  ol.trace { list-style: none; margin: 0; padding: 0; }
+  ol.trace li { border-left: 2px solid var(--line); padding: 0 0 10px 12px; }
+  .trace-head { display: flex; gap: 8px; align-items: center; font-size: 12px; }
+  .who { font-size: 10px; padding: 1px 6px; border-radius: 4px; }
+  .who.user-agent { background: #1e3a5f; color: #9dcaff; }
+  .who.match-agent { background: #3d2a5f; color: #d3b3ff; }
+  .tool { font-family: Consolas, monospace; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 11px; }
+  pre {
+    background: var(--bg); border: 1px solid var(--line); border-radius: 6px;
+    padding: 8px; overflow-x: auto; font-size: 11px; margin: 6px 0 0;
+    font-family: Consolas, monospace; max-height: 220px;
+  }
+  .empty { color: var(--muted); font-size: 12px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>生活管家 Agent 控制台</h1>
+  <span class="pill" id="pill-health">連線中…</span>
+  <span class="pill" id="pill-model"></span>
+  <span class="pill" id="pill-repo"></span>
+  <span class="pill" id="pill-session"></span>
+  <button class="ghost" type="button" id="btn-reset">重新開始對話</button>
+</header>
+
+<main>
+  <!-- 左：對話 -->
+  <section class="card" aria-labelledby="h-chat">
+    <h2 id="h-chat">對話</h2>
+    <div id="log" role="log" aria-live="polite" aria-label="對話紀錄"></div>
+    <div class="prompts" id="prompts"></div>
+    <form class="composer" id="composer">
+      <label for="input" class="sr-only" style="position:absolute;left:-9999px">輸入訊息</label>
+      <input type="text" id="input" placeholder="例如：我家冷氣不冷了" autocomplete="off" />
+      <button type="submit" id="send">送出</button>
+    </form>
+  </section>
+
+  <!-- 右：狀態 -->
+  <div style="display:flex; flex-direction:column; gap:16px;">
+    <section class="card" aria-labelledby="h-req">
+      <h2 id="h-req">服務單（slot filling 進度）</h2>
+      <div class="card-body" id="req"><p class="empty">還沒有服務單。</p></div>
+    </section>
+
+    <section class="card" aria-labelledby="h-match">
+      <h2 id="h-match">媒合結果（廠商代理回傳）</h2>
+      <div class="card-body" id="match"><p class="empty">還沒有媒合結果。</p></div>
+    </section>
+
+    <section class="card" aria-labelledby="h-booking">
+      <h2 id="h-booking">預約單</h2>
+      <div class="card-body" id="booking"><p class="empty">還沒有預約單。</p></div>
+    </section>
+
+    <section class="card" aria-labelledby="h-trace">
+      <h2 id="h-trace">Agent 動作紀錄（這一輪）</h2>
+      <div class="card-body" id="trace"><p class="empty">尚無紀錄。</p></div>
+    </section>
+
+    <section class="card" aria-labelledby="h-prefs">
+      <h2 id="h-prefs">會員偏好（持續累積，推播依據）</h2>
+      <div class="card-body" id="prefs"><p class="empty">尚未載入。</p></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const API = location.origin;
+const PERIOD = { "1": "上午", "2": "下午", "3": "皆可" };
+const STATUS_LABEL = {
+  COLLECTING: "收集資訊中",
+  READY_TO_MATCH: "資訊齊全，可媒合",
+  MATCHING: "媒合中",
+  MATCHED: "已有候選廠商",
+  BOOKED: "已成立預約",
+  CANCELLED: "已取消",
+};
+let sessionId = null;
+
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const money = (n) => Number(n).toLocaleString("zh-TW");
+
+function bubble(kind, text) {
+  const div = document.createElement("div");
+  div.className = "msg " + kind;
+  div.textContent = text;
+  $("log").appendChild(div);
+  $("log").scrollTop = $("log").scrollHeight;
+}
+
+// ---------- 開場：健康檢查 + 會員背景 ----------
+async function boot() {
+  try {
+    const h = await (await fetch(`${API}/health`)).json();
+    $("pill-health").textContent = "後端正常";
+    $("pill-health").className = "pill ok";
+    $("pill-model").innerHTML = `模型 <strong>${esc(h.model.replace(/^(us|global)\./, ""))}</strong>`;
+    $("pill-repo").innerHTML =
+      `資料層 <strong>${esc(h.repo)}</strong> · 媒合 <strong>${esc(h.matchTransport)}</strong>`;
+  } catch (err) {
+    $("pill-health").textContent = "後端連不上（請先啟動 app.py）";
+    $("pill-health").className = "pill bad";
+    return;
+  }
+
+  try {
+    const ctx = await (await fetch(`${API}/context`)).json();
+    renderPrefs(ctx.user.preferences);
+    const acs = (ctx.user.appliances || []).filter((a) => a.kind === "AC");
+    bubble("sys",
+      `會員：${ctx.user.displayName}　點數 ${ctx.user.points}\n` +
+      `常用地址 ${ctx.user.addresses.length} 筆　家中冷氣 ${acs.length} 台` +
+      (acs.length ? `（${acs.map((a) => `${a.location} ${a.brand}${a.variant}`).join("、")}）` : ""));
+    $("prompts").innerHTML = "";
+    for (const p of ctx.suggestedPrompts || []) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = p;
+      b.onclick = () => { $("input").value = p; $("input").focus(); };
+      $("prompts").appendChild(b);
+    }
+  } catch (err) {
+    bubble("err", "載入會員背景失敗：" + err.message);
+  }
+}
+
+// ---------- 送出訊息 ----------
+$("composer").onsubmit = async (e) => {
+  e.preventDefault();
+  const text = $("input").value.trim();
+  if (!text) return;
+  $("input").value = "";
+  bubble("user", text);
+  $("send").disabled = true;
+  $("send").textContent = "思考中…";
+  const started = Date.now();
+
+  try {
+    const res = await fetch(`${API}/chat`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ message: text, sessionId }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || res.status);
+
+    sessionId = data.sessionId;
+    $("pill-session").innerHTML = `session <strong>${esc(sessionId.slice(0, 8))}</strong>`;
+    bubble("agent", data.reply);
+    bubble("sys", `${((Date.now() - started) / 1000).toFixed(1)} 秒 · ${(data.trace || []).length} 次工具呼叫`);
+
+    renderRequest(data.request);
+    renderMatch(data.match);
+    renderBooking(data.booking);
+    renderTrace(data.trace);
+    renderPrefs(data.preferences);
+  } catch (err) {
+    bubble("err", "失敗：" + err.message);
+  } finally {
+    $("send").disabled = false;
+    $("send").textContent = "送出";
+    $("input").focus();
+  }
+};
+
+$("btn-reset").onclick = () => {
+  sessionId = null;
+  $("log").innerHTML = "";
+  $("pill-session").textContent = "";
+  for (const id of ["req", "match", "booking", "trace"]) {
+    $(id).innerHTML = '<p class="empty">已重設。</p>';
+  }
+  boot();
+};
+
+// ---------- 各區塊渲染 ----------
+function renderRequest(req) {
+  if (!req) return;
+  const s = req.slots || {};
+  const a = req.address;
+  const missing = [];
+  if (!(s.symptoms || []).length) missing.push("症狀");
+  if (!a) missing.push("服務地址");
+  if (!req.preferredContactTime) missing.push("方便時段");
+
+  const badgeClass = req.status === "BOOKED" ? "on" : req.status === "MATCHED" ? "on" : "wait";
+  $("req").innerHTML = `
+    <p style="margin-top:0">
+      <span class="badge ${badgeClass}">${esc(STATUS_LABEL[req.status] || req.status)}</span>
+      <span class="badge">${esc(req.requestId)}</span>
+    </p>
+    <dl class="kv">
+      <dt>症狀</dt><dd>${(s.symptoms || []).map((x) => `<span class="badge on">${esc(x)}</span>`).join(" ") || "—"}</dd>
+      <dt>機型／品牌</dt><dd>${esc([s.brand, s.variant].filter(Boolean).join(" ") || "—")}</dd>
+      <dt>使用年數</dt><dd>${s.ageYears != null ? esc(s.ageYears) + " 年" : "—"}</dd>
+      <dt>服務地址</dt><dd>${a ? esc(a.countyName + a.districtName + (a.detail || "")) + ` <span class="badge">${esc(a.countyCode)}/${esc(a.districtCode)}</span>` : "—"}</dd>
+      <dt>方便時段</dt><dd>${esc(PERIOD[req.preferredContactTime] || "—")}</dd>
+      <dt>還缺</dt><dd>${missing.length ? missing.map((m) => `<span class="badge wait">${esc(m)}</span>`).join(" ") : '<span class="badge on">資訊齊全</span>'}</dd>
+    </dl>`;
+}
+
+function renderMatch(match) {
+  if (!match || !(match.proposals || []).length) return;
+  const cards = match.proposals.map((p, i) => {
+    const q = p.quote || {};
+    const risks = (q.majorRisks || []).map((r) =>
+      `⚠ 最壞情況：${esc(r.name)} ${money(r.minPrice)}～${money(r.maxPrice)} 元（不含在上方區間）`).join("<br>");
+    return `
+      <article class="vendor ${i === 0 ? "top" : ""}">
+        <div class="vendor-head">
+          <span class="vendor-name">${i === 0 ? "★ " : ""}${esc(p.vendorName)}</span>
+          <span class="score">綜合 ${esc(p.score)} 分 · ${esc(p.rating)}★</span>
+        </div>
+        <div class="price">${money(q.estimatedMin)}～${money(q.estimatedMax)} 元</div>
+        <div style="font-size:12px;color:var(--muted)">
+          到府檢測費 ${money(q.inspectionFee)} 元 ·
+          最快 ${esc(p.earliestSlot.date)} ${esc(PERIOD[p.earliestSlot.period] || "")}
+          ${p.supportsPoints ? " · 可折點數" : ""}
+        </div>
+        <div class="tags">${(p.tags || []).map((t) => `<span class="badge">${esc(t)}</span>`).join("")}</div>
+        <ul class="reasons">${(p.reasons || []).slice(0, 4).map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
+        ${risks ? `<div class="risk">${risks}</div>` : ""}
+      </article>`;
+  }).join("");
+
+  $("match").innerHTML =
+    `<p style="margin-top:0;color:var(--muted);font-size:12px">媒合代理總結：${esc(match.summary)}</p>${cards}`;
+}
+
+function renderBooking(b) {
+  if (!b) return;
+  $("booking").innerHTML = `
+    <dl class="kv">
+      <dt>訂單編號</dt><dd><strong>${esc(b.orderNo)}</strong></dd>
+      <dt>廠商</dt><dd>${esc(b.vendorName)}</dd>
+      <dt>到府時間</dt><dd>${esc(b.serviceDate)} ${esc(PERIOD[b.servicePeriod] || "")}</dd>
+      <dt>訂金</dt><dd>${money(b.depositAmount)} 元</dd>
+      <dt>預估總額</dt><dd>${money(b.estimatedMin)}～${money(b.estimatedMax)} 元</dd>
+      <dt>訂單狀態</dt><dd><span class="badge wait">${esc(b.orderStatus)} 待訂金支付</span>
+        <span class="badge">對齊 mms_order_record</span></dd>
+    </dl>`;
+}
+
+function renderTrace(trace) {
+  if (!trace || !trace.length) {
+    $("trace").innerHTML = '<p class="empty">這一輪沒有呼叫工具（純對話回覆）。</p>';
+    return;
+  }
+  $("trace").innerHTML = "<ol class='trace'>" + trace.map((t) => `
+    <li>
+      <div class="trace-head">
+        <span class="who ${esc(t.agent)}">${t.agent === "user-agent" ? "生活管家" : "媒合代理"}</span>
+        <span class="tool">${esc(t.tool)}</span>
+      </div>
+      <details>
+        <summary>輸入 / 輸出</summary>
+        <pre>${esc(JSON.stringify(t.input, null, 2))}</pre>
+        <pre>${esc(JSON.stringify(t.output, null, 2))}</pre>
+      </details>
+    </li>`).join("") + "</ol>";
+}
+
+function renderPrefs(prefs) {
+  if (!prefs) return;
+  const sens = prefs.priceSensitivity;
+  $("prefs").innerHTML = `
+    <dl class="kv">
+      <dt>價格敏感度</dt><dd>${sens != null ? esc(sens) + (sens >= 0.75 ? "（很在意價格）" : sens <= 0.35 ? "（不太在意）" : "") : "—"}</dd>
+      <dt>偏好時段</dt><dd>${esc(PERIOD[prefs.preferredContactTime] || "—")}</dd>
+      <dt>重視特質</dt><dd>${(prefs.preferredVendorTags || []).map((t) => `<span class="badge on">${esc(t)}</span>`).join(" ") || "—"}</dd>
+      <dt>興趣類別</dt><dd>${(prefs.interestedCategories || []).map((t) => `<span class="badge">${esc(t)}</span>`).join(" ") || "—"}</dd>
+      <dt>觀察筆記</dt><dd>${(prefs.notes || []).map((n) => esc(n)).join("<br>") || "—"}</dd>
+    </dl>`;
+}
+
+boot();
+</script>
+</body>
+</html>

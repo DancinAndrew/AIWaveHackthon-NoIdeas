@@ -1,0 +1,8 @@
+flask==3.1.2
+flask-cors==6.0.1
+boto3==1.40.47
+apig-wsgi==2.19.0
+python-dotenv==1.1.1
+
+# RDS PostgreSQL 用。psycopg[binary] 帶預編譯的 libpq，不需要本機裝 PostgreSQL。
+psycopg[binary]==3.2.10

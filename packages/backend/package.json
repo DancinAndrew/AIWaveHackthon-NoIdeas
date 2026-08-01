@@ -1,0 +1,26 @@
+{
+  "name": "@op/backend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/local/server.ts",
+    "start": "tsx src/local/server.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit",
+    "seed": "tsx src/scripts/seed.ts",
+    "smoke": "tsx src/scripts/smoke.ts"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "3.1101.0",
+    "@aws-sdk/client-dynamodb": "3.1101.0",
+    "@aws-sdk/client-lambda": "3.1101.0",
+    "@aws-sdk/lib-dynamodb": "3.1101.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.162",
+    "@types/node": "26.1.2",
+    "tsx": "4.23.1",
+    "typescript": "5.9.3"
+  }
+}
