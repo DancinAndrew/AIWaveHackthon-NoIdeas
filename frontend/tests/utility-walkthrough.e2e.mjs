@@ -83,7 +83,10 @@ try {
     "2026-08-03 14:00-17:00",
   );
   await page.getByRole("button", { name: "接受" }).click();
-  await page.getByText("已接受", { exact: true }).waitFor();
+  await page
+    .locator(".request-badge.badge-accepted")
+    .getByText("已接受", { exact: true })
+    .waitFor();
 
   await page.goto(`${frontendUrl}/chat`, { waitUntil: "networkidle" });
   await page.getByText(/平台內確認/).waitFor({ timeout: 7000 });
