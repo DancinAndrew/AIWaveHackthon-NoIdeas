@@ -32,6 +32,7 @@ frontend/node_modules/
 frontend/package-lock.json
 
 # AWS CDK
+cdk.context.json
 infra/node_modules/
 infra/cdk.out/
 .cdk.staging/

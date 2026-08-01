@@ -601,6 +601,35 @@ class AiwaveStagingStack(Stack):
         tool_function: lambda_.IFunction,
         encryption_key: kms.IKey,
     ) -> agentcore.Gateway:
+        gateway_role = iam.Role(
+            self,
+            "AgentGatewayRole",
+            assumed_by=iam.ServicePrincipal("bedrock-agentcore.amazonaws.com"),
+            description="Least-privilege AgentCore Gateway service role",
+            inline_policies={
+                "GatewayCreationPermissions": iam.PolicyDocument(
+                    statements=[
+                        iam.PolicyStatement(
+                            actions=[
+                                "kms:Decrypt",
+                                "kms:Encrypt",
+                                "kms:ReEncrypt*",
+                                "kms:GenerateDataKey*",
+                                "kms:DescribeKey",
+                            ],
+                            resources=[encryption_key.key_arn],
+                        ),
+                        iam.PolicyStatement(
+                            actions=["lambda:InvokeFunction"],
+                            resources=[
+                                tool_function.function_arn,
+                                f"{tool_function.function_arn}:*",
+                            ],
+                        ),
+                    ]
+                )
+            },
+        )
         gateway = agentcore.Gateway(
             self,
             "AgentGateway",
@@ -608,6 +637,7 @@ class AiwaveStagingStack(Stack):
             description="Private IAM-authorized tools for the logical agents",
             authorizer_configuration=agentcore.GatewayAuthorizer.using_aws_iam(),
             kms_key=encryption_key,
+            role=gateway_role,
         )
         gateway.add_lambda_target(
             "UtilityRepairTarget",

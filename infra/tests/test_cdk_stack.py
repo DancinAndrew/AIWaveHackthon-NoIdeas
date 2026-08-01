@@ -176,6 +176,25 @@ class AiwaveStagingStackTests(unittest.TestCase):
             1,
         )
 
+    def test_gateway_role_has_creation_time_kms_and_lambda_permissions(self) -> None:
+        gateway = self.resources("AWS::BedrockAgentCore::Gateway")[0]
+        role_logical_id = gateway["Properties"]["RoleArn"]["Fn::GetAtt"][0]
+        role = self.template["Resources"][role_logical_id]
+        inline_policies = role["Properties"].get("Policies", [])
+        actions = {
+            action
+            for policy in inline_policies
+            for statement in policy["PolicyDocument"]["Statement"]
+            for action in (
+                statement["Action"]
+                if isinstance(statement["Action"], list)
+                else [statement["Action"]]
+            )
+        }
+
+        self.assertIn("kms:GenerateDataKey*", actions)
+        self.assertIn("lambda:InvokeFunction", actions)
+
     def test_managed_knowledge_base_uses_titan_and_s3_vectors(self) -> None:
         self.assertEqual(
             len(self.resources("AWS::S3Vectors::VectorBucket")),
