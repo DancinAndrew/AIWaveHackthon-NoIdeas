@@ -107,6 +107,15 @@ class AiwaveStagingStackTests(unittest.TestCase):
         for subnet in self.resources("AWS::EC2::Subnet"):
             self.assertFalse(subnet["Properties"]["MapPublicIpOnLaunch"])
 
+        security_groups = self.resources("AWS::EC2::SecurityGroup")
+        for security_group in security_groups:
+            for ingress in security_group["Properties"].get(
+                "SecurityGroupIngress",
+                [],
+            ):
+                self.assertNotIn("CidrIp", ingress)
+                self.assertNotIn("CidrIpv6", ingress)
+
     def test_storage_and_database_are_private_and_cost_bounded(self) -> None:
         buckets = self.resources("AWS::S3::Bucket")
         self.assertEqual(len(buckets), 2)
