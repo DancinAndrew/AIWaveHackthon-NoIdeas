@@ -1,0 +1,23 @@
+{
+  "name": "openpoint-life-agent",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OpenPoint 生活管家 - 雙 Agent 服務媒合平台 (2026 雲湧智生黑客松)",
+  "comment": "後端是 Python Flask（packages/api），不在 npm workspaces 內，用 .venv 管理。",
+  "workspaces": [
+    "packages/frontend",
+    "packages/infra"
+  ],
+  "scripts": {
+    "api": ".venv/Scripts/python.exe packages/api/app.py",
+    "api:smoke": ".venv/Scripts/python.exe packages/api/scripts/smoke.py",
+    "api:test": ".venv/Scripts/python.exe packages/api/scripts/test_http.py",
+    "dev:frontend": "npm run dev -w @op/frontend",
+    "build:frontend": "npm run build -w @op/frontend",
+    "synth": "npm run synth -w @op/infra",
+    "deploy": "npm run deploy -w @op/infra"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
