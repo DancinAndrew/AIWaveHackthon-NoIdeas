@@ -3,6 +3,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import os
 import threading
 from collections.abc import Callable
 from typing import Any, TypeVar
@@ -58,3 +59,16 @@ class InMemoryStore:
                 "result": copy.deepcopy(result),
             }
             return result
+
+
+def create_store_from_environment() -> InMemoryStore:
+    """Select explicit staging persistence while keeping tests local by default."""
+
+    backend = os.getenv("STORE_BACKEND", "memory").strip().lower()
+    if backend == "memory":
+        return InMemoryStore()
+    if backend == "rds":
+        from .rds_store import RdsJsonStore
+
+        return RdsJsonStore()
+    raise RuntimeError(f"unsupported STORE_BACKEND: {backend!r}")

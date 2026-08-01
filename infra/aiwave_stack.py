@@ -379,6 +379,7 @@ class AiwaveStagingStack(Stack):
         code = self._lambda_code(assets)
         common_environment = {
             "APP_ENV": "staging",
+            "STORE_BACKEND": "rds",
             "DATABASE_SECRET_ARN": database.secret.secret_arn,
             "DATABASE_HOST": database.db_instance_endpoint_address,
             "DATABASE_NAME": "aiwave",

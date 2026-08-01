@@ -14,6 +14,7 @@ from typing import Any
 
 from walking_skeleton.errors import ApplicationError
 from walking_skeleton.service import WalkingSkeletonService
+from walking_skeleton.store import create_store_from_environment
 
 
 logger = logging.getLogger("aiwave.agentcore_gateway_tool")
@@ -27,7 +28,7 @@ ALLOWED_OPERATIONS = frozenset(
         "get_progress",
     }
 )
-SERVICE = WalkingSkeletonService()
+SERVICE = WalkingSkeletonService(store=create_store_from_environment())
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:

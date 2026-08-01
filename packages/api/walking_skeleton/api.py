@@ -9,6 +9,7 @@ from flask import Flask, g, jsonify, request
 
 from .errors import ApplicationError, ValidationError
 from .service import WalkingSkeletonService
+from .store import create_store_from_environment
 
 
 logger = logging.getLogger("aiwave.walking_skeleton")
@@ -18,7 +19,7 @@ def create_app(*, testing: bool = False) -> Flask:
     app = Flask(__name__)
     app.config.update(TESTING=testing)
     app.json.ensure_ascii = False
-    service = WalkingSkeletonService()
+    service = WalkingSkeletonService(store=create_store_from_environment())
     app.extensions["walking_skeleton_service"] = service
 
     @app.before_request
