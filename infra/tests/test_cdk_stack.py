@@ -238,6 +238,12 @@ class AiwaveStagingStackTests(unittest.TestCase):
         self.assertEqual(len(indexes), 1)
         self.assertEqual(indexes[0]["Properties"]["Dimension"], 1024)
         self.assertEqual(indexes[0]["Properties"]["DistanceMetric"], "cosine")
+        self.assertEqual(
+            indexes[0]["Properties"]
+            .get("MetadataConfiguration", {})
+            .get("NonFilterableMetadataKeys"),
+            ["AMAZON_BEDROCK_TEXT", "AMAZON_BEDROCK_METADATA"],
+        )
 
         serialized = json.dumps(self.template)
         self.assertIn("amazon.titan-embed-text-v2:0", serialized)

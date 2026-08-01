@@ -487,6 +487,14 @@ class AiwaveStagingStack(Stack):
             data_type="float32",
             dimension=1024,
             distance_metric="cosine",
+            metadata_configuration=(
+                s3vectors.CfnIndex.MetadataConfigurationProperty(
+                    non_filterable_metadata_keys=[
+                        "AMAZON_BEDROCK_TEXT",
+                        "AMAZON_BEDROCK_METADATA",
+                    ]
+                )
+            ),
         )
         vector_index.apply_removal_policy(RemovalPolicy.DESTROY)
         vector_index.add_resource_dependency(vector_bucket)
