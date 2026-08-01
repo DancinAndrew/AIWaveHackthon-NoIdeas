@@ -23,7 +23,10 @@ dist/
 # Lambda packaging
 package/
 lambda_deploy.zip
-
 # Local scratch files
 tmp/
 _tmp_*
+
+# Frontend
+frontend/node_modules/
+frontend/package-lock.json
