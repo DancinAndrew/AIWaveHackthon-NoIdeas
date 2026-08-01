@@ -1,0 +1,455 @@
+{
+  "dataset_version": "1.1.0",
+  "seed": 20260801,
+  "d_day": "2026-08-01T00:00:00+08:00",
+  "generated_by": "tools/datagen/run_all.py",
+  "determinism": "同一 seed 重跑，所有 sha256 必須完全相同",
+  "file_count": 74,
+  "total_rows": 16725,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6225,
+      "rows": null,
+      "sha256": "69cb0014c0a1416351a9b82dcf890f675ac787d80854fcf4217a4509fa368c24"
+    },
+    {
+      "path": "cases/conflict_fixtures.json",
+      "bytes": 3801,
+      "rows": 12,
+      "sha256": "599c982b54327f3700210b545e3bba58d8a021eaaa6f775d79d185c90ab48d7e"
+    },
+    {
+      "path": "cases/pii_vault.json",
+      "bytes": 203433,
+      "rows": 500,
+      "sha256": "fe3e7bbea0b26aa782aed7320e1afb7e9955a314e66b7fdf4ee3932016184ebf"
+    },
+    {
+      "path": "cases/provider_replies.json",
+      "bytes": 114302,
+      "rows": 351,
+      "sha256": "83dd08e05cb50ee4e93ef47700175501a55e114449366da7662a712158245227"
+    },
+    {
+      "path": "cases/service_request_events.json",
+      "bytes": 587415,
+      "rows": 1630,
+      "sha256": "1ff41a539d76c7a14777b90e2a61031c8d55c56d37a588018c74b19beb96cfba"
+    },
+    {
+      "path": "cases/service_request_matches.json",
+      "bytes": 307480,
+      "rows": 628,
+      "sha256": "fbb94f79b40116ad469b7de4a1c9a28877f0cf8abdd20bc4e515c7e37c5366d4"
+    },
+    {
+      "path": "cases/service_requests.json",
+      "bytes": 825225,
+      "rows": 500,
+      "sha256": "5f553f222a086ae847021359de3e49687c611d80329d244952a1844a5dbefd49"
+    },
+    {
+      "path": "eval/eval.jsonl",
+      "bytes": 493319,
+      "rows": 428,
+      "sha256": "e89b760b9e600140210c9dc12da0fdfe6e1236dc508f7ba1cb34dbbb39530332"
+    },
+    {
+      "path": "eval/holdout_human.jsonl",
+      "bytes": 1845,
+      "rows": 5,
+      "sha256": "3b47b3d2832b69ff00339e9845ece8e686f0e71c1aff7e23872fceec357cd520"
+    },
+    {
+      "path": "eval/multi_turn.jsonl",
+      "bytes": 136740,
+      "rows": 50,
+      "sha256": "b192991422d80adf7be698dd61a157f029aad72285cb2d8d5c9ac2e45c6fd32d"
+    },
+    {
+      "path": "geo/counties.json",
+      "bytes": 2260,
+      "rows": 22,
+      "sha256": "edfe5c93d001e879e6c82588914fabc68d2a5e6584af5930b9c9672a1c96bade"
+    },
+    {
+      "path": "geo/districts.json",
+      "bytes": 59859,
+      "rows": 368,
+      "sha256": "2f2871cadbe4b533f2f7be053d7e681f418c2a2f2b61c735039720fc1a684fd9"
+    },
+    {
+      "path": "knowledge/community-consultation.md",
+      "bytes": 4158,
+      "rows": null,
+      "sha256": "4723ab9d33bc0aa2091f52f5846a4e934893f6b5a880cc1318b35fb6a3feb4cb"
+    },
+    {
+      "path": "knowledge/housekeeping-service.md",
+      "bytes": 4055,
+      "rows": null,
+      "sha256": "d21cb24d0bcda50e563279420513c4a087133dc7a9c8b1e12cac9c559625b19c"
+    },
+    {
+      "path": "knowledge/product-purchase.md",
+      "bytes": 3443,
+      "rows": null,
+      "sha256": "25bef337d12c255f40acbd29fc0fe92d651ec83b5511161714bb33b32ebd7246"
+    },
+    {
+      "path": "knowledge/restaurant-reservation.md",
+      "bytes": 3404,
+      "rows": null,
+      "sha256": "c1db932716a9c271e1bb48b4cc348263d6cd8d3c7ececb5fbc8e63db3ee8bf53"
+    },
+    {
+      "path": "knowledge/utility-repair.md",
+      "bytes": 4802,
+      "rows": null,
+      "sha256": "79ac347c674b465643a352b4216e8f9c9187e38bcd0dfe5aac944798b7141b71"
+    },
+    {
+      "path": "knowledge_base/community_consultation/01-sop.md",
+      "bytes": 796,
+      "rows": null,
+      "sha256": "5b5bc1bf672b907d056c1c8189cd62ccc78436cdc70e69d3fc0f6a4b6550ac4c"
+    },
+    {
+      "path": "knowledge_base/community_consultation/01-sop.md.metadata.json",
+      "bytes": 309,
+      "rows": null,
+      "sha256": "d7f5eee487064367ac6816ab4c98d50b56514925659074a1c3cfa0259747ef81"
+    },
+    {
+      "path": "knowledge_base/community_consultation/02-notice.md",
+      "bytes": 906,
+      "rows": null,
+      "sha256": "bc7c5c1f8e73aef16db76747858c3b9cb3948fd826de66dd0e8b4b0c10c397c0"
+    },
+    {
+      "path": "knowledge_base/community_consultation/02-notice.md.metadata.json",
+      "bytes": 312,
+      "rows": null,
+      "sha256": "5604c9375da11886dcdd435163a8ed0f5c01d5231418ee002f22e8f658ecf811"
+    },
+    {
+      "path": "knowledge_base/community_consultation/03-notice.md",
+      "bytes": 887,
+      "rows": null,
+      "sha256": "22cfbcd0fb878548e19dc742d4c9d8a8592d75a57d1e0f88aba36baba84f59ab"
+    },
+    {
+      "path": "knowledge_base/community_consultation/03-notice.md.metadata.json",
+      "bytes": 312,
+      "rows": null,
+      "sha256": "771eee4295ed1564adaeb36dada79952d44da00c0ae046be2b618d2b029ecc80"
+    },
+    {
+      "path": "knowledge_base/community_consultation/04-notice.md",
+      "bytes": 814,
+      "rows": null,
+      "sha256": "db673437d5535db59c8bca9bf878833bc2dec348c11ed5afea35086481666faa"
+    },
+    {
+      "path": "knowledge_base/community_consultation/04-notice.md.metadata.json",
+      "bytes": 312,
+      "rows": null,
+      "sha256": "eb0298b8a83f3a222dbc830911018c45d1c9f520634095fd0858c11a6eb092db"
+    },
+    {
+      "path": "knowledge_base/community_consultation/05-faq.md",
+      "bytes": 1785,
+      "rows": null,
+      "sha256": "a1fc17393a4d67d17db31c82f9ed6a308926452546f306289f564f68db0e7282"
+    },
+    {
+      "path": "knowledge_base/community_consultation/05-faq.md.metadata.json",
+      "bytes": 309,
+      "rows": null,
+      "sha256": "9da65dff061c727c838dc9bb81b1b2ec0c4336617203cf0677dd6112b11f8672"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/01-sop.md",
+      "bytes": 780,
+      "rows": null,
+      "sha256": "b6968a284488c1cb04820a3aa45405c361f59344ab882f78945cdb4194a81b4d"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/01-sop.md.metadata.json",
+      "bytes": 305,
+      "rows": null,
+      "sha256": "094259265f1ccb3ded95102e70bd5d1e091c277b6bcdfb7a790568c86712ec5e"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/02-notice.md",
+      "bytes": 1128,
+      "rows": null,
+      "sha256": "9128e5c0c993bdb53e8ace05bdaa27faf30266b91a3d8195bfeba01e8c8ed142"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/02-notice.md.metadata.json",
+      "bytes": 308,
+      "rows": null,
+      "sha256": "ddef7c203ecef46f1d5db8a1da77136f1496b632bbd24659b089ff03f99ccd14"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/03-notice.md",
+      "bytes": 769,
+      "rows": null,
+      "sha256": "45d1b9a8800e425d2a834db0dcf61ab5170624611ae47ef5f2cfec134a7c42c7"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/03-notice.md.metadata.json",
+      "bytes": 308,
+      "rows": null,
+      "sha256": "c626f17ce5760152552c6f7768f06c88bd2ea27c3df95d6132a190b3c2cca5da"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/04-terms.md",
+      "bytes": 713,
+      "rows": null,
+      "sha256": "8258751d21d7bf3044825f11d9ae60b94dc23b4213f96ec51d42875986b96250"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/04-terms.md.metadata.json",
+      "bytes": 307,
+      "rows": null,
+      "sha256": "1ecf6ee4b19669e7d2ff7ce049bdd9aa3499f5e695f3f032c12c5912af4a0b1d"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/05-faq.md",
+      "bytes": 1537,
+      "rows": null,
+      "sha256": "895ed424a10e2746a38a7225e9357b0d65e383af83e49c4165fe4e1c92d258e3"
+    },
+    {
+      "path": "knowledge_base/housekeeping_service/05-faq.md.metadata.json",
+      "bytes": 305,
+      "rows": null,
+      "sha256": "675e78a29e5f260b8653ce20d615164984010e5779cb1d3018dab19387d9ced4"
+    },
+    {
+      "path": "knowledge_base/product_purchase/01-sop.md",
+      "bytes": 778,
+      "rows": null,
+      "sha256": "6198afc3c9b8b8ce78f62560f1b473efecde4443e9ba6ff63d9a8334ae70872e"
+    },
+    {
+      "path": "knowledge_base/product_purchase/01-sop.md.metadata.json",
+      "bytes": 297,
+      "rows": null,
+      "sha256": "16eaae183c59c8851ba5002add40f9a9362f409f250215c0281f5e43b52e1e50"
+    },
+    {
+      "path": "knowledge_base/product_purchase/02-notice.md",
+      "bytes": 871,
+      "rows": null,
+      "sha256": "00758b073ac4a79284f6bfd74b162a4858d60a25a8eff500db9db26a74a87894"
+    },
+    {
+      "path": "knowledge_base/product_purchase/02-notice.md.metadata.json",
+      "bytes": 300,
+      "rows": null,
+      "sha256": "6655cbda2ac6234a74141e0b2f9b3427cf6addc0777191359564ad1eb9b9444a"
+    },
+    {
+      "path": "knowledge_base/product_purchase/03-terms.md",
+      "bytes": 988,
+      "rows": null,
+      "sha256": "42f042f1550768e7c52298316b06c7f10246300ce86a58329cb9ecb0c36d2ea5"
+    },
+    {
+      "path": "knowledge_base/product_purchase/03-terms.md.metadata.json",
+      "bytes": 299,
+      "rows": null,
+      "sha256": "a7acfdaa2b06f4990cb460265bd921b128eea14ce0d569a7f4f0d9cf3efb9b52"
+    },
+    {
+      "path": "knowledge_base/product_purchase/04-faq.md",
+      "bytes": 1511,
+      "rows": null,
+      "sha256": "c0c7e63f31862366ead6f496972a53ee8e57b7d6e5621efe0bc8cfbe6b03013f"
+    },
+    {
+      "path": "knowledge_base/product_purchase/04-faq.md.metadata.json",
+      "bytes": 297,
+      "rows": null,
+      "sha256": "a66d9af264ff6c39c5b1f39d8b1eaac9105ebf489f184cf79f8e17b60fd85af9"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/01-sop.md",
+      "bytes": 758,
+      "rows": null,
+      "sha256": "202846cb51c7a9efd0ff79cd7f87105890412b3b1bec3e9ef7cd806af1fd4276"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/01-sop.md.metadata.json",
+      "bytes": 309,
+      "rows": null,
+      "sha256": "8df1521e228f79a683a7d750aef9a34563238459b05b3bbcbefc70d1a5b47f44"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/02-notice.md",
+      "bytes": 860,
+      "rows": null,
+      "sha256": "f6977f50c4d1a9d14c681a7f0bf998ff285097aaf769bb16c157ff07998efab6"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/02-notice.md.metadata.json",
+      "bytes": 312,
+      "rows": null,
+      "sha256": "60310d619fa27d25ebf39233c9e5472f95e25ef3f071a25950dcfdb9a77283fe"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/03-terms.md",
+      "bytes": 792,
+      "rows": null,
+      "sha256": "1c0cebb5f6a090321d4afe2574054811f0b59610d622424f227ab0283598c2f1"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/03-terms.md.metadata.json",
+      "bytes": 311,
+      "rows": null,
+      "sha256": "85bbebbfa2057283019b44fb94e3b14bf20652bdb0e80c36c4e4a9fffdff0ea5"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/04-faq.md",
+      "bytes": 1608,
+      "rows": null,
+      "sha256": "68f7eab63dcd4f90551f77188cef7478b93ee2ba706e492a4733870ad2c09b74"
+    },
+    {
+      "path": "knowledge_base/restaurant_reservation/04-faq.md.metadata.json",
+      "bytes": 309,
+      "rows": null,
+      "sha256": "f7f3686d75528af58cd75b3d5bdf3355fe19271e289df8da4c137a5a3fe4d741"
+    },
+    {
+      "path": "knowledge_base/utility_repair/01-safety.md",
+      "bytes": 1494,
+      "rows": null,
+      "sha256": "4f2acacbba0d58d6b65fc11f0f85895231d709d47d2231cfc0d3895065251a3f"
+    },
+    {
+      "path": "knowledge_base/utility_repair/01-safety.md.metadata.json",
+      "bytes": 296,
+      "rows": null,
+      "sha256": "7a015e3b14cde2de5b49ab0d6adf35beed7e67fcc48854bc1d013f71af209837"
+    },
+    {
+      "path": "knowledge_base/utility_repair/02-sop.md",
+      "bytes": 942,
+      "rows": null,
+      "sha256": "6e7ccef014b496a58756a43e8fb5dc519b983e0823b6612a70b70f1f872fab21"
+    },
+    {
+      "path": "knowledge_base/utility_repair/02-sop.md.metadata.json",
+      "bytes": 293,
+      "rows": null,
+      "sha256": "2a912978194699f8b148c2cf4f865edcee25d23d69cfca61b09d5bd51127f096"
+    },
+    {
+      "path": "knowledge_base/utility_repair/03-notice.md",
+      "bytes": 937,
+      "rows": null,
+      "sha256": "754a13c1118d2a05454e772e7415da6e89947c50f1e78245ad8b9498a3b30516"
+    },
+    {
+      "path": "knowledge_base/utility_repair/03-notice.md.metadata.json",
+      "bytes": 296,
+      "rows": null,
+      "sha256": "10d2c00c956cce9972ed2ab76e67ad34e0d2ef9b6acfe5df68b332ac2cfaaca4"
+    },
+    {
+      "path": "knowledge_base/utility_repair/04-terms.md",
+      "bytes": 915,
+      "rows": null,
+      "sha256": "1fcd1c96411b061cf0d6316011852c4d92bf6b7429f6d2256701217c01ace50d"
+    },
+    {
+      "path": "knowledge_base/utility_repair/04-terms.md.metadata.json",
+      "bytes": 295,
+      "rows": null,
+      "sha256": "2e68cf6ca5ab7a1c8856b53b64bee4b5f87a6aa1a1192de395f3a78d93b2a33a"
+    },
+    {
+      "path": "knowledge_base/utility_repair/05-faq.md",
+      "bytes": 1961,
+      "rows": null,
+      "sha256": "0a48a489e3396df1ee9c219ece6ba4c92a9e956d6a1c2ecbec16fd8e7e1e4318"
+    },
+    {
+      "path": "knowledge_base/utility_repair/05-faq.md.metadata.json",
+      "bytes": 293,
+      "rows": null,
+      "sha256": "1d61e35eaf480813ff4d7ec2dd555b6538d1ce373bc3c68f48205c0c4430cd1f"
+    },
+    {
+      "path": "master/communities.json",
+      "bytes": 10123,
+      "rows": 20,
+      "sha256": "f549977357ad828b072b17e2cdd12b5e8060925614acceba4968a2c7f358b7da"
+    },
+    {
+      "path": "master/housekeeping_offerings.json",
+      "bytes": 90641,
+      "rows": 144,
+      "sha256": "3a54765ec3587c7267e60ecb0dbe5dfb72c15bdc34a997676c747438e721ad86"
+    },
+    {
+      "path": "master/product_inventory.json",
+      "bytes": 64355,
+      "rows": 300,
+      "sha256": "cb266cf28f7526f13320e0cadb7e947e6f16ce438a0503d061d3b1b9d5a0f179"
+    },
+    {
+      "path": "master/products.json",
+      "bytes": 295092,
+      "rows": 300,
+      "sha256": "af15f0df138555a4a9cbb96b56f330847bcf84204f06deeac28130a3d231df8f"
+    },
+    {
+      "path": "master/provider_availability.json",
+      "bytes": 715347,
+      "rows": 2694,
+      "sha256": "e520a6cb6938d1de5803a2d644f418ffb529eb2cb9043f1f11a24569780d7ca7"
+    },
+    {
+      "path": "master/provider_service_areas.json",
+      "bytes": 42003,
+      "rows": 273,
+      "sha256": "3886cc41b0a5a4cb4ee938972377267f8c746a6826b47185ee7df8dc7d05b6df"
+    },
+    {
+      "path": "master/providers.json",
+      "bytes": 67750,
+      "rows": 96,
+      "sha256": "6ce0b8256ed04546fbf999a60d2ae97fc76b8224bade27eb129b15409481b6af"
+    },
+    {
+      "path": "master/repair_technicians.json",
+      "bytes": 47597,
+      "rows": 56,
+      "sha256": "522a0c18c3f65b78268ec6f4cd692e0255902efbb5c06ebe6ea70b7acf5b7d6e"
+    },
+    {
+      "path": "master/responsible_units.json",
+      "bytes": 13059,
+      "rows": 10,
+      "sha256": "64a4f8c41dcaadd6047d07f8d82f539a69a1bad55fcba8d754436fafca00a6ba"
+    },
+    {
+      "path": "master/restaurant_slots.json",
+      "bytes": 1640694,
+      "rows": 8298,
+      "sha256": "510fdde8d2da522004308a6a823469fbdfbb9fcce9847bd5ab0b2a73c9cba0ad"
+    },
+    {
+      "path": "master/restaurants.json",
+      "bytes": 50505,
+      "rows": 40,
+      "sha256": "ee59b021910c24726fa71668d8f390c4d981d24f83c19fe201e45f7dc6c95385"
+    }
+  ]
+}

@@ -1,0 +1,353 @@
+[
+  {
+    "community_id": "4c31ba43-31c7-596a-ac52-901a8a78f8c3",
+    "name": "文華社區",
+    "county_code": "14",
+    "district_code": "233",
+    "district_name": "下營區",
+    "building_count": 1,
+    "household_count": 525,
+    "has_management_committee": true,
+    "property_management_provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "management_office_hours": "09:00-18:00",
+    "facilities": [
+      "健身房",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "25b380ef-e3b6-5dc4-ade4-31067b943a34",
+    "name": "青田大廈",
+    "county_code": "15",
+    "district_code": "256",
+    "district_name": "仁武區",
+    "building_count": 2,
+    "household_count": 252,
+    "has_management_committee": true,
+    "property_management_provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "resident 包裹櫃",
+      "健身房",
+      "訪客停車位",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "b99625c6-0ed8-5ab7-9fe7-ec44953201f0",
+    "name": "翠堤花園廣場",
+    "county_code": "03",
+    "district_code": "045",
+    "district_name": "中山區",
+    "building_count": 3,
+    "household_count": 280,
+    "has_management_committee": true,
+    "property_management_provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "交誼廳"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "eb6441bd-8bbe-5ebc-8639-e556abb4991f",
+    "name": "康橋首馥",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區",
+    "building_count": 3,
+    "household_count": 567,
+    "has_management_committee": false,
+    "property_management_provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "交誼廳",
+      "訪客停車位",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "8d1b7fdd-43e8-57d8-bbda-06832b6b5dde",
+    "name": "德明官邸",
+    "county_code": "17",
+    "district_code": "323",
+    "district_name": "南澳鄉",
+    "building_count": 2,
+    "household_count": 389,
+    "has_management_committee": true,
+    "property_management_provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "交誼廳",
+      "游泳池",
+      "訪客停車位",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "1fe4005b-6c80-57c6-847f-5b051ed77239",
+    "name": "永康名邸",
+    "county_code": "01",
+    "district_code": "010",
+    "district_name": "內湖區",
+    "building_count": 1,
+    "household_count": 262,
+    "has_management_committee": true,
+    "property_management_provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "游泳池"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "ac05266b-f883-5ba0-b505-e4072d88da6a",
+    "name": "松江社區",
+    "county_code": "02",
+    "district_code": "038",
+    "district_name": "鶯歌區",
+    "building_count": 5,
+    "household_count": 92,
+    "has_management_committee": true,
+    "property_management_provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "健身房",
+      "游泳池",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "7449d479-1ac6-5565-b5a8-89da53ceb3ba",
+    "name": "潤泰大廈",
+    "county_code": "11",
+    "district_code": "167",
+    "district_name": "西螺鎮",
+    "building_count": 2,
+    "household_count": 427,
+    "has_management_committee": true,
+    "property_management_provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "management_office_hours": "09:00-18:00",
+    "facilities": [
+      "resident 包裹櫃",
+      "游泳池"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "5aa36fa1-cad9-5031-b646-b8c6b3102204",
+    "name": "麗景花園廣場",
+    "county_code": "12",
+    "district_code": "201",
+    "district_name": "阿里山鄉",
+    "building_count": 4,
+    "household_count": 81,
+    "has_management_committee": true,
+    "property_management_provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "交誼廳",
+      "健身房",
+      "游泳池"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "e1784026-29ce-54a1-a598-461b8448c24f",
+    "name": "書香首馥",
+    "county_code": "13",
+    "district_code": "203",
+    "district_name": "西區",
+    "building_count": 6,
+    "household_count": 93,
+    "has_management_committee": true,
+    "property_management_provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "management_office_hours": "09:00-18:00",
+    "facilities": [
+      "健身房"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "a6dcc713-697c-5deb-87e1-b9157b84a42f",
+    "name": "海悅官邸",
+    "county_code": "14",
+    "district_code": "222",
+    "district_name": "佳里區",
+    "building_count": 4,
+    "household_count": 195,
+    "has_management_committee": false,
+    "property_management_provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "健身房",
+      "游泳池",
+      "訪客停車位",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "ff51bc36-ee23-507a-a337-59eed4467f95",
+    "name": "遠雄名邸",
+    "county_code": "15",
+    "district_code": "249",
+    "district_name": "前鎮區",
+    "building_count": 6,
+    "household_count": 243,
+    "has_management_committee": true,
+    "property_management_provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "健身房",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "53962688-8c27-5ce9-94e8-cb5685965312",
+    "name": "都心社區",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區",
+    "building_count": 3,
+    "household_count": 313,
+    "has_management_committee": true,
+    "property_management_provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "交誼廳",
+      "游泳池",
+      "訪客停車位"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "e575c1a4-4dc2-5ee9-9d78-ec9c9aa4ad8b",
+    "name": "綠園大廈",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區",
+    "building_count": 3,
+    "household_count": 203,
+    "has_management_committee": true,
+    "property_management_provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "management_office_hours": "09:00-18:00",
+    "facilities": [
+      "resident 包裹櫃",
+      "健身房",
+      "游泳池",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "5fda0896-acc3-59cf-b9b8-6e080e8c1c45",
+    "name": "禾風花園廣場",
+    "county_code": "17",
+    "district_code": "321",
+    "district_name": "三星鄉",
+    "building_count": 3,
+    "household_count": 410,
+    "has_management_committee": true,
+    "property_management_provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "游泳池",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "79f80452-e790-5ac3-b33a-a7482632c9de",
+    "name": "文華首馥",
+    "county_code": "01",
+    "district_code": "007",
+    "district_name": "大安區",
+    "building_count": 5,
+    "household_count": 532,
+    "has_management_committee": true,
+    "property_management_provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "游泳池",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "5e5db8d2-ae38-554f-8f23-f7e32175c4ed",
+    "name": "青田官邸",
+    "county_code": "02",
+    "district_code": "039",
+    "district_name": "三重區",
+    "building_count": 1,
+    "household_count": 416,
+    "has_management_committee": true,
+    "property_management_provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "management_office_hours": "09:00-18:00",
+    "facilities": [
+      "resident 包裹櫃",
+      "健身房",
+      "訪客停車位",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "1d7dc0b5-beef-5100-bea8-f6742d60ffde",
+    "name": "翠堤名邸",
+    "county_code": "11",
+    "district_code": "178",
+    "district_name": "東勢鄉",
+    "building_count": 2,
+    "household_count": 229,
+    "has_management_committee": false,
+    "property_management_provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "交誼廳",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "f1eda862-d8b1-52d0-bd04-a61137ba5ea5",
+    "name": "康橋社區",
+    "county_code": "12",
+    "district_code": "191",
+    "district_name": "六腳鄉",
+    "building_count": 4,
+    "household_count": 93,
+    "has_management_committee": true,
+    "property_management_provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "management_office_hours": "08:30-17:30",
+    "facilities": [
+      "resident 包裹櫃",
+      "訪客停車位"
+    ],
+    "source": "synthetic"
+  },
+  {
+    "community_id": "ff525aa6-7f24-5d07-89e1-0b564932cc90",
+    "name": "德明大廈",
+    "county_code": "13",
+    "district_code": "203",
+    "district_name": "西區",
+    "building_count": 6,
+    "household_count": 229,
+    "has_management_committee": true,
+    "property_management_provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "management_office_hours": "24h 警衛室",
+    "facilities": [
+      "游泳池",
+      "閱覽室"
+    ],
+    "source": "synthetic"
+  }
+]

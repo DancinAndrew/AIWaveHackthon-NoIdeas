@@ -1,0 +1,1872 @@
+[
+  {
+    "technician_id": "17c86b7a-0445-53e6-b683-b007edcf4822",
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "provider_name": "禾豐水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 15,
+    "specialties": [
+      "drain",
+      "electrical",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-667304",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-685359",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-463924",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 6,
+    "rating": 4.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "de284dd0-1f46-5694-8492-5a6406572707",
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "provider_name": "禾豐水電工程行",
+    "display_name": "吳師傅",
+    "years_experience": 18,
+    "specialties": [
+      "leak",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-667304",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-685359",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-463924",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 2,
+    "rating": 4.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "06660d03-1710-52f0-84bb-2412db15e981",
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "provider_name": "水都水電工程行",
+    "display_name": "楊師傅",
+    "years_experience": 27,
+    "specialties": [
+      "drain",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-817363",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-135892",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 1500,
+    "max_jobs_per_day": 2,
+    "rating": 3.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "114743db-89b7-547e-824a-1dd77f51a5b6",
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "provider_name": "水都水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 1,
+    "specialties": [
+      "drain",
+      "electrical",
+      "leak",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-817363",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-135892",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "8a2255ac-0667-5c77-b049-9f845a9fbec8",
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "provider_name": "水都水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 25,
+    "specialties": [
+      "electrical",
+      "plumbing",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-817363",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-135892",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 1500,
+    "max_jobs_per_day": 5,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "d21757d0-a7fc-5fee-b6ba-e31188a68356",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "provider_name": "松果水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 3,
+    "specialties": [
+      "drain",
+      "electrical",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-373844",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "1a46375f-33d5-50be-8532-49beb387f207",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "provider_name": "松果水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 25,
+    "specialties": [
+      "electrical",
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-373844",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "9ad2150a-055b-5757-9806-12aea6092a1c",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "provider_name": "松果水電工程行",
+    "display_name": "吳師傅",
+    "years_experience": 7,
+    "specialties": [
+      "drain",
+      "leak",
+      "plumbing",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-373844",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 3,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "6bdb70df-65f9-5a1f-baee-04464ae5d205",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "provider_name": "松果水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 17,
+    "specialties": [
+      "plumbing",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-373844",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 4.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "46cc84ec-b82c-5478-8925-9b5f4fb677b2",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "provider_name": "宏達水電工程行",
+    "display_name": "黃師傅",
+    "years_experience": 12,
+    "specialties": [
+      "electrical",
+      "leak"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-723759",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 4,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "0e8b9bad-d0ad-5e49-aee6-f400439c687c",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "provider_name": "宏達水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 5,
+    "specialties": [
+      "electrical",
+      "leak",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-723759",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 3,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "cef4bac4-c668-539a-82d1-76afd15847a8",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "provider_name": "宏達水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 15,
+    "specialties": [
+      "drain",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-723759",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 5,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "77417457-4876-5129-86dd-653b7fc2f1e7",
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "provider_name": "皇家水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 25,
+    "specialties": [
+      "drain",
+      "leak"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-126737",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 300,
+    "emergency_surcharge": 1200,
+    "min_charge": 800,
+    "max_jobs_per_day": 2,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "a3159f9a-df5a-59c9-9d8a-44e5dcfa6fcd",
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "provider_name": "百工水電工程行",
+    "display_name": "張師傅",
+    "years_experience": 2,
+    "specialties": [
+      "drain",
+      "electrical"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-533058",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-689956",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 2,
+    "rating": 4.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "8a36d38e-14e8-5e5c-95bc-94faad853b71",
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "provider_name": "新旺水電工程行",
+    "display_name": "李師傅",
+    "years_experience": 16,
+    "specialties": [
+      "electrical",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-404574",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-637418",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-560964",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 4,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "da10f1e5-b142-5a2c-9fa6-3f78ee4a9b8e",
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "provider_name": "新旺水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 17,
+    "specialties": [
+      "drain",
+      "leak",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-404574",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-637418",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-560964",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 4,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "5ede3d71-5564-5cbc-96d2-daec5d1f22c5",
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "provider_name": "新旺水電工程行",
+    "display_name": "李師傅",
+    "years_experience": 16,
+    "specialties": [
+      "leak",
+      "plumbing",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-404574",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-637418",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-560964",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 3,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "cbd6eb23-46ea-509f-9b9c-a5c24db54baf",
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "provider_name": "新旺水電工程行",
+    "display_name": "楊師傅",
+    "years_experience": 5,
+    "specialties": [
+      "drain",
+      "electrical",
+      "plumbing",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-404574",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-637418",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-560964",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 6,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "ddf11019-c051-5ecc-819e-128b0dbcbe14",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "provider_name": "順興水電工程行",
+    "display_name": "王師傅",
+    "years_experience": 23,
+    "specialties": [
+      "drain",
+      "leak",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-949222",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-599377",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 5,
+    "rating": 3.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "086f1334-0979-506b-9d19-b54bc63f51d9",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "provider_name": "順興水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 15,
+    "specialties": [
+      "leak",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-949222",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-599377",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "3131904a-64bb-5484-8dd2-629314cceef8",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "provider_name": "順興水電工程行",
+    "display_name": "張師傅",
+    "years_experience": 17,
+    "specialties": [
+      "leak",
+      "plumbing",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-949222",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-599377",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 3,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "7af593a9-472a-50de-a5db-bba940f0221f",
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "provider_name": "亮潔水電工程行",
+    "display_name": "李師傅",
+    "years_experience": 14,
+    "specialties": [
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-321115",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-266957",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-795209",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 1200,
+    "min_charge": 1000,
+    "max_jobs_per_day": 5,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "c6c3c19e-b370-5acb-be78-3f67c29aaeb4",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "provider_name": "雙成水電工程行",
+    "display_name": "劉師傅",
+    "years_experience": 25,
+    "specialties": [
+      "leak",
+      "plumbing",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-899451",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-223142",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 800,
+    "max_jobs_per_day": 6,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "f581057b-ebb0-57ef-9554-c6a5c15eeac7",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "provider_name": "雙成水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 13,
+    "specialties": [
+      "drain",
+      "electrical",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-899451",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-223142",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 800,
+    "max_jobs_per_day": 4,
+    "rating": 3.9,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "859bd45c-0306-56ee-adea-be9058556052",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "provider_name": "雙成水電工程行",
+    "display_name": "吳師傅",
+    "years_experience": 5,
+    "specialties": [
+      "plumbing",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-899451",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-223142",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 800,
+    "max_jobs_per_day": 2,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "6b715512-5aa8-5553-8960-de7dd6c4af18",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "provider_name": "雙成水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 27,
+    "specialties": [
+      "electrical",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-899451",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-223142",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 0,
+    "min_charge": 800,
+    "max_jobs_per_day": 6,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "f8192599-bcc8-562d-9b99-1821dfb01e5b",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "provider_name": "安心水電工程行",
+    "display_name": "黃師傅",
+    "years_experience": 11,
+    "specialties": [
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-848902",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-824831",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 3,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "e1f8ddc1-acd2-5015-ae32-2100ff50b965",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "provider_name": "安心水電工程行",
+    "display_name": "黃師傅",
+    "years_experience": 2,
+    "specialties": [
+      "electrical",
+      "leak",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-848902",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-824831",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 6,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "20e5c8f7-945f-539e-a0a9-6e92e2e94779",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "provider_name": "安心水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 25,
+    "specialties": [
+      "drain",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-848902",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-824831",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "58d585b2-e0b7-5295-b4dc-fc66dc8695d8",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "provider_name": "安心水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 19,
+    "specialties": [
+      "drain",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-848902",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-824831",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 800,
+    "min_charge": 1500,
+    "max_jobs_per_day": 6,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "86d61d49-a064-5707-ba54-3ee4eb1254fc",
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "provider_name": "友信水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 5,
+    "specialties": [
+      "drain",
+      "electrical",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-293734",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-649244",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-213906",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 6,
+    "rating": 3.2,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "13d8ba5b-0ac9-5a2a-b845-4c39b5854a57",
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "provider_name": "友信水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 20,
+    "specialties": [
+      "electrical",
+      "leak",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-293734",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-649244",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-213906",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 5,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "f46b3249-36ed-5011-b6d7-8515bc40c627",
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "provider_name": "誠品家水電工程行",
+    "display_name": "李師傅",
+    "years_experience": 3,
+    "specialties": [
+      "electrical",
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-764315",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-390218",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 5,
+    "rating": 5.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "71dd41ac-7f9a-58fd-98ae-a444bdf6d6dd",
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "provider_name": "誠品家水電工程行",
+    "display_name": "劉師傅",
+    "years_experience": 25,
+    "specialties": [
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-764315",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-390218",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 2,
+    "rating": 4.9,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "1fbd81fa-e764-50f2-a431-e2e04fe7ed08",
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "provider_name": "誠品家水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 4,
+    "specialties": [
+      "drain",
+      "electrical",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-764315",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-390218",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 1200,
+    "min_charge": 1500,
+    "max_jobs_per_day": 6,
+    "rating": 5.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "95c17657-18a9-55c8-8a98-4bf11cfe509f",
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "provider_name": "家好水電工程行",
+    "display_name": "李師傅",
+    "years_experience": 20,
+    "specialties": [
+      "drain",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-292030",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": true,
+    "gas_certified": false,
+    "inspection_fee": 350,
+    "emergency_surcharge": 0,
+    "min_charge": 1200,
+    "max_jobs_per_day": 2,
+    "rating": 4.9,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "918f952c-9425-5ef2-b0b7-5142fbebabc1",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "provider_name": "旭光水電工程行",
+    "display_name": "王師傅",
+    "years_experience": 7,
+    "specialties": [
+      "drain",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "室內配線技術士",
+        "number": "TW-986312",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-423311",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-744456",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 4,
+    "rating": 4.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "7ea19ce3-6a7a-5f36-ab85-c40df3cefadb",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "provider_name": "旭光水電工程行",
+    "display_name": "劉師傅",
+    "years_experience": 14,
+    "specialties": [
+      "drain",
+      "electrical",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "室內配線技術士",
+        "number": "TW-986312",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-423311",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-744456",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 3,
+    "rating": 4.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "7e72f348-a393-5317-8ce6-298b9b276501",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "provider_name": "旭光水電工程行",
+    "display_name": "王師傅",
+    "years_experience": 18,
+    "specialties": [
+      "drain",
+      "electrical",
+      "leak"
+    ],
+    "certifications": [
+      {
+        "type": "室內配線技術士",
+        "number": "TW-986312",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-423311",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-744456",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 800,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 4,
+    "rating": 4.3,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "911abd41-c81d-5068-898f-c9f60e3c01b3",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "provider_name": "築家水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 28,
+    "specialties": [
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-474664",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-217938",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-463367",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 500,
+    "min_charge": 1500,
+    "max_jobs_per_day": 6,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "a0fadbb8-ca48-5202-84a7-5b142dc9e619",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "provider_name": "築家水電工程行",
+    "display_name": "劉師傅",
+    "years_experience": 16,
+    "specialties": [
+      "leak",
+      "plumbing",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-474664",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-217938",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-463367",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 500,
+    "min_charge": 1500,
+    "max_jobs_per_day": 3,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "efef19f7-9923-579e-9e36-643b4ebb00a8",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "provider_name": "築家水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 20,
+    "specialties": [
+      "leak",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-474664",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-217938",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-463367",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 500,
+    "min_charge": 1500,
+    "max_jobs_per_day": 2,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "d088eb01-2ab6-5f1b-a85f-d799959e255b",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "provider_name": "築家水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 13,
+    "specialties": [
+      "leak",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-474664",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-217938",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-463367",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 500,
+    "min_charge": 1500,
+    "max_jobs_per_day": 4,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "a856c4de-9a72-5da4-aab0-f3a196eb2f60",
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "provider_name": "電通水電工程行",
+    "display_name": "王師傅",
+    "years_experience": 27,
+    "specialties": [
+      "drain",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-806839",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-677010",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 800,
+    "min_charge": 800,
+    "max_jobs_per_day": 6,
+    "rating": 4.7,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "e3abc6e8-a93f-5ab5-9c68-195caff14627",
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "provider_name": "電通水電工程行",
+    "display_name": "楊師傅",
+    "years_experience": 5,
+    "specialties": [
+      "drain",
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-806839",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-677010",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 350,
+    "emergency_surcharge": 800,
+    "min_charge": 800,
+    "max_jobs_per_day": 6,
+    "rating": 4.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "8f1e7db6-8016-5c92-beba-46a01bdb16b1",
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "provider_name": "民生水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 23,
+    "specialties": [
+      "drain",
+      "plumbing"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-307992",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 500,
+    "min_charge": 1000,
+    "max_jobs_per_day": 4,
+    "rating": 4.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "77179847-c43a-5ce4-9cd2-5bded671ecaa",
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "provider_name": "民生水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 21,
+    "specialties": [
+      "drain",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-307992",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 500,
+    "min_charge": 1000,
+    "max_jobs_per_day": 2,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "a8f51533-0a55-52fb-8b3e-be8a880a622a",
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "provider_name": "民生水電工程行",
+    "display_name": "張師傅",
+    "years_experience": 17,
+    "specialties": [
+      "drain",
+      "electrical",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-307992",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "handles_emergency": true,
+    "night_shift": true,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 500,
+    "min_charge": 1000,
+    "max_jobs_per_day": 5,
+    "rating": 3.9,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "10425b71-1d99-596c-9311-1a3bbc0226c9",
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "provider_name": "日新水電工程行",
+    "display_name": "張師傅",
+    "years_experience": 22,
+    "specialties": [
+      "drain",
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-264842",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 500,
+    "emergency_surcharge": 1200,
+    "min_charge": 800,
+    "max_jobs_per_day": 6,
+    "rating": 4.8,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "95578e91-8c56-51ea-9140-5e79fa820627",
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "provider_name": "green水電工程行",
+    "display_name": "楊師傅",
+    "years_experience": 17,
+    "specialties": [
+      "leak",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-352545",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-231440",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 0,
+    "emergency_surcharge": 800,
+    "min_charge": 1000,
+    "max_jobs_per_day": 5,
+    "rating": 3.9,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "5bbbb448-1fe7-52c1-825f-b06b86ee9248",
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "provider_name": "速立水電工程行",
+    "display_name": "吳師傅",
+    "years_experience": 25,
+    "specialties": [
+      "drain",
+      "leak"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-912002",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 300,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 6,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "9997cba1-6dd3-56fc-97d0-272f38406278",
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "provider_name": "速立水電工程行",
+    "display_name": "林師傅",
+    "years_experience": 11,
+    "specialties": [
+      "electrical",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-912002",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": false,
+    "inspection_fee": 300,
+    "emergency_surcharge": 800,
+    "min_charge": 1200,
+    "max_jobs_per_day": 6,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "907e52fa-c759-57c1-8b19-9eb6efef27a2",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "provider_name": "京鑫水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 1,
+    "specialties": [
+      "drain",
+      "leak"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-163888",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-459067",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-712668",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1000,
+    "max_jobs_per_day": 2,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "697a2bdd-5fb1-5120-86c3-58611180e5ff",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "provider_name": "京鑫水電工程行",
+    "display_name": "陳師傅",
+    "years_experience": 27,
+    "specialties": [
+      "drain",
+      "electrical",
+      "leak",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-163888",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-459067",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-712668",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1000,
+    "max_jobs_per_day": 4,
+    "rating": 4.1,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "174b2a02-662f-5399-98ef-fb5596962b4f",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "provider_name": "京鑫水電工程行",
+    "display_name": "蔡師傅",
+    "years_experience": 27,
+    "specialties": [
+      "drain",
+      "toilet",
+      "water_heater"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-163888",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-459067",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-712668",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1000,
+    "max_jobs_per_day": 5,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "technician_id": "0c25f523-3b9e-5c6e-946b-63f7c375131c",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "provider_name": "京鑫水電工程行",
+    "display_name": "劉師傅",
+    "years_experience": 3,
+    "specialties": [
+      "electrical",
+      "leak",
+      "plumbing",
+      "toilet"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-163888",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-459067",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-712668",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "handles_emergency": false,
+    "night_shift": false,
+    "gas_certified": true,
+    "inspection_fee": 800,
+    "emergency_surcharge": 1200,
+    "min_charge": 1000,
+    "max_jobs_per_day": 5,
+    "rating": 3.8,
+    "source": "synthetic"
+  }
+]

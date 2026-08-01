@@ -1,0 +1,12 @@
+{
+  "metadataAttributes": {
+    "service_type": "housekeeping_service",
+    "doc_kind": "notice",
+    "version": "1.0.0",
+    "effective_from": "2026-01-01",
+    "source": "synthetic",
+    "source_doc_id": "kb-housekeeping-service-001",
+    "section_index": 2,
+    "authoritative_scope": "static_only"
+  }
+}

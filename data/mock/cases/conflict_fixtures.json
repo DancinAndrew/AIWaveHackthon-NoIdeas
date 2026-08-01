@@ -1,0 +1,92 @@
+[
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "4f16b9eb-d4b5-52d8-b664-ba8da927209c",
+    "idempotency_key": "41cf2f07-0259-54bb-b3a3-54185766abb8",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "86241c88-c66f-5238-8fae-1abb1e2d174c",
+    "idempotency_key": "2fdadf1a-27d3-5bba-a688-85247a746e79",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "f52f5e7e-2fda-5798-b418-d66439ab5c18",
+    "idempotency_key": "05c50057-b82a-5040-9e9d-bde10e3c4170",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "5650bd6c-0c99-5d2b-9beb-e7c59c2a9b0d",
+    "idempotency_key": "717cde84-d380-5080-9013-bc19219483d3",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "dc85672c-7997-52bd-a502-0a7e815b4d0b",
+    "idempotency_key": "dfa4a19b-4e57-5963-8467-4e468c831f35",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "idempotent_retry",
+    "tool": "create_service_request",
+    "service_request_id": "2bf9a427-1eb4-55fa-95fa-a3813ef6f782",
+    "idempotency_key": "052d42a0-2fdf-543a-af88-1a90281ade9c",
+    "expected_behavior": "第二次呼叫必須回傳同一 service_request_id，且不得新增案件"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "454e2f67-23c8-5896-a7ad-b06aaf62a420",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "398c8002-8b52-5968-a915-97a0f5d87b69",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "2ed5dd37-3a91-53d6-8b05-918e971d62fe",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "e4b725cb-aeb0-5c35-a922-874c18647cc6",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "24bc7239-9c57-541f-b222-cd6d9a864365",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  },
+  {
+    "fixture_kind": "version_conflict",
+    "tool": "update_service_request_status",
+    "service_request_id": "1f992bc6-e8e3-5db5-bc71-8ce65d61f1e2",
+    "expected_version": 2,
+    "concurrent_expected_version": 2,
+    "expected_behavior": "先到者成功；後到者必須回傳 409 version_conflict"
+  }
+]

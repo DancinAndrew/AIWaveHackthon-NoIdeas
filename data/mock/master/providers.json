@@ -1,0 +1,2729 @@
+[
+  {
+    "provider_id": "1b9d7a19-43c4-5e28-8d85-35ba51be6bcf",
+    "service_type": "restaurant_reservation",
+    "name": "安心餐飲集團",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 301,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 800,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 4,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "03-2838040",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "service_type": "restaurant_reservation",
+    "name": "友信餐飲集團",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 213,
+    "capabilities": [
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 8,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "02-2183938",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d27297e1-a559-533e-9e6f-a01d23259ba3",
+    "service_type": "restaurant_reservation",
+    "name": "誠品家餐飲集團",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 715,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 8,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "07-7113481",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "4d1abf66-256a-5d25-aa97-a15050064610",
+    "service_type": "restaurant_reservation",
+    "name": "家好餐飲集團",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 781,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 24,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "03-6854412",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "1378b261-7c43-5e60-8391-5491c557eb86",
+    "service_type": "restaurant_reservation",
+    "name": "旭光餐飲集團",
+    "is_active": true,
+    "rating": 3.2,
+    "review_count": 594,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 2,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "03-3704681",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "service_type": "restaurant_reservation",
+    "name": "築家餐飲集團",
+    "is_active": true,
+    "rating": 4.0,
+    "review_count": 135,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 1,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "07-6521348",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "22b78aad-f991-5f25-a77f-2f39e9c3756e",
+    "service_type": "restaurant_reservation",
+    "name": "電通餐飲集團",
+    "is_active": true,
+    "rating": 3.3,
+    "review_count": 408,
+    "capabilities": [
+      "一般座位",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 24,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "03-7226283",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "f88c9ffa-6401-57d7-aee7-390f2badfa5b",
+    "service_type": "restaurant_reservation",
+    "name": "民生餐飲集團",
+    "is_active": true,
+    "rating": 3.2,
+    "review_count": 646,
+    "capabilities": [
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 0,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 2,
+    "home_county_code": "05",
+    "nationwide": false,
+    "contact_landline": "02-8391821",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "service_type": "restaurant_reservation",
+    "name": "日新餐飲集團",
+    "is_active": true,
+    "rating": 4.3,
+    "review_count": 543,
+    "capabilities": [
+      "一般座位",
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": "07",
+    "nationwide": false,
+    "contact_landline": "07-2894081",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "711ca05d-f0f8-5913-be66-c6df5db84068",
+    "service_type": "restaurant_reservation",
+    "name": "green餐飲集團",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 64,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 1,
+    "home_county_code": "09",
+    "nationwide": false,
+    "contact_landline": "06-2627528",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "f445e036-22c5-511d-a091-eb4c463bace0",
+    "service_type": "restaurant_reservation",
+    "name": "速立餐飲集團",
+    "is_active": true,
+    "rating": 4.4,
+    "review_count": 192,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "02-7988758",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "44c6dbde-1215-5ddd-b45f-708dc68e67db",
+    "service_type": "restaurant_reservation",
+    "name": "京鑫餐飲集團",
+    "is_active": true,
+    "rating": 3.9,
+    "review_count": 671,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 2,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "08-6434721",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "be81f4fd-4818-531f-9a13-1e4deded89bb",
+    "service_type": "restaurant_reservation",
+    "name": "禾豐餐飲集團",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 357,
+    "capabilities": [
+      "一般座位",
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 8,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "04-6731032",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "eec02768-52c2-59ff-8d68-c107a17fdb84",
+    "service_type": "restaurant_reservation",
+    "name": "水都餐飲集團",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 101,
+    "capabilities": [
+      "包廂",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 4,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "07-6391319",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "96f574e1-006e-5110-ab41-1dee8599bedd",
+    "service_type": "restaurant_reservation",
+    "name": "松果餐飲集團",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 609,
+    "capabilities": [
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 800,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 4,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "06-5319384",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "0ecd5180-0be3-526b-beb0-accec79c2fa4",
+    "service_type": "restaurant_reservation",
+    "name": "宏達餐飲集團",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 300,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "02-8859548",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "47045ff0-5cc0-5e8c-974a-be013be35edf",
+    "service_type": "restaurant_reservation",
+    "name": "皇家餐飲集團",
+    "is_active": true,
+    "rating": 4.3,
+    "review_count": 729,
+    "capabilities": [
+      "一般座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 2,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "05-6085939",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "620cd07d-7939-5d04-8025-9bcbbe1559a5",
+    "service_type": "restaurant_reservation",
+    "name": "百工餐飲集團",
+    "is_active": true,
+    "rating": 4.8,
+    "review_count": 126,
+    "capabilities": [
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 8,
+    "home_county_code": "10",
+    "nationwide": false,
+    "contact_landline": "04-8425113",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "5d256c6f-b7a4-5d50-98ac-b09ca95a309f",
+    "service_type": "restaurant_reservation",
+    "name": "新旺餐飲集團",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 263,
+    "capabilities": [
+      "包廂",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 800,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 8,
+    "home_county_code": "11",
+    "nationwide": false,
+    "contact_landline": "08-6680543",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "aa23ef6e-69d9-5a99-9153-58a361e4207b",
+    "service_type": "restaurant_reservation",
+    "name": "順興餐飲集團",
+    "is_active": false,
+    "rating": 3.5,
+    "review_count": 106,
+    "capabilities": [
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 24,
+    "home_county_code": "12",
+    "nationwide": false,
+    "contact_landline": "07-8525799",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "service_type": "restaurant_reservation",
+    "name": "亮潔餐飲集團",
+    "is_active": true,
+    "rating": 3.5,
+    "review_count": 537,
+    "capabilities": [
+      "包廂",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 4,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "04-8782501",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "fb0d4583-22c4-5f8f-af15-37698e7b88ed",
+    "service_type": "restaurant_reservation",
+    "name": "雙成餐飲集團",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 206,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 4,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "03-5868692",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "5f8ae989-ac0b-53f7-b98b-baa56a46c604",
+    "service_type": "restaurant_reservation",
+    "name": "安心餐飲集團",
+    "is_active": true,
+    "rating": 3.3,
+    "review_count": 305,
+    "capabilities": [
+      "一般座位",
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 800,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 8,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "08-6871741",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "95243dab-0683-51c9-9188-9fcfaee387bb",
+    "service_type": "restaurant_reservation",
+    "name": "友信餐飲集團",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 16,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 4,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "08-3222942",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "4942298f-a0bb-5c46-b92c-ae748532633b",
+    "service_type": "restaurant_reservation",
+    "name": "誠品家餐飲集團",
+    "is_active": true,
+    "rating": 3.5,
+    "review_count": 15,
+    "capabilities": [
+      "包廂",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 4,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "03-2802258",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d86f8ca0-7adf-502f-a185-cae2dc98cf0a",
+    "service_type": "restaurant_reservation",
+    "name": "家好餐飲集團",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 90,
+    "capabilities": [
+      "包廂",
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 2,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "07-5671193",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "8b02cffa-e1fe-5f7c-a216-75e898a39009",
+    "service_type": "restaurant_reservation",
+    "name": "旭光餐飲集團",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 668,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "05-3145565",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "3beeda8d-8b46-5e81-9951-1f257b3b999e",
+    "service_type": "restaurant_reservation",
+    "name": "築家餐飲集團",
+    "is_active": true,
+    "rating": 4.4,
+    "review_count": 192,
+    "capabilities": [
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 8,
+    "home_county_code": "13",
+    "nationwide": false,
+    "contact_landline": "08-4655361",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "service_type": "restaurant_reservation",
+    "name": "電通餐飲集團",
+    "is_active": true,
+    "rating": 3.3,
+    "review_count": 65,
+    "capabilities": [
+      "包廂",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 2,
+    "home_county_code": "16",
+    "nationwide": false,
+    "contact_landline": "02-5081401",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "service_type": "restaurant_reservation",
+    "name": "民生餐飲集團",
+    "is_active": true,
+    "rating": 4.2,
+    "review_count": 171,
+    "capabilities": [
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 0,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 8,
+    "home_county_code": "18",
+    "nationwide": false,
+    "contact_landline": "03-6197766",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "63c5f505-03e8-5477-b54a-c8878b3b4212",
+    "service_type": "restaurant_reservation",
+    "name": "日新餐飲集團",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 420,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 0,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 2,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "03-2498794",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "ee874801-48eb-557b-8618-c545e18ae923",
+    "service_type": "restaurant_reservation",
+    "name": "green餐飲集團",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 183,
+    "capabilities": [
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 24,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "05-8480046",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "210f4480-6ce9-5c9b-a76b-f22ba3ad0dd8",
+    "service_type": "restaurant_reservation",
+    "name": "速立餐飲集團",
+    "is_active": true,
+    "rating": 3.5,
+    "review_count": 310,
+    "capabilities": [
+      "包廂"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 4,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "06-6371982",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "3593f0fd-75c6-50dd-9330-2d99ae4464f0",
+    "service_type": "restaurant_reservation",
+    "name": "京鑫餐飲集團",
+    "is_active": true,
+    "rating": 3.3,
+    "review_count": 306,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "04-8334090",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "10af745a-d05b-5f0b-908b-4b3abd89ab9e",
+    "service_type": "restaurant_reservation",
+    "name": "禾豐餐飲集團",
+    "is_active": true,
+    "rating": 4.4,
+    "review_count": 795,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 1,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "08-2480515",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "7766c5c8-55a1-595a-b1fc-6fcc23e55635",
+    "service_type": "restaurant_reservation",
+    "name": "水都餐飲集團",
+    "is_active": true,
+    "rating": 4.8,
+    "review_count": 368,
+    "capabilities": [
+      "一般座位",
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 1200,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "02-7923958",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "c2729f1c-b0b2-55aa-8051-032eedd6bb80",
+    "service_type": "restaurant_reservation",
+    "name": "松果餐飲集團",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 482,
+    "capabilities": [
+      "一般座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 500,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 1,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "06-5485761",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "9b098218-62cf-5c33-a213-92009aa82a9c",
+    "service_type": "restaurant_reservation",
+    "name": "宏達餐飲集團",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 463,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 4,
+    "home_county_code": "19",
+    "nationwide": false,
+    "contact_landline": "04-4235828",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "service_type": "restaurant_reservation",
+    "name": "皇家餐飲集團",
+    "is_active": true,
+    "rating": 3.9,
+    "review_count": 359,
+    "capabilities": [
+      "一般座位",
+      "包廂",
+      "吧台"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 300,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 4,
+    "home_county_code": "05",
+    "nationwide": false,
+    "contact_landline": "07-6885618",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "48c75c42-9d8b-5cbc-b453-f1627d1a892a",
+    "service_type": "restaurant_reservation",
+    "name": "百工餐飲集團",
+    "is_active": false,
+    "rating": 4.7,
+    "review_count": 403,
+    "capabilities": [
+      "一般座位",
+      "吧台",
+      "戶外座位"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "minimum_spend",
+      "min_spend_per_person": 2000,
+      "deposit_per_person": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 4,
+    "home_county_code": "07",
+    "nationwide": false,
+    "contact_landline": "07-2316013",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "789280ad-51a0-5ecc-b66b-16f624f5a751",
+    "service_type": "product_purchase",
+    "name": "亮潔選品商城",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 553,
+    "capabilities": [
+      "3C周邊",
+      "家電",
+      "寵物",
+      "母嬰",
+      "生活用品",
+      "食品飲料"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 2,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "02-6370652",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d772760a-e351-5b39-82d3-d8de5e493365",
+    "service_type": "product_purchase",
+    "name": "雙成選品商城",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 854,
+    "capabilities": [
+      "家電",
+      "寵物",
+      "居家修繕",
+      "運動戶外",
+      "食品飲料"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 24,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "06-5936688",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "b3a137e3-8d1d-5a93-96eb-3e74bf0f199c",
+    "service_type": "product_purchase",
+    "name": "安心選品商城",
+    "is_active": true,
+    "rating": 4.1,
+    "review_count": 454,
+    "capabilities": [
+      "居家修繕",
+      "生活用品",
+      "運動戶外",
+      "食品飲料"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 1,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "02-8994296",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "service_type": "product_purchase",
+    "name": "友信選品商城",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 23,
+    "capabilities": [
+      "3C周邊",
+      "家電",
+      "寵物",
+      "母嬰",
+      "運動戶外",
+      "食品飲料"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "05-4344708",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "c4229e74-1cef-5065-a478-b5a62eb83ecf",
+    "service_type": "product_purchase",
+    "name": "誠品家選品商城",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 369,
+    "capabilities": [
+      "居家修繕",
+      "母嬰",
+      "運動戶外"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 4,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "07-8378399",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "8ff34cf8-d740-5da4-8e7c-36c3a85037fc",
+    "service_type": "product_purchase",
+    "name": "家好選品商城",
+    "is_active": true,
+    "rating": 4.2,
+    "review_count": 338,
+    "capabilities": [
+      "家電",
+      "母嬰",
+      "運動戶外"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 4,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "02-4142225",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "service_type": "product_purchase",
+    "name": "旭光選品商城",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 823,
+    "capabilities": [
+      "3C周邊",
+      "寵物",
+      "居家修繕",
+      "母嬰",
+      "運動戶外",
+      "食品飲料"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "04-8129230",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "e5267f97-df26-58bc-a4af-2a4470aa1183",
+    "service_type": "product_purchase",
+    "name": "築家選品商城",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 811,
+    "capabilities": [
+      "3C周邊",
+      "家電",
+      "居家修繕",
+      "母嬰",
+      "生活用品",
+      "運動戶外"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "sku_price",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 2,
+    "home_county_code": null,
+    "nationwide": true,
+    "contact_landline": "02-6792307",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "service_type": "housekeeping_service",
+    "name": "松果家事服務",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 740,
+    "capabilities": [
+      "english_speaking",
+      "own_supplies",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1500,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 8,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "04-4562196",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "service_type": "housekeeping_service",
+    "name": "宏達家事服務",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 757,
+    "capabilities": [
+      "eco_supplies",
+      "night_shift",
+      "own_supplies",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1500,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 2,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "06-5145159",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "service_type": "housekeeping_service",
+    "name": "皇家家事服務",
+    "is_active": true,
+    "rating": 3.9,
+    "review_count": 836,
+    "capabilities": [
+      "eco_supplies",
+      "own_supplies",
+      "pet_friendly"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1200,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 4,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "04-5242406",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "service_type": "housekeeping_service",
+    "name": "百工家事服務",
+    "is_active": true,
+    "rating": 4.8,
+    "review_count": 132,
+    "capabilities": [
+      "elderly_care_experience",
+      "english_speaking",
+      "pet_friendly",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1800,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 2,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "03-5716274",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "service_type": "housekeeping_service",
+    "name": "新旺家事服務",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 680,
+    "capabilities": [
+      "elderly_care_experience",
+      "english_speaking",
+      "heavy_duty_kitchen",
+      "own_supplies"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 2000,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 8,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "07-8193530",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "service_type": "housekeeping_service",
+    "name": "順興家事服務",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 335,
+    "capabilities": [
+      "eco_supplies",
+      "own_supplies",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 2000,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 4,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "07-8696719",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "service_type": "housekeeping_service",
+    "name": "亮潔家事服務",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 55,
+    "capabilities": [
+      "english_speaking",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1200,
+      "travel_fee": 150,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 24,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "03-5160954",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "service_type": "housekeeping_service",
+    "name": "雙成家事服務",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 830,
+    "capabilities": [
+      "eco_supplies",
+      "heavy_duty_kitchen",
+      "night_shift"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1200,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 8,
+    "home_county_code": "09",
+    "nationwide": false,
+    "contact_landline": "08-6838969",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "service_type": "housekeeping_service",
+    "name": "安心家事服務",
+    "is_active": true,
+    "rating": 4.8,
+    "review_count": 814,
+    "capabilities": [
+      "night_shift",
+      "pet_friendly"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1500,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 1,
+    "home_county_code": "10",
+    "nationwide": false,
+    "contact_landline": "04-2484297",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "service_type": "housekeeping_service",
+    "name": "友信家事服務",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 172,
+    "capabilities": [
+      "elderly_care_experience",
+      "heavy_duty_kitchen",
+      "night_shift",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 2000,
+      "travel_fee": 150,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 24,
+    "home_county_code": "11",
+    "nationwide": false,
+    "contact_landline": "06-4055870",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "service_type": "housekeeping_service",
+    "name": "誠品家家事服務",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 336,
+    "capabilities": [
+      "elderly_care_experience",
+      "english_speaking",
+      "heavy_duty_kitchen",
+      "pet_friendly"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1200,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 2,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "07-4363151",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "service_type": "housekeeping_service",
+    "name": "家好家事服務",
+    "is_active": true,
+    "rating": 3.2,
+    "review_count": 798,
+    "capabilities": [
+      "english_speaking",
+      "own_supplies",
+      "pet_friendly",
+      "weekend_available"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1200,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 2,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "08-6212327",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "service_type": "housekeeping_service",
+    "name": "旭光家事服務",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 313,
+    "capabilities": [
+      "english_speaking",
+      "heavy_duty_kitchen"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1500,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "04-5359239",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "service_type": "housekeeping_service",
+    "name": "築家家事服務",
+    "is_active": true,
+    "rating": 4.0,
+    "review_count": 162,
+    "capabilities": [
+      "eco_supplies",
+      "elderly_care_experience",
+      "english_speaking",
+      "night_shift"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1800,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 8,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "07-3670991",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "service_type": "housekeeping_service",
+    "name": "電通家事服務",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 78,
+    "capabilities": [
+      "eco_supplies",
+      "heavy_duty_kitchen",
+      "night_shift"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1800,
+      "travel_fee": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 1,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "02-6241301",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "service_type": "housekeeping_service",
+    "name": "民生家事服務",
+    "is_active": true,
+    "rating": 4.3,
+    "review_count": 79,
+    "capabilities": [
+      "elderly_care_experience",
+      "english_speaking"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "per_item",
+      "min_charge": 1800,
+      "travel_fee": 200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 8,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "05-2217119",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "service_type": "utility_repair",
+    "name": "禾豐水電工程行",
+    "is_active": true,
+    "rating": 4.0,
+    "review_count": 366,
+    "capabilities": [
+      "apartment_riser_pipe",
+      "emergency_24h",
+      "leak_detection"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-667304",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-685359",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-463924",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1000,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 4,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "02-5580342",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "service_type": "utility_repair",
+    "name": "水都水電工程行",
+    "is_active": true,
+    "rating": 3.3,
+    "review_count": 843,
+    "capabilities": [
+      "emergency_24h",
+      "leak_detection",
+      "old_building_experience",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-817363",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-135892",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1500,
+      "emergency_surcharge": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "08-5849534",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "service_type": "utility_repair",
+    "name": "松果水電工程行",
+    "is_active": true,
+    "rating": 3.8,
+    "review_count": 493,
+    "capabilities": [
+      "gas_certified",
+      "leak_detection",
+      "old_building_experience",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-373844",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1500,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "06-3589716",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "service_type": "utility_repair",
+    "name": "宏達水電工程行",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 804,
+    "capabilities": [
+      "emergency_24h",
+      "gas_certified",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-723759",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 0,
+      "min_charge": 1200,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "07-6132293",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "service_type": "utility_repair",
+    "name": "皇家水電工程行",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 604,
+    "capabilities": [
+      "apartment_riser_pipe",
+      "emergency_24h",
+      "high_voltage",
+      "same_day_dispatch"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-126737",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 300,
+      "min_charge": 800,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 8,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "04-3733592",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "service_type": "utility_repair",
+    "name": "百工水電工程行",
+    "is_active": true,
+    "rating": 4.7,
+    "review_count": 331,
+    "capabilities": [
+      "high_voltage",
+      "leak_detection",
+      "old_building_experience"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-533058",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-689956",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1500,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 1,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "02-6908342",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "service_type": "utility_repair",
+    "name": "新旺水電工程行",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 793,
+    "capabilities": [
+      "emergency_24h",
+      "night_shift",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-404574",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-637418",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "甲種電匠",
+        "number": "TW-560964",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 0,
+      "min_charge": 1200,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "02-8594652",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "service_type": "utility_repair",
+    "name": "順興水電工程行",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 800,
+    "capabilities": [
+      "same_day_dispatch",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-949222",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-599377",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 500,
+      "min_charge": 1500,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "10",
+    "nationwide": false,
+    "contact_landline": "05-6687030",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "service_type": "utility_repair",
+    "name": "亮潔水電工程行",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 242,
+    "capabilities": [
+      "emergency_24h",
+      "leak_detection",
+      "night_shift",
+      "old_building_experience"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-321115",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-266957",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-795209",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 500,
+      "min_charge": 1000,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 8,
+    "home_county_code": "11",
+    "nationwide": false,
+    "contact_landline": "02-4801562",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "service_type": "utility_repair",
+    "name": "雙成水電工程行",
+    "is_active": true,
+    "rating": 3.8,
+    "review_count": 488,
+    "capabilities": [
+      "gas_certified",
+      "night_shift",
+      "same_day_dispatch",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-899451",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "乙種電匠",
+        "number": "TW-223142",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 800,
+      "emergency_surcharge": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 24,
+    "home_county_code": "12",
+    "nationwide": false,
+    "contact_landline": "04-8933582",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "service_type": "utility_repair",
+    "name": "安心水電工程行",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 292,
+    "capabilities": [
+      "emergency_24h",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-848902",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-824831",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 500,
+      "min_charge": 1500,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 1,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "04-3097553",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "service_type": "utility_repair",
+    "name": "友信水電工程行",
+    "is_active": true,
+    "rating": 3.5,
+    "review_count": 641,
+    "capabilities": [
+      "emergency_24h",
+      "gas_certified",
+      "night_shift",
+      "same_day_dispatch",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-293734",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-649244",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-213906",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 350,
+      "min_charge": 1500,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 24,
+    "home_county_code": "04",
+    "nationwide": false,
+    "contact_landline": "04-4421251",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "service_type": "utility_repair",
+    "name": "誠品家水電工程行",
+    "is_active": true,
+    "rating": 4.8,
+    "review_count": 515,
+    "capabilities": [
+      "emergency_24h",
+      "night_shift"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-764315",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-390218",
+        "valid_until": "2028-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 500,
+      "min_charge": 1500,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 24,
+    "home_county_code": "08",
+    "nationwide": false,
+    "contact_landline": "08-6849191",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "service_type": "utility_repair",
+    "name": "家好水電工程行",
+    "is_active": true,
+    "rating": 4.6,
+    "review_count": 665,
+    "capabilities": [
+      "high_voltage",
+      "night_shift",
+      "same_day_dispatch"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-292030",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 350,
+      "min_charge": 1200,
+      "emergency_surcharge": 0,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 2,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "05-7698232",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "service_type": "utility_repair",
+    "name": "旭光水電工程行",
+    "is_active": true,
+    "rating": 4.4,
+    "review_count": 451,
+    "capabilities": [
+      "high_voltage",
+      "leak_detection"
+    ],
+    "certifications": [
+      {
+        "type": "室內配線技術士",
+        "number": "TW-986312",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "冷凍空調技術士",
+        "number": "TW-423311",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-744456",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1000,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 2,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "05-4220746",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "service_type": "utility_repair",
+    "name": "築家水電工程行",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 782,
+    "capabilities": [
+      "emergency_24h",
+      "gas_certified",
+      "high_voltage",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-474664",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-217938",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-463367",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 350,
+      "min_charge": 1500,
+      "emergency_surcharge": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 8,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "02-7058635",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "service_type": "utility_repair",
+    "name": "電通水電工程行",
+    "is_active": true,
+    "rating": 4.5,
+    "review_count": 471,
+    "capabilities": [
+      "gas_certified",
+      "high_voltage",
+      "same_day_dispatch"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-806839",
+        "valid_until": "2028-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-677010",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 350,
+      "min_charge": 800,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 24,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "05-6527583",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "service_type": "utility_repair",
+    "name": "民生水電工程行",
+    "is_active": true,
+    "rating": 4.1,
+    "review_count": 152,
+    "capabilities": [
+      "emergency_24h",
+      "gas_certified",
+      "night_shift",
+      "waterproofing"
+    ],
+    "certifications": [
+      {
+        "type": "特定瓦斯器具裝修技術士",
+        "number": "TW-307992",
+        "valid_until": "2029-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1000,
+      "emergency_surcharge": 500,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 8,
+    "home_county_code": "13",
+    "nationwide": false,
+    "contact_landline": "04-2806361",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "service_type": "utility_repair",
+    "name": "日新水電工程行",
+    "is_active": true,
+    "rating": 4.9,
+    "review_count": 240,
+    "capabilities": [
+      "apartment_riser_pipe",
+      "high_voltage",
+      "old_building_experience"
+    ],
+    "certifications": [
+      {
+        "type": "用電設備檢驗維護業技術員",
+        "number": "TW-264842",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 500,
+      "min_charge": 800,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 8,
+    "home_county_code": "16",
+    "nationwide": false,
+    "contact_landline": "07-6550451",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "service_type": "utility_repair",
+    "name": "green水電工程行",
+    "is_active": false,
+    "rating": 3.7,
+    "review_count": 779,
+    "capabilities": [
+      "old_building_experience",
+      "same_day_dispatch",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-352545",
+        "valid_until": "2026-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-231440",
+        "valid_until": "2027-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 0,
+      "min_charge": 1000,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 5,
+    "response_sla_hours": 4,
+    "home_county_code": "18",
+    "nationwide": false,
+    "contact_landline": "04-8876925",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "service_type": "utility_repair",
+    "name": "速立水電工程行",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 696,
+    "capabilities": [
+      "high_voltage",
+      "leak_detection"
+    ],
+    "certifications": [
+      {
+        "type": "乙種電匠",
+        "number": "TW-912002",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 300,
+      "min_charge": 1200,
+      "emergency_surcharge": 800,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 8,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "03-7592380",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "service_type": "utility_repair",
+    "name": "京鑫水電工程行",
+    "is_active": true,
+    "rating": 3.9,
+    "review_count": 817,
+    "capabilities": [
+      "gas_certified",
+      "weekend_available"
+    ],
+    "certifications": [
+      {
+        "type": "甲種電匠",
+        "number": "TW-163888",
+        "valid_until": "2027-12-31"
+      },
+      {
+        "type": "室內配線技術士",
+        "number": "TW-459067",
+        "valid_until": "2029-12-31"
+      },
+      {
+        "type": "自來水管配管技術士",
+        "number": "TW-712668",
+        "valid_until": "2026-12-31"
+      }
+    ],
+    "pricing": {
+      "model": "inspection_fee_plus_quote",
+      "inspection_fee": 800,
+      "min_charge": 1000,
+      "emergency_surcharge": 1200,
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "05-2640209",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "service_type": "community_consultation",
+    "name": "安心社區服務中心",
+    "is_active": true,
+    "rating": 4.5,
+    "review_count": 292,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "public_facility",
+      "renovation",
+      "waste"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 8,
+    "home_county_code": "14",
+    "nationwide": false,
+    "contact_landline": "03-6346582",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "service_type": "community_consultation",
+    "name": "友信社區服務中心",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 667,
+    "capabilities": [
+      "elevator",
+      "leak_dispute",
+      "parking",
+      "pet",
+      "renovation"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 1,
+    "home_county_code": "15",
+    "nationwide": false,
+    "contact_landline": "03-7102590",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "service_type": "community_consultation",
+    "name": "誠品家社區服務中心",
+    "is_active": true,
+    "rating": 3.6,
+    "review_count": 274,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "noise",
+      "parking",
+      "pet"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 8,
+    "response_sla_hours": 2,
+    "home_county_code": "03",
+    "nationwide": false,
+    "contact_landline": "04-8901376",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "service_type": "community_consultation",
+    "name": "家好社區服務中心",
+    "is_active": true,
+    "rating": 3.4,
+    "review_count": 490,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "noise",
+      "renovation",
+      "security"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 8,
+    "home_county_code": "06",
+    "nationwide": false,
+    "contact_landline": "06-4987150",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "service_type": "community_consultation",
+    "name": "旭光社區服務中心",
+    "is_active": true,
+    "rating": 3.2,
+    "review_count": 639,
+    "capabilities": [
+      "elevator",
+      "public_facility",
+      "renovation",
+      "security",
+      "waste"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 7,
+    "response_sla_hours": 1,
+    "home_county_code": "17",
+    "nationwide": false,
+    "contact_landline": "02-6732561",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "service_type": "community_consultation",
+    "name": "築家社區服務中心",
+    "is_active": true,
+    "rating": 3.7,
+    "review_count": 743,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "parking",
+      "renovation",
+      "security"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 4,
+    "home_county_code": "01",
+    "nationwide": false,
+    "contact_landline": "04-7056046",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "service_type": "community_consultation",
+    "name": "電通社區服務中心",
+    "is_active": true,
+    "rating": 4.2,
+    "review_count": 829,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "noise",
+      "parking",
+      "renovation"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 3,
+    "response_sla_hours": 24,
+    "home_county_code": "02",
+    "nationwide": false,
+    "contact_landline": "06-4938774",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "service_type": "community_consultation",
+    "name": "民生社區服務中心",
+    "is_active": true,
+    "rating": 4.0,
+    "review_count": 733,
+    "capabilities": [
+      "leak_dispute",
+      "noise",
+      "pet",
+      "renovation",
+      "waste"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 6,
+    "response_sla_hours": 8,
+    "home_county_code": "11",
+    "nationwide": false,
+    "contact_landline": "08-8892342",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "service_type": "community_consultation",
+    "name": "日新社區服務中心",
+    "is_active": true,
+    "rating": 3.5,
+    "review_count": 616,
+    "capabilities": [
+      "elevator",
+      "fee_dispute",
+      "leak_dispute",
+      "noise",
+      "parking"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 4,
+    "response_sla_hours": 24,
+    "home_county_code": "12",
+    "nationwide": false,
+    "contact_landline": "03-3333907",
+    "source": "synthetic"
+  },
+  {
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "service_type": "community_consultation",
+    "name": "green社區服務中心",
+    "is_active": true,
+    "rating": 4.5,
+    "review_count": 780,
+    "capabilities": [
+      "leak_dispute",
+      "parking",
+      "renovation",
+      "security",
+      "waste"
+    ],
+    "certifications": [],
+    "pricing": {
+      "model": "free_consultation",
+      "currency": "TWD"
+    },
+    "capacity_per_day": 2,
+    "response_sla_hours": 4,
+    "home_county_code": "13",
+    "nationwide": false,
+    "contact_landline": "08-2926938",
+    "source": "synthetic"
+  }
+]

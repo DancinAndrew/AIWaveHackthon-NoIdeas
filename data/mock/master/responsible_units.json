@@ -1,0 +1,389 @@
+[
+  {
+    "unit_id": "106e9643-b627-56b8-89bb-c1980fd8eeff",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "name": "安心社區服務中心－社區管理委員會",
+    "unit_type": "management_committee",
+    "accepts_issue_categories": [
+      "elevator",
+      "fee_dispute",
+      "leak_dispute",
+      "public_facility",
+      "renovation"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 48,
+    "sla_resolution_days": 5,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      },
+      {
+        "trigger": "issue_category == fee_dispute",
+        "action": "refer",
+        "target": "management_committee -> 區分所有權人會議",
+        "note": "管理費爭議依規約與會議決議處理，不由客服判定"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "d35216d2-4143-5a35-bf08-b9ea63411480",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "name": "友信社區服務中心－物業管理公司",
+    "unit_type": "property_management",
+    "accepts_issue_categories": [
+      "fee_dispute",
+      "noise",
+      "parking",
+      "public_facility",
+      "waste"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 48,
+    "sla_resolution_days": 5,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      },
+      {
+        "trigger": "issue_category == elevator and urgency in (urgent, emergency)",
+        "action": "escalate_to_vendor",
+        "target": "電梯保養廠商 24 小時派工",
+        "note": "受困必須同時通報消防與保養廠商"
+      },
+      {
+        "trigger": "issue_category == fee_dispute",
+        "action": "refer",
+        "target": "management_committee -> 區分所有權人會議",
+        "note": "管理費爭議依規約與會議決議處理，不由客服判定"
+      },
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "18253050-dcae-5034-90b1-7980a5ff9bac",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "name": "誠品家社區服務中心－縣市民服務專線",
+    "unit_type": "city_service_1999",
+    "accepts_issue_categories": [
+      "fee_dispute",
+      "noise",
+      "pet",
+      "security"
+    ],
+    "service_hours": "24 小時",
+    "sla_first_response_hours": 48,
+    "sla_resolution_days": 1,
+    "requires_pii_consent": true,
+    "accepts_anonymous": true,
+    "escalation_rules": [
+      {
+        "trigger": "issue_category == elevator and urgency in (urgent, emergency)",
+        "action": "escalate_to_vendor",
+        "target": "電梯保養廠商 24 小時派工",
+        "note": "受困必須同時通報消防與保養廠商"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      },
+      {
+        "trigger": "issue_category == leak_dispute",
+        "action": "refer",
+        "target": "management_committee -> 住戶協調會議",
+        "note": "涉及住戶間責任歸屬，管委會僅協調不裁決"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "0cdf3a06-2d11-5d98-b6c7-b1504a94fd00",
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "name": "家好社區服務中心－地方建管單位",
+    "unit_type": "building_authority",
+    "accepts_issue_categories": [
+      "fee_dispute",
+      "leak_dispute",
+      "pet",
+      "public_facility",
+      "security"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 8,
+    "sla_resolution_days": 7,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "issue_category == leak_dispute",
+        "action": "refer",
+        "target": "management_committee -> 住戶協調會議",
+        "note": "涉及住戶間責任歸屬，管委會僅協調不裁決"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "e203c2db-0ed2-5ba9-9a1d-5d95c6a93ee3",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "name": "旭光社區服務中心－環保局",
+    "unit_type": "environment_bureau",
+    "accepts_issue_categories": [
+      "noise",
+      "parking",
+      "public_facility",
+      "security"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 2,
+    "sla_resolution_days": 1,
+    "requires_pii_consent": true,
+    "accepts_anonymous": true,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "793f5070-dc20-5c28-a22d-ce8208012a35",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "name": "築家社區服務中心－社區管理委員會",
+    "unit_type": "management_committee",
+    "accepts_issue_categories": [
+      "fee_dispute",
+      "parking",
+      "pet",
+      "public_facility",
+      "waste"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 4,
+    "sla_resolution_days": 14,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "issue_category == elevator and urgency in (urgent, emergency)",
+        "action": "escalate_to_vendor",
+        "target": "電梯保養廠商 24 小時派工",
+        "note": "受困必須同時通報消防與保養廠商"
+      },
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "issue_category == leak_dispute",
+        "action": "refer",
+        "target": "management_committee -> 住戶協調會議",
+        "note": "涉及住戶間責任歸屬，管委會僅協調不裁決"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "8f35ad41-746b-5414-a6eb-a657a50bac05",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "name": "電通社區服務中心－物業管理公司",
+    "unit_type": "property_management",
+    "accepts_issue_categories": [
+      "elevator",
+      "leak_dispute",
+      "parking",
+      "pet",
+      "waste"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 2,
+    "sla_resolution_days": 7,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "issue_category == elevator and urgency in (urgent, emergency)",
+        "action": "escalate_to_vendor",
+        "target": "電梯保養廠商 24 小時派工",
+        "note": "受困必須同時通報消防與保養廠商"
+      },
+      {
+        "trigger": "issue_category == fee_dispute",
+        "action": "refer",
+        "target": "management_committee -> 區分所有權人會議",
+        "note": "管理費爭議依規約與會議決議處理，不由客服判定"
+      },
+      {
+        "trigger": "issue_category == leak_dispute",
+        "action": "refer",
+        "target": "management_committee -> 住戶協調會議",
+        "note": "涉及住戶間責任歸屬，管委會僅協調不裁決"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "9d3fcfc3-6f27-5473-8018-2767ec326529",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "name": "民生社區服務中心－縣市民服務專線",
+    "unit_type": "city_service_1999",
+    "accepts_issue_categories": [
+      "elevator",
+      "pet",
+      "security"
+    ],
+    "service_hours": "24 小時",
+    "sla_first_response_hours": 4,
+    "sla_resolution_days": 14,
+    "requires_pii_consent": true,
+    "accepts_anonymous": true,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "53a99eb7-d4bf-5862-bd8d-54d7960543af",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "name": "日新社區服務中心－地方建管單位",
+    "unit_type": "building_authority",
+    "accepts_issue_categories": [
+      "elevator",
+      "fee_dispute",
+      "noise",
+      "pet",
+      "public_facility",
+      "security"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 2,
+    "sla_resolution_days": 14,
+    "requires_pii_consent": true,
+    "accepts_anonymous": false,
+    "escalation_rules": [
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      },
+      {
+        "trigger": "issue_category == fee_dispute",
+        "action": "refer",
+        "target": "management_committee -> 區分所有權人會議",
+        "note": "管理費爭議依規約與會議決議處理，不由客服判定"
+      },
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "issue_category == leak_dispute",
+        "action": "refer",
+        "target": "management_committee -> 住戶協調會議",
+        "note": "涉及住戶間責任歸屬，管委會僅協調不裁決"
+      }
+    ],
+    "source": "synthetic"
+  },
+  {
+    "unit_id": "a3e7d3eb-9172-5c7d-8ac8-4a459e203640",
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "name": "green社區服務中心－環保局",
+    "unit_type": "environment_bureau",
+    "accepts_issue_categories": [
+      "elevator",
+      "fee_dispute",
+      "leak_dispute",
+      "pet",
+      "waste"
+    ],
+    "service_hours": "週一至週五 09:00-17:00",
+    "sla_first_response_hours": 8,
+    "sla_resolution_days": 3,
+    "requires_pii_consent": true,
+    "accepts_anonymous": true,
+    "escalation_rules": [
+      {
+        "trigger": "urgency == emergency",
+        "action": "escalate_to_hotline",
+        "target": "119 / 縣市 1999 專線",
+        "note": "涉及人身安全或立即危險時，先引導撥打緊急專線再建案"
+      },
+      {
+        "trigger": "no_response_after_hours > sla_hours",
+        "action": "escalate_to_property_management",
+        "target": "物業管理公司區經理",
+        "note": "逾期未回應自動升級"
+      }
+    ],
+    "source": "synthetic"
+  }
+]

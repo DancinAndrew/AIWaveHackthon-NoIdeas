@@ -1,0 +1,134 @@
+[
+  {
+    "county_code": "01",
+    "name": "台北市",
+    "sort": 1,
+    "source": "competition"
+  },
+  {
+    "county_code": "02",
+    "name": "新北市",
+    "sort": 2,
+    "source": "competition"
+  },
+  {
+    "county_code": "03",
+    "name": "基隆市",
+    "sort": 3,
+    "source": "competition"
+  },
+  {
+    "county_code": "04",
+    "name": "桃園市",
+    "sort": 4,
+    "source": "competition"
+  },
+  {
+    "county_code": "05",
+    "name": "新竹縣",
+    "sort": 5,
+    "source": "competition"
+  },
+  {
+    "county_code": "06",
+    "name": "新竹市",
+    "sort": 6,
+    "source": "competition"
+  },
+  {
+    "county_code": "07",
+    "name": "苗栗縣",
+    "sort": 7,
+    "source": "competition"
+  },
+  {
+    "county_code": "08",
+    "name": "台中市",
+    "sort": 8,
+    "source": "competition"
+  },
+  {
+    "county_code": "09",
+    "name": "南投縣",
+    "sort": 9,
+    "source": "competition"
+  },
+  {
+    "county_code": "10",
+    "name": "彰化縣",
+    "sort": 10,
+    "source": "competition"
+  },
+  {
+    "county_code": "11",
+    "name": "雲林縣",
+    "sort": 11,
+    "source": "competition"
+  },
+  {
+    "county_code": "12",
+    "name": "嘉義縣",
+    "sort": 12,
+    "source": "competition"
+  },
+  {
+    "county_code": "13",
+    "name": "嘉義市",
+    "sort": 13,
+    "source": "competition"
+  },
+  {
+    "county_code": "14",
+    "name": "台南市",
+    "sort": 14,
+    "source": "competition"
+  },
+  {
+    "county_code": "15",
+    "name": "高雄市",
+    "sort": 15,
+    "source": "competition"
+  },
+  {
+    "county_code": "16",
+    "name": "屏東縣",
+    "sort": 16,
+    "source": "competition"
+  },
+  {
+    "county_code": "17",
+    "name": "宜蘭縣",
+    "sort": 17,
+    "source": "competition"
+  },
+  {
+    "county_code": "18",
+    "name": "花蓮縣",
+    "sort": 18,
+    "source": "competition"
+  },
+  {
+    "county_code": "19",
+    "name": "台東縣",
+    "sort": 19,
+    "source": "competition"
+  },
+  {
+    "county_code": "20",
+    "name": "澎湖縣",
+    "sort": 20,
+    "source": "competition"
+  },
+  {
+    "county_code": "21",
+    "name": "金門縣",
+    "sort": 21,
+    "source": "competition"
+  },
+  {
+    "county_code": "22",
+    "name": "連江縣",
+    "sort": 22,
+    "source": "competition"
+  }
+]

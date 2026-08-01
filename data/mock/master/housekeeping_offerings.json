@@ -1,0 +1,3759 @@
+[
+  {
+    "offering_id": "1256f881-b45d-5451-8960-f32f008e6d5a",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 390,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "eaf4fe6a-c9e1-5af2-ac49-7979aae1f898",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2210,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "28bf1955-c654-553e-80df-90987e151b55",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1830,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "06c6fb0f-8d12-5e68-b6f4-2c7dc9f3c622",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2770,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "c0b36837-ceb9-5c68-9c64-0794935b914a",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2400,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "910905c8-459c-5277-bbb1-276aeb11488c",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2470,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "779b5c5e-f134-5bed-ae2b-48db4b6e501d",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 520,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "5e74b47c-6664-53d1-aa92-11404c5ffd1d",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 390,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "5267d3a8-252c-5470-9512-ab47adf93c36",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 450,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e75d4ac5-5635-5ffd-905d-fc1de6895586",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "provider_name": "松果家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 250,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "8546e3af-5624-567c-8bd8-8f8d1e71557b",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1700,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "39c4b665-3b26-52ab-9aaa-a341dfa1bdd6",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 510,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "4bfb2c20-f646-5fce-bb6a-66f4109375c8",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2960,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "833159d2-254d-579b-84a3-aa041b028e56",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 260,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "3a878f62-ae51-53f9-9058-4e8b995d3c83",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 370,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b20fb86b-7bda-5e19-b324-2f637bb0ce27",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "provider_name": "宏達家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 490,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "0ee0bab9-6c43-555a-82c1-61113102c02a",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2320,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "141c04f4-0e63-5eb1-8a5c-7a6eedc96711",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 160,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9bce43c2-a52e-54dd-96ca-ae36cdd604c2",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 3020,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "56dd265b-ac0b-5855-a981-7a39a227fbd3",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 290,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b190f101-fef1-5ae2-a1c3-a6789fb2a4d9",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2310,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "1f1df33c-1eb1-553d-902f-6e0592e2950b",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 520,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "de59b2c7-8317-5600-8669-9ada3f9aaa91",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 430,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "5c79292d-15ad-5703-9152-b59067ccdf9f",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2440,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "a630fddc-455a-513e-a395-b5569d5cd146",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 390,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "82ed5828-3323-5fc4-b516-b426167c51eb",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "provider_name": "皇家家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 300,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d3a3dd26-0f0b-5760-8a00-c5cbf3d66916",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "provider_name": "百工家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 460,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "a48a5e32-7178-5474-8ab0-3618c90d68e6",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "provider_name": "百工家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 210,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9eff7a32-827e-5f0a-9cd9-e5055b6c69c3",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "provider_name": "百工家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 630,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "219e077b-89f3-539f-9bca-00214e114467",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "provider_name": "百工家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2400,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "cabdb03e-0164-517b-b75d-1b4dcb314b9f",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "provider_name": "百工家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1520,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "3e80c986-86d2-5b3f-8a20-1d91631a1ac2",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2120,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "c600647b-2fbb-5737-aadd-953cd9b795dc",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 190,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "efc8882d-7816-53bf-8418-20d37b586189",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 270,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "0ab2999c-252c-5d9b-8464-9c8ec4aa6d9f",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1840,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "33a9ce18-6120-5289-872a-da27b739f407",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 400,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "988a1438-6374-58c8-8019-c71225854f37",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2020,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e601b073-5743-581e-90dd-71e1adc315b4",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 340,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "580a2b8d-6795-50f7-8cdb-7f92adedc5c1",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1960,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "5c09acdc-b0f5-5234-bd79-36f3cd011a3d",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 500,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "f6c9b61c-4218-5266-91f0-58e1c44fbebf",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "provider_name": "新旺家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2980,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "178ce696-cef5-56d1-b7a4-00caa7aecfce",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 240,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d3b3f333-20bf-55c0-beb1-2aaa4d8a6186",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 360,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "a0dedd5d-2606-53c8-9dcc-e5f4a64e8091",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 160,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e9e4148c-77c3-5584-81dd-af15037aacc4",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2370,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "144c3644-f4c9-5275-9700-26971d0ec5cd",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2100,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "8f6afd2f-69bd-5bba-a4d9-776415d2b109",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1750,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e7daacab-d6b5-5095-9532-33fa2ee6604c",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1930,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "c4abae8e-e387-56df-be4b-7a3871b27ac0",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 440,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "11cb0a1e-1f94-51e1-9d15-0dea5462f62a",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1740,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "6b85bda3-010b-5b93-8cfe-0831e8919b42",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 610,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "c941e882-57d7-58b3-840b-a61ab87a6689",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "provider_name": "順興家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 3090,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9bf09b13-4e03-5938-9a4d-6fa70819a42b",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 350,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9122d560-a9dd-5ba8-9140-babe0b985742",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1600,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d7994e82-cd1a-5b6d-b296-f2b0d92c3a12",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2210,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "0ff5e3c2-1f6f-567f-bccf-1a27557ff94b",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 460,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "90294f45-7980-5e2a-889f-66b47de507e5",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2680,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "7cfdca53-b1e0-5a31-9e6e-c33897960060",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 560,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "0e8f31fc-d1cb-52c2-8625-9603f24d654e",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "provider_name": "亮潔家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1680,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "8d6cd961-9a27-5933-bd88-6434665ae9ca",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 530,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "02dea718-0da8-5b27-a464-34e1875d4f14",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 160,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "275f1c70-0aa9-5ffe-be24-1a2285b0ab47",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 470,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "4e68b929-b61e-562a-b512-40e221ada7b5",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1750,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "03342b92-f72f-5dc5-98d3-4566121f97f7",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 420,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "2be6b157-78b9-5c79-b923-46bf3927bc78",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2140,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "beff05ac-20ee-5fb4-a16c-05b52c5db5d6",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1830,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "7e9cb992-0591-52d8-a4a4-f32faa29f7fe",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 380,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "16304fdd-fd26-5331-9107-655e56755359",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "provider_name": "雙成家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2750,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "4e19ab59-aca2-5bb5-82c4-da7bded7005e",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2290,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "29ba2cdb-b83a-5d03-878f-5d6d2df6d7c5",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1550,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "20917799-e6cb-51b9-b5d1-27405b402806",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 480,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "ccdd08f0-3bc9-59b9-87c6-4d51ebd99c56",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2360,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "aa4d30cb-ea7e-5363-a73c-1ed75ce52639",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 260,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "1960bf97-bb81-5e28-a0aa-f721ca265bf5",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2000,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "fc0c5fd0-4254-5c9c-9bdb-f6ae1ea52457",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 3070,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "69d25eeb-4197-58d2-8848-5418dfb3673c",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 480,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "dff68109-5591-5c73-a7f3-177427216476",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 430,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e1099e2d-5858-549f-b57f-4b578332c463",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "provider_name": "安心家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1690,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "2fbe17f7-6de7-5a1e-b474-fbb566c76cda",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "provider_name": "友信家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1400,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "80988e40-dd1d-5605-9dd5-8dfac6de7837",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "provider_name": "友信家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 410,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9319241b-7843-5933-ba63-d943d06fe46d",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "provider_name": "友信家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 300,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 150,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "3a0e231e-49de-54d4-b944-8f4b62de207a",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "provider_name": "友信家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 410,
+    "min_units": 3,
+    "min_charge": 2000,
+    "travel_fee": 150,
+    "property_types": [
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "67a3b20f-4ce7-55e8-8e64-01da44de96fa",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "provider_name": "友信家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 160,
+    "min_units": 1,
+    "min_charge": 2000,
+    "travel_fee": 150,
+    "property_types": [
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "cdfda0ed-b148-5950-bdb7-b95f43d42c40",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1890,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "7a6c5f0d-e453-5e56-85b1-eaa330029dc5",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 610,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "091c9906-44cc-5b73-9b49-887d8a1ca6c5",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2370,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9f0b791e-b017-5b75-becd-0ac07c9e5b6b",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 400,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "81c0cc31-0e87-5ad6-bb03-493f401ebcf4",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1880,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "46095853-3e3d-576c-9467-3f83d75fae84",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1810,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9fa1e6e6-d784-57b7-893d-fb777559fd47",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 200,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b7b646e2-a290-5ef4-8a4e-3c166c6e05b5",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "provider_name": "誠品家家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2840,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "0d64f0a7-b995-54d3-aeba-984e5bed5bc8",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2200,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "407b091f-de6a-5257-85b5-8afb9bee4e05",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 620,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "374e75db-1ee7-55e1-9b54-28ad50ce3617",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 290,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "f78eb053-fc71-5334-b35d-714b9633db4c",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2840,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "46b3911b-a6e7-537f-b6e2-f655eabb274a",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1800,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "2204aed2-a420-518f-a8db-14d36ff15c73",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 360,
+    "min_units": 3,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "16af9308-a647-53a6-8186-bb1c202fae88",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 330,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "03af5f62-76ef-59b6-ae3d-ada4eef434bc",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 190,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "3d36d229-c98f-5b28-b2b1-e73a5749b0e5",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1490,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "2c83081b-b323-5751-a8cc-c7aff2fb5525",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "provider_name": "家好家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2670,
+    "min_units": 1,
+    "min_charge": 1200,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "16ef0d1d-961b-59d0-8b23-d9d2682b011e",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1630,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "ff851a81-a3e3-566b-8080-2ad1bee4d5c6",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 170,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "65802757-2bba-5334-a4d7-7221f6a18fa9",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 260,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d7c5451d-fe5a-5bac-8bbd-f98222f75446",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 3130,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "5a7fdf2e-f978-5f38-86b7-eb2e4027b161",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 360,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "35678050-dfde-5316-a2b8-743463035790",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 400,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "f16c955e-f7c1-5d2c-a548-4a9b6dbff69f",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1560,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "3c7d4721-356a-5860-9598-7caa2721bf07",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2140,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "8fcd8626-760c-5667-8850-248e3022391d",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 480,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "1b794061-8486-55e7-86ff-1a771789b33a",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 390,
+    "min_units": 3,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "2d593ddf-35e4-5bdf-989c-746f1e0fd10e",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1840,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "983ad9d9-e8ed-5619-a2ca-3b42640d399d",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "provider_name": "旭光家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2270,
+    "min_units": 1,
+    "min_charge": 1500,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "01134512-79e5-5dba-9991-34369ad0d594",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 290,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b428c18c-08b2-5eaa-bfbe-4fef09ac6840",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2190,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "438d3eb5-6d86-5277-999d-9a3d15ef00c8",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 180,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "fd3df5ed-befe-5c63-8eee-981ea885ef1b",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2690,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d68c3165-7411-5635-83b0-82ca4dc10141",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 460,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "fe37d790-0397-5434-b769-7b2a1dc768ee",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1910,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "903c4083-e8fc-5ada-9f41-c557fc9f0562",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 410,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "439d6a3d-ac88-545c-a128-7ef2a7c64ebb",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "window_clean",
+    "item_label": "窗戶紗窗清潔",
+    "pricing_model": "per_unit",
+    "unit": "扇",
+    "unit_price": 330,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "6f282cb3-7c2c-5617-b910-62ef46c9e661",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1670,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "612f6188-12b9-5605-bd4d-571571ed94be",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 540,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e2b92283-21f1-5898-9c2f-e334cf3b093e",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1570,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "88beb8f5-5c28-50f6-aa04-0145436c646c",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "provider_name": "築家家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1950,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9e94e60c-6399-5854-9b80-cac807434a60",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 3090,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "9c1bd80e-1ff9-5019-a1d2-ce56b2ccb650",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1920,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "ddcd65bb-eaee-5716-bf42-8b99dba81c3c",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 500,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "137773d9-70f1-52ca-bb19-7bcc3858c6df",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "aircon_split",
+    "item_label": "分離式冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 2800,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 2,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "271fcfe4-0a75-553d-a3b0-cc67ac204189",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 400,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "7b73b259-8ee3-587c-8496-ac3cd68acdec",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "move_in_clean",
+    "item_label": "入厝/退租清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 270,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "fdf9eb17-6858-59bc-9bf4-c5abd97a61e2",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 180,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d8c6cdee-bae8-5c2a-b032-237f2c56aa45",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "laundry_fold",
+    "item_label": "洗衣摺衣",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 390,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "56fe736a-4dc9-5ff2-bd69-30ca58e2e2d4",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1990,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "1dac3c86-8fd2-5cd4-917e-00a886b7e16e",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1490,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "7b6edce6-ec33-517b-8025-4644a472e3c8",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "provider_name": "電通家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1620,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 0,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "fd71193f-7504-5b53-83e0-c07e6498c5c7",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "regular_clean",
+    "item_label": "一般居家清潔",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 430,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e81cddbe-4c35-5e77-934c-edafd7a8c4fc",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "fridge_clean",
+    "item_label": "冰箱清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1990,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "e402ba3e-fb88-5a78-a9bd-404bb24b076c",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "aircon_window",
+    "item_label": "窗型冷氣清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1660,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "d261b924-b20a-5f4a-831f-8dcd3b62ecdd",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "kitchen_clean",
+    "item_label": "廚房重油污清潔",
+    "pricing_model": "fixed",
+    "unit": "式",
+    "unit_price": 2780,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "透天厝",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "bfebc9cd-d8ea-533a-9b5e-0b3228935c17",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "bathroom_clean",
+    "item_label": "浴室除霉清潔",
+    "pricing_model": "fixed",
+    "unit": "間",
+    "unit_price": 1680,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b142db9a-4951-569d-945b-7c2eddfc2361",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "deep_clean",
+    "item_label": "深度清潔",
+    "pricing_model": "per_ping",
+    "unit": "坪",
+    "unit_price": 180,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": true,
+    "lead_time_days": 5,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "b8a8885e-6583-5d92-990e-c5224e8c1b46",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "washer_clean",
+    "item_label": "洗衣機清洗",
+    "pricing_model": "per_unit",
+    "unit": "台",
+    "unit_price": 1950,
+    "min_units": 1,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "透天厝"
+    ],
+    "frequencies": [
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 3,
+    "source": "synthetic"
+  },
+  {
+    "offering_id": "f616c871-805e-5448-aeb6-9e60f4a8e93a",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "provider_name": "民生家事服務",
+    "item_code": "cooking",
+    "item_label": "到府備餐",
+    "pricing_model": "hourly",
+    "unit": "小時",
+    "unit_price": 590,
+    "min_units": 3,
+    "min_charge": 1800,
+    "travel_fee": 200,
+    "property_types": [
+      "公寓",
+      "套房",
+      "辦公室",
+      "電梯大樓"
+    ],
+    "frequencies": [
+      "biweekly",
+      "monthly",
+      "one_time",
+      "weekly"
+    ],
+    "requires_photos": false,
+    "lead_time_days": 1,
+    "source": "synthetic"
+  }
+]

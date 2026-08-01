@@ -1,0 +1,1640 @@
+[
+  {
+    "provider_id": "1b9d7a19-43c4-5e28-8d85-35ba51be6bcf",
+    "county_code": "01",
+    "district_code": "008",
+    "district_name": "南港區"
+  },
+  {
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "county_code": "02",
+    "district_code": "016",
+    "district_name": "林口區"
+  },
+  {
+    "provider_id": "d27297e1-a559-533e-9e6f-a01d23259ba3",
+    "county_code": "04",
+    "district_code": "061",
+    "district_name": "復興區"
+  },
+  {
+    "provider_id": "4d1abf66-256a-5d25-aa97-a15050064610",
+    "county_code": "08",
+    "district_code": "123",
+    "district_name": "外埔區"
+  },
+  {
+    "provider_id": "1378b261-7c43-5e60-8391-5491c557eb86",
+    "county_code": "14",
+    "district_code": "209",
+    "district_name": "安南區"
+  },
+  {
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "county_code": "15",
+    "district_code": "247",
+    "district_name": "新興區"
+  },
+  {
+    "provider_id": "22b78aad-f991-5f25-a77f-2f39e9c3756e",
+    "county_code": "03",
+    "district_code": "045",
+    "district_name": "中山區"
+  },
+  {
+    "provider_id": "f88c9ffa-6401-57d7-aee7-390f2badfa5b",
+    "county_code": "05",
+    "district_code": "066",
+    "district_name": "峨眉鄉"
+  },
+  {
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "county_code": "07",
+    "district_code": "089",
+    "district_name": "三義鄉"
+  },
+  {
+    "provider_id": "711ca05d-f0f8-5913-be66-c6df5db84068",
+    "county_code": "09",
+    "district_code": "135",
+    "district_name": "水里鄉"
+  },
+  {
+    "provider_id": "f445e036-22c5-511d-a091-eb4c463bace0",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "44c6dbde-1215-5ddd-b45f-708dc68e67db",
+    "county_code": "17",
+    "district_code": "318",
+    "district_name": "員山鄉"
+  },
+  {
+    "provider_id": "be81f4fd-4818-531f-9a13-1e4deded89bb",
+    "county_code": "01",
+    "district_code": "004",
+    "district_name": "萬華區"
+  },
+  {
+    "provider_id": "eec02768-52c2-59ff-8d68-c107a17fdb84",
+    "county_code": "02",
+    "district_code": "022",
+    "district_name": "三芝區"
+  },
+  {
+    "provider_id": "96f574e1-006e-5110-ab41-1dee8599bedd",
+    "county_code": "04",
+    "district_code": "052",
+    "district_name": "八德區"
+  },
+  {
+    "provider_id": "0ecd5180-0be3-526b-beb0-accec79c2fa4",
+    "county_code": "08",
+    "district_code": "115",
+    "district_name": "大雅區"
+  },
+  {
+    "provider_id": "47045ff0-5cc0-5e8c-974a-be013be35edf",
+    "county_code": "14",
+    "district_code": "221",
+    "district_name": "麻豆區"
+  },
+  {
+    "provider_id": "620cd07d-7939-5d04-8025-9bcbbe1559a5",
+    "county_code": "10",
+    "district_code": "144",
+    "district_name": "田中鎮"
+  },
+  {
+    "provider_id": "5d256c6f-b7a4-5d50-98ac-b09ca95a309f",
+    "county_code": "11",
+    "district_code": "164",
+    "district_name": "斗六市"
+  },
+  {
+    "provider_id": "aa23ef6e-69d9-5a99-9153-58a361e4207b",
+    "county_code": "12",
+    "district_code": "188",
+    "district_name": "民雄鄉"
+  },
+  {
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "county_code": "15",
+    "district_code": "250",
+    "district_name": "小港區"
+  },
+  {
+    "provider_id": "fb0d4583-22c4-5f8f-af15-37698e7b88ed",
+    "county_code": "03",
+    "district_code": "048",
+    "district_name": "七堵區"
+  },
+  {
+    "provider_id": "5f8ae989-ac0b-53f7-b98b-baa56a46c604",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "95243dab-0683-51c9-9188-9fcfaee387bb",
+    "county_code": "17",
+    "district_code": "323",
+    "district_name": "南澳鄉"
+  },
+  {
+    "provider_id": "4942298f-a0bb-5c46-b92c-ae748532633b",
+    "county_code": "01",
+    "district_code": "001",
+    "district_name": "中正區"
+  },
+  {
+    "provider_id": "d86f8ca0-7adf-502f-a185-cae2dc98cf0a",
+    "county_code": "02",
+    "district_code": "019",
+    "district_name": "八里區"
+  },
+  {
+    "provider_id": "8b02cffa-e1fe-5f7c-a216-75e898a39009",
+    "county_code": "04",
+    "district_code": "061",
+    "district_name": "復興區"
+  },
+  {
+    "provider_id": "3beeda8d-8b46-5e81-9951-1f257b3b999e",
+    "county_code": "13",
+    "district_code": "203",
+    "district_name": "西區"
+  },
+  {
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "county_code": "16",
+    "district_code": "290",
+    "district_name": "萬巒鄉"
+  },
+  {
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "county_code": "18",
+    "district_code": "332",
+    "district_name": "豐濱鄉"
+  },
+  {
+    "provider_id": "63c5f505-03e8-5477-b54a-c8878b3b4212",
+    "county_code": "08",
+    "district_code": "115",
+    "district_name": "大雅區"
+  },
+  {
+    "provider_id": "ee874801-48eb-557b-8618-c545e18ae923",
+    "county_code": "14",
+    "district_code": "221",
+    "district_name": "麻豆區"
+  },
+  {
+    "provider_id": "210f4480-6ce9-5c9b-a76b-f22ba3ad0dd8",
+    "county_code": "15",
+    "district_code": "247",
+    "district_name": "新興區"
+  },
+  {
+    "provider_id": "3593f0fd-75c6-50dd-9330-2d99ae4464f0",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區"
+  },
+  {
+    "provider_id": "10af745a-d05b-5f0b-908b-4b3abd89ab9e",
+    "county_code": "06",
+    "district_code": "077",
+    "district_name": "香山區"
+  },
+  {
+    "provider_id": "7766c5c8-55a1-595a-b1fc-6fcc23e55635",
+    "county_code": "17",
+    "district_code": "318",
+    "district_name": "員山鄉"
+  },
+  {
+    "provider_id": "c2729f1c-b0b2-55aa-8051-032eedd6bb80",
+    "county_code": "01",
+    "district_code": "010",
+    "district_name": "內湖區"
+  },
+  {
+    "provider_id": "9b098218-62cf-5c33-a213-92009aa82a9c",
+    "county_code": "19",
+    "district_code": "340",
+    "district_name": "長濱鄉"
+  },
+  {
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "county_code": "05",
+    "district_code": "064",
+    "district_name": "新埔鎮"
+  },
+  {
+    "provider_id": "48c75c42-9d8b-5cbc-b453-f1627d1a892a",
+    "county_code": "07",
+    "district_code": "083",
+    "district_name": "苑裡鎮"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "053",
+    "district_name": "楊梅區"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "058",
+    "district_name": "大園區"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "056",
+    "district_name": "龍潭區"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "051",
+    "district_name": "平鎮區"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "061",
+    "district_name": "復興區"
+  },
+  {
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "county_code": "04",
+    "district_code": "052",
+    "district_name": "八德區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "102",
+    "district_name": "西屯區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "118",
+    "district_name": "沙鹿區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "108",
+    "district_name": "豐原區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "099",
+    "district_name": "西區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "120",
+    "district_name": "梧棲區"
+  },
+  {
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "county_code": "08",
+    "district_code": "100",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "231",
+    "district_name": "東山區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "230",
+    "district_name": "白河區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "219",
+    "district_name": "龍崎區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "218",
+    "district_name": "關廟區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "210",
+    "district_name": "永康區"
+  },
+  {
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "county_code": "14",
+    "district_code": "239",
+    "district_name": "新市區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "251",
+    "district_name": "旗津區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "256",
+    "district_name": "仁武區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "252",
+    "district_name": "鳳山區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "265",
+    "district_name": "燕巢區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "278",
+    "district_name": "那瑪夏區"
+  },
+  {
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "county_code": "15",
+    "district_code": "271",
+    "district_name": "美濃區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "044",
+    "district_name": "信義區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "046",
+    "district_name": "安樂區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "042",
+    "district_name": "仁愛區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "043",
+    "district_name": "中正區"
+  },
+  {
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "county_code": "03",
+    "district_code": "048",
+    "district_name": "七堵區"
+  },
+  {
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "county_code": "06",
+    "district_code": "077",
+    "district_name": "香山區"
+  },
+  {
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "315",
+    "district_name": "頭城鎮"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "312",
+    "district_name": "宜蘭市"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "323",
+    "district_name": "南澳鄉"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "317",
+    "district_name": "壯圍鄉"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "313",
+    "district_name": "羅東鎮"
+  },
+  {
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "county_code": "17",
+    "district_code": "322",
+    "district_name": "大同鄉"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "135",
+    "district_name": "水里鄉"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "137",
+    "district_name": "仁愛鄉"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "128",
+    "district_name": "竹山鎮"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "134",
+    "district_name": "國姓鄉"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "126",
+    "district_name": "埔里鎮"
+  },
+  {
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "county_code": "09",
+    "district_code": "125",
+    "district_name": "南投市"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "158",
+    "district_name": "竹塘鄉"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "141",
+    "district_name": "鹿港鎮"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "146",
+    "district_name": "花壇鄉"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "149",
+    "district_name": "永靖鄉"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "154",
+    "district_name": "埔心鄉"
+  },
+  {
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "county_code": "10",
+    "district_code": "160",
+    "district_name": "二水鄉"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "180",
+    "district_name": "四湖鄉"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "179",
+    "district_name": "褒忠鄉"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "182",
+    "district_name": "水林鄉"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "181",
+    "district_name": "口湖鄉"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "169",
+    "district_name": "北港鎮"
+  },
+  {
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "county_code": "11",
+    "district_code": "175",
+    "district_name": "二崙鄉"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "008",
+    "district_name": "南港區"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "009",
+    "district_name": "北投區"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "001",
+    "district_name": "中正區"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "006",
+    "district_name": "松山區"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "011",
+    "district_name": "士林區"
+  },
+  {
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "county_code": "01",
+    "district_code": "004",
+    "district_name": "萬華區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "038",
+    "district_name": "鶯歌區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "017",
+    "district_name": "淡水區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "036",
+    "district_name": "三峽區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "037",
+    "district_name": "樹林區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "013",
+    "district_name": "板橋區"
+  },
+  {
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "county_code": "02",
+    "district_code": "023",
+    "district_name": "瑞芳區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "049",
+    "district_name": "桃園區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "052",
+    "district_name": "八德區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "053",
+    "district_name": "楊梅區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "058",
+    "district_name": "大園區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "054",
+    "district_name": "蘆竹區"
+  },
+  {
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "county_code": "04",
+    "district_code": "061",
+    "district_name": "復興區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "103",
+    "district_name": "南屯區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "101",
+    "district_name": "北屯區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "116",
+    "district_name": "神岡區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "124",
+    "district_name": "大安區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "115",
+    "district_name": "大雅區"
+  },
+  {
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "county_code": "08",
+    "district_code": "122",
+    "district_name": "大甲區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "240",
+    "district_name": "安定區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "215",
+    "district_name": "楠西區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "227",
+    "district_name": "北門區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "212",
+    "district_name": "新化區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "219",
+    "district_name": "龍崎區"
+  },
+  {
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "county_code": "14",
+    "district_code": "228",
+    "district_name": "新營區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "275",
+    "district_name": "六龜區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "273",
+    "district_name": "杉林區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "263",
+    "district_name": "彌陀區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "270",
+    "district_name": "旗山區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "268",
+    "district_name": "茄萣區"
+  },
+  {
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "county_code": "15",
+    "district_code": "265",
+    "district_name": "燕巢區"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "county_code": "08",
+    "district_code": "105",
+    "district_name": "大里區"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "county_code": "08",
+    "district_code": "107",
+    "district_name": "烏日區"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "county_code": "08",
+    "district_code": "116",
+    "district_name": "神岡區"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "county_code": "08",
+    "district_code": "102",
+    "district_name": "西屯區"
+  },
+  {
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "county_code": "08",
+    "district_code": "121",
+    "district_name": "清水區"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "county_code": "14",
+    "district_code": "213",
+    "district_name": "左鎮區"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "county_code": "14",
+    "district_code": "219",
+    "district_name": "龍崎區"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "county_code": "14",
+    "district_code": "225",
+    "district_name": "將軍區"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "county_code": "14",
+    "district_code": "233",
+    "district_name": "下營區"
+  },
+  {
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "county_code": "14",
+    "district_code": "232",
+    "district_name": "六甲區"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "county_code": "15",
+    "district_code": "278",
+    "district_name": "那瑪夏區"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "county_code": "15",
+    "district_code": "275",
+    "district_name": "六龜區"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "county_code": "15",
+    "district_code": "263",
+    "district_name": "彌陀區"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "county_code": "15",
+    "district_code": "269",
+    "district_name": "湖內區"
+  },
+  {
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "county_code": "15",
+    "district_code": "244",
+    "district_name": "三民區"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "county_code": "03",
+    "district_code": "046",
+    "district_name": "安樂區"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "county_code": "03",
+    "district_code": "048",
+    "district_name": "七堵區"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "county_code": "03",
+    "district_code": "045",
+    "district_name": "中山區"
+  },
+  {
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "county_code": "03",
+    "district_code": "044",
+    "district_name": "信義區"
+  },
+  {
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "county_code": "06",
+    "district_code": "077",
+    "district_name": "香山區"
+  },
+  {
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "county_code": "17",
+    "district_code": "320",
+    "district_name": "五結鄉"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "county_code": "17",
+    "district_code": "314",
+    "district_name": "蘇澳鎮"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "county_code": "17",
+    "district_code": "315",
+    "district_name": "頭城鎮"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "county_code": "17",
+    "district_code": "312",
+    "district_name": "宜蘭市"
+  },
+  {
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "county_code": "17",
+    "district_code": "313",
+    "district_name": "羅東鎮"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "county_code": "01",
+    "district_code": "010",
+    "district_name": "內湖區"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "county_code": "01",
+    "district_code": "008",
+    "district_name": "南港區"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "county_code": "01",
+    "district_code": "007",
+    "district_name": "大安區"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "county_code": "01",
+    "district_code": "003",
+    "district_name": "中山區"
+  },
+  {
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "county_code": "01",
+    "district_code": "011",
+    "district_name": "士林區"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "county_code": "10",
+    "district_code": "159",
+    "district_name": "社頭鄉"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "county_code": "10",
+    "district_code": "139",
+    "district_name": "員林市"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "county_code": "10",
+    "district_code": "138",
+    "district_name": "彰化市"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "county_code": "10",
+    "district_code": "143",
+    "district_name": "二林鎮"
+  },
+  {
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "county_code": "10",
+    "district_code": "156",
+    "district_name": "大城鄉"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "county_code": "11",
+    "district_code": "168",
+    "district_name": "土庫鎮"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "county_code": "11",
+    "district_code": "178",
+    "district_name": "東勢鄉"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "county_code": "11",
+    "district_code": "182",
+    "district_name": "水林鄉"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "county_code": "11",
+    "district_code": "165",
+    "district_name": "斗南鎮"
+  },
+  {
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "county_code": "11",
+    "district_code": "164",
+    "district_name": "斗六市"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "county_code": "12",
+    "district_code": "187",
+    "district_name": "大林鎮"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "county_code": "12",
+    "district_code": "188",
+    "district_name": "民雄鄉"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "county_code": "12",
+    "district_code": "196",
+    "district_name": "中埔鄉"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "county_code": "12",
+    "district_code": "193",
+    "district_name": "義竹鄉"
+  },
+  {
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "county_code": "12",
+    "district_code": "192",
+    "district_name": "東石鄉"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "county_code": "02",
+    "district_code": "021",
+    "district_name": "石門區"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "county_code": "02",
+    "district_code": "039",
+    "district_name": "三重區"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "county_code": "02",
+    "district_code": "020",
+    "district_name": "萬里區"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "county_code": "02",
+    "district_code": "015",
+    "district_name": "泰山區"
+  },
+  {
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "county_code": "02",
+    "district_code": "040",
+    "district_name": "蘆洲區"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "county_code": "04",
+    "district_code": "057",
+    "district_name": "大溪區"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "county_code": "04",
+    "district_code": "053",
+    "district_name": "楊梅區"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "county_code": "04",
+    "district_code": "059",
+    "district_name": "觀音區"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "county_code": "04",
+    "district_code": "049",
+    "district_name": "桃園區"
+  },
+  {
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "county_code": "04",
+    "district_code": "056",
+    "district_name": "龍潭區"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "county_code": "08",
+    "district_code": "104",
+    "district_name": "太平區"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "county_code": "08",
+    "district_code": "115",
+    "district_name": "大雅區"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "county_code": "08",
+    "district_code": "101",
+    "district_name": "北屯區"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "county_code": "08",
+    "district_code": "110",
+    "district_name": "石岡區"
+  },
+  {
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "county_code": "08",
+    "district_code": "119",
+    "district_name": "龍井區"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "county_code": "14",
+    "district_code": "210",
+    "district_name": "永康區"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "county_code": "14",
+    "district_code": "217",
+    "district_name": "仁德區"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "county_code": "14",
+    "district_code": "221",
+    "district_name": "麻豆區"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "county_code": "14",
+    "district_code": "240",
+    "district_name": "安定區"
+  },
+  {
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "county_code": "14",
+    "district_code": "208",
+    "district_name": "安平區"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "county_code": "15",
+    "district_code": "262",
+    "district_name": "梓官區"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "county_code": "15",
+    "district_code": "264",
+    "district_name": "永安區"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "county_code": "15",
+    "district_code": "245",
+    "district_name": "鹽埕區"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "county_code": "15",
+    "district_code": "246",
+    "district_name": "前金區"
+  },
+  {
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "county_code": "15",
+    "district_code": "248",
+    "district_name": "苓雅區"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "county_code": "03",
+    "district_code": "042",
+    "district_name": "仁愛區"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "county_code": "03",
+    "district_code": "045",
+    "district_name": "中山區"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "county_code": "03",
+    "district_code": "048",
+    "district_name": "七堵區"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "county_code": "03",
+    "district_code": "043",
+    "district_name": "中正區"
+  },
+  {
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區"
+  },
+  {
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "county_code": "06",
+    "district_code": "077",
+    "district_name": "香山區"
+  },
+  {
+    "provider_id": "1183e351-9578-5017-a3fa-eda5e3ef3d9b",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "county_code": "13",
+    "district_code": "202",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "county_code": "13",
+    "district_code": "203",
+    "district_name": "西區"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "county_code": "16",
+    "district_code": "299",
+    "district_name": "佳冬鄉"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "county_code": "16",
+    "district_code": "283",
+    "district_name": "萬丹鄉"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "county_code": "16",
+    "district_code": "310",
+    "district_name": "牡丹鄉"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "county_code": "16",
+    "district_code": "292",
+    "district_name": "竹田鄉"
+  },
+  {
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "county_code": "16",
+    "district_code": "281",
+    "district_name": "東港鎮"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "county_code": "18",
+    "district_code": "332",
+    "district_name": "豐濱鄉"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "county_code": "18",
+    "district_code": "328",
+    "district_name": "吉安鄉"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "county_code": "18",
+    "district_code": "329",
+    "district_name": "壽豐鄉"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "county_code": "18",
+    "district_code": "326",
+    "district_name": "玉里鎮"
+  },
+  {
+    "provider_id": "1409a5ca-165e-5111-b5ec-f00f06672bb8",
+    "county_code": "18",
+    "district_code": "327",
+    "district_name": "新城鄉"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "county_code": "17",
+    "district_code": "318",
+    "district_name": "員山鄉"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "county_code": "17",
+    "district_code": "321",
+    "district_name": "三星鄉"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "county_code": "17",
+    "district_code": "316",
+    "district_name": "礁溪鄉"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "county_code": "17",
+    "district_code": "323",
+    "district_name": "南澳鄉"
+  },
+  {
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "county_code": "17",
+    "district_code": "313",
+    "district_name": "羅東鎮"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "county_code": "01",
+    "district_code": "006",
+    "district_name": "松山區"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "county_code": "01",
+    "district_code": "002",
+    "district_name": "大同區"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "county_code": "01",
+    "district_code": "005",
+    "district_name": "信義區"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "county_code": "01",
+    "district_code": "009",
+    "district_name": "北投區"
+  },
+  {
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "county_code": "01",
+    "district_code": "010",
+    "district_name": "內湖區"
+  },
+  {
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "county_code": "14",
+    "district_code": "233",
+    "district_name": "下營區"
+  },
+  {
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "county_code": "14",
+    "district_code": "208",
+    "district_name": "安平區"
+  },
+  {
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "county_code": "14",
+    "district_code": "222",
+    "district_name": "佳里區"
+  },
+  {
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "county_code": "14",
+    "district_code": "216",
+    "district_name": "南化區"
+  },
+  {
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "county_code": "15",
+    "district_code": "258",
+    "district_name": "大社區"
+  },
+  {
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "county_code": "15",
+    "district_code": "256",
+    "district_name": "仁武區"
+  },
+  {
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "county_code": "15",
+    "district_code": "250",
+    "district_name": "小港區"
+  },
+  {
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "county_code": "15",
+    "district_code": "249",
+    "district_name": "前鎮區"
+  },
+  {
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "county_code": "03",
+    "district_code": "047",
+    "district_name": "暖暖區"
+  },
+  {
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "county_code": "03",
+    "district_code": "046",
+    "district_name": "安樂區"
+  },
+  {
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "county_code": "03",
+    "district_code": "045",
+    "district_name": "中山區"
+  },
+  {
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "county_code": "03",
+    "district_code": "042",
+    "district_name": "仁愛區"
+  },
+  {
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "county_code": "06",
+    "district_code": "075",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "county_code": "06",
+    "district_code": "076",
+    "district_name": "北區"
+  },
+  {
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "county_code": "06",
+    "district_code": "077",
+    "district_name": "香山區"
+  },
+  {
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "county_code": "17",
+    "district_code": "323",
+    "district_name": "南澳鄉"
+  },
+  {
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "county_code": "17",
+    "district_code": "318",
+    "district_name": "員山鄉"
+  },
+  {
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "county_code": "17",
+    "district_code": "321",
+    "district_name": "三星鄉"
+  },
+  {
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "county_code": "17",
+    "district_code": "314",
+    "district_name": "蘇澳鎮"
+  },
+  {
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "county_code": "01",
+    "district_code": "006",
+    "district_name": "松山區"
+  },
+  {
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "county_code": "01",
+    "district_code": "010",
+    "district_name": "內湖區"
+  },
+  {
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "county_code": "01",
+    "district_code": "001",
+    "district_name": "中正區"
+  },
+  {
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "county_code": "01",
+    "district_code": "007",
+    "district_name": "大安區"
+  },
+  {
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "county_code": "02",
+    "district_code": "039",
+    "district_name": "三重區"
+  },
+  {
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "county_code": "02",
+    "district_code": "016",
+    "district_name": "林口區"
+  },
+  {
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "county_code": "02",
+    "district_code": "038",
+    "district_name": "鶯歌區"
+  },
+  {
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "county_code": "02",
+    "district_code": "020",
+    "district_name": "萬里區"
+  },
+  {
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "county_code": "11",
+    "district_code": "165",
+    "district_name": "斗南鎮"
+  },
+  {
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "county_code": "11",
+    "district_code": "178",
+    "district_name": "東勢鄉"
+  },
+  {
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "county_code": "11",
+    "district_code": "177",
+    "district_name": "臺西鄉"
+  },
+  {
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "county_code": "11",
+    "district_code": "167",
+    "district_name": "西螺鎮"
+  },
+  {
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "county_code": "12",
+    "district_code": "201",
+    "district_name": "阿里山鄉"
+  },
+  {
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "county_code": "12",
+    "district_code": "184",
+    "district_name": "太保市"
+  },
+  {
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "county_code": "12",
+    "district_code": "191",
+    "district_name": "六腳鄉"
+  },
+  {
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "county_code": "12",
+    "district_code": "192",
+    "district_name": "東石鄉"
+  },
+  {
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "county_code": "13",
+    "district_code": "202",
+    "district_name": "東區"
+  },
+  {
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "county_code": "13",
+    "district_code": "203",
+    "district_name": "西區"
+  }
+]

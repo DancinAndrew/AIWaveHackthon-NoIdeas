@@ -1,0 +1,2459 @@
+[
+  {
+    "reply_id": "99632071-3793-51ea-8821-037781d687c9",
+    "service_request_id": "96b9e6a8-c80d-5a85-8a28-4f558bfc17f8",
+    "provider_id": "95243dab-0683-51c9-9188-9fcfaee387bb",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-26T21:00:00+08:00"
+  },
+  {
+    "reply_id": "661af12f-3cd7-5173-b066-73adf69a0d92",
+    "service_request_id": "96802afe-875d-5138-9e22-4c55238b8e6b",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-31T05:00:00+08:00"
+  },
+  {
+    "reply_id": "930b6bcf-4938-54c9-8da9-3e47ee9fdb44",
+    "service_request_id": "bd894720-eeb5-5dec-a236-c2feb8119fa5",
+    "provider_id": "47045ff0-5cc0-5e8c-974a-be013be35edf",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-29T10:00:00+08:00"
+  },
+  {
+    "reply_id": "76cdc238-6c2d-5670-acec-5ad314c1e236",
+    "service_request_id": "e58901c8-f3cb-58a7-891c-d56a3b6b403e",
+    "provider_id": "1b9d7a19-43c4-5e28-8d85-35ba51be6bcf",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-19T16:00:00+08:00"
+  },
+  {
+    "reply_id": "b69361f6-9fb5-5c72-b1b5-299064468a19",
+    "service_request_id": "4a726ccc-f3da-587b-9811-4c16f58ce003",
+    "provider_id": "3beeda8d-8b46-5e81-9951-1f257b3b999e",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-19T11:00:00+08:00"
+  },
+  {
+    "reply_id": "fb1a0b63-ca2a-5234-841e-1b37dc64d2fa",
+    "service_request_id": "57cd1932-1e11-5b30-87c4-aae684326119",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-15T06:00:00+08:00"
+  },
+  {
+    "reply_id": "12a420cf-3b25-576b-a1b8-40bf2cd31dee",
+    "service_request_id": "b5aabbe1-2548-5aff-aff3-9ba0d88226d5",
+    "provider_id": "22b78aad-f991-5f25-a77f-2f39e9c3756e",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-22T00:00:00+08:00"
+  },
+  {
+    "reply_id": "cf0c886d-63ad-5c55-b6c9-efe7cafba462",
+    "service_request_id": "9339c0e5-3423-5da0-b1b4-bd9f4b548612",
+    "provider_id": "3593f0fd-75c6-50dd-9330-2d99ae4464f0",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T20:00:00+08:00"
+  },
+  {
+    "reply_id": "72f517ec-fd4d-5553-ad42-cd8ca6a3e88a",
+    "service_request_id": "dd306bac-1be5-56fe-96a0-ef83e08041fc",
+    "provider_id": "fb0d4583-22c4-5f8f-af15-37698e7b88ed",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T15:00:00+08:00"
+  },
+  {
+    "reply_id": "c2387db7-4245-513a-9440-96427e1ff568",
+    "service_request_id": "152982a6-204d-573b-b3d1-3576b4f04099",
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T01:00:00+08:00"
+  },
+  {
+    "reply_id": "5c6fdaa3-487b-5f94-9b0b-15d4e8367d6c",
+    "service_request_id": "909d45fa-1811-5add-9ee6-befad860310a",
+    "provider_id": "f445e036-22c5-511d-a091-eb4c463bace0",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-31T12:00:00+08:00"
+  },
+  {
+    "reply_id": "b0911749-0331-5568-afeb-52810233a486",
+    "service_request_id": "18c889b5-2082-50dd-8b1d-30e60847ce11",
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-17T22:00:00+08:00"
+  },
+  {
+    "reply_id": "35bce670-1918-5913-b7b6-25d9598ed0a1",
+    "service_request_id": "5168d456-ba8e-54e3-a8c7-9fccd8febda5",
+    "provider_id": "be81f4fd-4818-531f-9a13-1e4deded89bb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-18T17:00:00+08:00"
+  },
+  {
+    "reply_id": "663c97a7-1e67-5c92-bd3e-1aac9997062e",
+    "service_request_id": "86259709-b2da-5ed5-9362-54739f87ab4b",
+    "provider_id": "63c5f505-03e8-5477-b54a-c8878b3b4212",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-18T13:00:00+08:00"
+  },
+  {
+    "reply_id": "0e71f43b-78bc-5bde-b12c-703e6f4f33c7",
+    "service_request_id": "36192ec1-a4fb-5efb-bb1d-32d4832cfd24",
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-29T03:00:00+08:00"
+  },
+  {
+    "reply_id": "4adf0dd1-cd38-5560-a900-348d8674229c",
+    "service_request_id": "861be3e0-43be-5b36-8407-65f4ead413a4",
+    "provider_id": "9b098218-62cf-5c33-a213-92009aa82a9c",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-25T23:00:00+08:00"
+  },
+  {
+    "reply_id": "591f6f7b-f172-517b-b9ba-19133bd63670",
+    "service_request_id": "958b97a7-4e14-59ec-a8c8-8424ec8e7208",
+    "provider_id": "be81f4fd-4818-531f-9a13-1e4deded89bb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T01:00:00+08:00"
+  },
+  {
+    "reply_id": "8b0d1bcf-33d8-5667-af38-a04ba504dddc",
+    "service_request_id": "2b7221d3-66b5-551c-afaf-3cc38eb92086",
+    "provider_id": "7766c5c8-55a1-595a-b1fc-6fcc23e55635",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-26T16:00:00+08:00"
+  },
+  {
+    "reply_id": "6ec02c53-78e3-5e93-a3c3-bcdc68b1277c",
+    "service_request_id": "e67438e1-8745-5bd4-9e1e-490be13867e5",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-08-02T06:00:00+08:00"
+  },
+  {
+    "reply_id": "74649aef-f42b-507f-9b2b-33cae1f07186",
+    "service_request_id": "1fab1d73-67c5-5bf0-ae86-59711846c1e5",
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-03T12:00:00+08:00"
+  },
+  {
+    "reply_id": "6be87bdd-edd0-5c11-933d-70b6750fabcc",
+    "service_request_id": "1553b4ed-cb5a-55d4-a153-2ee57f77866a",
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-16T01:00:00+08:00"
+  },
+  {
+    "reply_id": "c1838d4f-01ea-504e-a612-26e339e4ceec",
+    "service_request_id": "f4d142f5-3f08-5922-b2c9-17757797a384",
+    "provider_id": "eec02768-52c2-59ff-8d68-c107a17fdb84",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-17T20:00:00+08:00"
+  },
+  {
+    "reply_id": "6d85032e-4617-5e7f-9f71-dbdbea15de66",
+    "service_request_id": "1628198a-a6f4-55f6-a4fe-8f85d611a021",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-01T18:00:00+08:00"
+  },
+  {
+    "reply_id": "bd616d08-d0db-5dc3-bf76-ac594e950a6e",
+    "service_request_id": "ec282aa0-d158-5f3b-b360-ca5c85efe17d",
+    "provider_id": "63c5f505-03e8-5477-b54a-c8878b3b4212",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-17T02:00:00+08:00"
+  },
+  {
+    "reply_id": "d88d1ec6-16ea-5377-a16e-ab3a0666b541",
+    "service_request_id": "ec282aa0-d158-5f3b-b360-ca5c85efe17d",
+    "provider_id": "0ecd5180-0be3-526b-beb0-accec79c2fa4",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-17T02:00:00+08:00"
+  },
+  {
+    "reply_id": "bc16c71b-329a-5f93-8566-9c4cc980d977",
+    "service_request_id": "d2cf384e-6003-50d8-885f-6d26f9468b4b",
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-08-01T03:00:00+08:00"
+  },
+  {
+    "reply_id": "7d523c4e-8a5b-559d-8a83-7a419bc314db",
+    "service_request_id": "d2cf384e-6003-50d8-885f-6d26f9468b4b",
+    "provider_id": "210f4480-6ce9-5c9b-a76b-f22ba3ad0dd8",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-08-01T03:00:00+08:00"
+  },
+  {
+    "reply_id": "494bb610-ccbd-54cc-be2c-7d174bab4bc9",
+    "service_request_id": "60054abd-5b98-5e41-811d-1407adf621a4",
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-23T17:00:00+08:00"
+  },
+  {
+    "reply_id": "a8132ff3-c794-5462-9dc1-3dd0ab0037bb",
+    "service_request_id": "60054abd-5b98-5e41-811d-1407adf621a4",
+    "provider_id": "210f4480-6ce9-5c9b-a76b-f22ba3ad0dd8",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-23T17:00:00+08:00"
+  },
+  {
+    "reply_id": "9f35095d-af01-58b5-b55f-025b1cc4e4b3",
+    "service_request_id": "777eff00-5438-5394-8d7b-18a286a38878",
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-25T02:00:00+08:00"
+  },
+  {
+    "reply_id": "265286df-3d34-57db-bbb8-cbbffc0bc381",
+    "service_request_id": "e5681f8d-2857-5fb0-969b-01d6fe289ef5",
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-14T15:00:00+08:00"
+  },
+  {
+    "reply_id": "76c8de3d-5399-5ea4-8361-1ccccd495c36",
+    "service_request_id": "050b9a97-5c5f-5574-92ad-e532acb95376",
+    "provider_id": "d86f8ca0-7adf-502f-a185-cae2dc98cf0a",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-23T14:00:00+08:00"
+  },
+  {
+    "reply_id": "6609cfcd-f76a-556d-a409-51ebf5d228c3",
+    "service_request_id": "068dbda3-6579-586a-b106-740a30042dc1",
+    "provider_id": "d86f8ca0-7adf-502f-a185-cae2dc98cf0a",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T04:00:00+08:00"
+  },
+  {
+    "reply_id": "4f727280-f678-57cd-8f62-94cb89557685",
+    "service_request_id": "fda6fe8d-8d9b-5cf5-9e2c-1d88e608e57e",
+    "provider_id": "95243dab-0683-51c9-9188-9fcfaee387bb",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-26T00:00:00+08:00"
+  },
+  {
+    "reply_id": "8b0feb01-740d-5c82-9ce0-ea7478d09d35",
+    "service_request_id": "2799c98f-2102-5efc-84b8-33d581daf8c4",
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-19T01:00:00+08:00"
+  },
+  {
+    "reply_id": "04fbe134-2c66-5990-9cae-b15750fff5f8",
+    "service_request_id": "e8413adb-4297-56ea-bb10-69dca49f36a8",
+    "provider_id": "1378b261-7c43-5e60-8391-5491c557eb86",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-23T10:00:00+08:00"
+  },
+  {
+    "reply_id": "e88517c4-6a85-5074-8a0c-e4e037b269a8",
+    "service_request_id": "62421043-2a12-5041-8990-e16c1c51d94c",
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-22T01:00:00+08:00"
+  },
+  {
+    "reply_id": "160c990b-330b-5156-8237-b6b824d6083c",
+    "service_request_id": "62ddcc52-1e8a-5cc7-8978-1ad62b40fc23",
+    "provider_id": "f445e036-22c5-511d-a091-eb4c463bace0",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-19T13:00:00+08:00"
+  },
+  {
+    "reply_id": "750d832d-9652-5b15-95cb-b1e0b9c2b85c",
+    "service_request_id": "6c264274-2efb-5b8d-8e93-1ca659daa763",
+    "provider_id": "c2729f1c-b0b2-55aa-8051-032eedd6bb80",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "a479579d-0a1f-54de-86a5-3db8e1b53446",
+    "service_request_id": "78ced4b0-b7b0-54c0-8e4b-ca76c456a777",
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-13T22:00:00+08:00"
+  },
+  {
+    "reply_id": "c3589ebf-b4d7-569f-97ec-8ee68b1a969b",
+    "service_request_id": "85e2fbe9-94a7-5c56-b5c6-2dd5164ea57d",
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-18T12:00:00+08:00"
+  },
+  {
+    "reply_id": "231b1c41-7d9f-5626-84cc-5ac80b1ef005",
+    "service_request_id": "df87cca2-373a-5fd6-85ff-5924411e0696",
+    "provider_id": "620cd07d-7939-5d04-8025-9bcbbe1559a5",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-05T19:00:00+08:00"
+  },
+  {
+    "reply_id": "d5906aa5-c46d-513d-9526-12a6fdc995d6",
+    "service_request_id": "ad106842-9c3e-5d53-ad09-cc251dae6bc1",
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-24T12:00:00+08:00"
+  },
+  {
+    "reply_id": "2b677cd5-c355-5615-af40-099fcd4ac75d",
+    "service_request_id": "51ae1aa8-0e19-5f2a-8546-02ad930767fb",
+    "provider_id": "10af745a-d05b-5f0b-908b-4b3abd89ab9e",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-15T08:00:00+08:00"
+  },
+  {
+    "reply_id": "c4903c07-282c-5d48-920d-2e7659593585",
+    "service_request_id": "3c919cad-e03f-57dc-b505-c531dc6c69ff",
+    "provider_id": "3593f0fd-75c6-50dd-9330-2d99ae4464f0",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-14T04:00:00+08:00"
+  },
+  {
+    "reply_id": "5882d321-952b-5de1-9664-24cab1699bbe",
+    "service_request_id": "7af256e0-4fd7-5bb4-a113-a16624bfe222",
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-28T18:00:00+08:00"
+  },
+  {
+    "reply_id": "e632ad17-33f8-5f8e-9bd8-b2546a530ecd",
+    "service_request_id": "9e536e15-e37d-5952-b341-46148abc8d99",
+    "provider_id": "96f574e1-006e-5110-ab41-1dee8599bedd",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-18T07:00:00+08:00"
+  },
+  {
+    "reply_id": "111e34ce-27de-56d0-a31a-edd9a06010af",
+    "service_request_id": "c7d63390-5c93-5d5a-975d-0d4338f994b5",
+    "provider_id": "1378b261-7c43-5e60-8391-5491c557eb86",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-23T06:00:00+08:00"
+  },
+  {
+    "reply_id": "24941936-f023-5b1f-b3fe-dbc508ed38bf",
+    "service_request_id": "679ad8c4-406d-5e60-9f3b-c17ed08f8443",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-30T17:00:00+08:00"
+  },
+  {
+    "reply_id": "e40628d1-835d-5024-b20f-75c2a3936430",
+    "service_request_id": "3e329cae-5391-5955-b928-34a83f069f1e",
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-18T11:00:00+08:00"
+  },
+  {
+    "reply_id": "bf2ba6ef-a2ee-5df2-8706-be506f51a42b",
+    "service_request_id": "a90e9a96-436c-5a1c-9db4-5d1fc1f588c6",
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-03T05:00:00+08:00"
+  },
+  {
+    "reply_id": "d1b105e7-614f-56b5-b4e0-a574e585983e",
+    "service_request_id": "167c420c-9cba-505b-8ca7-cad8dc7faabf",
+    "provider_id": "4942298f-a0bb-5c46-b92c-ae748532633b",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-28T19:00:00+08:00"
+  },
+  {
+    "reply_id": "6b1b4567-a633-5671-9f15-e91fa45c8bb1",
+    "service_request_id": "72e51580-108f-50ec-9638-4e7ed9e46bdf",
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-25T16:00:00+08:00"
+  },
+  {
+    "reply_id": "daa2c095-9828-5bb2-a5c5-ba9a0f5e9465",
+    "service_request_id": "4b584598-4a5e-5874-a9c6-a0d399fee012",
+    "provider_id": "5d256c6f-b7a4-5d50-98ac-b09ca95a309f",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-18T08:00:00+08:00"
+  },
+  {
+    "reply_id": "4ae61708-71f1-5dbc-b5a5-9755352a9a3e",
+    "service_request_id": "ef0d3674-d9d9-53d3-8128-015fd0fe2564",
+    "provider_id": "fb0d4583-22c4-5f8f-af15-37698e7b88ed",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-25T02:00:00+08:00"
+  },
+  {
+    "reply_id": "7285ae78-b2c3-5615-8271-a11fa73bac46",
+    "service_request_id": "37bb3011-0f2e-5585-a79b-658546b1367d",
+    "provider_id": "620cd07d-7939-5d04-8025-9bcbbe1559a5",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T01:00:00+08:00"
+  },
+  {
+    "reply_id": "3da0e4a6-15d7-5255-b02e-de8e8099bf8e",
+    "service_request_id": "b7c81f50-1d08-55e0-9045-a249155d4370",
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-15T08:00:00+08:00"
+  },
+  {
+    "reply_id": "f206dbe3-1d35-5eb4-88ea-75cc521898e2",
+    "service_request_id": "54e74ff6-8689-570e-9109-70c80589aa93",
+    "provider_id": "7766c5c8-55a1-595a-b1fc-6fcc23e55635",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-15T16:00:00+08:00"
+  },
+  {
+    "reply_id": "dd1fa02e-3f88-5426-a7d5-779e7081c091",
+    "service_request_id": "54e74ff6-8689-570e-9109-70c80589aa93",
+    "provider_id": "44c6dbde-1215-5ddd-b45f-708dc68e67db",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-15T16:00:00+08:00"
+  },
+  {
+    "reply_id": "d8011e3d-d4e6-5209-8f56-b62416e4ef3f",
+    "service_request_id": "3a416a37-1705-5a5d-9a37-8e4aa5184de1",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-22T19:00:00+08:00"
+  },
+  {
+    "reply_id": "1764de31-6746-5ba1-97a1-acda76114d5a",
+    "service_request_id": "501644e0-0ed6-5ab2-a2a3-6f5dc68e90fa",
+    "provider_id": "8b02cffa-e1fe-5f7c-a216-75e898a39009",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-28T21:00:00+08:00"
+  },
+  {
+    "reply_id": "a25dde20-6bc2-57a9-a364-dcbdbb4e4b03",
+    "service_request_id": "501644e0-0ed6-5ab2-a2a3-6f5dc68e90fa",
+    "provider_id": "d27297e1-a559-533e-9e6f-a01d23259ba3",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-28T21:00:00+08:00"
+  },
+  {
+    "reply_id": "fe20152f-dafa-5d90-9cca-4b95a4f5a601",
+    "service_request_id": "7aef9e5d-d56b-5ab8-ac75-9d48c61f2ed3",
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-30T08:00:00+08:00"
+  },
+  {
+    "reply_id": "0e351e59-8302-5b13-8c26-64d940d08e49",
+    "service_request_id": "5a93aece-3046-5c81-88cb-fce8541e68db",
+    "provider_id": "5f8ae989-ac0b-53f7-b98b-baa56a46c604",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T07:00:00+08:00"
+  },
+  {
+    "reply_id": "4a2c969e-4620-58fa-8ea6-3aadc7e51e1e",
+    "service_request_id": "ea1770f4-d115-513c-a0e3-876591cc69b3",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-20T01:00:00+08:00"
+  },
+  {
+    "reply_id": "255626f2-c704-51ff-8f9e-b36b469a25fe",
+    "service_request_id": "39c56870-4876-5469-8ee9-f6cc91241c54",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-27T20:00:00+08:00"
+  },
+  {
+    "reply_id": "d492de75-29e2-5710-b720-50dca84ff937",
+    "service_request_id": "39c56870-4876-5469-8ee9-f6cc91241c54",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-27T20:00:00+08:00"
+  },
+  {
+    "reply_id": "0f5b1bdc-fa8a-5af0-9542-dc8d0ecd0b60",
+    "service_request_id": "3ed0fa00-df40-5060-8f25-20bf295814ca",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-16T10:00:00+08:00"
+  },
+  {
+    "reply_id": "7777a682-7cad-5274-bd95-c510d8c9b9ae",
+    "service_request_id": "c48dcbcc-67c3-57ed-99c2-b34f631a84ab",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-08-02T06:00:00+08:00"
+  },
+  {
+    "reply_id": "ebd4f8c1-80b4-5906-87f8-c887b5d77b5b",
+    "service_request_id": "c48dcbcc-67c3-57ed-99c2-b34f631a84ab",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-08-02T06:00:00+08:00"
+  },
+  {
+    "reply_id": "112d54b7-b8ec-5ffe-beec-0d44d37330b0",
+    "service_request_id": "9478d113-a278-5799-9e12-95a4a806044c",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-03T01:00:00+08:00"
+  },
+  {
+    "reply_id": "3580c9b8-b74d-5852-b992-6290a28c046d",
+    "service_request_id": "acc8b2fd-1aa1-514f-8e45-2d0dfac67efa",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-11T14:00:00+08:00"
+  },
+  {
+    "reply_id": "08277ba6-ee78-58bd-bd46-04fe87233bf4",
+    "service_request_id": "acc8b2fd-1aa1-514f-8e45-2d0dfac67efa",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-11T14:00:00+08:00"
+  },
+  {
+    "reply_id": "56d61a29-762c-5e5e-b3d2-b85bdf3582a9",
+    "service_request_id": "6682963a-2ab2-5b21-a437-65472f2b0fe0",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-15T21:00:00+08:00"
+  },
+  {
+    "reply_id": "e616f871-46fb-5ba9-9620-cd4adc775ed8",
+    "service_request_id": "b98f6db8-84d7-54c0-8ab8-2982e12f349d",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-26T19:00:00+08:00"
+  },
+  {
+    "reply_id": "b21ca1d4-4d4f-51d0-9d47-446045904cdd",
+    "service_request_id": "b98f6db8-84d7-54c0-8ab8-2982e12f349d",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-26T19:00:00+08:00"
+  },
+  {
+    "reply_id": "57c1a3d3-c23d-545d-8c9f-9a52fb736494",
+    "service_request_id": "787b7346-c776-58be-89af-16fec0396f7d",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-18T17:00:00+08:00"
+  },
+  {
+    "reply_id": "11122b6c-b9b9-58bf-8891-f84706240477",
+    "service_request_id": "787b7346-c776-58be-89af-16fec0396f7d",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-18T17:00:00+08:00"
+  },
+  {
+    "reply_id": "5747145e-f6c3-56e9-8fc7-a7304ad29b8b",
+    "service_request_id": "6ce17ea0-cc7d-5428-8ad4-4ba1be36a700",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-28T16:00:00+08:00"
+  },
+  {
+    "reply_id": "2df9a323-ab78-519f-8867-063d33e4b202",
+    "service_request_id": "feceb72d-1788-58a1-abff-f8220d5115f6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-24T05:00:00+08:00"
+  },
+  {
+    "reply_id": "a051099d-a5b9-5fcb-b0b2-446103c6c5b8",
+    "service_request_id": "6b2d4432-882c-5059-9c43-84f9f13dcdd2",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-27T03:00:00+08:00"
+  },
+  {
+    "reply_id": "f6986727-866f-56d4-8acb-6dc9e914c125",
+    "service_request_id": "6b2d4432-882c-5059-9c43-84f9f13dcdd2",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-27T03:00:00+08:00"
+  },
+  {
+    "reply_id": "8f0c08b9-cd00-5e5a-aef2-32827c3baaf7",
+    "service_request_id": "69d4ea4a-2ba6-52c7-b2be-5a273232b870",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-19T08:00:00+08:00"
+  },
+  {
+    "reply_id": "a5f082bb-c614-57eb-ad81-440649df8889",
+    "service_request_id": "69d4ea4a-2ba6-52c7-b2be-5a273232b870",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-19T08:00:00+08:00"
+  },
+  {
+    "reply_id": "5f60003e-9a75-5960-bdbe-0951d90e9be4",
+    "service_request_id": "238d51ed-4e34-5922-8549-4c4d1a11daba",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-31T10:00:00+08:00"
+  },
+  {
+    "reply_id": "aee30566-2d4e-5155-b9e9-7bb37e208a5f",
+    "service_request_id": "2362cf90-4934-54c4-a40b-97574505e75c",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-21T13:00:00+08:00"
+  },
+  {
+    "reply_id": "90e0aa6c-f305-5f4d-86de-672fe61587bc",
+    "service_request_id": "4f7ff5c6-a407-5243-be97-53345bd4778e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-29T06:00:00+08:00"
+  },
+  {
+    "reply_id": "72d85afb-57a7-55bd-a577-0d1597f964fd",
+    "service_request_id": "4d0e0bab-2204-5725-a0a8-178f5788a7c5",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-20T07:00:00+08:00"
+  },
+  {
+    "reply_id": "f6f69ea8-db82-59b3-8331-303849402a6d",
+    "service_request_id": "a76d6f8f-3a9e-5bdc-9a2b-8afe10e69b57",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-08-03T12:00:00+08:00"
+  },
+  {
+    "reply_id": "457335eb-a785-5bcc-9987-811b9b960341",
+    "service_request_id": "ea6a34a8-9da4-5478-8fb7-4679328a5b93",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-16T10:00:00+08:00"
+  },
+  {
+    "reply_id": "51460a6d-5781-539d-9440-7c477fd11439",
+    "service_request_id": "e1a13b05-1171-53ec-a20b-5f54e527344e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-16T10:00:00+08:00"
+  },
+  {
+    "reply_id": "896ccd69-4ff5-5bfc-80f7-f035b3ee7a9b",
+    "service_request_id": "d1c84c9e-d036-5559-8ea0-1f2cd834ee69",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-19T19:00:00+08:00"
+  },
+  {
+    "reply_id": "ed0850bf-ba2a-5c4d-8907-637330d28826",
+    "service_request_id": "d1c84c9e-d036-5559-8ea0-1f2cd834ee69",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-19T19:00:00+08:00"
+  },
+  {
+    "reply_id": "325d2110-40da-5ac6-87ab-afba1f8136f7",
+    "service_request_id": "528d6bd1-7754-57fa-855e-b9d3d0b89529",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-22T10:00:00+08:00"
+  },
+  {
+    "reply_id": "0aec6fb2-cca6-5319-9836-b6e836fe59c1",
+    "service_request_id": "43523389-ac29-5483-bec3-30fefb538ac1",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-22T19:00:00+08:00"
+  },
+  {
+    "reply_id": "a3f97b4f-97b8-5c75-b3ed-1942f7aa7ca7",
+    "service_request_id": "6c69436e-3581-5b4c-ad85-7bbb8bc76436",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-29T05:00:00+08:00"
+  },
+  {
+    "reply_id": "a5e42070-1870-5dc6-bff5-9712b5e2dfef",
+    "service_request_id": "14aee68e-be21-5765-b793-764d7f38bcac",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-03T22:00:00+08:00"
+  },
+  {
+    "reply_id": "6243391a-a4a3-5151-bf48-fd3e79864735",
+    "service_request_id": "62ff8a4f-22e0-5587-b6ff-b6676ac9db9e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T21:00:00+08:00"
+  },
+  {
+    "reply_id": "d0d5d350-5ad5-58f4-8f4e-d75885e1e53c",
+    "service_request_id": "62ff8a4f-22e0-5587-b6ff-b6676ac9db9e",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-15T21:00:00+08:00"
+  },
+  {
+    "reply_id": "d7a2f021-c088-58be-a0b9-f21318ecee00",
+    "service_request_id": "ca3c3312-39a3-598f-8250-8ec949d31ed3",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-14T12:00:00+08:00"
+  },
+  {
+    "reply_id": "3f401196-80d9-51fc-b205-b72450406f1a",
+    "service_request_id": "dea89fa4-8b4d-5ccb-8c55-0cb88fdccb1d",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-26T05:00:00+08:00"
+  },
+  {
+    "reply_id": "816d2e69-aab6-50ee-bd0a-2e2fcb2b4c2b",
+    "service_request_id": "dea89fa4-8b4d-5ccb-8c55-0cb88fdccb1d",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-26T05:00:00+08:00"
+  },
+  {
+    "reply_id": "9ba4c152-1fe5-54b0-985d-7db7beb89c50",
+    "service_request_id": "b6fdb52b-9636-5925-b2a8-ac8abab19587",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-17T07:00:00+08:00"
+  },
+  {
+    "reply_id": "e62b5be5-8b48-59f5-9e53-970dad3056b7",
+    "service_request_id": "1e381f4e-e753-5a16-9ae8-0dce62bcf5a0",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-27T22:00:00+08:00"
+  },
+  {
+    "reply_id": "19ea1240-01b6-5722-9a51-bf45e08242fb",
+    "service_request_id": "1e381f4e-e753-5a16-9ae8-0dce62bcf5a0",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-27T22:00:00+08:00"
+  },
+  {
+    "reply_id": "3aa11f89-82d8-5e53-b5f6-26b3f90d952b",
+    "service_request_id": "71d50d99-9a73-5cfe-99dc-33a48f1a3017",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T14:00:00+08:00"
+  },
+  {
+    "reply_id": "27c279f1-51b4-5891-8bf9-86ccc846a270",
+    "service_request_id": "71d50d99-9a73-5cfe-99dc-33a48f1a3017",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-15T14:00:00+08:00"
+  },
+  {
+    "reply_id": "174c12ee-2e07-515d-80f4-da01133a0297",
+    "service_request_id": "dfdc4674-33e7-52c9-a7e1-5f855d2a3e07",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-24T16:00:00+08:00"
+  },
+  {
+    "reply_id": "6fd44cad-dfbc-5e91-88d6-72908082f0a8",
+    "service_request_id": "dfdc4674-33e7-52c9-a7e1-5f855d2a3e07",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-24T16:00:00+08:00"
+  },
+  {
+    "reply_id": "eb9e3edd-e566-5fc0-b4d9-6788fb3c9117",
+    "service_request_id": "c5faa1b4-b741-5c2c-b65f-28ac26800157",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-19T00:00:00+08:00"
+  },
+  {
+    "reply_id": "0772e182-759b-533a-9add-6dc4abc9c279",
+    "service_request_id": "c5faa1b4-b741-5c2c-b65f-28ac26800157",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-19T00:00:00+08:00"
+  },
+  {
+    "reply_id": "76cb83e3-607a-5365-8e49-b8c6f723c543",
+    "service_request_id": "170eff0f-ca5d-5aad-a7e1-10508644d5c0",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-22T23:00:00+08:00"
+  },
+  {
+    "reply_id": "c45549d6-196e-5dc8-8e9c-b1e41aa2fce1",
+    "service_request_id": "170eff0f-ca5d-5aad-a7e1-10508644d5c0",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-22T23:00:00+08:00"
+  },
+  {
+    "reply_id": "e8245a8e-9f2d-5fe1-a11d-e632e176c27c",
+    "service_request_id": "db2c6896-1112-5172-82ea-229d449c4a54",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-17T14:00:00+08:00"
+  },
+  {
+    "reply_id": "27c2c13c-0f1b-5c3a-bf3e-7354a4a0616d",
+    "service_request_id": "90f2fccb-8d76-5771-8a92-02dd0cf142c6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-25T12:00:00+08:00"
+  },
+  {
+    "reply_id": "3f67fc89-dc12-5a55-a39c-7c9d8044b491",
+    "service_request_id": "51f4844b-342c-540e-ae02-37c07c1e85f8",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-25T11:00:00+08:00"
+  },
+  {
+    "reply_id": "bbf84062-5403-5cbf-a76f-e175ab9fd807",
+    "service_request_id": "b6e554d3-486e-532a-8fd9-b1b69fdea90e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-23T12:00:00+08:00"
+  },
+  {
+    "reply_id": "e531eb02-b811-533d-800d-1113722b29e6",
+    "service_request_id": "c30096cd-5b2e-539e-9be1-72fae6c78c36",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-01T02:00:00+08:00"
+  },
+  {
+    "reply_id": "0dc2f648-49b0-5460-bc52-c1a774b1b180",
+    "service_request_id": "d64ba2f4-463a-5314-b53c-b2d5c4349172",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-30T08:00:00+08:00"
+  },
+  {
+    "reply_id": "1693d1f6-9891-5e35-8f38-cdf0a3a0dc23",
+    "service_request_id": "d64ba2f4-463a-5314-b53c-b2d5c4349172",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-30T08:00:00+08:00"
+  },
+  {
+    "reply_id": "55ae3c83-ab9e-5bd9-a24d-3ff06d8390f7",
+    "service_request_id": "9b365611-e1c1-577d-99af-ee15e043471a",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-01T08:00:00+08:00"
+  },
+  {
+    "reply_id": "865e3e67-509f-5f73-b0b2-d50d652ddcf9",
+    "service_request_id": "0c592db6-a7de-5624-9d6c-65decfa0461d",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-27T21:00:00+08:00"
+  },
+  {
+    "reply_id": "07a61e81-90e3-5207-aa09-0017d3960efb",
+    "service_request_id": "0c592db6-a7de-5624-9d6c-65decfa0461d",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-27T21:00:00+08:00"
+  },
+  {
+    "reply_id": "4d931c21-2acb-5ae1-9dc9-d9d9905a37c5",
+    "service_request_id": "3b3a5cf1-8eae-5837-9f15-a5f49f42d557",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-26T20:00:00+08:00"
+  },
+  {
+    "reply_id": "7d1bc5f9-25aa-5c73-9d98-28ec90f7b12e",
+    "service_request_id": "8bc85113-c753-544d-aa19-63bb4c716ff8",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-18T13:00:00+08:00"
+  },
+  {
+    "reply_id": "17390196-0575-56d7-b9b2-82ab85fdd122",
+    "service_request_id": "980cac0c-e6d3-5fdf-9d27-063eabb40f30",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "3e2ff492-f243-55ef-9fae-38414d1af82b",
+    "service_request_id": "a07356b2-b8df-56a9-bdb8-f38e1fb91af0",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-18T20:00:00+08:00"
+  },
+  {
+    "reply_id": "f5e67662-b939-5f77-bc9d-8aeae0a3eacc",
+    "service_request_id": "feb78358-bda1-5aed-a9ed-867fb3e0bcdd",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-31T18:00:00+08:00"
+  },
+  {
+    "reply_id": "ba23e196-92a9-54b4-b75f-d311c2554f82",
+    "service_request_id": "7d43b308-d56b-551c-91e1-1cae774682e6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-23T11:00:00+08:00"
+  },
+  {
+    "reply_id": "1aeec71d-cc17-5f38-96fa-5400e37357ed",
+    "service_request_id": "e5fdfbb6-4022-560c-8179-17b019729404",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-19T18:00:00+08:00"
+  },
+  {
+    "reply_id": "1fc62b89-3170-5ae8-a2d2-34b13143e4b0",
+    "service_request_id": "93c9a6e0-e34f-5c09-9489-0987cf5ddb8a",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-13T21:00:00+08:00"
+  },
+  {
+    "reply_id": "fc36c10a-1cec-5b2a-8a1b-f2bda83668b6",
+    "service_request_id": "93c9a6e0-e34f-5c09-9489-0987cf5ddb8a",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-13T21:00:00+08:00"
+  },
+  {
+    "reply_id": "cf4268d4-dbe9-5d33-b453-9c7fbbff4f9f",
+    "service_request_id": "78826583-d136-5f16-b124-910c1b8b53fd",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-13T09:00:00+08:00"
+  },
+  {
+    "reply_id": "b57a9a6d-5eac-5831-b08d-e1b05d1aeb3e",
+    "service_request_id": "d6fc5f7f-6049-5422-84fb-b2db3a01d90e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-08-01T10:00:00+08:00"
+  },
+  {
+    "reply_id": "75e659dd-e054-5085-90ed-1eea96073147",
+    "service_request_id": "62b2c4d2-5581-5924-9932-f5eaac0c2a3c",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T01:00:00+08:00"
+  },
+  {
+    "reply_id": "7b2a589c-2274-57ad-9007-bd1ccc3a57f5",
+    "service_request_id": "0123939f-a25d-5b6f-a6ad-c8a64644d56a",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-29T23:00:00+08:00"
+  },
+  {
+    "reply_id": "86cacc32-525e-5bc8-b407-e8b53fe2b5f1",
+    "service_request_id": "0123939f-a25d-5b6f-a6ad-c8a64644d56a",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-29T23:00:00+08:00"
+  },
+  {
+    "reply_id": "1a1e8dfa-335d-5bf0-abb7-c5a2d73cf0b7",
+    "service_request_id": "611839f4-157f-5c1f-a87a-52e0ca338d42",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-23T04:00:00+08:00"
+  },
+  {
+    "reply_id": "c940a3e2-80f2-54fa-937d-48ac1097810e",
+    "service_request_id": "611839f4-157f-5c1f-a87a-52e0ca338d42",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-23T04:00:00+08:00"
+  },
+  {
+    "reply_id": "62241bc0-76e6-59e2-8276-b06b0044f8fe",
+    "service_request_id": "0054a1ac-a2ac-54e8-bca3-0187670b8366",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-20T19:00:00+08:00"
+  },
+  {
+    "reply_id": "ef27323a-dc2d-58cf-b57f-eaa34fc0ddcc",
+    "service_request_id": "31013269-9e4c-5570-804b-3a248c18fed4",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-24T22:00:00+08:00"
+  },
+  {
+    "reply_id": "3f1301ad-94ce-533d-ba6b-f99d108857bd",
+    "service_request_id": "31013269-9e4c-5570-804b-3a248c18fed4",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-24T22:00:00+08:00"
+  },
+  {
+    "reply_id": "9472c009-03b5-5d26-ad9f-c5cca65145bd",
+    "service_request_id": "acea205c-39bc-5845-aecb-51483f0f8f7c",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-28T20:00:00+08:00"
+  },
+  {
+    "reply_id": "e4764b79-9ca5-5d73-964a-ea7eca9d04df",
+    "service_request_id": "d66d83fd-5b7f-5ca6-bc60-7ea9dcb74a4f",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "4f67d8e0-f8c9-5cb7-a9e4-a031791bcdf2",
+    "service_request_id": "d66d83fd-5b7f-5ca6-bc60-7ea9dcb74a4f",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "b0ae0cda-2d7a-54c1-a670-d8df086f0622",
+    "service_request_id": "b9dfd00f-e62a-55f6-9e4c-f1cccd9f7055",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-21T19:00:00+08:00"
+  },
+  {
+    "reply_id": "d513a15d-c813-5ac0-a5ee-13e05a4f6eaf",
+    "service_request_id": "b9dfd00f-e62a-55f6-9e4c-f1cccd9f7055",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-21T19:00:00+08:00"
+  },
+  {
+    "reply_id": "56da4b83-8cea-55fc-85a1-6e019a553dab",
+    "service_request_id": "d79a5fcb-bc40-565a-b105-47ba85e89b21",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-20T03:00:00+08:00"
+  },
+  {
+    "reply_id": "7bd31175-8dcd-54bf-b1d8-96e06ef6cec0",
+    "service_request_id": "d9378596-9a06-539d-bf9e-94954eb32220",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-21T01:00:00+08:00"
+  },
+  {
+    "reply_id": "57c43c39-73e9-5c32-8494-746126e2d314",
+    "service_request_id": "38e2762f-9274-547e-9e99-0f607df7eaea",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-22T03:00:00+08:00"
+  },
+  {
+    "reply_id": "da990ab1-b0ab-58ac-83c3-fea274b78fce",
+    "service_request_id": "8ba8af07-c76c-54cf-a355-11ba0e8fd806",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-20T20:00:00+08:00"
+  },
+  {
+    "reply_id": "346c89e1-cba9-5eab-9465-8fa034a9a6cc",
+    "service_request_id": "c314aae0-1ae5-58f0-a686-2397e95533c6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-26T09:00:00+08:00"
+  },
+  {
+    "reply_id": "f91c317d-d70e-5673-9548-5f015c3e67a8",
+    "service_request_id": "c314aae0-1ae5-58f0-a686-2397e95533c6",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-26T09:00:00+08:00"
+  },
+  {
+    "reply_id": "bdb59b8d-a501-5217-b20d-cfa44a7da82c",
+    "service_request_id": "5a22b47c-ed8f-5c0e-842b-431f4c8ba18b",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-25T16:00:00+08:00"
+  },
+  {
+    "reply_id": "5eb3ed29-9c43-54f2-ab9a-41c854a49ff1",
+    "service_request_id": "2e42dd49-7c7f-5051-86eb-d6f82c2bf093",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-26T12:00:00+08:00"
+  },
+  {
+    "reply_id": "b71a28ee-5483-52c7-b744-2a88f7a142a2",
+    "service_request_id": "dde2ab38-9af6-51c8-9520-d08b01660a77",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-18T14:00:00+08:00"
+  },
+  {
+    "reply_id": "1c5057b5-087d-57dc-82d2-a5c9b07c6c48",
+    "service_request_id": "857ca3d1-fd37-5e2e-a0e4-d627e237b99f",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-24T21:00:00+08:00"
+  },
+  {
+    "reply_id": "b235b028-314b-5458-be9e-68e4a1357743",
+    "service_request_id": "4578797f-f223-54d6-be51-8d10ef7175f6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-13T14:00:00+08:00"
+  },
+  {
+    "reply_id": "f3707b84-c518-5113-8804-2441648e3b75",
+    "service_request_id": "2baca0ee-bb3c-587a-ba49-1da862b5810e",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-22T16:00:00+08:00"
+  },
+  {
+    "reply_id": "0f2ef8b0-a26c-50c3-88f3-75aefdc77842",
+    "service_request_id": "2baca0ee-bb3c-587a-ba49-1da862b5810e",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-22T16:00:00+08:00"
+  },
+  {
+    "reply_id": "89b69a5c-e7f4-5987-89ae-5ffdc0806906",
+    "service_request_id": "bcee7ea2-2cc6-5a0a-8253-52b5723db426",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-27T16:00:00+08:00"
+  },
+  {
+    "reply_id": "ebeb5d4b-9ec8-5826-9401-adc19e7f4e4e",
+    "service_request_id": "4f477c0d-e341-56d3-811e-e2bfc0614a0d",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-19T17:00:00+08:00"
+  },
+  {
+    "reply_id": "2d0ef99d-803f-594b-a7f0-8adca5d659df",
+    "service_request_id": "4f477c0d-e341-56d3-811e-e2bfc0614a0d",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-19T17:00:00+08:00"
+  },
+  {
+    "reply_id": "47c5a56d-d90c-58a4-9e4c-e077f36ba28d",
+    "service_request_id": "f949ae39-85b9-5c5b-b5c3-5b793a214252",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-18T05:00:00+08:00"
+  },
+  {
+    "reply_id": "b82f5ad1-4142-5a45-81d2-e7f3278a2946",
+    "service_request_id": "49cc2dcf-98f4-5491-a0ac-fed97b1a1ec6",
+    "provider_id": "80c28b12-6524-5caa-a156-b33e887ca457",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-29T10:00:00+08:00"
+  },
+  {
+    "reply_id": "3bf9483b-e149-5a41-8d12-98a2fabb1ab6",
+    "service_request_id": "49cc2dcf-98f4-5491-a0ac-fed97b1a1ec6",
+    "provider_id": "5552b48b-3cf0-5f8a-bec6-a5abc5c37566",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-29T10:00:00+08:00"
+  },
+  {
+    "reply_id": "5ba54de5-ec01-53d5-a640-866ba0776974",
+    "service_request_id": "a5501b0e-8152-5ac3-873d-8f6817969860",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-19T02:00:00+08:00"
+  },
+  {
+    "reply_id": "4a10ada9-e725-54fd-87fd-2b45036f1af5",
+    "service_request_id": "c15c5f05-0d77-5b1f-92d1-48801b486424",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-01T10:00:00+08:00"
+  },
+  {
+    "reply_id": "c827262d-b08d-5c85-86ee-7e947944b457",
+    "service_request_id": "1cb573f0-8240-58dd-b76f-f88ea16c00a6",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-14T06:00:00+08:00"
+  },
+  {
+    "reply_id": "7973279c-0797-5be4-9760-eb2ff833df6b",
+    "service_request_id": "be3ba254-acf5-51c7-936e-241a8fbe8efe",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-26T11:00:00+08:00"
+  },
+  {
+    "reply_id": "f0821b72-098f-51da-ab9a-b8c287373958",
+    "service_request_id": "13062480-d5cc-5d7a-ad65-bb5373d9e139",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-31T05:00:00+08:00"
+  },
+  {
+    "reply_id": "de765bd7-036f-526b-85b6-a39faff71b25",
+    "service_request_id": "da0cb094-f99b-58a6-8a8f-caf30c7fb448",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-14T17:00:00+08:00"
+  },
+  {
+    "reply_id": "1a7ea62e-b35b-591d-b2bc-b7dd0e5bb69e",
+    "service_request_id": "93282df2-7356-5c94-be74-afebcf58f32a",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-25T02:00:00+08:00"
+  },
+  {
+    "reply_id": "aedc77ec-f0ee-5608-a3c6-d49e472d033c",
+    "service_request_id": "49fe71cd-06dc-558a-8b64-b054ed36ab38",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-22T18:00:00+08:00"
+  },
+  {
+    "reply_id": "01f1fc93-0ff9-58a9-a6bf-7624cbd010a9",
+    "service_request_id": "176424da-81b3-524a-ae92-c9dfaa14259e",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-01T05:00:00+08:00"
+  },
+  {
+    "reply_id": "25cadf9f-f7c0-54ea-b6fd-ea4e827b4a88",
+    "service_request_id": "c81926ea-ed3e-54c8-9f9e-44d31b289cf3",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T13:00:00+08:00"
+  },
+  {
+    "reply_id": "cb4e85e9-19bf-5979-8288-12de264493f3",
+    "service_request_id": "9efb0df0-d75c-5037-9f08-44881378bd49",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-17T15:00:00+08:00"
+  },
+  {
+    "reply_id": "d446f116-f3b0-5b72-8eab-ca0ae90ee03b",
+    "service_request_id": "7803df35-02fa-5552-b19b-0b861d5a1559",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-15T07:00:00+08:00"
+  },
+  {
+    "reply_id": "70ac72f9-8910-54d6-8697-e769b47cca46",
+    "service_request_id": "a08b3919-be09-5c5c-9fa7-4e19bc0e7054",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-16T08:00:00+08:00"
+  },
+  {
+    "reply_id": "15f46d48-d58a-59c9-9129-1e28d2b230d3",
+    "service_request_id": "305ce80d-5249-5c5e-b89a-ca92e4f29d2d",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T11:00:00+08:00"
+  },
+  {
+    "reply_id": "41361b2e-2c48-5307-a0c3-ee6eea3b06cc",
+    "service_request_id": "6472d284-1d09-5a39-864b-9037540bb0e2",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-30T02:00:00+08:00"
+  },
+  {
+    "reply_id": "84c77a57-30ed-512c-acf2-a0e46a9f7692",
+    "service_request_id": "3d3a33ac-7f5b-5368-bfa0-79f371171f53",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-15T13:00:00+08:00"
+  },
+  {
+    "reply_id": "f620ad90-15b4-5f17-b629-2e204144749b",
+    "service_request_id": "62f17d17-ce41-509a-a641-519828bae8ac",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-22T16:00:00+08:00"
+  },
+  {
+    "reply_id": "60d2940f-aab0-5600-8a50-f6ff01956462",
+    "service_request_id": "4f7fe243-7a5c-5315-a228-68b30149ab7a",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-08-02T08:00:00+08:00"
+  },
+  {
+    "reply_id": "e5875339-b4ed-5c4e-9036-2c210899d25c",
+    "service_request_id": "ae361b84-f6ba-5334-a5c9-c8bb04b1f3da",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-22T08:00:00+08:00"
+  },
+  {
+    "reply_id": "21c5c173-ef0a-580e-b349-36c038247611",
+    "service_request_id": "cc8fce8e-5d3e-549f-8f5c-84391b2f8964",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-31T02:00:00+08:00"
+  },
+  {
+    "reply_id": "14820483-a97b-52e1-bea2-13f5aea0a27a",
+    "service_request_id": "f9ad2cc6-a892-573d-abcf-0cb0c3208ef6",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-23T16:00:00+08:00"
+  },
+  {
+    "reply_id": "08d0ff31-c14a-5272-9b4b-0251c6c39d34",
+    "service_request_id": "f9ad2cc6-a892-573d-abcf-0cb0c3208ef6",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-23T16:00:00+08:00"
+  },
+  {
+    "reply_id": "e251430d-f4e2-5a4b-9d7e-4f35b4ba0980",
+    "service_request_id": "34ae1a96-47c1-592a-bc68-db73b0174910",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-24T19:00:00+08:00"
+  },
+  {
+    "reply_id": "377e70b8-4bae-51d2-a708-aa322271b364",
+    "service_request_id": "434e4628-eece-557a-bdb3-5885e0b1394b",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-15T21:00:00+08:00"
+  },
+  {
+    "reply_id": "b8a61e0b-66e2-554f-b219-7e2b37975818",
+    "service_request_id": "66079f72-b7b9-53e0-a7df-68528f253afd",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-27T21:00:00+08:00"
+  },
+  {
+    "reply_id": "16fb4750-4b0d-5769-be6f-dce7b698505d",
+    "service_request_id": "29685bc8-09c3-50ec-9f37-f4d69be85868",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-20T17:00:00+08:00"
+  },
+  {
+    "reply_id": "12c41163-b1dc-55a7-887a-66c1b9e2bdc6",
+    "service_request_id": "a59df70b-c448-57f5-a75c-8f4e142084c7",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-22T05:00:00+08:00"
+  },
+  {
+    "reply_id": "eb30cc7f-c372-523f-a686-e4499e629aad",
+    "service_request_id": "d4d7e1cb-8cb6-5870-99e3-e6beb1281f1c",
+    "provider_id": "c3bc5b8b-7ee2-5281-87e2-da549ada2eb2",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-26T16:00:00+08:00"
+  },
+  {
+    "reply_id": "21d25d72-a618-56d4-98e7-84819de84c2c",
+    "service_request_id": "fe8dbf83-b61f-55b2-8462-8c05c62362a1",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-01T23:00:00+08:00"
+  },
+  {
+    "reply_id": "8ea26ef0-d907-5ab9-86e0-b66f5fd536a9",
+    "service_request_id": "1f86bc28-b232-5935-bed4-38876685744f",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-08-03T06:00:00+08:00"
+  },
+  {
+    "reply_id": "bce9aa04-1f02-59c2-a7eb-1873113d2d63",
+    "service_request_id": "0cec1e29-f420-5ad1-be24-c22aa32ee80f",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-17T02:00:00+08:00"
+  },
+  {
+    "reply_id": "30b46db2-b80c-5f30-a21b-adbb52520c3f",
+    "service_request_id": "aa7aa92f-558d-5f5c-8332-bc8a99ad0373",
+    "provider_id": "8ad1c3dd-1e82-5934-9a5a-41abef326f4b",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-02T12:00:00+08:00"
+  },
+  {
+    "reply_id": "b13653f5-4013-5ece-8e7d-4880a391014e",
+    "service_request_id": "e9f7cdad-4a14-5db4-9097-94c2430a0bb9",
+    "provider_id": "b7b755e7-8bea-5e5d-94bf-f9c0b28bc308",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-16T15:00:00+08:00"
+  },
+  {
+    "reply_id": "734959dd-f3f8-5f5d-a3b2-aefa2c3bbb54",
+    "service_request_id": "92dfa478-6291-5f05-b6b5-905857d44e7c",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-22T16:00:00+08:00"
+  },
+  {
+    "reply_id": "90d78b71-7462-57e0-be2c-20b203f19972",
+    "service_request_id": "87f4f14d-fd48-5a71-83f3-1781de2cb27b",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-20T18:00:00+08:00"
+  },
+  {
+    "reply_id": "f7c02307-0598-572f-adf6-88b98b4575a0",
+    "service_request_id": "7787d3d6-1c32-5cb1-b788-6514a7c63c42",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-31T14:00:00+08:00"
+  },
+  {
+    "reply_id": "14f21d4e-9066-57c7-9eef-d469cbccbbac",
+    "service_request_id": "e053699a-96c5-58da-8a8e-25e53e7a72cf",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T12:00:00+08:00"
+  },
+  {
+    "reply_id": "b050881e-eafb-5acb-9656-669a1b6048f0",
+    "service_request_id": "20676d20-0dd8-5423-957f-411a7cb5c64c",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-31T16:00:00+08:00"
+  },
+  {
+    "reply_id": "90b023f5-00b6-59f6-8102-dacddd6932bb",
+    "service_request_id": "1e90ff7c-5abf-5a9e-99d6-8fef0ef8896e",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-22T21:00:00+08:00"
+  },
+  {
+    "reply_id": "fd1fd851-0281-5bcc-b0d4-caec9df3c43a",
+    "service_request_id": "147bd750-eaa7-51a7-ac49-80a63be0aac0",
+    "provider_id": "f000cd9a-0d7e-5f60-94d7-a20c2544c86b",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-31T01:00:00+08:00"
+  },
+  {
+    "reply_id": "5e72d80e-a4c4-5642-a7aa-c3ace5c2f57e",
+    "service_request_id": "0ee5711a-1b07-5e4f-8d07-861c11551bc4",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T05:00:00+08:00"
+  },
+  {
+    "reply_id": "d9e92221-448a-52b9-b615-404e3722eba8",
+    "service_request_id": "aa0d84ca-8143-580e-9e27-e6eabb9cd621",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-14T12:00:00+08:00"
+  },
+  {
+    "reply_id": "6c2742dd-6477-52f7-9819-dc3e8c6e1c92",
+    "service_request_id": "7ed03a7b-a1aa-52b9-83cb-347f316a76c0",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-03T03:00:00+08:00"
+  },
+  {
+    "reply_id": "f49533c7-fc46-5b08-ae65-f0c9f5fc6456",
+    "service_request_id": "d619e48b-34aa-5678-b825-298a803a1b48",
+    "provider_id": "58a376a1-7e9b-54d5-b0c2-c6d0764843e6",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T00:00:00+08:00"
+  },
+  {
+    "reply_id": "b21a1221-28c2-52f0-8b0a-6b7dcf170d02",
+    "service_request_id": "0d53fc6d-9cf4-5612-b4d5-f3b01dc9f1e7",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-20T12:00:00+08:00"
+  },
+  {
+    "reply_id": "45051486-d8d4-5359-992c-2c4a1e566f31",
+    "service_request_id": "3afa50c0-3cb1-594a-a395-4f5aa60b4f68",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-08-01T20:00:00+08:00"
+  },
+  {
+    "reply_id": "6e2ef535-9e2f-5eec-bd52-7d10e2db241f",
+    "service_request_id": "2253b9b3-7c98-5047-84a2-c76967734e39",
+    "provider_id": "db4b1e9a-5a1d-57d4-81ea-bfe8977c8f60",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-22T04:00:00+08:00"
+  },
+  {
+    "reply_id": "49245946-eda8-5ba0-a7fd-95ed5e854a34",
+    "service_request_id": "93ee06c5-c4df-52d1-b74e-ae17dd70d2b9",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-08-01T00:00:00+08:00"
+  },
+  {
+    "reply_id": "6d3aaad9-49bc-55ea-ad67-4afd1353630b",
+    "service_request_id": "5dac2ef1-d36d-5ffc-b818-d67f9b8358ec",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-27T21:00:00+08:00"
+  },
+  {
+    "reply_id": "7edaff3a-2f9d-5e86-8846-f4a86441f6a1",
+    "service_request_id": "5c416f71-e130-547f-80a1-9807d0c76f1f",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-28T04:00:00+08:00"
+  },
+  {
+    "reply_id": "c7da1e87-40f6-5c3e-88c2-253dc7a4a35d",
+    "service_request_id": "b7b56fba-cc04-5e23-94ed-1801640845ee",
+    "provider_id": "d18f2727-ca0a-56a7-9d19-78878a9243d8",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-17T10:00:00+08:00"
+  },
+  {
+    "reply_id": "4e689598-05cb-572d-b942-a2fc28f04160",
+    "service_request_id": "1d1131ec-25e7-5ca3-a24e-e2bf89ad30a6",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-19T14:00:00+08:00"
+  },
+  {
+    "reply_id": "32a59961-7d29-53e6-adb9-d5dd23c5e08c",
+    "service_request_id": "61e449d0-ba7f-59da-ba8e-4166fac150e2",
+    "provider_id": "a69dc529-6221-5f3a-b723-16b03ad15ab0",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-25T23:00:00+08:00"
+  },
+  {
+    "reply_id": "99e5a8b5-f116-52f9-a26c-3ddcb335b0fc",
+    "service_request_id": "cdcc4e15-208e-5da6-944e-c85a5f3a9564",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-21T21:00:00+08:00"
+  },
+  {
+    "reply_id": "80bd899b-f88d-52e9-83ae-49fb71e4b0ca",
+    "service_request_id": "55e091d4-01e8-5aff-8ab4-2858ad77f518",
+    "provider_id": "49e17f21-231f-5761-bffd-5885df1622a6",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-28T07:00:00+08:00"
+  },
+  {
+    "reply_id": "627e3fc8-5dbf-5d00-91c0-ef3d81565fd6",
+    "service_request_id": "6c4bb604-b452-5c14-a9c3-807297e11d48",
+    "provider_id": "d4b8a9bd-b384-5b98-9543-bbc03a6e467e",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-15T18:00:00+08:00"
+  },
+  {
+    "reply_id": "c0dd2f90-574a-5a53-a3c2-204e40d1f000",
+    "service_request_id": "c6b4e307-fc9f-545e-85cf-7abdc541ed25",
+    "provider_id": "55407ddd-1dcf-58a0-a961-40ea3e2d28a8",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-18T20:00:00+08:00"
+  },
+  {
+    "reply_id": "15b2e60f-2494-579b-b207-6be5ee1fc0ae",
+    "service_request_id": "ab959a6f-7ff3-5ede-a117-bfbe7ec6d7b6",
+    "provider_id": "bf152b7d-3865-53a7-b0b1-6543eedb352f",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-14T21:00:00+08:00"
+  },
+  {
+    "reply_id": "77c96f7f-ff9e-58e8-a1da-f7fedd1d85c9",
+    "service_request_id": "eee06605-60cd-5ac6-88ea-6224531dea75",
+    "provider_id": "41d7ec07-7e6a-5706-ae58-8be5285381e6",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-26T14:00:00+08:00"
+  },
+  {
+    "reply_id": "30f60adf-cacd-53d2-9119-758c6c0b3494",
+    "service_request_id": "e2e6e6d3-ce65-5dc4-bd43-74e8b6b62282",
+    "provider_id": "aacaa4be-e9ff-59a9-a62d-7250b30e5906",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-25T14:00:00+08:00"
+  },
+  {
+    "reply_id": "2624c5b3-bda3-516a-ac9b-2fd693fcd667",
+    "service_request_id": "cab99609-c401-5885-b1c3-2e291f2b44b1",
+    "provider_id": "acddb6e1-73c8-517e-adaa-797553958e36",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-27T23:00:00+08:00"
+  },
+  {
+    "reply_id": "b8ed179d-1435-5177-b63a-282b79ec392a",
+    "service_request_id": "be3796cf-448e-5df3-bfa7-0576a3cb4210",
+    "provider_id": "0fba0329-4fc0-56e1-adcb-e9f71ebe89cb",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-23T05:00:00+08:00"
+  },
+  {
+    "reply_id": "727358ff-b871-5dd1-a175-4733d07badae",
+    "service_request_id": "d3b073fd-16aa-5ff8-81b2-a2f09de5621c",
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T05:00:00+08:00"
+  },
+  {
+    "reply_id": "cf1c2ac6-5438-5c26-869a-7a75dde2fedb",
+    "service_request_id": "6f46a517-376f-5fbd-8074-68c6769e1dcd",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-24T20:00:00+08:00"
+  },
+  {
+    "reply_id": "14e586bb-2be2-5954-91bb-b0b6c30fed4e",
+    "service_request_id": "6f46a517-376f-5fbd-8074-68c6769e1dcd",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-24T20:00:00+08:00"
+  },
+  {
+    "reply_id": "6230be0e-09a7-58a9-b630-7f401f3e9a66",
+    "service_request_id": "821bcbad-529a-5e26-8e80-3c3975e26cbd",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-24T21:00:00+08:00"
+  },
+  {
+    "reply_id": "794210a1-5b67-5fb3-a5c4-8d053efc6e72",
+    "service_request_id": "a80c10b0-7c83-544d-9b97-12dd856a26c3",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-25T18:00:00+08:00"
+  },
+  {
+    "reply_id": "7636b2af-a6fd-5c03-956e-a8775987d259",
+    "service_request_id": "ed65e132-380e-5fa8-8db9-a4b99259d5de",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-31T11:00:00+08:00"
+  },
+  {
+    "reply_id": "6b71fa3d-f2a1-5cf7-90c9-c144c967b1e1",
+    "service_request_id": "5366363b-973c-5fb7-afdd-5b5f0ab502c9",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-31T02:00:00+08:00"
+  },
+  {
+    "reply_id": "5729bd72-8991-5451-9e4f-6e62625841a3",
+    "service_request_id": "dbda1ca4-163b-5849-8cae-cf23d89db56b",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-14T14:00:00+08:00"
+  },
+  {
+    "reply_id": "43e87d78-eb98-55df-b056-8b078a8896b9",
+    "service_request_id": "d51c97c5-7124-5eea-baa9-89430f753b54",
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-30T19:00:00+08:00"
+  },
+  {
+    "reply_id": "550e2f28-f90f-598b-b2e5-751da7dbf688",
+    "service_request_id": "f5e717cb-2591-5911-a6f5-6e69b795714f",
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-19T03:00:00+08:00"
+  },
+  {
+    "reply_id": "bd30e703-f672-58b7-943a-c2511bc8fb67",
+    "service_request_id": "41b48ead-67ae-5616-a7b9-0ac525e22467",
+    "provider_id": "5e631146-26ba-535a-8ad4-4e5501d120ef",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-31T07:00:00+08:00"
+  },
+  {
+    "reply_id": "6429a8b9-eff9-589f-aaba-fe4750cd1808",
+    "service_request_id": "8832fcec-ac5b-53d9-ac6f-dbd09c4e5004",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-08-04T03:00:00+08:00"
+  },
+  {
+    "reply_id": "49f73615-7da6-52f5-8ba2-75d046bed788",
+    "service_request_id": "60459fba-1ab8-5cd5-9b8c-42889b68850b",
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-20T05:00:00+08:00"
+  },
+  {
+    "reply_id": "ea20b0bd-6127-54d6-9c8c-7d893b55e0b7",
+    "service_request_id": "2c279e4c-2742-559a-8541-4d85951a021c",
+    "provider_id": "5abfbae5-d126-5350-82a7-eab6458690d2",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-26T05:00:00+08:00"
+  },
+  {
+    "reply_id": "6447e9d9-dfc8-5de1-b73a-86320e4a4fdf",
+    "service_request_id": "0519bb2e-d5a8-5ca8-a0ae-8e5d19def265",
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-08-03T01:00:00+08:00"
+  },
+  {
+    "reply_id": "359cce8e-20db-5ad0-848b-44c33e77165c",
+    "service_request_id": "532a9a40-c5e9-5528-99ce-bbd69140745d",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-18T05:00:00+08:00"
+  },
+  {
+    "reply_id": "a6131d4c-96ff-5d34-9eb5-34655104be4f",
+    "service_request_id": "1b8c87f9-3cc7-5681-a2cf-ede7d2f1f768",
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-17T18:00:00+08:00"
+  },
+  {
+    "reply_id": "47afe21e-2346-5605-b32e-6081872777dc",
+    "service_request_id": "913aaf36-83b0-5d34-8aa6-f34b4918cd6f",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-21T19:00:00+08:00"
+  },
+  {
+    "reply_id": "8fa377a3-e179-5ab2-a56a-7ff90860cb98",
+    "service_request_id": "67cd5a65-0025-5db5-a102-3e694ec6fb57",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T07:00:00+08:00"
+  },
+  {
+    "reply_id": "49cc4aa4-4d48-5395-9385-51dfd83f399c",
+    "service_request_id": "b2fa9765-d302-5c06-b1d7-aee60b03ac58",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-22T11:00:00+08:00"
+  },
+  {
+    "reply_id": "2ef7efde-9768-5cea-991f-8bc973d6c7a4",
+    "service_request_id": "01fef7e5-9820-5db8-8e07-1cdf3415977d",
+    "provider_id": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-28T02:00:00+08:00"
+  },
+  {
+    "reply_id": "c595ae0d-f133-532b-ac06-3a40a9331a52",
+    "service_request_id": "15687bc4-a4dd-5298-91fb-3f6826b177e2",
+    "provider_id": "e42840ee-3d78-5b4e-869b-28c1675e7bdb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-01T23:00:00+08:00"
+  },
+  {
+    "reply_id": "d2c42ea2-3e3e-51ec-b2f6-412038da069a",
+    "service_request_id": "4c4564dd-9494-554b-a9fd-86496fa370a9",
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-16T18:00:00+08:00"
+  },
+  {
+    "reply_id": "1c5f6789-74b7-514c-93a7-bc4908217cd0",
+    "service_request_id": "8a76a3b1-5e8e-549f-8dfc-e51f7b8c19b4",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-23T05:00:00+08:00"
+  },
+  {
+    "reply_id": "8e249a28-9e86-5095-83e0-e9db90401a49",
+    "service_request_id": "4afb6e00-95a8-5d3e-abb7-c11f46e943fa",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-15T10:00:00+08:00"
+  },
+  {
+    "reply_id": "f6822cc4-26f6-5f1e-a6d5-28b107b6320b",
+    "service_request_id": "023c4678-5209-5e47-86d7-fff3aedaf21f",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-23T07:00:00+08:00"
+  },
+  {
+    "reply_id": "bb75108b-5ae9-5c71-8d42-f3655208b428",
+    "service_request_id": "8c8c6b49-64d2-565c-be31-2797bc3b8278",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-24T17:00:00+08:00"
+  },
+  {
+    "reply_id": "e93e2a36-ffe3-576c-b326-9412e0df5b62",
+    "service_request_id": "d55480fe-c6da-5f3b-84e8-a501f465f592",
+    "provider_id": "850328e3-1902-5aac-8cf8-02386e70245a",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-17T09:00:00+08:00"
+  },
+  {
+    "reply_id": "af1327ee-2232-5c9a-9679-17e622964d39",
+    "service_request_id": "3861d7da-3aca-50e5-9f35-89180e57e00a",
+    "provider_id": "4613f6aa-fe39-5696-ac3e-7a7f22602c03",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-24T15:00:00+08:00"
+  },
+  {
+    "reply_id": "85fdec18-00f3-5c36-8204-91271e14fbbe",
+    "service_request_id": "592cc91b-d1d4-5ec4-93d9-3c355959cea7",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-30T02:00:00+08:00"
+  },
+  {
+    "reply_id": "dc867140-1fe8-5b04-96f5-c61468c3ca3b",
+    "service_request_id": "2890472d-4a28-5c1a-8bf4-82bfce13b27b",
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-30T00:00:00+08:00"
+  },
+  {
+    "reply_id": "335b752c-db4b-51e8-8055-426e606db67f",
+    "service_request_id": "318d9bb0-d653-5827-9561-7704b8483e59",
+    "provider_id": "b37e1ddd-5b30-57bd-865c-7eba8ff05948",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-20T14:00:00+08:00"
+  },
+  {
+    "reply_id": "a0a6f50b-e61d-52e2-841b-3945ff514c14",
+    "service_request_id": "b5ce2f1c-0bc8-51ba-a71c-15a33b02e133",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-28T13:00:00+08:00"
+  },
+  {
+    "reply_id": "0bdd48c1-0fa1-552e-8dfb-9b82494fd0f4",
+    "service_request_id": "741bec0b-da6c-570e-ad83-7a2cd83ee260",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-16T02:00:00+08:00"
+  },
+  {
+    "reply_id": "a33a9008-8da8-5ae2-a1f0-aff7758ced1b",
+    "service_request_id": "60952841-f487-59f3-8dce-a756e79a68bb",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-18T18:00:00+08:00"
+  },
+  {
+    "reply_id": "ececc0a6-d140-5603-8225-a4c5c29b3011",
+    "service_request_id": "d528eb14-2049-5776-8827-3c6e1026fd55",
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-24T18:00:00+08:00"
+  },
+  {
+    "reply_id": "eae225e9-56a8-59ed-89a8-710fc000097b",
+    "service_request_id": "bed63d0a-f91c-591b-a2ae-8f87ca3712c0",
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-18T19:00:00+08:00"
+  },
+  {
+    "reply_id": "8aa2e33b-2900-508e-ad0d-0fa16937e826",
+    "service_request_id": "251d334e-fddc-5a26-9714-cc9a0efaddde",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-14T17:00:00+08:00"
+  },
+  {
+    "reply_id": "516182e5-acce-54ff-8b8c-40084af36930",
+    "service_request_id": "f90dabc7-795d-5e0f-9293-d3aeda28118e",
+    "provider_id": "dec79fba-4316-5950-b846-80a1b1fc3d8b",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "7e67a95a-0892-54b2-8781-86adad86a300",
+    "service_request_id": "ec5c2723-8886-58ab-8c83-97bcdf9f9d56",
+    "provider_id": "143b5027-ac62-563b-9d65-1334ca9ba364",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-18T14:00:00+08:00"
+  },
+  {
+    "reply_id": "221a9431-851c-5441-bf8a-5902b9b902b5",
+    "service_request_id": "ec5c2723-8886-58ab-8c83-97bcdf9f9d56",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "body": "很抱歉，該時段人力已滿，建議改約其他時段。",
+    "created_at": "2026-07-18T14:00:00+08:00"
+  },
+  {
+    "reply_id": "1a070515-9bc1-576f-bbf6-e6e81f7f31da",
+    "service_request_id": "e21f6c19-1c2b-51b0-8caf-79af90a8b93f",
+    "provider_id": "3098b0f9-b547-5c77-9af2-044311468d19",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-30T00:00:00+08:00"
+  },
+  {
+    "reply_id": "e61eda60-e587-5758-af90-c35ec23fb79a",
+    "service_request_id": "0d6ca0b0-b8dd-5117-8721-e8b2213a7e2a",
+    "provider_id": "d2e1cd19-19c5-56a9-b888-c8b519591da1",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T00:00:00+08:00"
+  },
+  {
+    "reply_id": "ea41867b-11b5-59ac-b005-b030a261cc34",
+    "service_request_id": "21a7452b-92e4-5186-92be-400a54cfbdd6",
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-16T13:00:00+08:00"
+  },
+  {
+    "reply_id": "15a8b831-8ad7-5364-8d51-7a8b417eefaa",
+    "service_request_id": "c841202b-f47e-59fa-9046-dc931aa73790",
+    "provider_id": "fe302f0e-1c09-5fe4-924c-e7dca84b8da5",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-08-03T10:00:00+08:00"
+  },
+  {
+    "reply_id": "89b62a46-a076-5ef0-98db-69809c341256",
+    "service_request_id": "4e3adc40-a612-5bf2-a040-da970661ef1a",
+    "provider_id": "0b3ebcad-8e3e-5e66-b1ae-69fb28f4f33b",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T09:00:00+08:00"
+  },
+  {
+    "reply_id": "67c00efd-20a0-5bfb-883c-c9574947306d",
+    "service_request_id": "75687ce8-15f4-5e3a-b08f-e10cad934c24",
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-15T22:00:00+08:00"
+  },
+  {
+    "reply_id": "350b7dbe-afa0-51cc-9756-5ca29ef72668",
+    "service_request_id": "e46a0364-65f4-55bf-a8a2-41e5b8ad5ba6",
+    "provider_id": "ac31e355-506e-5a27-aeff-f492bc29bec1",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-28T20:00:00+08:00"
+  },
+  {
+    "reply_id": "9e68b328-7740-5072-8fa0-34557e4c947b",
+    "service_request_id": "395a61d2-f8dd-5479-8dce-6983426cfa1f",
+    "provider_id": "800f8269-0fe5-5f2f-89c8-67893099f0ff",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T04:00:00+08:00"
+  },
+  {
+    "reply_id": "628079bc-dc9b-59f7-9977-e925c2797cd0",
+    "service_request_id": "ed8bd613-a09c-5fc9-bdd9-9b4eb2be9e7f",
+    "provider_id": "7826051d-6567-5451-ac6c-f492bad9e515",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-24T20:00:00+08:00"
+  },
+  {
+    "reply_id": "761bd379-782e-5615-ad32-cce9440989f6",
+    "service_request_id": "ed8bd613-a09c-5fc9-bdd9-9b4eb2be9e7f",
+    "provider_id": "0dbc11a0-6748-583a-a8f6-5e010018c144",
+    "body": "此案超出本公司服務範圍，建議改由專門廠商處理。",
+    "created_at": "2026-07-24T20:00:00+08:00"
+  },
+  {
+    "reply_id": "fe4e1526-e134-58c8-aec6-7754a424ae4c",
+    "service_request_id": "e12cf1cf-7f31-5373-bfdd-1589aaa8fe0b",
+    "provider_id": "31324fe0-9899-5382-8211-d0122c20bda0",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-25T15:00:00+08:00"
+  },
+  {
+    "reply_id": "3255886a-a657-5831-9165-f333344e1f14",
+    "service_request_id": "8cccbbd1-a9da-5028-a31f-02e66590f25d",
+    "provider_id": "76e06f16-d2c9-5466-9212-fd92cff1198f",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-23T21:00:00+08:00"
+  },
+  {
+    "reply_id": "20507201-4de9-5fdd-8309-959f7c6bda9e",
+    "service_request_id": "37ce4ab7-54f3-5eae-b51e-49f0b30711ea",
+    "provider_id": "f8ab6e3f-ca32-5d43-a339-851bfdc47c3c",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-31T04:00:00+08:00"
+  },
+  {
+    "reply_id": "0c4941bd-3a6e-5aa4-b7de-05ce37213b6f",
+    "service_request_id": "c51d0b32-2da4-521d-8ec5-e095ce111dce",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-19T02:00:00+08:00"
+  },
+  {
+    "reply_id": "bdb2133c-cd1c-5873-8c03-175430deac5a",
+    "service_request_id": "0f2cec8f-5182-5539-bf9c-776eeb7f70cf",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-27T22:00:00+08:00"
+  },
+  {
+    "reply_id": "3264ca01-74a5-5c45-ace4-1d76d56742f1",
+    "service_request_id": "77cfc470-3ff5-59c5-a441-aa39e6cb2489",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-08-01T20:00:00+08:00"
+  },
+  {
+    "reply_id": "c71c620b-de39-56f4-b2dd-3733ea9af0da",
+    "service_request_id": "6c4ff910-8625-5ea1-b69c-6996d7a7e2e3",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-23T00:00:00+08:00"
+  },
+  {
+    "reply_id": "f305c83a-b01f-52a8-9861-784db59a1b88",
+    "service_request_id": "03f0e1d7-05cf-51f5-a063-9ecf01f38372",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-14T17:00:00+08:00"
+  },
+  {
+    "reply_id": "4db421b9-e667-53aa-ba18-f8ce4c950bc5",
+    "service_request_id": "0886cf44-9ec6-53e8-99a7-f4e49e04d8cb",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-19T22:00:00+08:00"
+  },
+  {
+    "reply_id": "3c17f08e-3d78-5b29-9b04-b4048156c08a",
+    "service_request_id": "002bdd13-a565-5eb3-ab4c-01eaa8a913e6",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-26T23:00:00+08:00"
+  },
+  {
+    "reply_id": "2413f60f-bddd-5031-8168-5b0ade105687",
+    "service_request_id": "744e7b10-fd60-507a-8e35-9aef9da7cc9f",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-29T23:00:00+08:00"
+  },
+  {
+    "reply_id": "c1be32f6-6074-5212-85c7-8f6ccc05bc04",
+    "service_request_id": "b2b99b26-bca1-59d7-9538-d5e54421cdf9",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-16T06:00:00+08:00"
+  },
+  {
+    "reply_id": "c81288a9-3432-5ff9-bda4-05147bd75feb",
+    "service_request_id": "70032bba-1174-5ad1-bfa0-b66318fe0738",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-15T11:00:00+08:00"
+  },
+  {
+    "reply_id": "59203b56-12f1-532a-995f-9d50c8a9bdf6",
+    "service_request_id": "45823d67-055d-520b-9d8f-44714404b9b3",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-27T21:00:00+08:00"
+  },
+  {
+    "reply_id": "e9466f88-a18c-55fa-a3ed-f1aa55308b59",
+    "service_request_id": "a3440cbb-afbf-571d-b16e-cf97bb62c11e",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-24T21:00:00+08:00"
+  },
+  {
+    "reply_id": "0ce35c78-0026-59f9-a3b3-1282370ed854",
+    "service_request_id": "69ef9c20-58d7-5f73-9475-493d9993f55d",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-28T12:00:00+08:00"
+  },
+  {
+    "reply_id": "2a465ba2-463c-5616-bebe-035c8805f0e6",
+    "service_request_id": "40474c96-3aa5-5971-9487-a5b3a1c85a57",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-29T09:00:00+08:00"
+  },
+  {
+    "reply_id": "862d0b77-2f07-57d0-bcc1-6ce949470f05",
+    "service_request_id": "f857f755-f457-5707-a592-5fe3aa9a79ff",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-14T20:00:00+08:00"
+  },
+  {
+    "reply_id": "9659d515-b838-5ff8-8e49-99906a8b72a3",
+    "service_request_id": "d197ce4f-62a7-54e0-8983-617dc818adcf",
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-19T20:00:00+08:00"
+  },
+  {
+    "reply_id": "b6639fe8-60d5-585d-a80f-22b4bb39e728",
+    "service_request_id": "203d87ec-f421-59af-86f9-9de3965e3e73",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-20T13:00:00+08:00"
+  },
+  {
+    "reply_id": "a94f8e7f-b8b5-57eb-8dad-68a85fcf30d7",
+    "service_request_id": "9663a740-d55e-5d78-9dfe-b46916365b9b",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "請提供社區管委會的施工同意文件，我們才能安排進場。",
+    "created_at": "2026-07-14T20:00:00+08:00"
+  },
+  {
+    "reply_id": "0099d041-c976-5e55-b12b-c46a2c4376b3",
+    "service_request_id": "09edade2-7b5d-5938-bdc2-ea8e5ffa0d6a",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-26T11:00:00+08:00"
+  },
+  {
+    "reply_id": "cecf6fbb-2990-5123-8212-f9f01ba77e4a",
+    "service_request_id": "a0857356-10d1-5b01-94ad-7a3748b1607c",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-22T18:00:00+08:00"
+  },
+  {
+    "reply_id": "5ef6a5e5-b448-53c7-a02d-1ebe7824b791",
+    "service_request_id": "8bff355c-e64e-5311-8f99-fa644a9ef16e",
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-19T00:00:00+08:00"
+  },
+  {
+    "reply_id": "ae2e7318-86aa-5e85-960c-521aaeb8f8a6",
+    "service_request_id": "294136b1-f126-52f0-9cf3-243cd4d832df",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-27T18:00:00+08:00"
+  },
+  {
+    "reply_id": "f17aa9f7-8773-5d0f-8da7-a768a6461f47",
+    "service_request_id": "a0b001b8-6dd8-56dc-9ec3-5e2ee5abffc7",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-20T22:00:00+08:00"
+  },
+  {
+    "reply_id": "c5255562-f207-58eb-a24c-c9b66c0839fd",
+    "service_request_id": "f3a1366d-4731-54a2-816c-e763d1289e31",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-25T05:00:00+08:00"
+  },
+  {
+    "reply_id": "72989aa2-dcf4-58e2-ad1b-e8b7a10f4962",
+    "service_request_id": "ed80e309-189c-5696-8f31-45f82c5ef2b2",
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-29T18:00:00+08:00"
+  },
+  {
+    "reply_id": "f463cdb5-811c-5fc9-a269-5eedbfba1ca1",
+    "service_request_id": "38ac669c-b325-5782-9564-a5f9566dd396",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-22T17:00:00+08:00"
+  },
+  {
+    "reply_id": "7cd9b2ba-31b0-5027-a5a1-7b364ad3dd12",
+    "service_request_id": "8fa27388-d292-56d4-949b-0610737ce000",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-21T21:00:00+08:00"
+  },
+  {
+    "reply_id": "125573c2-664c-502c-b9c8-bfe17226395a",
+    "service_request_id": "84b3ffde-67e7-5995-8a7d-b1ddd26db4fa",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-24T20:00:00+08:00"
+  },
+  {
+    "reply_id": "57e57e16-86e0-5305-94df-a0d536d7f977",
+    "service_request_id": "2756febc-85df-549b-b802-dbb5bdd51b3a",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-08-01T10:00:00+08:00"
+  },
+  {
+    "reply_id": "f2e627a8-e4e1-5c6e-896e-bfe798e9f1b5",
+    "service_request_id": "e73ee09f-5178-5126-af91-e059fb35cb9e",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-27T22:00:00+08:00"
+  },
+  {
+    "reply_id": "b01bb9a1-1f73-5ca7-991d-00da36603d89",
+    "service_request_id": "c8d3fce7-dea5-5bf2-8a93-c6720f071857",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-27T17:00:00+08:00"
+  },
+  {
+    "reply_id": "97fb9b96-ba11-5436-97e0-913c7fa06de3",
+    "service_request_id": "b5cb3fd5-ee60-5a14-b85e-13f96a71324a",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-14T20:00:00+08:00"
+  },
+  {
+    "reply_id": "d6baeb98-ec1e-58fa-9f9c-5e8a87f9d130",
+    "service_request_id": "a4e55799-9f57-5068-921c-38ef579ee293",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-25T06:00:00+08:00"
+  },
+  {
+    "reply_id": "c5f56ac0-b997-5880-84fb-9b5db1c116b2",
+    "service_request_id": "b00f40f3-33f6-5f1a-a715-211fbd91fe9a",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-26T12:00:00+08:00"
+  },
+  {
+    "reply_id": "bf961210-d841-534e-b392-d42ebd69b669",
+    "service_request_id": "7d56f6b0-b243-51f5-bcad-2e4754392934",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-28T14:00:00+08:00"
+  },
+  {
+    "reply_id": "f085f473-9e7d-57b5-b2aa-d4b0c5635eaf",
+    "service_request_id": "b73875cf-249c-5f33-8471-ba652ddcfee6",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-16T01:00:00+08:00"
+  },
+  {
+    "reply_id": "24680bc1-9b88-5454-b618-020344f95c7e",
+    "service_request_id": "a9669d0d-ac07-5e8f-b0af-4724151768c6",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-04T06:00:00+08:00"
+  },
+  {
+    "reply_id": "d50fc508-c226-5625-94ba-e81c0a1d68b8",
+    "service_request_id": "ae0bb923-1dbc-5954-a0e7-dc717673cf83",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-16T21:00:00+08:00"
+  },
+  {
+    "reply_id": "da97393c-a269-5b06-bc89-cf02a5b13e2b",
+    "service_request_id": "78d38013-649a-5942-905a-3427f44d17bb",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-28T21:00:00+08:00"
+  },
+  {
+    "reply_id": "50b3e566-03ae-54e1-95c4-857ac61f0ee0",
+    "service_request_id": "f8e82c7a-d7a7-55dd-970f-e396dd3dc145",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-21T08:00:00+08:00"
+  },
+  {
+    "reply_id": "c1d8c56d-7537-5418-9ed6-3354067e35b7",
+    "service_request_id": "5ed97d50-fcee-5f9a-aead-fa07aefce0a7",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-20T09:00:00+08:00"
+  },
+  {
+    "reply_id": "000d573d-e308-5286-b733-93954406a3d1",
+    "service_request_id": "d577ad05-a5df-5c95-a5e0-c70e3d79b39f",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-17T18:00:00+08:00"
+  },
+  {
+    "reply_id": "a4b08d4d-298c-5bf3-85ac-24a020b47b80",
+    "service_request_id": "aec36c40-7fb2-5c97-8933-9ecf703fe3f8",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-08-02T17:00:00+08:00"
+  },
+  {
+    "reply_id": "3962daa3-fe85-57c9-bb1e-782193bbbc85",
+    "service_request_id": "3a39bec2-ab48-5ab8-b9bb-f979d455c8a5",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-24T19:00:00+08:00"
+  },
+  {
+    "reply_id": "7bdce133-aa1b-5544-a66c-ac86ce215325",
+    "service_request_id": "f80e619e-1d60-51f2-bd6c-508d2f1c587a",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-30T04:00:00+08:00"
+  },
+  {
+    "reply_id": "6bfdf536-8d72-5242-907a-b8b8915b85ae",
+    "service_request_id": "f60bd551-a3ae-5705-bc21-d977e35379c4",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-15T06:00:00+08:00"
+  },
+  {
+    "reply_id": "fb7c39e1-a8a2-58f8-9805-402d16ac4cf0",
+    "service_request_id": "9aea2609-0478-5dc9-a6e4-7bfc328c1571",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-15T01:00:00+08:00"
+  },
+  {
+    "reply_id": "ce3cf535-f87f-5127-82cd-fa52367392fd",
+    "service_request_id": "29c5e617-a409-58f4-9d28-01278713b6f2",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-08-02T22:00:00+08:00"
+  },
+  {
+    "reply_id": "4cabf814-fc44-5765-af47-4372ba8c9aee",
+    "service_request_id": "88106125-cb14-5bc7-9493-64e6933a7bb4",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-31T11:00:00+08:00"
+  },
+  {
+    "reply_id": "a57a30bb-f3d0-5f7f-9e6b-f64a4781ef7c",
+    "service_request_id": "ece57110-d738-5835-8d22-c6cc2de8e953",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "麻煩補充現場照片與樓層資訊，方便我們評估工時與材料。",
+    "created_at": "2026-07-16T19:00:00+08:00"
+  },
+  {
+    "reply_id": "45bb853b-9046-58aa-be84-0b5b8d616b8b",
+    "service_request_id": "397a6394-1543-5b27-8d19-b64b8b15ee03",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T00:00:00+08:00"
+  },
+  {
+    "reply_id": "c8d2aad4-25ef-5bdf-b2b3-88001515bf5a",
+    "service_request_id": "4f8f0d34-3f8a-5500-8ced-324d6583d279",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-15T16:00:00+08:00"
+  },
+  {
+    "reply_id": "a2422a92-c648-5e5f-b6c4-7257d76a4940",
+    "service_request_id": "d90d7bca-8672-5292-8f09-cb3b72e1ea9b",
+    "provider_id": "8f552cd4-baf8-5471-adae-5e4c8b2224c5",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-17T20:00:00+08:00"
+  },
+  {
+    "reply_id": "13ac8b6d-e346-5e08-8b7b-c7d18cdbd15e",
+    "service_request_id": "ed4750fa-fee2-5d13-b642-73cb69ac599a",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-14T11:00:00+08:00"
+  },
+  {
+    "reply_id": "85def96b-d4f6-5daa-b5f5-246c6b8926a1",
+    "service_request_id": "cef26587-28de-5ba4-9901-3358e5359145",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-24T00:00:00+08:00"
+  },
+  {
+    "reply_id": "72cb236f-0371-51b2-8a7a-472b55ce4a6f",
+    "service_request_id": "17c5e79b-0c37-5a64-a60a-796d82345567",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-27T07:00:00+08:00"
+  },
+  {
+    "reply_id": "4821a4c5-5b49-5b64-8a29-e39a22bc7d3e",
+    "service_request_id": "d9c48448-a38d-5622-885c-63d92b08714f",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-27T23:00:00+08:00"
+  },
+  {
+    "reply_id": "0af83ab4-f39b-55be-8fc3-c0870549cebf",
+    "service_request_id": "93b9ba3b-d9c8-5812-9691-04ca56d0f8cf",
+    "provider_id": "97d7ba36-bd72-5674-a21b-1e6cff32b524",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-20T00:00:00+08:00"
+  },
+  {
+    "reply_id": "6b2de6b3-6582-5c89-8ee6-c04bc381f50b",
+    "service_request_id": "23560cf0-24ba-5ffa-9d92-e38bfef3fadf",
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "body": "作業已完成並經現場確認，保固三個月，如有問題可再聯繫。",
+    "created_at": "2026-07-17T00:00:00+08:00"
+  },
+  {
+    "reply_id": "8ff55eaf-20e6-5946-bce7-0b08e1ac9a0a",
+    "service_request_id": "3f36fba8-02c2-5512-b166-44a1704a67aa",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-17T00:00:00+08:00"
+  },
+  {
+    "reply_id": "facab53f-eb7e-5de1-9a39-c4e8dc440f10",
+    "service_request_id": "5454364d-a651-50c6-99d7-511ca47a6708",
+    "provider_id": "b4f421e7-81b3-5488-950b-7fdf524d53f9",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-18T03:00:00+08:00"
+  },
+  {
+    "reply_id": "13c737a5-4e24-50dc-9ae2-f1ab459af0c0",
+    "service_request_id": "d1c869ef-4468-51bb-a8fe-2ab748c0d902",
+    "provider_id": "776aeed1-5a77-5184-a35d-caf22c5fcb04",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-15T08:00:00+08:00"
+  },
+  {
+    "reply_id": "2b666b6e-0642-5820-9f11-42a52013ea07",
+    "service_request_id": "cb1b3fb1-cc95-58f9-beca-21c9cdac50a0",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "需要確認坪數與是否有寵物，才能給您正確報價。",
+    "created_at": "2026-07-15T21:00:00+08:00"
+  },
+  {
+    "reply_id": "27376f6b-8ff6-5901-9f43-8a394eb53cf1",
+    "service_request_id": "b64feb56-ff36-5dbe-9b3e-449fd65f1b9a",
+    "provider_id": "7dbeb4f4-3505-573a-b486-622e971a7c44",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-13T14:00:00+08:00"
+  },
+  {
+    "reply_id": "f5356cfe-482f-5a00-8a33-e090b3e37000",
+    "service_request_id": "7c6fb62f-268f-5a5e-997a-9b94eccd81c1",
+    "provider_id": "480acf06-bfa7-525e-b2b1-4cba40b20f2e",
+    "body": "師傅已到場，初步判斷需更換零件，將於今日內回報報價。",
+    "created_at": "2026-07-17T01:00:00+08:00"
+  },
+  {
+    "reply_id": "51fa28e5-0b41-5b1d-b736-758f154b21e0",
+    "service_request_id": "04170f43-786a-5485-9e89-d77f7acae874",
+    "provider_id": "e140e37d-f976-55de-88c1-e714c09cdacb",
+    "body": "此案本公司可承接，師傅預計於約定時間前 30 分鐘與您聯繫。",
+    "created_at": "2026-07-27T06:00:00+08:00"
+  },
+  {
+    "reply_id": "d486fbec-6842-5277-9a48-adf39aea8a1f",
+    "service_request_id": "2bfb5c46-2671-5d0a-b87c-65b861ad8935",
+    "provider_id": "1ddfa18a-e555-52b8-9ddc-c3b17766a3eb",
+    "body": "服務完成，感謝您的使用，已寄出電子服務單。",
+    "created_at": "2026-07-21T11:00:00+08:00"
+  },
+  {
+    "reply_id": "5120b98c-cbab-5f4b-b6ee-9743fdf1677d",
+    "service_request_id": "f731c25c-25ae-5bfb-b34b-edefdbe4c229",
+    "provider_id": "3ad48761-d9f2-563e-ba2c-821faf17e91c",
+    "body": "作業進行中，預計 2 小時內完成。",
+    "created_at": "2026-07-18T17:00:00+08:00"
+  },
+  {
+    "reply_id": "8d1a277f-a691-59d1-b556-def445fbfe04",
+    "service_request_id": "609149bf-989d-5c0e-8413-87294a29123d",
+    "provider_id": "83a27c2f-1aed-583e-9242-4fb4b54416ff",
+    "body": "已收到您的需求，我們可以配合您指定的時段，稍後由專員與您確認細節。",
+    "created_at": "2026-07-26T02:00:00+08:00"
+  }
+]

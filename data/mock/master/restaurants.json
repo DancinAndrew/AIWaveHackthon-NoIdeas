@@ -1,0 +1,2085 @@
+[
+  {
+    "restaurant_id": "89d8d000-5ce6-5b1e-a2c7-e7c86756f0fc",
+    "provider_id": "1b9d7a19-43c4-5e28-8d85-35ba51be6bcf",
+    "name": "樂多料理",
+    "cuisine": "台式熱炒",
+    "county_code": "01",
+    "district_code": "008",
+    "address_masked": "南港區自由路83號",
+    "phone": "03-6941735",
+    "price_level": 2,
+    "avg_price_per_person": 850,
+    "min_spend_per_person": 800,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整",
+      "無麩質",
+      "素食"
+    ],
+    "features": [
+      "兒童座椅",
+      "包廂投影",
+      "有停車場",
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "9757d787-3d71-59d0-9acb-d2cfcb580566",
+    "provider_id": "e046c47f-99b1-5708-82bf-d26a3f6d3a32",
+    "name": "藏壽司小館",
+    "cuisine": "日式料理",
+    "county_code": "02",
+    "district_code": "016",
+    "address_masked": "林口區中正路262號",
+    "phone": "05-2838149",
+    "price_level": 1,
+    "avg_price_per_person": 250,
+    "min_spend_per_person": 250,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "全素"
+    ],
+    "features": [
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "free_48h",
+      "label": "訂位前 48 小時可免費取消，逾時扣 50% 訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "7c57813f-f73e-52cb-86f4-aad854a8f225",
+    "provider_id": "d27297e1-a559-533e-9e6f-a01d23259ba3",
+    "name": "Pasta Piu館",
+    "cuisine": "義式料理",
+    "county_code": "04",
+    "district_code": "061",
+    "address_masked": "復興區中正路306號",
+    "phone": "03-2761820",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 1200,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "包廂投影",
+      "有停車場",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "1e06b18c-890b-53d3-9fd9-b89427ba6bb2",
+    "provider_id": "4d1abf66-256a-5d25-aa97-a15050064610",
+    "name": "港龍軒館",
+    "cuisine": "粵菜港點",
+    "county_code": "08",
+    "district_code": "123",
+    "address_masked": "外埔區中山路154號",
+    "phone": "03-4370705",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉"
+    ],
+    "features": [
+      "兒童座椅",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "99df9f64-3bc6-50ed-9f14-7a5daa26eb32",
+    "provider_id": "1378b261-7c43-5e60-8391-5491c557eb86",
+    "name": "韓江食堂",
+    "cuisine": "韓式燒肉",
+    "county_code": "14",
+    "district_code": "209",
+    "address_masked": "安南區和平路200號",
+    "phone": "03-6968500",
+    "price_level": 2,
+    "avg_price_per_person": 850,
+    "min_spend_per_person": 850,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "兒童座椅",
+      "包廂投影",
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.2,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "0b0628a8-3502-5a99-b8a0-4a113371cab7",
+    "provider_id": "ecdc13cc-28db-537f-9aa9-21084cf88a78",
+    "name": "泰街角餐廳",
+    "cuisine": "泰式料理",
+    "county_code": "15",
+    "district_code": "247",
+    "address_masked": "新興區光復路140號",
+    "phone": "04-5985558",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 300,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": false,
+    "rating": 4.0,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "a2182ab6-be4b-5ca9-a532-c047fb9caef2",
+    "provider_id": "22b78aad-f991-5f25-a77f-2f39e9c3756e",
+    "name": "布列塔尼料理",
+    "cuisine": "法式餐酒",
+    "county_code": "03",
+    "district_code": "045",
+    "address_masked": "中山區光復路280號",
+    "phone": "04-4527533",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "57c4d220-beef-5768-aee3-d480a3710d94",
+    "provider_id": "f88c9ffa-6401-57d7-aee7-390f2badfa5b",
+    "name": "蔬適館",
+    "cuisine": "素食蔬食",
+    "county_code": "05",
+    "district_code": "066",
+    "address_masked": "峨眉鄉光復路234號",
+    "phone": "07-3496061",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 0,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "無麩質"
+    ],
+    "features": [
+      "有停車場",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.2,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "4ba7af07-f3b8-543b-9477-b0aebb75ed28",
+    "provider_id": "9afa7f83-ce77-504b-a59b-34cae0d503de",
+    "name": "湯屋館",
+    "cuisine": "火鍋",
+    "county_code": "07",
+    "district_code": "089",
+    "address_masked": "三義鄉和平路243號",
+    "phone": "05-5945894",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "ed1d5a74-06b9-5b68-a47e-0ff7d0685ef8",
+    "provider_id": "711ca05d-f0f8-5913-be66-c6df5db84068",
+    "name": "雙層料理",
+    "cuisine": "美式漢堡",
+    "county_code": "09",
+    "district_code": "135",
+    "address_masked": "水里鄉民生路64號",
+    "phone": "02-7728046",
+    "price_level": 2,
+    "avg_price_per_person": 850,
+    "min_spend_per_person": 850,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "兒童座椅",
+      "包廂投影",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "855a7a2e-6030-51ab-85a6-a1ce905a443c",
+    "provider_id": "f445e036-22c5-511d-a091-eb4c463bace0",
+    "name": "樂多食堂",
+    "cuisine": "台式熱炒",
+    "county_code": "06",
+    "district_code": "075",
+    "address_masked": "東區自由路68號",
+    "phone": "04-4147635",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 1800,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "兒童座椅"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "60339855-a6c3-5bba-b1ab-755390ddbb03",
+    "provider_id": "44c6dbde-1215-5ddd-b45f-708dc68e67db",
+    "name": "藏壽司食堂",
+    "cuisine": "日式料理",
+    "county_code": "17",
+    "district_code": "318",
+    "address_masked": "員山鄉光復路54號",
+    "phone": "05-5125383",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 2000,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "包廂投影",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_48h",
+      "label": "訂位前 48 小時可免費取消，逾時扣 50% 訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.9,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "8cf6b5f4-d494-5afa-9bdf-1b95b7c7f6fc",
+    "provider_id": "be81f4fd-4818-531f-9a13-1e4deded89bb",
+    "name": "Pasta Piu食堂",
+    "cuisine": "義式料理",
+    "county_code": "01",
+    "district_code": "004",
+    "address_masked": "萬華區自由路46號",
+    "phone": "08-3025363",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 300,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "無麩質",
+      "素食"
+    ],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "38019b15-d029-5892-abec-d448f7d3c858",
+    "provider_id": "eec02768-52c2-59ff-8d68-c107a17fdb84",
+    "name": "港龍軒料理",
+    "cuisine": "粵菜港點",
+    "county_code": "02",
+    "district_code": "022",
+    "address_masked": "三芝區中正路23號",
+    "phone": "03-4902846",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "2f075c2a-ddd3-5cbe-af4a-df5b3bbc0937",
+    "provider_id": "96f574e1-006e-5110-ab41-1dee8599bedd",
+    "name": "韓江館",
+    "cuisine": "韓式燒肉",
+    "county_code": "04",
+    "district_code": "052",
+    "address_masked": "八德區和平路235號",
+    "phone": "02-7293837",
+    "price_level": 3,
+    "avg_price_per_person": 1200,
+    "min_spend_per_person": 800,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "60bfbaf8-0f7a-52e4-b722-545268cbf009",
+    "provider_id": "0ecd5180-0be3-526b-beb0-accec79c2fa4",
+    "name": "泰街角料理",
+    "cuisine": "泰式料理",
+    "county_code": "08",
+    "district_code": "115",
+    "address_masked": "大雅區中正路100號",
+    "phone": "07-2178446",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 300,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 4,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "全素",
+      "清真"
+    ],
+    "features": [
+      "兒童座椅",
+      "有停車場",
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "5e4fe355-d830-580f-8940-258a48bff5f3",
+    "provider_id": "47045ff0-5cc0-5e8c-974a-be013be35edf",
+    "name": "布列塔尼食堂",
+    "cuisine": "法式餐酒",
+    "county_code": "14",
+    "district_code": "221",
+    "address_masked": "麻豆區成功路256號",
+    "phone": "07-4302875",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 4,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_48h",
+      "label": "訂位前 48 小時可免費取消，逾時扣 50% 訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "4589fa63-fc18-5bb0-a886-49be226cb1e0",
+    "provider_id": "620cd07d-7939-5d04-8025-9bcbbe1559a5",
+    "name": "蔬適小館",
+    "cuisine": "素食蔬食",
+    "county_code": "10",
+    "district_code": "144",
+    "address_masked": "田中鎮中山路258號",
+    "phone": "06-5392466",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 1200,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": false,
+    "rating": 4.8,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "56055ced-662f-5769-9f68-0bb98290b911",
+    "provider_id": "5d256c6f-b7a4-5d50-98ac-b09ca95a309f",
+    "name": "湯屋食堂",
+    "cuisine": "火鍋",
+    "county_code": "11",
+    "district_code": "164",
+    "address_masked": "斗六市中正路129號",
+    "phone": "02-6431131",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 800,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "全素",
+      "清真"
+    ],
+    "features": [
+      "兒童座椅"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.9,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "561fd01f-8df9-50f8-96a1-c13f3a665f73",
+    "provider_id": "aa23ef6e-69d9-5a99-9153-58a361e4207b",
+    "name": "雙層料理",
+    "cuisine": "美式漢堡",
+    "county_code": "12",
+    "district_code": "188",
+    "address_masked": "民雄鄉文化街152號",
+    "phone": "06-5297478",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 400,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [
+      "清真"
+    ],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "有停車場",
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "4963bd36-9aa2-5e3e-af3d-e7b4cc205d14",
+    "provider_id": "4e7ba3e2-dd17-5cb5-b263-cd9f889b0fdb",
+    "name": "樂多食堂",
+    "cuisine": "台式熱炒",
+    "county_code": "15",
+    "district_code": "250",
+    "address_masked": "小港區中正路291號",
+    "phone": "06-6050410",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 1200,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "海鮮過敏調整",
+      "素食"
+    ],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "31ad4fe6-da5c-54b4-9ca5-ec4a5f8724d0",
+    "provider_id": "fb0d4583-22c4-5f8f-af15-37698e7b88ed",
+    "name": "藏壽司料理",
+    "cuisine": "日式料理",
+    "county_code": "03",
+    "district_code": "048",
+    "address_masked": "七堵區中山路315號",
+    "phone": "05-3514576",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 300,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整",
+      "清真",
+      "素食"
+    ],
+    "features": [
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "633d65b6-b808-582c-910a-1d8ad8644e67",
+    "provider_id": "5f8ae989-ac0b-53f7-b98b-baa56a46c604",
+    "name": "Pasta Piu食堂",
+    "cuisine": "義式料理",
+    "county_code": "06",
+    "district_code": "076",
+    "address_masked": "北區成功路104號",
+    "phone": "05-7707752",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 400,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "全素",
+      "海鮮過敏調整",
+      "無麩質"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "13036e90-6a40-55af-9aee-ff8dafb3df80",
+    "provider_id": "95243dab-0683-51c9-9188-9fcfaee387bb",
+    "name": "港龍軒小館",
+    "cuisine": "粵菜港點",
+    "county_code": "17",
+    "district_code": "323",
+    "address_masked": "南澳鄉文化街250號",
+    "phone": "04-5601792",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 300,
+    "deposit_per_person": 200,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "包廂投影",
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "free_48h",
+      "label": "訂位前 48 小時可免費取消，逾時扣 50% 訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "b5c1f5a5-80a4-5ce7-b3a0-fb0bb39533e6",
+    "provider_id": "4942298f-a0bb-5c46-b92c-ae748532633b",
+    "name": "韓江料理",
+    "cuisine": "韓式燒肉",
+    "county_code": "01",
+    "district_code": "001",
+    "address_masked": "中正區成功路181號",
+    "phone": "07-7827518",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 400,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物",
+      "有停車場",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "7ebf0b92-aed3-5fd7-9386-5714a3a2d43b",
+    "provider_id": "d86f8ca0-7adf-502f-a185-cae2dc98cf0a",
+    "name": "泰街角館",
+    "cuisine": "泰式料理",
+    "county_code": "02",
+    "district_code": "019",
+    "address_masked": "八里區成功路90號",
+    "phone": "05-4890008",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 1800,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 6,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整",
+      "無麩質"
+    ],
+    "features": [
+      "無障礙入口"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "9f82d83c-cc18-5852-9411-e9e2e7f37d14",
+    "provider_id": "8b02cffa-e1fe-5f7c-a216-75e898a39009",
+    "name": "布列塔尼料理",
+    "cuisine": "法式餐酒",
+    "county_code": "04",
+    "district_code": "061",
+    "address_masked": "復興區成功路78號",
+    "phone": "06-2559353",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 6,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整"
+    ],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "有停車場",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "free_48h",
+      "label": "訂位前 48 小時可免費取消，逾時扣 50% 訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "a113a63e-cce0-5be8-ba6f-614de08a4ab7",
+    "provider_id": "3beeda8d-8b46-5e81-9951-1f257b3b999e",
+    "name": "蔬適小館",
+    "cuisine": "素食蔬食",
+    "county_code": "13",
+    "district_code": "203",
+    "address_masked": "西區和平路302號",
+    "phone": "07-3845373",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 400,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 6,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "可帶寵物",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "4a855b24-572b-50b7-889c-4153ca996fe0",
+    "provider_id": "f3aada8a-9bce-5782-b808-121397fee66d",
+    "name": "湯屋餐廳",
+    "cuisine": "火鍋",
+    "county_code": "16",
+    "district_code": "290",
+    "address_masked": "萬巒鄉文化街25號",
+    "phone": "04-8197152",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 1800,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [
+      "全素",
+      "無麩質"
+    ],
+    "features": [
+      "兒童座椅"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "c1db2363-c827-5395-be99-90e2014b62d7",
+    "provider_id": "7cf051a9-4819-5fc8-b51d-2311a6560fbd",
+    "name": "雙層小館",
+    "cuisine": "美式漢堡",
+    "county_code": "18",
+    "district_code": "332",
+    "address_masked": "豐濱鄉中山路178號",
+    "phone": "07-2958227",
+    "price_level": 2,
+    "avg_price_per_person": 850,
+    "min_spend_per_person": 0,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "可帶寵物",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": false,
+    "rating": 4.2,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "c3476faf-95da-51fa-bd30-cf72bd94d0df",
+    "provider_id": "63c5f505-03e8-5477-b54a-c8878b3b4212",
+    "name": "樂多小館",
+    "cuisine": "台式熱炒",
+    "county_code": "08",
+    "district_code": "115",
+    "address_masked": "大雅區光復路161號",
+    "phone": "03-4833620",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 0,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 1,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [
+      "清真",
+      "無麩質"
+    ],
+    "features": [
+      "兒童座椅",
+      "包廂投影",
+      "可帶寵物",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "cd595807-3331-5e23-90ee-04c08737538c",
+    "provider_id": "ee874801-48eb-557b-8618-c545e18ae923",
+    "name": "藏壽司小館",
+    "cuisine": "日式料理",
+    "county_code": "14",
+    "district_code": "221",
+    "address_masked": "麻豆區成功路2號",
+    "phone": "07-7050108",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 6,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      }
+    ],
+    "dietary_support": [
+      "無麩質"
+    ],
+    "features": [
+      "可帶寵物"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.6,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "d9ee72fa-31af-5591-a14d-3215cc4c3680",
+    "provider_id": "210f4480-6ce9-5c9b-a76b-f22ba3ad0dd8",
+    "name": "Pasta Piu館",
+    "cuisine": "義式料理",
+    "county_code": "15",
+    "district_code": "247",
+    "address_masked": "新興區成功路284號",
+    "phone": "05-5321557",
+    "price_level": 1,
+    "avg_price_per_person": 400,
+    "min_spend_per_person": 400,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "清真",
+      "素食"
+    ],
+    "features": [
+      "包廂投影"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.5,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "daecec4a-53e7-52ef-8e52-0b69dbdfa51b",
+    "provider_id": "3593f0fd-75c6-50dd-9330-2d99ae4464f0",
+    "name": "港龍軒館",
+    "cuisine": "粵菜港點",
+    "county_code": "03",
+    "district_code": "047",
+    "address_masked": "暖暖區中山路204號",
+    "phone": "02-2014209",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 600,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": null,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      }
+    ],
+    "dietary_support": [
+      "素食"
+    ],
+    "features": [
+      "兒童座椅",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.3,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "de7b73fe-4d99-57e5-9d49-031d235cf76c",
+    "provider_id": "10af745a-d05b-5f0b-908b-4b3abd89ab9e",
+    "name": "韓江餐廳",
+    "cuisine": "韓式燒肉",
+    "county_code": "06",
+    "district_code": "077",
+    "address_masked": "香山區自由路96號",
+    "phone": "08-3412154",
+    "price_level": 1,
+    "avg_price_per_person": 250,
+    "min_spend_per_person": 250,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整"
+    ],
+    "features": [
+      "兒童座椅",
+      "可帶寵物",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.4,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "cb3e0d8f-8854-5bce-be0f-3fc7c90d6d9f",
+    "provider_id": "7766c5c8-55a1-595a-b1fc-6fcc23e55635",
+    "name": "泰街角小館",
+    "cuisine": "泰式料理",
+    "county_code": "17",
+    "district_code": "318",
+    "address_masked": "員山鄉文化街96號",
+    "phone": "03-2704375",
+    "price_level": 2,
+    "avg_price_per_person": 600,
+    "min_spend_per_person": 600,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      }
+    ],
+    "dietary_support": [
+      "海鮮過敏調整"
+    ],
+    "features": [
+      "包廂投影",
+      "可帶寵物",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.8,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "f2a768b0-dcee-512c-ad7f-4e69b2e2cd0b",
+    "provider_id": "c2729f1c-b0b2-55aa-8051-032eedd6bb80",
+    "name": "布列塔尼料理",
+    "cuisine": "法式餐酒",
+    "county_code": "01",
+    "district_code": "010",
+    "address_masked": "內湖區民生路105號",
+    "phone": "08-7640215",
+    "price_level": 4,
+    "avg_price_per_person": 2800,
+    "min_spend_per_person": 500,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "14:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "全素",
+      "海鮮過敏調整",
+      "清真"
+    ],
+    "features": [
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "strict",
+      "label": "訂金恕不退還，可改期一次"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.9,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "a5f5c5c4-9b17-51e6-a729-02c377919284",
+    "provider_id": "9b098218-62cf-5c33-a213-92009aa82a9c",
+    "name": "蔬適食堂",
+    "cuisine": "素食蔬食",
+    "county_code": "19",
+    "district_code": "340",
+    "address_masked": "長濱鄉中山路199號",
+    "phone": "04-3930901",
+    "price_level": 3,
+    "avg_price_per_person": 1800,
+    "min_spend_per_person": 1800,
+    "deposit_per_person": 500,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "22:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [],
+    "features": [
+      "包廂投影",
+      "可帶寵物",
+      "有停車場"
+    ],
+    "cancellation_rule": {
+      "code": "free_24h",
+      "label": "訂位前 24 小時可免費取消，逾時不退訂金"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.7,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "3c390146-5829-5b35-8c78-c26b3775d20a",
+    "provider_id": "af0ea474-8583-53e0-a770-6877be94d34e",
+    "name": "湯屋食堂",
+    "cuisine": "火鍋",
+    "county_code": "05",
+    "district_code": "064",
+    "address_masked": "新埔鎮文化街187號",
+    "phone": "07-2053660",
+    "price_level": 1,
+    "avg_price_per_person": 250,
+    "min_spend_per_person": 250,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "17:00",
+      "close": "23:00",
+      "closed_weekday": 0,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "two_seat",
+        "label": "2 人桌",
+        "capacity": 2
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "全素"
+    ],
+    "features": [
+      "包廂投影",
+      "無障礙入口",
+      "禁菸"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 3.9,
+    "source": "synthetic"
+  },
+  {
+    "restaurant_id": "4c2647bc-024c-5d0d-a0d6-5c0196bfe66d",
+    "provider_id": "48c75c42-9d8b-5cbc-b453-f1627d1a892a",
+    "name": "雙層料理",
+    "cuisine": "美式漢堡",
+    "county_code": "07",
+    "district_code": "083",
+    "address_masked": "苑裡鎮和平路266號",
+    "phone": "07-4593007",
+    "price_level": 2,
+    "avg_price_per_person": 850,
+    "min_spend_per_person": 850,
+    "deposit_per_person": 0,
+    "opening_hours": {
+      "open": "11:00",
+      "close": "21:00",
+      "closed_weekday": 2,
+      "last_order_minutes_before_close": 60
+    },
+    "max_party_size": 12,
+    "table_types": [
+      {
+        "code": "four_seat",
+        "label": "4 人桌",
+        "capacity": 4
+      },
+      {
+        "code": "six_seat",
+        "label": "6 人桌",
+        "capacity": 6
+      },
+      {
+        "code": "private_room",
+        "label": "包廂",
+        "capacity": 12
+      }
+    ],
+    "dietary_support": [
+      "低鈉",
+      "素食"
+    ],
+    "features": [
+      "包廂投影"
+    ],
+    "cancellation_rule": {
+      "code": "no_deposit",
+      "label": "不收訂金，未到場累計 2 次將暫停線上訂位"
+    },
+    "accepts_online_booking": true,
+    "rating": 4.7,
+    "source": "synthetic"
+  }
+]
