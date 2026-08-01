@@ -21,7 +21,7 @@ MVP 聚焦在「理解需求 → 補齊欄位 → 產生文件 → 使用者確�
 |---|---|
 | 前端 | React SPA，部署於 AWS Amplify Hosting（待實作） |
 | 身分 | Amazon Cognito；預建住戶、廠商、管理員 Demo 帳號 |
-| HTTP 後端 | Amazon API Gateway＋Flask on AWS Lambda；已有 Lambda 入口骨架 |
+| HTTP 後端 | Amazon API Gateway HTTP API v2＋Flask on AWS Lambda；transport contract 已完成 |
 | AI | 一個 Amazon Bedrock AgentCore Runtime；Supervisor＋五個邏輯領域 Agent |
 | 長流程 | AWS Step Functions Standard；等待住戶／廠商 callback、改派與恢復 Agent |
 | 工具介面 | AgentCore Gateway＋Lambda targets；與 Flask 共用 Python application core |

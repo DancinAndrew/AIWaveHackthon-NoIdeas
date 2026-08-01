@@ -83,7 +83,7 @@ class LambdaHandlerTests(unittest.TestCase):
 
         self.assertEqual(response["statusCode"], 201)
         payload = json.loads(response["body"])
-        self.assertTrue(payload["data"]["conversationId"].startswith("conv-"))
+        self.assertTrue(payload["data"]["conversationId"].startswith("conv_"))
 
     def test_cors_response_is_returned_without_wildcard_origin(self) -> None:
         response = handler(
