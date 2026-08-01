@@ -159,6 +159,10 @@ class AiwaveStagingStackTests(unittest.TestCase):
     def test_one_runtime_hosts_the_supervisor_and_five_logical_agents(self) -> None:
         runtimes = self.resources("AWS::BedrockAgentCore::Runtime")
         self.assertEqual(len(runtimes), 1)
+        code_configuration = runtimes[0]["Properties"]["AgentRuntimeArtifact"][
+            "CodeConfiguration"
+        ]
+        self.assertEqual(code_configuration["EntryPoint"], ["agent_runtime.py"])
         runtime_environment = runtimes[0]["Properties"]["EnvironmentVariables"]
         self.assertEqual(
             runtime_environment["LOGICAL_AGENTS"],

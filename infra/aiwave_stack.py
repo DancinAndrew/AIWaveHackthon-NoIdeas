@@ -695,7 +695,7 @@ class AiwaveStagingStack(Stack):
         return agentcore.AgentRuntimeArtifact.from_code_asset(
             path=str(assets.agent_runtime_code),
             runtime=agentcore.AgentCoreRuntime.PYTHON_3_12,
-            entrypoint=["python", "agent_runtime.py"],
+            entrypoint=["agent_runtime.py"],
             bundling=bundling,
         )
 
