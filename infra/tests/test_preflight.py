@@ -41,6 +41,7 @@ class AwsPreflightTests(unittest.TestCase):
     def test_only_us_west_2_is_accepted(self) -> None:
         environment = valid_environment()
         environment["AWS_REGION"] = "us-east-1"
+        environment["AWS_DEFAULT_REGION"] = "us-east-1"
 
         with self.assertRaisesRegex(AwsPreflightError, "us-west-2"):
             validate_aws_environment(environment)
