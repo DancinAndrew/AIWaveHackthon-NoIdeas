@@ -14,6 +14,7 @@ from aws_cdk import (
     BundlingOptions,
     CfnOutput,
     Duration,
+    Fn,
     RemovalPolicy,
     Stack,
     aws_amplify as amplify,
@@ -162,7 +163,10 @@ class AiwaveStagingStack(Stack):
             self,
             "Vpc",
             ip_addresses=ec2.IpAddresses.cidr("10.42.0.0/16"),
-            max_azs=2,
+            availability_zones=[
+                Fn.select(0, Fn.get_azs("us-west-2")),
+                Fn.select(1, Fn.get_azs("us-west-2")),
+            ],
             nat_gateways=0,
             subnet_configuration=[
                 ec2.SubnetConfiguration(
