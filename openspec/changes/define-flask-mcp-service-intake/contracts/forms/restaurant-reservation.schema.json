@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiwave.example/schemas/forms/restaurant-reservation/1.0.0",
+  "title": "餐廳訂位留資表單",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "service_type",
+    "schema_version",
+    "request_summary",
+    "contact",
+    "preferred_contact_time",
+    "consent",
+    "restaurant"
+  ],
+  "properties": {
+    "service_type": { "const": "restaurant_reservation" },
+    "schema_version": { "const": "1.0.0" },
+    "request_summary": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "mobile": { "type": "string", "minLength": 8, "maxLength": 30 },
+        "email": { "type": "string", "format": "email", "maxLength": 254 }
+      },
+      "anyOf": [
+        { "required": ["mobile"] },
+        { "required": ["email"] }
+      ]
+    },
+    "preferred_contact_time": {
+      "type": "string",
+      "enum": ["morning", "afternoon", "evening", "any"]
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_policy_version", "accepted", "accepted_at"],
+      "properties": {
+        "privacy_policy_version": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "accepted": { "const": true },
+        "accepted_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "restaurant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["location", "reservation_at", "party_size", "cuisine_preferences", "budget_per_person"],
+      "properties": {
+        "location": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["county_code", "district_code"],
+          "properties": {
+            "county_code": { "type": "string", "minLength": 1, "maxLength": 10 },
+            "district_code": { "type": "string", "minLength": 1, "maxLength": 20 }
+          }
+        },
+        "reservation_at": { "type": "string", "format": "date-time" },
+        "flexibility_minutes": { "type": "integer", "minimum": 0, "maximum": 240, "default": 0 },
+        "party_size": { "type": "integer", "minimum": 1, "maximum": 50 },
+        "cuisine_preferences": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 50 }
+        },
+        "budget_per_person": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["max_amount", "currency"],
+          "properties": {
+            "max_amount": { "type": "number", "minimum": 0, "maximum": 100000 },
+            "currency": { "const": "TWD" }
+          }
+        },
+        "dietary_restrictions": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+        },
+        "seating_preference": {
+          "type": "string",
+          "enum": ["no_preference", "indoor", "outdoor", "private_room", "counter"]
+        },
+        "accessibility_needs": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+        },
+        "children_count": { "type": "integer", "minimum": 0, "maximum": 20 }
+      }
+    }
+  }
+}

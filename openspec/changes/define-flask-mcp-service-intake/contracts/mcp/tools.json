@@ -1,0 +1,399 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_version": "1.1.0",
+  "tools": [
+    {
+      "name": "get_form_schema",
+      "description": "取得指定服務類別的啟用表單 JSON Schema。省略版本時回傳最新啟用版本。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_type"],
+        "properties": {
+          "service_type": { "$ref": "#/$defs/serviceType" },
+          "schema_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_type", "schema_version", "form_schema", "etag"],
+        "properties": {
+          "service_type": { "$ref": "#/$defs/serviceType" },
+          "schema_version": { "type": "string" },
+          "form_schema": { "type": "object" },
+          "etag": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    {
+      "name": "search_providers",
+      "description": "以即時結構化條件搜尋服務商或商品供應者，回傳可解釋的媒合排序。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_type", "criteria"],
+        "properties": {
+          "service_type": { "$ref": "#/$defs/serviceType" },
+          "criteria": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "county_code": { "type": "string", "minLength": 1, "maxLength": 10 },
+              "district_code": { "type": "string", "minLength": 1, "maxLength": 20 },
+              "preferred_time_slots": {
+                "type": "array",
+                "maxItems": 5,
+                "uniqueItems": true,
+                "items": { "type": "string", "format": "date-time" }
+              },
+              "budget_max": { "type": "number", "minimum": 0 },
+              "party_size": { "type": "integer", "minimum": 1, "maximum": 50 },
+              "quantity": { "type": "integer", "minimum": 1, "maximum": 999 },
+              "urgency": {
+                "type": "string",
+                "enum": ["routine", "soon", "urgent", "emergency"]
+              },
+              "required_capabilities": {
+                "type": "array",
+                "maxItems": 30,
+                "uniqueItems": true,
+                "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+              },
+              "has_pets": { "type": "boolean" },
+              "hazard_flags": {
+                "type": "array",
+                "maxItems": 10,
+                "uniqueItems": true,
+                "items": { "type": "string", "minLength": 1, "maxLength": 100 }
+              }
+            }
+          },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 20, "default": 10 },
+          "cursor": { "type": "string", "minLength": 1, "maxLength": 2048 }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["matches", "data_freshness"],
+        "properties": {
+          "matches": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/providerMatch" }
+          },
+          "data_freshness": {
+            "type": "string",
+            "enum": ["live", "fresh_cache", "stale"]
+          },
+          "next_cursor": { "type": ["string", "null"] },
+          "relaxation_suggestions": {
+            "type": "array",
+            "maxItems": 10,
+            "items": { "type": "string", "maxLength": 300 }
+          }
+        }
+      }
+    },
+    {
+      "name": "create_service_request",
+      "description": "使用已驗證 submission 與明確確認建立服務需求；不接受原始聯絡資料。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "service_type",
+          "schema_version",
+          "submission_ref",
+          "confirmation_token",
+          "idempotency_key"
+        ],
+        "properties": {
+          "service_type": { "$ref": "#/$defs/serviceType" },
+          "schema_version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+          },
+          "submission_ref": {
+            "type": "string",
+            "pattern": "^sub_[A-Za-z0-9_-]{16,128}$"
+          },
+          "confirmation_token": { "type": "string", "minLength": 20, "maxLength": 4096 },
+          "idempotency_key": { "$ref": "#/$defs/idempotencyKey" }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_request", "workflow", "deduplicated"],
+        "properties": {
+          "service_request": { "$ref": "#/$defs/serviceRequestSummary" },
+          "workflow": { "$ref": "#/$defs/workflowProjection" },
+          "deduplicated": { "type": "boolean" }
+        }
+      }
+    },
+    {
+      "name": "get_service_request_status",
+      "description": "依已驗證 actor 權限讀取案件目前狀態、媒合摘要與可見回覆。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_request_id"],
+        "properties": {
+          "service_request_id": { "$ref": "#/$defs/uuid" }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_request", "workflow", "matches", "events"],
+        "properties": {
+          "service_request": { "$ref": "#/$defs/serviceRequestSummary" },
+          "workflow": { "$ref": "#/$defs/workflowProjection" },
+          "matches": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/providerMatch" }
+          },
+          "events": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/serviceRequestEvent" }
+          }
+        }
+      }
+    },
+    {
+      "name": "list_provider_service_requests",
+      "description": "列出目前已驗證服務商組織可查看的候選或承接案件。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "statuses": {
+            "type": "array",
+            "maxItems": 8,
+            "uniqueItems": true,
+            "items": { "$ref": "#/$defs/serviceRequestStatus" }
+          },
+          "limit": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 },
+          "cursor": { "type": "string", "minLength": 1, "maxLength": 2048 }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_requests"],
+        "properties": {
+          "service_requests": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/serviceRequestSummary" }
+          },
+          "next_cursor": { "type": ["string", "null"] }
+        }
+      }
+    },
+    {
+      "name": "update_service_request_status",
+      "description": "以合法狀態機、樂觀鎖與冪等鍵更新案件狀態並新增不可變事件。",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_request_id", "target_status", "expected_version", "idempotency_key"],
+        "properties": {
+          "service_request_id": { "$ref": "#/$defs/uuid" },
+          "target_status": { "$ref": "#/$defs/serviceRequestStatus" },
+          "expected_version": { "type": "integer", "minimum": 1 },
+          "note": { "type": "string", "maxLength": 1000 },
+          "idempotency_key": { "$ref": "#/$defs/idempotencyKey" }
+        }
+      },
+      "outputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["service_request", "event"],
+        "properties": {
+          "service_request": { "$ref": "#/$defs/serviceRequestSummary" },
+          "event": { "$ref": "#/$defs/serviceRequestEvent" }
+        }
+      }
+    }
+  ],
+  "errorSchema": { "$ref": "#/$defs/toolError" },
+  "$defs": {
+    "serviceType": {
+      "type": "string",
+      "enum": [
+        "restaurant_reservation",
+        "product_purchase",
+        "housekeeping_service",
+        "utility_repair",
+        "community_consultation"
+      ]
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9_.:-]+$"
+    },
+    "serviceRequestStatus": {
+      "type": "string",
+      "enum": [
+        "submitted",
+        "matched",
+        "accepted",
+        "needs_information",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "unmatched"
+      ]
+    },
+    "serviceRequestSummary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "service_request_id",
+        "service_type",
+        "schema_version",
+        "status",
+        "version",
+        "request_summary",
+        "created_at",
+        "updated_at"
+      ],
+      "properties": {
+        "service_request_id": { "$ref": "#/$defs/uuid" },
+        "service_type": { "$ref": "#/$defs/serviceType" },
+        "schema_version": { "type": "string" },
+        "status": { "$ref": "#/$defs/serviceRequestStatus" },
+        "version": { "type": "integer", "minimum": 1 },
+        "request_summary": { "type": "string", "maxLength": 1000 },
+        "risk_level": { "type": "string", "enum": ["normal", "high"] },
+        "created_at": { "type": "string", "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "providerMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["provider_id", "offering_id", "display_name", "score", "reasons", "match_status"],
+      "properties": {
+        "provider_id": { "$ref": "#/$defs/uuid" },
+        "offering_id": { "$ref": "#/$defs/uuid" },
+        "display_name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "items": { "type": "string", "minLength": 1, "maxLength": 300 }
+        },
+        "match_status": {
+          "type": "string",
+          "enum": ["proposed", "accepted", "declined", "expired"]
+        }
+      }
+    },
+    "serviceRequestEvent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "from_status", "to_status", "actor_role", "created_at"],
+      "properties": {
+        "event_id": { "$ref": "#/$defs/uuid" },
+        "from_status": {
+          "anyOf": [
+            { "$ref": "#/$defs/serviceRequestStatus" },
+            { "type": "null" }
+          ]
+        },
+        "to_status": { "$ref": "#/$defs/serviceRequestStatus" },
+        "actor_role": {
+          "type": "string",
+          "enum": ["consumer", "provider_member", "admin", "system"]
+        },
+        "note": { "type": ["string", "null"], "maxLength": 1000 },
+        "created_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "workflowProjection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stage", "waiting_on", "public_label", "updated_at"],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "enum": [
+            "collecting_details",
+            "waiting_resident_confirmation",
+            "generating_brief",
+            "matching_provider",
+            "waiting_provider_response",
+            "waiting_resident_information",
+            "rematching",
+            "provider_confirmed",
+            "in_progress",
+            "completed",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "waiting_on": {
+          "type": "string",
+          "enum": ["resident", "provider", "agent", "admin", "system", "none"]
+        },
+        "public_label": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "due_at": { "type": ["string", "null"], "format": "date-time" },
+        "updated_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "toolError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message", "request_id", "retryable"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "validation_error",
+            "unauthenticated",
+            "forbidden",
+            "not_found",
+            "unsupported_service_type",
+            "form_schema_not_found",
+            "confirmation_required",
+            "idempotency_conflict",
+            "version_conflict",
+            "invalid_state_transition",
+            "live_data_unavailable",
+            "dependency_unavailable",
+            "internal_error"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "details": {
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["field", "message"],
+            "properties": {
+              "field": { "type": "string", "maxLength": 200 },
+              "message": { "type": "string", "maxLength": 300 }
+            }
+          }
+        },
+        "request_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "retryable": { "type": "boolean" }
+      }
+    }
+  }
+}

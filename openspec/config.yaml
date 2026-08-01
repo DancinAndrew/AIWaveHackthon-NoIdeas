@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Product: AI 生活管家，理解消費者需求、產生彈性表單、媒合服務商並追蹤服務需求。
+  Supported services: 餐廳訂位、商品購買、家事服務、水電修繕、社區服務諮詢。
+  Tech stack: React SPA on AWS Amplify Hosting, Flask on AWS Lambda, Amazon RDS for PostgreSQL, Amazon Bedrock AgentCore Runtime and Gateway, MCP tools.
+  Architecture: one AgentCore Runtime contains a supervisor and five logical domain agents; AgentCore Gateway uses Lambda targets, and tool Lambdas share one Python application core with Flask plus deterministic matching rules. Step Functions Standard owns long-lived resident/provider callbacks and resumes agents only when reasoning is needed.
+  Deployment: us-west-2, AWS CDK for Python, private subnets across at least two AZs, AgentCore and S3 VPC endpoints, and no NAT for the mock-only demo.
+  Models: Amazon Nova 2 Lite baseline for the six logical agents and Cohere Embed Multilingual v3 for the managed Knowledge Base.
+  Data boundary: one managed Knowledge Base holds static FAQ/policies/SOP with service_type metadata; live business data, artifacts, conversations, workflow tasks, and UI progress projections come from RDS or mock/vendor adapters.
+  Security: Amazon Cognito groups, API Gateway authentication, Flask resource authorization, explicit confirmation and idempotency, PII minimization and encrypted sensitive fields.
+  Language: user-facing product and planning documents use Traditional Chinese; protocol identifiers use English snake_case.
+
+rules:
+  proposal:
+    - Clearly identify the FastAPI to Flask dependency change as breaking.
+    - Keep the five supported service types and the MCP boundary explicit.
+  specs:
+    - Use SHALL or MUST for normative requirements.
+    - Include success, missing-input, authorization, idempotency, and safety scenarios where applicable.
+    - Keep static Knowledge Base data separate from live structured data.
+  design:
+    - Explain AgentCore supervisor/domain-agent boundaries, Step Functions callback ownership, Flask application boundaries, MCP-to-service reuse, status transitions, and PII handling.
+    - Record unresolved deployment choices without treating them as completed implementation.
+  tasks:
+    - Pair each implementation task with an objective verification step.
+    - Do not mark vendor integrations complete when only deterministic fixtures exist.

@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiwave.example/schemas/forms/housekeeping-service/1.0.0",
+  "title": "家事服務留資表單",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "service_type",
+    "schema_version",
+    "request_summary",
+    "contact",
+    "preferred_contact_time",
+    "consent",
+    "housekeeping"
+  ],
+  "properties": {
+    "service_type": { "const": "housekeeping_service" },
+    "schema_version": { "const": "1.0.0" },
+    "request_summary": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "mobile": { "type": "string", "minLength": 8, "maxLength": 30 },
+        "email": { "type": "string", "format": "email", "maxLength": 254 }
+      },
+      "anyOf": [
+        { "required": ["mobile"] },
+        { "required": ["email"] }
+      ]
+    },
+    "preferred_contact_time": {
+      "type": "string",
+      "enum": ["morning", "afternoon", "evening", "any"]
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_policy_version", "accepted", "accepted_at"],
+      "properties": {
+        "privacy_policy_version": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "accepted": { "const": true },
+        "accepted_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "housekeeping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["service_items", "property_type", "location", "preferred_time_slots", "frequency", "has_pets"],
+      "properties": {
+        "service_items": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["general_cleaning", "deep_cleaning", "laundry", "appliance_cleaning", "move_in_out", "other"]
+          }
+        },
+        "property_type": {
+          "type": "string",
+          "enum": ["apartment", "house", "office", "storefront", "other"]
+        },
+        "location": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["county_code", "district_code"],
+          "properties": {
+            "county_code": { "type": "string", "minLength": 1, "maxLength": 10 },
+            "district_code": { "type": "string", "minLength": 1, "maxLength": 20 }
+          }
+        },
+        "preferred_time_slots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "format": "date-time" }
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["one_time", "weekly", "biweekly", "monthly"]
+        },
+        "area_sqm": { "type": "number", "exclusiveMinimum": 0, "maximum": 10000 },
+        "room_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "bathroom_count": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "has_pets": { "type": "boolean" },
+        "supplies_preference": {
+          "type": "string",
+          "enum": ["provider_brings", "customer_provides", "no_preference"]
+        },
+        "photos": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "format": "uri", "maxLength": 2048 }
+        }
+      },
+      "anyOf": [
+        { "required": ["area_sqm"] },
+        { "required": ["room_count"] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiwave.example/schemas/forms/utility-repair/1.0.0",
+  "title": "水電修繕留資表單",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "service_type",
+    "schema_version",
+    "request_summary",
+    "contact",
+    "preferred_contact_time",
+    "consent",
+    "repair"
+  ],
+  "properties": {
+    "service_type": { "const": "utility_repair" },
+    "schema_version": { "const": "1.0.0" },
+    "request_summary": { "type": "string", "minLength": 1, "maxLength": 1000 },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "mobile": { "type": "string", "minLength": 8, "maxLength": 30 },
+        "email": { "type": "string", "format": "email", "maxLength": 254 }
+      },
+      "anyOf": [
+        { "required": ["mobile"] },
+        { "required": ["email"] }
+      ]
+    },
+    "preferred_contact_time": {
+      "type": "string",
+      "enum": ["morning", "afternoon", "evening", "any"]
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["privacy_policy_version", "accepted", "accepted_at"],
+      "properties": {
+        "privacy_policy_version": { "type": "string", "minLength": 1, "maxLength": 32 },
+        "accepted": { "const": true },
+        "accepted_at": { "type": "string", "format": "date-time" }
+      }
+    },
+    "repair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["issue_type", "symptoms", "location", "urgency", "hazard_flags", "preferred_time_slots"],
+      "properties": {
+        "issue_type": {
+          "type": "string",
+          "enum": ["plumbing", "electrical", "water_heater", "toilet", "drain", "leak", "other"]
+        },
+        "symptoms": { "type": "string", "minLength": 1, "maxLength": 2000 },
+        "location": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["county_code", "district_code"],
+          "properties": {
+            "county_code": { "type": "string", "minLength": 1, "maxLength": 10 },
+            "district_code": { "type": "string", "minLength": 1, "maxLength": 20 }
+          }
+        },
+        "urgency": {
+          "type": "string",
+          "enum": ["routine", "soon", "urgent", "emergency"]
+        },
+        "hazard_flags": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["electric_shock_risk", "exposed_wires", "smoke_or_burning_smell", "active_flooding"],
+          "properties": {
+            "electric_shock_risk": { "type": "boolean" },
+            "exposed_wires": { "type": "boolean" },
+            "smoke_or_burning_smell": { "type": "boolean" },
+            "active_flooding": { "type": "boolean" }
+          }
+        },
+        "preferred_time_slots": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "format": "date-time" }
+        },
+        "asset_type": { "type": "string", "maxLength": 100 },
+        "asset_brand": { "type": "string", "maxLength": 100 },
+        "asset_age_years": { "type": "number", "minimum": 0, "maximum": 100 },
+        "photos": {
+          "type": "array",
+          "maxItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "format": "uri", "maxLength": 2048 }
+        }
+      }
+    }
+  }
+}
