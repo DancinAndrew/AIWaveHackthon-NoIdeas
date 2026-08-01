@@ -127,6 +127,13 @@ class AiwaveStagingStack(Stack):
             gateway=gateway,
             knowledge_base=knowledge_base,
         )
+        api_function.add_environment("ORCHESTRATION_MODE", "agentcore-runtime")
+        api_function.add_environment(
+            "AGENT_RUNTIME_ARN",
+            runtime.agent_runtime_arn,
+        )
+        api_function.add_environment("AGENT_RUNTIME_QUALIFIER", "staging")
+        runtime.grant_invoke(api_function)
 
         amplify_app, amplify_branch = self._create_frontend()
         self._create_outputs(
