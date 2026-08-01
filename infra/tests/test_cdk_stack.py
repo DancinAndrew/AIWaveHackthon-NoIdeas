@@ -149,6 +149,7 @@ class AiwaveStagingStackTests(unittest.TestCase):
         self.assertFalse(database["MultiAZ"])
         self.assertTrue(database["StorageEncrypted"])
         self.assertEqual(database["DBInstanceClass"], "db.t4g.micro")
+        self.assertEqual(database["EngineVersion"], "16.13")
         self.assertEqual(database["BackupRetentionPeriod"], 0)
 
         self.assertEqual(self.resources("AWS::OpenSearchServerless::Collection"), [])

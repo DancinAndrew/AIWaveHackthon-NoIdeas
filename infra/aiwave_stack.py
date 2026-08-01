@@ -276,7 +276,7 @@ class AiwaveStagingStack(Stack):
             self,
             "Database",
             engine=rds.DatabaseInstanceEngine.postgres(
-                version=rds.PostgresEngineVersion.VER_16_3,
+                version=rds.PostgresEngineVersion.VER_16_13,
             ),
             instance_type=ec2.InstanceType.of(
                 ec2.InstanceClass.BURSTABLE4_GRAVITON,
