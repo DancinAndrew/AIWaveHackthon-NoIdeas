@@ -1,0 +1,9 @@
+{
+  "app": ".venv/bin/python -m infra.app",
+  "output": "infra/cdk.out",
+  "context": {
+    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/core:target-partitions": ["aws"]
+  }
+}

@@ -2,7 +2,8 @@
   "name": "aiwave-infra",
   "private": true,
   "scripts": {
-    "cdk": "cdk"
+    "cdk": "cdk",
+    "synth": "cd .. && infra/node_modules/.bin/cdk synth"
   },
   "devDependencies": {
     "aws-cdk": "^2.1134.0"
