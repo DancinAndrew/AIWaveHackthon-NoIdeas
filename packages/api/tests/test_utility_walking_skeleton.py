@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import sys
 import unittest
+from importlib import import_module
 from pathlib import Path
 
 
@@ -53,7 +54,8 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
         turn = self._say(conversation_id, "沒有漏電、冒煙或積水，水量不大")
         self.assertIn("地區", turn.get_json()["data"]["assistantMessage"]["content"])
 
-        turn = self._say(conversation_id, "台北市大安區")
+        # 內湖區在 mock provider service areas 中有兩家合格廠商，能驗證改派。
+        turn = self._say(conversation_id, "台北市內湖區")
         self.assertIn("時段", turn.get_json()["data"]["assistantMessage"]["content"])
 
         turn = self._say(conversation_id, "明天下午兩點到五點都可以")
@@ -184,7 +186,7 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
         self.assertNotIn("taskToken", answer.get_data(as_text=True))
 
     def test_decline_rematches_and_admin_can_simulate_timeout(self) -> None:
-        _, request_id, task_id, provider_id = self._confirmed_request()
+        _, _, task_id, provider_id = self._confirmed_request()
         provider_headers = {
             "Content-Type": "application/json",
             "X-Demo-Provider-Id": provider_id,
@@ -208,6 +210,9 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
             "waiting_provider_response",
         )
 
+        # 內湖 mock 只有兩家符合硬條件。另開一案驗證第一家逾時後改派，
+        # 避免為了測試捏造第三家不在服務區的廠商。
+        _, timeout_request_id, timeout_task_id, _ = self._confirmed_request()
         admin_headers = {
             "Content-Type": "application/json",
             "X-Demo-Role": "ADMIN",
@@ -215,7 +220,7 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
             "Idempotency-Key": "admin-timeout-001",
         }
         timed_out = self.client.post(
-            f"/api/v1/admin/workflow-tasks/{next_task['taskId']}/simulate-timeout",
+            f"/api/v1/admin/workflow-tasks/{timeout_task_id}/simulate-timeout",
             json={"reason": "Demo 展示逾時改派"},
             headers=admin_headers,
         )
@@ -226,14 +231,92 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
         )
         self.assertNotEqual(
             timed_out.get_json()["data"]["providerTask"]["taskId"],
-            next_task["taskId"],
+            timeout_task_id,
         )
 
         progress_text = self.client.get(
-            f"/api/v1/service-requests/{request_id}/progress",
+            f"/api/v1/service-requests/{timeout_request_id}/progress",
             headers=RESIDENT_HEADERS,
         ).get_data(as_text=True)
         self.assertNotIn("taskToken", progress_text)
+
+    def test_provider_write_is_idempotent_and_rejects_changed_payload(self) -> None:
+        _, _, task_id, provider_id = self._confirmed_request()
+        headers = {
+            "Content-Type": "application/json",
+            "X-Demo-Provider-Id": provider_id,
+            "X-Demo-Role": "PROVIDER",
+            "Idempotency-Key": "provider-question-retry",
+        }
+        payload = {
+            "action": "needs_information",
+            "expectedVersion": 1,
+            "message": "請問總水閥是否能關閉？",
+        }
+        first = self.client.post(
+            f"/api/v1/provider-service-requests/{task_id}/responses",
+            json=payload,
+            headers=headers,
+        )
+        second = self.client.post(
+            f"/api/v1/provider-service-requests/{task_id}/responses",
+            json=payload,
+            headers=headers,
+        )
+        self.assertEqual(first.status_code, 200)
+        self.assertEqual(second.get_json()["data"], first.get_json()["data"])
+
+        changed = self.client.post(
+            f"/api/v1/provider-service-requests/{task_id}/responses",
+            json={**payload, "message": "改成另一個問題"},
+            headers=headers,
+        )
+        self.assertEqual(changed.status_code, 409)
+
+    def test_invalid_accept_does_not_consume_task(self) -> None:
+        _, _, task_id, provider_id = self._confirmed_request()
+        headers = {
+            "Content-Type": "application/json",
+            "X-Demo-Provider-Id": provider_id,
+            "X-Demo-Role": "PROVIDER",
+            "Idempotency-Key": "invalid-accept",
+        }
+        invalid = self.client.post(
+            f"/api/v1/provider-service-requests/{task_id}/responses",
+            json={"action": "accept", "expectedVersion": 1},
+            headers=headers,
+        )
+        self.assertEqual(invalid.status_code, 422)
+        queue = self.client.get(
+            "/api/v1/provider-service-requests", headers=headers
+        ).get_json()["data"]["items"]
+        self.assertEqual(queue[0]["taskId"], task_id)
+        self.assertEqual(queue[0]["version"], 1)
+
+    def test_body_actor_fields_cannot_override_trusted_headers(self) -> None:
+        created = self.client.post(
+            "/api/v1/conversations",
+            json={"residentId": "resident-attacker"},
+            headers=RESIDENT_HEADERS,
+        )
+        conversation_id = created.get_json()["data"]["conversationId"]
+        wrong_resident_headers = {
+            **RESIDENT_HEADERS,
+            "X-Demo-Resident-Id": "resident-attacker",
+        }
+        forbidden = self.client.get(
+            f"/api/v1/conversations/{conversation_id}/messages",
+            headers=wrong_resident_headers,
+        )
+        self.assertEqual(forbidden.status_code, 403)
+
+    def test_lambda_flask_entrypoint_exposes_versioned_health(self) -> None:
+        legacy_module = import_module("app")
+        response = legacy_module.app.test_client().get("/api/v1/health")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get_json()["data"]["service"], "utility-walking-skeleton"
+        )
 
 
 if __name__ == "__main__":

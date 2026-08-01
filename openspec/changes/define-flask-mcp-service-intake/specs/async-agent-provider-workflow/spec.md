@@ -102,3 +102,22 @@ Walking skeleton SHALL 至少提供：
 #### Scenario: 正式 AgentCore 委派
 - **WHEN** staging 設定選擇 AgentCore adapter 且 Supervisor 判斷為 `utility_repair`
 - **THEN** turn trace 顯示 Supervisor 呼叫 `utility_repair_agent`，而狀態改變仍只能透過核准的 application tools
+
+### Requirement: Hackathon AWS 帳號使用限制
+AWS staging 部署 MUST 將主辦方的帳號使用規範視為 deployment gate，而非僅文件提醒。所有 S3 bucket MUST 開啟四項 S3 Block Public Access；RDS MUST 位於 private subnets 且 `PubliclyAccessible=false`。此 Demo MUST NOT 建立 EC2、EMR 或 SageMaker training job。Security Group MUST NOT 對 `0.0.0.0/0` 或 `::/0` 開放 ingress；API 的公開入口只能是 API Gateway／受管 frontend hosting。
+
+部署前資料掃描 MUST 阻擋個資、受監管資料、財務資料、種族／政治／宗教／工會／基因／生物特徵／性傾向或性生活／健康／支付處理資料及惡意程式碼。AWS 只可上傳本專案合成且通過掃描的 Knowledge Base／mock 子集，不得上傳 `pii_vault.json`、競賽原始資料或對話中輸入的姓名、電話、Email、詳細地址與附件。
+
+Bedrock／AgentCore 呼叫 SHALL 使用必要模型白名單與低於 1 RPS 的 client-side rate limiter；部署程式 MUST NOT 批次啟用與本專案無關的模型。Demo 成本設定 SHALL 使用完成 walking skeleton 所需的最小資源，並提供 teardown 指令。
+
+#### Scenario: S3 與 RDS 安全驗收
+- **WHEN** IaC synth／diff 完成
+- **THEN** policy test 證明每個 S3 bucket 四項 Block Public Access 均為 true，且每個 RDS instance／cluster `PubliclyAccessible` 為 false
+
+#### Scenario: 禁止資料在部署前被上傳
+- **WHEN** deployment package 或 KB upload manifest 包含 `pii_vault.json`、競賽原始資料路徑、疑似聯絡資訊或禁止類別標記
+- **THEN** deployment gate 失敗且不呼叫任何 AWS create／upload API
+
+#### Scenario: Bedrock 速率與模型最小化
+- **WHEN** walking skeleton 呼叫 Bedrock／AgentCore
+- **THEN** 單一 Demo client 的呼叫間隔大於一秒，且模型 ID 必須在專案明確白名單內
