@@ -64,7 +64,7 @@
 
 - [ ] 9.1 為餐廳、商品、家事、水電、社區各完成一條端到端驗收；驗證：五條流程都經過多輪補欄位、文件確認、建案、媒合、廠商 callback、必要補件、最終結論及消費者查詢。
 - [ ] 9.2 執行 API／MCP／workflow 安全測試；驗證：輸入白名單、SQL injection、資源授權、角色繞過、callback token 洩漏／重放、冪等、附件限制、PII log scan 與 rate limit 測試通過。
-- [ ] 9.3 使用 AWS CDK for Python 建立 VPC、兩個 AZ private subnets、security groups、AgentCore interface endpoint、S3 gateway endpoint、Lambda targets、Step Functions、Secrets Manager 與 KMS；驗證：RDS 不公開、無 NAT、Runtime 不直接連 RDS，且 Lambda 能透過核准路徑存取依賴。
+- [x] 9.3 使用 AWS CDK for Python 建立 VPC、兩個 AZ private subnets、security groups、AgentCore interface endpoint、S3 gateway endpoint、Lambda targets、Step Functions、Secrets Manager 與 KMS；驗證：RDS 不公開、無 NAT、Runtime 不直接連 RDS，且 Lambda 能透過核准路徑存取依賴。
 - [ ] 9.4 部署 Amplify Hosting、Cognito、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions 與 RDS staging，建立 health／dependency probes；驗證：部署網址、五類 demo fixtures、監控 request ID 及失敗 fallback 可在展示環境重現。
 - [x] 9.5 更新 README、AWS 架構圖與 Knowledge Base 上傳資料；驗證：正式圖不含 Supabase，清楚呈現 Step Functions callback、進度 projection 與無 NAT 邊界，KB chunk 具有 Bedrock metadata sidecar。
 
@@ -76,4 +76,4 @@
 - [x] 10.4 建立 fail-closed AWS account preflight、pre-deploy guardrail 與合成 KB upload manifest；驗證：只允許 us-west-2 有效暫時憑證、唯讀 STS 身分檢查，policy tests 阻擋公開 S3／RDS、全網 Security Group、EC2／EMR／SageMaker training、未核准模型、非白名單路徑、雜湊變更、常見 PII／付款識別碼及執行檔，且 guardrail 不呼叫 AWS。
 - [x] 10.5 將 API Gateway HTTP API payload v2 接到現行 Flask app，移除舊 handler 對未宣告 adapter 與舊媒合 Agent 的依賴；驗證：health、base64 JSON、actor headers、受限 CORS 與 invalid-event contract tests 通過。
 - [x] 10.6 建立共用 Bedrock runtime safety boundary；驗證：直接 Converse 請求起始間隔至少 1.05 秒、只允許核准模型、SDK retry 不可繞過 gate，且 deterministic Demo 不產生 Bedrock 請求。
-- [ ] 10.7 建立 AWS staging IaC 與部署腳本，涵蓋 frontend hosting、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions、RDS、Cognito、S3 KB；驗證：diff／synth 不含 Supabase、RDS 不公開，部署後以公開 URL 重跑 water-repair smoke。
+- [x] 10.7 建立 AWS staging IaC 與部署腳本，涵蓋 frontend hosting、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions、RDS、Cognito、S3 KB；驗證：diff／synth 不含 Supabase、RDS 不公開，部署後以公開 URL 重跑 water-repair smoke 與完整 Playwright E2E。

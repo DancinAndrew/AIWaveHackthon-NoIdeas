@@ -3,7 +3,7 @@
 AI 生活管家是「2026 雲湧智生：臺灣生成式 AI 應用黑客松」參賽專案。使用者可以用自然語言描述生活需求，由 AgentCore Runtime 內的 Supervisor 路由至五個領域 Agent，透過多輪對話產生需求文件並自動委派商家；Step Functions 等待廠商承接、補問或拒絕，必要時恢復原 Agent 向住戶補件，最後把結論與進度顯示在原對話及提醒頁。
 
 > [!IMPORTANT]
-> `main` 已完成「水電修繕 walking skeleton」的本機閉環：智慧助理多輪確認、版本化需求文件、住戶確認、確定性媒合、廠商補問／拒絕／接受、住戶補件、管理員模擬逾時及我的預約進度。正式 AgentCore、Step Functions 與 RDS staging 部署仍依 OpenSpec 10.4 進行；本機 API 會誠實標示 `orchestrationMode: deterministic-demo`。
+> `main` 已把「水電修繕 walking skeleton」部署到 AWS staging，並以公開 Amplify URL 完成住戶多輪對話、AgentCore Supervisor 委派、版本化需求文件、自動媒合、廠商補問／接受及住戶進度頁 E2E。線上 API 誠實標示 `orchestrationMode: agentcore-runtime`；Cognito JWT、Runtime 內持續多輪、Gateway tool call 與 Step Functions callback worker 仍是下一階段，不冒充已完成。
 
 ## MVP 服務範圍
 
@@ -19,18 +19,18 @@ MVP 聚焦在「理解需求 → 補齊欄位 → 產生文件 → 使用者確�
 
 | 層級 | 技術／原則 |
 |---|---|
-| 前端 | React SPA，部署於 AWS Amplify Hosting（待實作） |
-| 身分 | Amazon Cognito；預建住戶、廠商、管理員 Demo 帳號 |
+| 前端 | React SPA，已部署於 AWS Amplify Hosting |
+| 身分 | Cognito User Pool 與三個群組已建立；目前 SPA 仍使用受控 demo actor headers |
 | HTTP 後端 | Amazon API Gateway HTTP API v2＋Flask on AWS Lambda；transport contract 已完成 |
-| AI | 一個 Amazon Bedrock AgentCore Runtime；Supervisor＋五個邏輯領域 Agent |
-| 長流程 | AWS Step Functions Standard；等待住戶／廠商 callback、改派與恢復 Agent |
-| 工具介面 | AgentCore Gateway＋Lambda targets；與 Flask 共用 Python application core |
+| AI | 一個 AgentCore Runtime；確定性 Supervisor＋五個邏輯 Agent 契約，水電閉環已完成 |
+| 長流程 | Step Functions Standard durable boundary 已建立；目前等待／改派由 RDS＋Flask 狀態機執行 |
+| 工具介面 | AgentCore Gateway＋Lambda target 已部署；目前 Web 主流程仍由 Flask 呼叫共用 Python core |
 | 資料庫 | Amazon RDS for PostgreSQL；交易、artifact、三方訊息、workflow task 與進度投影 |
-| Region／模型 | `us-west-2`；Nova 2 Lite baseline；Cohere Embed Multilingual v3 |
+| Region／模型 | `us-west-2`；Nova 2 Lite 白名單；Titan Text Embeddings V2（1024 維） |
 | 部署 | AWS CDK for Python；private subnets、無 NAT 的 Demo 架構 |
 | 規格管理 | OpenSpec；產品總覽見 `SPEC.md` |
 
-一個 Amazon Bedrock Managed Knowledge Base 只保存 FAQ、條款與 SOP 等靜態內容，並以 `service_type` metadata 隔離五類知識；供應商、價格、庫存、時段、交易與狀態等即時資料必須來自 RDS 或受控 mock／合作廠商 adapter。
+一個 Amazon Bedrock Managed Knowledge Base 只保存 FAQ、條款與 SOP 等靜態內容。目前已同步水電領域 5 份正文與 5 份 metadata sidecar，5/5 成功索引並通過繁體中文 retrieval；其餘四類資料尚未加入。供應商、價格、庫存、時段、交易與狀態等即時資料必須來自 RDS 或受控 mock／合作廠商 adapter。
 
 ## 專案結構
 
@@ -116,6 +116,22 @@ npm --prefix frontend run build
 npm --prefix frontend run lint
 ```
 
+## AWS staging
+
+- 前端：<https://staging.d3t5jckbd6yy6y.amplifyapp.com>
+- API health：<https://67wcdv3h8b.execute-api.us-west-2.amazonaws.com/api/v1/health>
+- Region：`us-west-2`
+
+部署由 `infra/aiwave_stack.py` 與專案本機 CDK 管理。前端使用 Amplify manual deployment；Flask、AgentCore Runtime／Gateway、RDS、Step Functions、Cognito、S3 與 Knowledge Base 由 `AiwaveStaging` stack 管理。公開 E2E 腳本為 `frontend/tests/utility-walkthrough.e2e.mjs`。
+
+這是會產生成本的 hackathon staging，尤其是 RDS 與 interface VPC endpoint。展示結束後，確認不再需要資料，再執行：
+
+```bash
+infra/node_modules/.bin/cdk destroy AiwaveStaging
+```
+
+`destroy` 會移除 staging 資源，屬不可逆操作；執行前應再次確認 stack 名稱與需要保留的資料。
+
 ## 環境變數
 
 先複製 `.env.example`，再填入本機使用的 AWS 認證。不要提交 `.env` 或把憑證寫進 Python 腳本。
@@ -141,7 +157,7 @@ npm --prefix frontend run lint
 .venv/bin/python -m infra.preflight --env-file .env --online
 
 .venv/bin/python -m infra.guardrails \
-  --template cdk.out/AiwaveStaging.template.json \
+  --template infra/cdk.out/AiwaveStaging.template.json \
   --manifest infra/upload-manifest.json
 ```
 

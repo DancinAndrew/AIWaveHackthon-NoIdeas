@@ -11,7 +11,7 @@
 - 採用一個 AgentCore Runtime，內含 Supervisor 與五個邏輯領域 Agent；Agent 理解需求，Flask 以確定性規則完成商家排序與委派。
 - 採用 Amazon RDS for PostgreSQL、Amazon Cognito、AWS Amplify Hosting 與 AgentCore Gateway Lambda targets，移除 Supabase 部署依賴。
 - 採用一個 Amazon Bedrock Managed Knowledge Base，以 `service_type` metadata 隔離五類靜態內容。
-- 固定 `us-west-2`、Nova 2 Lite baseline、Cohere Embed Multilingual v3，以及無 NAT 的 private-subnet Demo 網路。
+- 固定 `us-west-2`、Nova 2 Lite baseline、Titan Text Embeddings V2＋S3 Vectors，以及無 NAT 的 private-subnet Demo 網路。
 - **BREAKING**：HTTP 後端由 FastAPI／Uvicorn 改為 Flask；現有或後續 FastAPI 啟動方式與路由實作不得繼續作為正式介面。
 
 ## Capabilities

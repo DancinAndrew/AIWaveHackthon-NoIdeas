@@ -1,70 +1,69 @@
 flowchart LR
   subgraph Actors[使用者]
-    Resident[住戶 RESIDENT]
-    Provider[廠商 PROVIDER]
-    Admin[管理員 ADMIN]
+    Resident[住戶]
+    Provider[廠商]
+    Admin[管理員]
   end
 
-  subgraph Edge[Web 與身分]
-    Amplify[React SPA<br/>Amplify Hosting<br/>AI 對話＋提醒／進度＋廠商後台]
-    Cognito[Amazon Cognito<br/>預建 Demo 帳號與群組]
-    APIGW[Amazon API Gateway<br/>JWT authorizer]
+  subgraph Edge[公開入口]
+    Amplify[React SPA on Amplify<br/>AI 對話／我的預約／廠商後台]
+    APIGW[API Gateway HTTP API<br/>受限 Amplify CORS]
+    Cognito[Cognito User Pool<br/>RESIDENT／PROVIDER／ADMIN 群組]
   end
 
-  subgraph VPC[VPC：至少 2 AZ private subnets；Demo 無 NAT]
-    Flask[Flask Lambda<br/>REST、resource authorization、polling API]
-    ToolLambda[AgentCore Gateway<br/>Lambda tool targets<br/>共用＋五個領域群組]
-    Worker[Workflow worker Lambda<br/>resume AgentCore／projection reconcile]
-    Core[Shared Python application core<br/>validation、matching、state machine、idempotency]
-    RDS[(Amazon RDS for PostgreSQL<br/>service requests、artifacts、messages、workflow tasks、events)]
-    Mock[Mock vendor／payment adapters]
-    Security[Secrets Manager＋KMS<br/>PII、DB credential、callback token]
-    Endpoints[AgentCore interface endpoint<br/>S3 gateway endpoint]
+  subgraph VPC[VPC：2 AZ isolated subnets；無 NAT]
+    Flask[Flask Lambda<br/>REST＋demo actor authorization]
+    ToolLambda[Gateway Tool Lambda<br/>resident operations]
+    Core[Shared Python core<br/>validation／safety／matching／idempotency]
+    RDS[(Private RDS PostgreSQL<br/>requests／tasks／messages／artifacts／events)]
+    Secrets[Secrets Manager＋KMS]
+    Endpoint[AgentCore interface endpoint]
   end
 
-  subgraph Managed[AWS managed AI／workflow services]
+  subgraph Managed[AWS managed services]
     subgraph Runtime[一個 AgentCore Runtime]
-      Supervisor[Supervisor：只負責路由]
-      Restaurant[餐廳 Agent]
-      Product[商品 Agent]
-      Housekeeping[家事 Agent]
-      Repair[水電 Agent]
-      Community[社區 Agent]
+      Supervisor[Supervisor<br/>確定性工具式路由]
+      Restaurant[餐廳 Agent 契約]
+      Product[商品 Agent 契約]
+      Housekeeping[家事 Agent 契約]
+      Repair[水電 Agent<br/>walking skeleton]
+      Community[社區 Agent 契約]
     end
-    Gateway[Amazon Bedrock AgentCore Gateway]
-    SFN[AWS Step Functions Standard<br/>waiting provider／resident callback<br/>decline or timeout → rematch]
-    KB[Amazon Bedrock Managed Knowledge Base<br/>Titan Text Embeddings V2]
-    S3Vector[(Amazon S3 Vectors<br/>1024-d COSINE index)]
-    Model[Amazon Nova 2 Lite baseline]
+    Gateway[AgentCore Gateway<br/>Lambda target 已建立]
+    SFN[Step Functions Standard<br/>目前為 durable boundary]
+    KB[Bedrock Knowledge Base<br/>Titan Text Embeddings V2]
+    Vector[(S3 Vectors<br/>1024-d COSINE)]
+    Nova[Nova 2 Lite<br/>白名單；生成式接線待完成]
   end
 
-  S3KB[(S3 KB bucket<br/>static FAQ／terms／SOP＋metadata)]
-  S3Artifact[(Private S3 artifact bucket<br/>optional HTML／PDF；KMS)]
-  Observe[CloudWatch＋AgentCore Observability<br/>request ID／session ID／trace ID]
+  KBS3[(Private S3 KB source<br/>5 docs＋5 metadata)]
+  Artifact[(Private S3 artifact bucket)]
+  Observe[CloudWatch Logs／request ID]
 
-  Actors --> Amplify
-  Amplify -->|登入| Cognito
-  Amplify -->|JWT REST／短輪詢| APIGW
+  Resident --> Amplify
+  Provider --> Amplify
+  Admin --> Amplify
+  Amplify -->|demo actor headers＋REST polling| APIGW
   APIGW --> Flask
-  Flask -->|對話 invocation| Endpoints --> Runtime
-  Supervisor --> Restaurant & Product & Housekeeping & Repair & Community
-  Restaurant & Product & Housekeeping & Repair & Community --> Model
-  Restaurant & Product & Housekeeping & Repair & Community -->|MCP tools| Gateway
-  Restaurant & Product & Housekeeping & Repair & Community -->|service_type filter| KB
-  KB --> S3Vector
-  Gateway --> ToolLambda
-  Flask --> Core
-  ToolLambda --> Core
-  Worker --> Core
-  Core --> RDS
-  Core --> Mock
-  Core --> S3Artifact
-  Flask -->|start／server-side callback| SFN
-  SFN -->|等待結束後恢復| Worker
-  Worker -->|重新喚起原領域 Agent| Endpoints
-  S3KB --> KB
-  Security -.-> Flask & ToolLambda & Worker & RDS & S3Artifact
-  Flask & ToolLambda & Worker & Runtime & Gateway & SFN --> Observe
+  Flask --> Endpoint --> Runtime
+  Supervisor --> Restaurant
+  Supervisor --> Product
+  Supervisor --> Housekeeping
+  Supervisor --> Repair
+  Supervisor --> Community
+  Flask --> Core --> RDS
+  Core --> Artifact
+  Flask -->|start boundary| SFN
+  KBS3 --> KB --> Vector
+  Secrets -.credential／encryption.-> Flask
+  Secrets -.encryption.-> RDS
+  Flask --> Observe
+
+  Cognito -.已建立；SPA／JWT authorizer 待接.-> Amplify
+  Runtime -.下一階段 MCP tool call.-> Gateway --> ToolLambda --> Core
+  Runtime -.下一階段直接 retrieval.-> KB
+  Runtime -.下一階段生成式推理.-> Nova
+  SFN -.下一階段 task-token callback worker.-> Runtime
 
   classDef actor fill:#F3E8FF,stroke:#7C3AED,color:#3B0764;
   classDef app fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E;
@@ -74,9 +73,9 @@ flowchart LR
   classDef data fill:#DCFCE7,stroke:#16A34A,color:#14532D;
   classDef security fill:#F3F4F6,stroke:#4B5563,color:#111827;
   class Resident,Provider,Admin actor;
-  class Amplify,Cognito,APIGW app;
-  class Flask,ToolLambda,Worker,Core,Endpoints compute;
-  class Supervisor,Restaurant,Product,Housekeeping,Repair,Community,Gateway,KB,Model agent;
+  class Amplify,APIGW,Cognito app;
+  class Flask,ToolLambda,Core,Endpoint compute;
+  class Supervisor,Restaurant,Product,Housekeeping,Repair,Community,Gateway,KB,Nova agent;
   class SFN workflow;
-  class RDS,Mock,S3KB,S3Artifact data;
-  class Security,Observe security;
+  class RDS,KBS3,Artifact,Vector data;
+  class Secrets,Observe security;

@@ -6,7 +6,7 @@ context: |
   Tech stack: React SPA on AWS Amplify Hosting, Flask on AWS Lambda, Amazon RDS for PostgreSQL, Amazon Bedrock AgentCore Runtime and Gateway, MCP tools.
   Architecture: one AgentCore Runtime contains a supervisor and five logical domain agents; AgentCore Gateway uses Lambda targets, and tool Lambdas share one Python application core with Flask plus deterministic matching rules. Step Functions Standard owns long-lived resident/provider callbacks and resumes agents only when reasoning is needed.
   Deployment: us-west-2, AWS CDK for Python, private subnets across at least two AZs, AgentCore and S3 VPC endpoints, and no NAT for the mock-only demo.
-  Models: Amazon Nova 2 Lite baseline for the six logical agents and Cohere Embed Multilingual v3 for the managed Knowledge Base.
+  Models: Amazon Nova 2 Lite is the only allowed generative baseline; Titan Text Embeddings V2 at 1024 dimensions backs the managed Knowledge Base through S3 Vectors.
   Data boundary: one managed Knowledge Base holds static FAQ/policies/SOP with service_type metadata; live business data, artifacts, conversations, workflow tasks, and UI progress projections come from RDS or mock/vendor adapters.
   Security: Amazon Cognito groups, API Gateway authentication, Flask resource authorization, explicit confirmation and idempotency, PII minimization and encrypted sensitive fields.
   Language: user-facing product and planning documents use Traditional Chinese; protocol identifiers use English snake_case.
