@@ -46,7 +46,7 @@ AgentCore Gateway 只使用受控的 AWS Lambda targets 暴露 MCP tools，不�
 
 - 所有 Demo 工作負載部署於 `us-west-2`。
 - Supervisor 與五個領域 Agent 的基準模型為 `amazon.nova-2-lite-v1:0`，每個 Agent 的模型 ID 分別配置，不寫死在 prompt。
-- Knowledge Base embedding model 使用 `cohere.embed-multilingual-v3`，優先支援繁體中文檢索。
+- Knowledge Base 的 embedding／vector store 決策已由 [ADR-0005](0005-use-s3-vectors-and-titan-for-managed-knowledge-base.md) 修正為 `amazon.titan-embed-text-v2:0`＋S3 Vectors，並要求繁體中文 retrieval eval。
 - 若離線 eval 未達門檻，只升級失敗領域的模型；安全、授權與狀態機不以換模型取代確定性控制。
 
 ### 7. 使用無 NAT 的私有 Demo 網路

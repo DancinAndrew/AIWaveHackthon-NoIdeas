@@ -234,7 +234,7 @@ FAQ、注意事項、服務條款與 SOP 存放在一個 S3 知識來源及一�
 
 - 所有 Demo 工作負載使用 `us-west-2`。
 - Supervisor 與五個領域 Agent 以 `amazon.nova-2-lite-v1:0` 為 baseline；模型 ID 依 Agent 配置，測試失敗時可只升級單一領域。
-- Managed Knowledge Base 使用 `cohere.embed-multilingual-v3`，並以繁體中文 retrieval eval 驗證。
+- Managed Knowledge Base 依 ADR-0005 使用 `amazon.titan-embed-text-v2:0` 的 1024 維 embedding 與 S3 Vectors COSINE index，並以繁體中文 retrieval eval 驗證。
 - VPC 至少跨兩個 AZ；Flask Lambda、工具 Lambda 與 RDS 位於 private subnets，RDS security group 只接受 Lambda security group 的 5432 連線。
 - Flask 透過 AgentCore interface VPC endpoint 呼叫 Runtime，S3 使用 gateway endpoint。AgentCore Runtime 不直接連 RDS。
 - Step Functions 是 AWS managed workflow service；它透過 IAM 核准的 workflow worker Lambda 喚起 AgentCore，人工等待期間不占用 AgentCore Runtime session。

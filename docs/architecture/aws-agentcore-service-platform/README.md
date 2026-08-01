@@ -1,6 +1,6 @@
 # AWS AgentCore 非同步服務平台架構
 
-這是 AI 生活管家目前的正式 Demo 架構，對應 [ADR-0003](../../adr/0003-adopt-aws-native-agentcore-rds-platform.md) 與 [ADR-0004](../../adr/0004-orchestrate-agent-provider-callbacks-with-step-functions.md)。所有工作負載位於 `us-west-2`，只使用 AWS 服務；外部付款、餐廳、供應商與派工操作使用 mock adapter。
+這是 AI 生活管家目前的正式 Demo 架構，對應 [ADR-0003](../../adr/0003-adopt-aws-native-agentcore-rds-platform.md)、[ADR-0004](../../adr/0004-orchestrate-agent-provider-callbacks-with-step-functions.md) 與 [ADR-0005](../../adr/0005-use-s3-vectors-and-titan-for-managed-knowledge-base.md)。所有工作負載位於 `us-west-2`，只使用 AWS 服務；外部付款、餐廳、供應商與派工操作使用 mock adapter。
 
 ## 圖檔
 
@@ -26,7 +26,7 @@
 | 長時間等待與分支 | Step Functions Standard | 等待住戶／廠商 callback、拒絕改派、補件往返 |
 | 業務交易與媒合 | RDS PostgreSQL | `service_requests`、matches、events、provider replies |
 | UI 進度與提醒 | RDS PostgreSQL | workflow execution／task projection、messages、artifacts |
-| 靜態 FAQ／條款／SOP | S3＋Managed Knowledge Base | 以 `service_type` metadata 過濾的 RAG |
+| 靜態 FAQ／條款／SOP | private S3 source＋Managed Knowledge Base＋S3 Vectors | Titan Embed v2 1024 維向量，以 `service_type` metadata 過濾的 RAG |
 
 ## 網路與安全邊界
 

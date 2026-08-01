@@ -33,7 +33,8 @@ flowchart LR
     end
     Gateway[Amazon Bedrock AgentCore Gateway]
     SFN[AWS Step Functions Standard<br/>waiting provider／resident callback<br/>decline or timeout → rematch]
-    KB[Amazon Bedrock Managed Knowledge Base<br/>Cohere Embed Multilingual v3]
+    KB[Amazon Bedrock Managed Knowledge Base<br/>Titan Text Embeddings V2]
+    S3Vector[(Amazon S3 Vectors<br/>1024-d COSINE index)]
     Model[Amazon Nova 2 Lite baseline]
   end
 
@@ -50,6 +51,7 @@ flowchart LR
   Restaurant & Product & Housekeeping & Repair & Community --> Model
   Restaurant & Product & Housekeeping & Repair & Community -->|MCP tools| Gateway
   Restaurant & Product & Housekeeping & Repair & Community -->|service_type filter| KB
+  KB --> S3Vector
   Gateway --> ToolLambda
   Flask --> Core
   ToolLambda --> Core
