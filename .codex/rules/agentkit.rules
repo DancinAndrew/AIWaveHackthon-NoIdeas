@@ -1,0 +1,33 @@
+# Codex exec-policy guardrails adapted from AgentKit's permission intent.
+
+prefix_rule(
+    pattern = ["rm", "-rf"],
+    decision = "forbidden",
+    justification = "Use a scoped, recoverable removal or request explicit approval for a destructive operation.",
+    match = ["rm -rf build", "rm -rf /tmp/example"],
+    not_match = ["rm build/output.txt", "rmdir build"],
+)
+
+prefix_rule(
+    pattern = ["git", "reset", "--hard"],
+    decision = "forbidden",
+    justification = "Preserve user changes; use a non-destructive Git operation or request explicit approval.",
+    match = ["git reset --hard", "git reset --hard HEAD~1"],
+    not_match = ["git reset HEAD file.py", "git status"],
+)
+
+prefix_rule(
+    pattern = ["git", "push", ["--force", "-f", "--force-with-lease"]],
+    decision = "forbidden",
+    justification = "Do not rewrite remote history without an explicit, separately reviewed request.",
+    match = ["git push --force", "git push -f origin main", "git push --force-with-lease"],
+    not_match = ["git push", "git push origin main"],
+)
+
+prefix_rule(
+    pattern = ["git", "clean", ["-f", "-fd", "-df", "-fx", "-fdx"]],
+    decision = "forbidden",
+    justification = "Do not delete untracked work; inspect it and remove only explicitly selected paths.",
+    match = ["git clean -f", "git clean -fd", "git clean -fdx"],
+    not_match = ["git clean -n", "git status"],
+)
