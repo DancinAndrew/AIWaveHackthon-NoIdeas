@@ -1,0 +1,27 @@
+{
+  "purpose": "Synthetic utility repair Knowledge Base documents only",
+  "files": [
+    "data/mock/knowledge_base/utility_repair/01-safety.md",
+    "data/mock/knowledge_base/utility_repair/01-safety.md.metadata.json",
+    "data/mock/knowledge_base/utility_repair/02-sop.md",
+    "data/mock/knowledge_base/utility_repair/02-sop.md.metadata.json",
+    "data/mock/knowledge_base/utility_repair/03-notice.md",
+    "data/mock/knowledge_base/utility_repair/03-notice.md.metadata.json",
+    "data/mock/knowledge_base/utility_repair/04-terms.md",
+    "data/mock/knowledge_base/utility_repair/04-terms.md.metadata.json",
+    "data/mock/knowledge_base/utility_repair/05-faq.md",
+    "data/mock/knowledge_base/utility_repair/05-faq.md.metadata.json"
+  ],
+  "sha256": {
+    "data/mock/knowledge_base/utility_repair/01-safety.md": "4f2acacbba0d58d6b65fc11f0f85895231d709d47d2231cfc0d3895065251a3f",
+    "data/mock/knowledge_base/utility_repair/01-safety.md.metadata.json": "7a015e3b14cde2de5b49ab0d6adf35beed7e67fcc48854bc1d013f71af209837",
+    "data/mock/knowledge_base/utility_repair/02-sop.md": "6e7ccef014b496a58756a43e8fb5dc519b983e0823b6612a70b70f1f872fab21",
+    "data/mock/knowledge_base/utility_repair/02-sop.md.metadata.json": "2a912978194699f8b148c2cf4f865edcee25d23d69cfca61b09d5bd51127f096",
+    "data/mock/knowledge_base/utility_repair/03-notice.md": "754a13c1118d2a05454e772e7415da6e89947c50f1e78245ad8b9498a3b30516",
+    "data/mock/knowledge_base/utility_repair/03-notice.md.metadata.json": "10d2c00c956cce9972ed2ab76e67ad34e0d2ef9b6acfe5df68b332ac2cfaaca4",
+    "data/mock/knowledge_base/utility_repair/04-terms.md": "1fcd1c96411b061cf0d6316011852c4d92bf6b7429f6d2256701217c01ace50d",
+    "data/mock/knowledge_base/utility_repair/04-terms.md.metadata.json": "2e68cf6ca5ab7a1c8856b53b64bee4b5f87a6aa1a1192de395f3a78d93b2a33a",
+    "data/mock/knowledge_base/utility_repair/05-faq.md": "0a48a489e3396df1ee9c219ece6ba4c92a9e956d6a1c2ecbec16fd8e7e1e4318",
+    "data/mock/knowledge_base/utility_repair/05-faq.md.metadata.json": "1d61e35eaf480813ff4d7ec2dd555b6538d1ce373bc3c68f48205c0c4430cd1f"
+  }
+}

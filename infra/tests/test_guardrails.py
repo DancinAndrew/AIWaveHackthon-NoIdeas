@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 from infra.guardrails import (
@@ -62,6 +63,19 @@ def safe_template() -> dict[str, object]:
                     }
                 },
             },
+            "KnowledgeBase": {
+                "Type": "AWS::Bedrock::KnowledgeBase",
+                "Properties": {
+                    "KnowledgeBaseConfiguration": {
+                        "VectorKnowledgeBaseConfiguration": {
+                            "EmbeddingModelArn": (
+                                "arn:aws:bedrock:us-west-2::foundation-model/"
+                                "amazon.titan-embed-text-v2:0"
+                            )
+                        }
+                    }
+                },
+            },
         }
     }
 
@@ -95,7 +109,9 @@ class CloudFormationGuardrailTests(unittest.TestCase):
                 security_group = template["Resources"][  # type: ignore[index]
                     "ApplicationSecurityGroup"
                 ]
-                ingress = security_group["Properties"]["SecurityGroupIngress"][0]  # type: ignore[index]
+                ingress = security_group["Properties"][  # type: ignore[index]
+                    "SecurityGroupIngress"
+                ][0]
                 ingress.pop("CidrIp", None)
                 ingress[cidr_key] = cidr
 
@@ -129,6 +145,19 @@ class CloudFormationGuardrailTests(unittest.TestCase):
         with self.assertRaisesRegex(GuardrailViolation, "unapproved-model"):
             validate_cloudformation(template)
 
+    def test_only_the_approved_embedding_model_is_allowed(self) -> None:
+        template = safe_template()
+        knowledge_base = template["Resources"]["KnowledgeBase"]  # type: ignore[index]
+        vector_configuration = knowledge_base["Properties"][  # type: ignore[index]
+            "KnowledgeBaseConfiguration"
+        ]["VectorKnowledgeBaseConfiguration"]
+        vector_configuration["EmbeddingModelArn"] = (
+            "arn:aws:bedrock:us-west-2::foundation-model/cohere.unapproved"
+        )
+
+        with self.assertRaisesRegex(GuardrailViolation, "cohere.unapproved"):
+            validate_cloudformation(template)
+
 
 class UploadGuardrailTests(unittest.TestCase):
     def test_curated_utility_knowledge_base_manifest_passes(self) -> None:
@@ -152,6 +181,18 @@ class UploadGuardrailTests(unittest.TestCase):
                         REPOSITORY_ROOT,
                         {"files": UTILITY_KB_FILES + [prohibited_path]},
                     )
+
+    def test_manifest_pins_reviewed_file_hashes(self) -> None:
+        manifest = json.loads(
+            (REPOSITORY_ROOT / "infra/upload-manifest.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        tampered_manifest = deepcopy(manifest)
+        tampered_manifest["sha256"][UTILITY_KB_FILES[0]] = "0" * 64
+
+        with self.assertRaisesRegex(GuardrailViolation, "SHA-256"):
+            validate_upload_manifest(REPOSITORY_ROOT, tampered_manifest)
 
     def test_scanner_rejects_real_pii_and_payment_identifiers(self) -> None:
         samples = {
@@ -180,7 +221,8 @@ class UploadGuardrailTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "terms.md"
             path.write_text(
-                "地址僅供派工；付款在報價確認後處理；手機欄位不得上傳知識庫。",
+                "地址僅供派工；付款在報價確認後處理；"
+                "手機欄位不得上傳知識庫。",
                 encoding="utf-8",
             )
 

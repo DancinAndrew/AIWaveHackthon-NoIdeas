@@ -131,6 +131,20 @@ npm --prefix frontend run lint
 
 正式實作若新增 RDS、Cognito、AgentCore 或其他服務設定，必須同步更新 `.env.example`，但範例值只能使用空字串或明確的 placeholder。
 
+## AWS 部署安全閘門
+
+主辦方的 AWS 帳號限制已實作為 fail-closed 本機檢查。任何 CDK deploy 或 S3 upload 之前，都必須先對 synth 產生的 JSON template 執行：
+
+```bash
+.venv/bin/python -m infra.guardrails \
+  --template cdk.out/AiwaveStaging.template.json \
+  --manifest infra/upload-manifest.json
+```
+
+閘門會要求所有 S3 bucket 明確開啟四項 Block Public Access、RDS 明確設為非公開、Security Group 不得對全網開放，並禁止建立 EC2 instance、EMR cluster、SageMaker training job 或引用未核准的 Bedrock 模型。S3 只允許上傳 [`utility_repair`](data/mock/knowledge_base/utility_repair/) 的 10 個合成文件／metadata sidecar；路徑與 SHA-256 皆固定在 [`upload-manifest.json`](infra/upload-manifest.json)，同時掃描常見個資、支付識別碼、二進位及執行檔內容。`data/competition/`、`pii_vault.json`、住戶對話與附件均不在上傳白名單。
+
+這個檢查只驗證本機部署輸入，不會自行呼叫 AWS。部署腳本仍須在通過後才可建立或上傳資源，且 AgentCore／Bedrock 呼叫必須另行實施低於 1 RPS 的執行期節流。
+
 ## 規格流程
 
 `SPEC.md` 和 `openspec/` 同時存在是刻意的分層，不是兩份互相競爭的規格：
