@@ -1,0 +1,104 @@
+{
+"cms_homepage_service_vendor": [
+	{
+		"id" : 1,
+		"name" : "清潔",
+		"description" : "清潔服務"
+	},
+	{
+		"id" : 2,
+		"name" : "寄件",
+		"description" : "包裹運送"
+	},
+	{
+		"id" : 5,
+		"name" : "餐廳訂位",
+		"description" : "餐廳訂位"
+	},
+	{
+		"id" : 10,
+		"name" : "商城購物",
+		"description" : "限時購"
+	},
+	{
+		"id" : 11,
+		"name" : "修繕服務",
+		"description" : "水電服務"
+	},
+	{
+		"id" : 14,
+		"name" : "美食外送",
+		"description" : "美食外送"
+	}
+]}
+
+
+type:1	一般居家清潔 2	家電清洗 3	包裹寄送 6	餐廳訂位 9	美食外送 10	水電修繕 11	商城購物
+
+{
+"cms_homepage_service": [
+	{
+		"id" : 1,
+		"service_vendor_id" : 1,
+		"type" : "2",
+		"name" : "洗衣機清洗",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : "👕 衣服越洗越臭？小心洗衣機藏汙納垢！🦠 專業洗衣機深層清潔，徹底清除黴菌、洗劑殘留，讓衣物真正潔淨！"
+	},
+	{
+		"id" : 2,
+		"service_vendor_id" : 1,
+		"type" : "2",
+		"name" : "冷氣清洗",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : "<p>🌬 冷氣不冷？異味重？灰塵滿滿？ 別讓髒污影響健康！✅ 專業深層清潔，有效去除霉菌、灰塵，讓冷氣更強勁、更省電！<\/p>"
+	},
+	{
+		"id" : 3,
+		"service_vendor_id" : 2,
+		"type" : "3",
+		"name" : "寄件服務",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : "常溫包裹寄送超方便，線上填單，到府收件，實現便利新生活！"
+	},
+	{
+		"id" : 4,
+		"service_vendor_id" : 1,
+		"type" : "1",
+		"name" : "專業清潔",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : "🧹 家裡打掃不完？灰塵、油污、髒亂讓人頭痛？💪 專業清潔團隊，從地板、廚房到浴室，徹底清潔不留死角！"
+	},
+	{
+		"id" : 5,
+		"service_vendor_id" : 1,
+		"type" : "1",
+		"name" : "計時家事服務",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : "⏳ 沒時間打掃？想輕鬆享受整潔生活？👩‍🔧 專業家事服務，掃地、拖地、洗碗、摺衣，一次搞定！"
+	},
+	{
+		"id" : 9,
+		"service_vendor_id" : 5,
+		"type" : "6",
+		"name" : "餐廳訂位",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : ""
+	},
+	{
+		"id" : 16,
+		"service_vendor_id" : 14,
+		"type" : "9",
+		"name" : "美食外送",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : ""
+	},
+	{
+		"id" : 17,
+		"service_vendor_id" : 11,
+		"type" : "10",
+		"name" : "水電修繕",
+		"img_url" : "https://www.image2url.com/r2/default/files/1782374527812-320699dd-9b09-4bc1-8561-297166da06b8.jpg",
+		"description" : ""
+	}
+]}
