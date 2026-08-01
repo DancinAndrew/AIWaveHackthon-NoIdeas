@@ -533,7 +533,7 @@ class AiwaveStagingStack(Stack):
         knowledge_base = bedrock.CfnKnowledgeBase(
             self,
             "KnowledgeBase",
-            name="aiwave-utility-repair",
+            name="aiwave-utility-repair-bedrock-v1",
             role_arn=role.role_arn,
             knowledge_base_configuration=(
                 bedrock.CfnKnowledgeBase.KnowledgeBaseConfigurationProperty(
@@ -574,7 +574,7 @@ class AiwaveStagingStack(Stack):
         data_source = bedrock.CfnDataSource(
             self,
             "KnowledgeBaseDataSource",
-            name="aiwave-utility-repair-s3",
+            name="aiwave-utility-repair-s3-v1",
             knowledge_base_id=knowledge_base.attr_knowledge_base_id,
             data_source_configuration=(
                 bedrock.CfnDataSource.DataSourceConfigurationProperty(

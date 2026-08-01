@@ -228,6 +228,19 @@ class AiwaveStagingStackTests(unittest.TestCase):
         self.assertIn("lambda:InvokeFunction", actions)
 
     def test_managed_knowledge_base_uses_titan_and_s3_vectors(self) -> None:
+        knowledge_bases = self.resources("AWS::Bedrock::KnowledgeBase")
+        self.assertEqual(len(knowledge_bases), 1)
+        self.assertEqual(
+            knowledge_bases[0]["Properties"]["Name"],
+            "aiwave-utility-repair-bedrock-v1",
+        )
+        data_sources = self.resources("AWS::Bedrock::DataSource")
+        self.assertEqual(len(data_sources), 1)
+        self.assertEqual(
+            data_sources[0]["Properties"]["Name"],
+            "aiwave-utility-repair-s3-v1",
+        )
+
         vector_buckets = self.resources("AWS::S3Vectors::VectorBucket")
         self.assertEqual(len(vector_buckets), 1)
         self.assertEqual(
