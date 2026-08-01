@@ -156,6 +156,15 @@ class AiwaveStagingStackTests(unittest.TestCase):
         self.assertEqual(self.resources("AWS::EMR::Cluster"), [])
         self.assertEqual(self.resources("AWS::SageMaker::TrainingJob"), [])
 
+    def test_lambda_architecture_matches_arm64_native_bundle(self) -> None:
+        functions = self.resources("AWS::Lambda::Function")
+        self.assertEqual(len(functions), 2)
+        for function in functions:
+            self.assertEqual(
+                function["Properties"].get("Architectures"),
+                ["arm64"],
+            )
+
     def test_one_runtime_hosts_the_supervisor_and_five_logical_agents(self) -> None:
         runtimes = self.resources("AWS::BedrockAgentCore::Runtime")
         self.assertEqual(len(runtimes), 1)

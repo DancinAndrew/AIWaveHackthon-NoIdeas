@@ -406,6 +406,7 @@ class AiwaveStagingStack(Stack):
         }
         function_kwargs = {
             "runtime": lambda_.Runtime.PYTHON_3_12,
+            "architecture": lambda_.Architecture.ARM_64,
             "code": code,
             "timeout": Duration.seconds(29),
             "memory_size": 512,
