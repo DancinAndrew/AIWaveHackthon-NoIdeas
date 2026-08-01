@@ -87,14 +87,14 @@ export interface ProviderTask {
 
 export interface ConversationCreated {
   conversationId: string;
-  orchestrationMode: "deterministic-demo" | "agentcore";
+  orchestrationMode: "deterministic-demo" | "agentcore-runtime";
   activeAgent: string | null;
   assistantMessage: ApiMessage;
 }
 
 export interface ChatTurn {
   conversationId: string;
-  orchestrationMode: "deterministic-demo" | "agentcore";
+  orchestrationMode: "deterministic-demo" | "agentcore-runtime";
   activeAgent: string | null;
   assistantMessage: ApiMessage;
   serviceRequest?: ServiceRequestProjection;

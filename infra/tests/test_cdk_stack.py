@@ -165,6 +165,43 @@ class AiwaveStagingStackTests(unittest.TestCase):
                 ["arm64"],
             )
 
+    def test_http_api_and_flask_allow_local_and_amplify_origins_only(self) -> None:
+        cors = self.resources("AWS::ApiGatewayV2::Api")[0]["Properties"][
+            "CorsConfiguration"
+        ]
+        self.assertEqual(
+            set(cors["AllowHeaders"]),
+            {
+                "authorization",
+                "content-type",
+                "idempotency-key",
+                "x-demo-admin-id",
+                "x-demo-provider-id",
+                "x-demo-resident-id",
+                "x-demo-role",
+            },
+        )
+        serialized_origins = json.dumps(cors["AllowOrigins"])
+        self.assertIn("http://localhost:5173", serialized_origins)
+        self.assertIn("http://127.0.0.1:5173", serialized_origins)
+        self.assertIn("https://staging.", serialized_origins)
+        self.assertIn("FrontendApp", serialized_origins)
+        self.assertIn("DefaultDomain", serialized_origins)
+
+        api_function = next(
+            function
+            for function in self.resources("AWS::Lambda::Function")
+            if function["Properties"]["Handler"] == "lambda_handler.handler"
+        )
+        flask_origins = api_function["Properties"]["Environment"]["Variables"].get(
+            "CORS_ALLOWED_ORIGINS"
+        )
+        serialized_flask_origins = json.dumps(flask_origins)
+        self.assertIn("http://localhost:5173", serialized_flask_origins)
+        self.assertIn("http://127.0.0.1:5173", serialized_flask_origins)
+        self.assertIn("https://staging.", serialized_flask_origins)
+        self.assertIn("FrontendApp", serialized_flask_origins)
+
     def test_flask_lambda_can_invoke_only_runtime_and_staging_endpoint(self) -> None:
         invoke_statements = []
         for policy in self.resources("AWS::IAM::Policy"):

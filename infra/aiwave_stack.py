@@ -7,6 +7,7 @@ one AgentCore Runtime that hosts the Supervisor and five logical agents.
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -103,6 +104,16 @@ class AiwaveStagingStack(Stack):
 
         user_pool, user_pool_client = self._create_identity()
         workflow = self._create_workflow()
+        amplify_app, amplify_branch = self._create_frontend()
+        frontend_origin = Fn.join(
+            "",
+            ["https://staging.", amplify_app.attr_default_domain],
+        )
+        cors_allowed_origins = [
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            frontend_origin,
+        ]
         api_function, tool_function = self._create_lambda_functions(
             assets=deployment_assets,
             vpc=vpc,
@@ -110,8 +121,12 @@ class AiwaveStagingStack(Stack):
             database=database,
             artifact_bucket=artifact_bucket,
             workflow=workflow,
+            cors_allowed_origins=cors_allowed_origins,
         )
-        http_api = self._create_http_api(api_function)
+        http_api = self._create_http_api(
+            api_function,
+            allowed_origins=cors_allowed_origins,
+        )
 
         knowledge_base, data_source = self._create_knowledge_base(
             source_bucket=knowledge_base_bucket,
@@ -144,7 +159,6 @@ class AiwaveStagingStack(Stack):
             )
         )
 
-        amplify_app, amplify_branch = self._create_frontend()
         self._create_outputs(
             http_api=http_api,
             amplify_app=amplify_app,
@@ -395,6 +409,7 @@ class AiwaveStagingStack(Stack):
         database: rds.DatabaseInstance,
         artifact_bucket: s3.IBucket,
         workflow: sfn.IStateMachine,
+        cors_allowed_origins: Sequence[str],
     ) -> tuple[lambda_.Function, lambda_.Function]:
         code = self._lambda_code(assets)
         common_environment = {
@@ -427,6 +442,10 @@ class AiwaveStagingStack(Stack):
             description="Flask HTTP API adapter",
             **function_kwargs,
         )
+        api_function.add_environment(
+            "CORS_ALLOWED_ORIGINS",
+            Fn.join(",", list(cors_allowed_origins)),
+        )
         tool_function = lambda_.Function(
             self,
             "UtilityToolFunction",
@@ -444,6 +463,8 @@ class AiwaveStagingStack(Stack):
     def _create_http_api(
         self,
         api_function: lambda_.IFunction,
+        *,
+        allowed_origins: Sequence[str],
     ) -> apigwv2.HttpApi:
         return apigwv2.HttpApi(
             self,
@@ -455,9 +476,17 @@ class AiwaveStagingStack(Stack):
                 payload_format_version=apigwv2.PayloadFormatVersion.VERSION_2_0,
             ),
             cors_preflight=apigwv2.CorsPreflightOptions(
-                allow_headers=["authorization", "content-type", "x-demo-role"],
+                allow_headers=[
+                    "authorization",
+                    "content-type",
+                    "idempotency-key",
+                    "x-demo-admin-id",
+                    "x-demo-provider-id",
+                    "x-demo-resident-id",
+                    "x-demo-role",
+                ],
                 allow_methods=[apigwv2.CorsHttpMethod.ANY],
-                allow_origins=["http://localhost:5173"],
+                allow_origins=list(allowed_origins),
                 max_age=Duration.hours(1),
             ),
         )

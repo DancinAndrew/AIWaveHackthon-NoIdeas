@@ -87,7 +87,7 @@ def create_app(*, testing: bool = False) -> Flask:
             {
                 "ok": True,
                 "service": "utility-walking-skeleton",
-                "orchestrationMode": "deterministic-demo",
+                "orchestrationMode": service.orchestrator.mode,
                 "version": "0.1.0",
             }
         )

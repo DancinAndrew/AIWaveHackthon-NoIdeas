@@ -318,6 +318,22 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
             response.get_json()["data"]["service"], "utility-walking-skeleton"
         )
 
+    def test_health_reports_the_active_orchestrator_mode(self) -> None:
+        service = self.app.extensions["walking_skeleton_service"]
+        service.orchestrator = type(
+            "AgentCoreRuntimeOrchestratorStub",
+            (),
+            {"mode": "agentcore-runtime"},
+        )()
+
+        response = self.client.get("/api/v1/health")
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(
+            response.get_json()["data"]["orchestrationMode"],
+            "agentcore-runtime",
+        )
+
     def test_local_cors_allows_vite_hosts_but_not_arbitrary_origins(self) -> None:
         localhost = self.client.get(
             "/api/v1/health", headers={"Origin": "http://localhost:5173"}
