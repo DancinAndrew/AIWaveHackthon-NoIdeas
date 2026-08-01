@@ -1,94 +1,191 @@
-import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
+import { apiClient } from "../api/client";
+import type {
+  ApiMessage,
+  ServiceRequestArtifact,
+  WorkflowProgress,
+} from "../api/types";
 import "./ChatPage.css";
 
+
 interface Message {
-  id: number;
+  id: string;
   role: "user" | "assistant";
   content: string;
   timestamp: Date;
+  agent?: string | null;
+  artifact?: ServiceRequestArtifact;
 }
 
-const API_BASE_URL = "http://localhost:8000";
+const WELCOME_MESSAGE: Message = {
+  id: "local-welcome",
+  role: "assistant",
+  content:
+    "您好！我是 OPEN POINT 智慧助理，有什麼可以幫您的嗎？\n\n您可以問我：\n• 預約清潔服務\n• 查詢訂單狀態\n• 水電修繕諮詢\n• 其他居家服務",
+  timestamp: new Date(),
+  agent: "supervisor",
+};
+
+function toMessage(message: ApiMessage): Message {
+  return {
+    id: message.messageId,
+    role: message.role,
+    content: message.content,
+    timestamp: new Date(message.createdAt),
+    agent: message.agent,
+  };
+}
 
 export default function ChatPage() {
   const navigate = useNavigate();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: 1,
-      role: "assistant",
-      content: "您好！我是 OPEN POINT 智慧助理，有什麼可以幫您的嗎？\n\n您可以問我：\n• 預約清潔服務\n• 查詢訂單狀態\n• 水電修繕諮詢\n• 其他居家服務",
-      timestamp: new Date(),
-    },
-  ]);
+  const [searchParams] = useSearchParams();
+  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(true);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [serviceRequestId, setServiceRequestId] = useState<string | null>(null);
+  const [progress, setProgress] = useState<WorkflowProgress | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const seenServerMessageIds = useRef(new Set<string>());
 
-  // 自動滾動到最新訊息
+  const initializeConversation = async () => {
+    setIsConnecting(true);
+    setConnectionError(null);
+    const requestedConversation =
+      searchParams.get("conversation") ??
+      window.localStorage.getItem("aiwave-conversation-id");
+    try {
+      if (requestedConversation) {
+        const history = await apiClient.listMessages(requestedConversation);
+        history.items.forEach((message) =>
+          seenServerMessageIds.current.add(message.messageId),
+        );
+        setMessages(history.items.map(toMessage));
+        setConversationId(requestedConversation);
+        const requests = await apiClient.listServiceRequests();
+        const activeRequest = requests.items.find(
+          (item) => item.conversationId === requestedConversation,
+        );
+        if (activeRequest) {
+          setServiceRequestId(activeRequest.serviceRequestId);
+          setProgress(activeRequest.progress);
+        }
+        return;
+      }
+      const created = await apiClient.createConversation();
+      seenServerMessageIds.current.add(created.assistantMessage.messageId);
+      setMessages([toMessage(created.assistantMessage)]);
+      setConversationId(created.conversationId);
+      window.localStorage.setItem(
+        "aiwave-conversation-id",
+        created.conversationId,
+      );
+    } catch {
+      setMessages([WELCOME_MESSAGE]);
+      setConnectionError("目前無法連上服務，請確認 Flask 後端已啟動。 ");
+    } finally {
+      setIsConnecting(false);
+    }
+  };
+
+  useEffect(() => {
+    void initializeConversation();
+    // Query string only selects the initial conversation for this mount.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const sendMessage = async () => {
-    if (!input.trim() || isLoading) return;
+  useEffect(() => {
+    if (!conversationId) return;
+    let cancelled = false;
+    const poll = async () => {
+      try {
+        const history = await apiClient.listMessages(conversationId);
+        const unseen = history.items.filter(
+          (message) =>
+            message.role === "assistant" &&
+            !seenServerMessageIds.current.has(message.messageId),
+        );
+        unseen.forEach((message) =>
+          seenServerMessageIds.current.add(message.messageId),
+        );
+        if (!cancelled && unseen.length > 0) {
+          setMessages((current) => [...current, ...unseen.map(toMessage)]);
+        }
+        if (serviceRequestId) {
+          const latestProgress = await apiClient.getProgress(serviceRequestId);
+          if (!cancelled) setProgress(latestProgress);
+        }
+      } catch {
+        // Polling is read-only and best-effort; the next cycle retries.
+      }
+    };
+    const timer = window.setInterval(() => void poll(), 3000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [conversationId, serviceRequestId]);
 
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading || !conversationId) return;
+
+    const content = input.trim();
     const userMessage: Message = {
-      id: Date.now(),
+      id: `local-${Date.now()}`,
       role: "user",
-      content: input.trim(),
+      content,
       timestamp: new Date(),
     };
-
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages((current) => [...current, userMessage]);
     setInput("");
     setIsLoading(true);
 
     try {
-      // TODO: 之後接真正的 AI 後端
-      const res = await fetch(`${API_BASE_URL}/api/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage.content }),
-      });
-
-      if (!res.ok) throw new Error("API Error");
-
-      const data = await res.json();
-
-      const assistantMessage: Message = {
-        id: Date.now() + 1,
-        role: "assistant",
-        content: data.reply || "抱歉，我暫時無法回應，請稍後再試。",
-        timestamp: new Date(),
+      const turn = await apiClient.sendMessage(conversationId, content);
+      seenServerMessageIds.current.add(turn.assistantMessage.messageId);
+      const assistantMessage = {
+        ...toMessage(turn.assistantMessage),
+        artifact: turn.artifact,
       };
-
-      setMessages((prev) => [...prev, assistantMessage]);
+      setMessages((current) => [...current, assistantMessage]);
+      if (turn.serviceRequest) {
+        setServiceRequestId(turn.serviceRequest.serviceRequestId);
+      }
+      if (turn.progress) setProgress(turn.progress);
     } catch {
-      // 暫時用假回覆
-      const fallbackMessage: Message = {
-        id: Date.now() + 1,
-        role: "assistant",
-        content: "收到您的訊息！目前 AI 功能開發中，之後會為您提供更完整的服務。",
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, fallbackMessage]);
+      setMessages((current) => [
+        ...current,
+        {
+          id: `error-${Date.now()}`,
+          role: "assistant",
+          content: "訊息暫時送不出去，請確認後端連線後再試一次。",
+          timestamp: new Date(),
+          agent: "supervisor",
+        },
+      ]);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      void sendMessage();
     }
   };
 
   return (
     <div className="phone-frame">
       <div className="chat-page">
-        {/* 頂部導航列 */}
         <div className="chat-header">
           <button className="back-btn" onClick={() => navigate("/")}>
             ← 返回
@@ -97,29 +194,68 @@ export default function ChatPage() {
           <div className="header-spacer" />
         </div>
 
-        {/* 訊息區域 */}
+        {progress && (
+          <button
+            className={`workflow-banner ${progress.residentActionRequired ? "action-required" : ""}`}
+            onClick={() => navigate("/my-bookings")}
+          >
+            <span className="workflow-dot" />
+            <span>{progress.displayLabel}</span>
+            <span className="workflow-link">查看進度 ›</span>
+          </button>
+        )}
+
+        {connectionError && (
+          <div className="connection-banner">
+            <span>{connectionError}</span>
+            <button onClick={() => void initializeConversation()}>重新連線</button>
+          </div>
+        )}
+
         <div className="messages-container">
-          {messages.map((msg) => (
-            <div key={msg.id} className={`message ${msg.role}`}>
-              {msg.role === "assistant" && (
+          {messages.map((message) => (
+            <div key={message.id} className={`message ${message.role}`}>
+              {message.role === "assistant" && (
                 <div className="avatar assistant-avatar">🤖</div>
               )}
-              <div className={`bubble ${msg.role}`}>
-                <p>{msg.content}</p>
+              <div className={`bubble ${message.role}`}>
+                {message.role === "assistant" && message.agent && (
+                  <span className="agent-label">
+                    {message.agent === "utility_repair_agent"
+                      ? "水電 Agent"
+                      : "智慧助理"}
+                  </span>
+                )}
+                <p>{message.content}</p>
+                {message.artifact && (
+                  <div className="artifact-preview">
+                    <div className="artifact-title">
+                      📄 水電需求文件 v{message.artifact.version}
+                    </div>
+                    <div className="artifact-summary">
+                      {message.artifact.summary}
+                    </div>
+                    <span className={`artifact-status ${message.artifact.status}`}>
+                      {message.artifact.status === "confirmed"
+                        ? "已確認"
+                        : "待確認"}
+                    </span>
+                  </div>
+                )}
                 <span className="time">
-                  {msg.timestamp.toLocaleTimeString("zh-TW", {
+                  {message.timestamp.toLocaleTimeString("zh-TW", {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
                 </span>
               </div>
-              {msg.role === "user" && (
+              {message.role === "user" && (
                 <div className="avatar user-avatar">👤</div>
               )}
             </div>
           ))}
 
-          {isLoading && (
+          {(isLoading || isConnecting) && (
             <div className="message assistant">
               <div className="avatar assistant-avatar">🤖</div>
               <div className="bubble assistant typing">
@@ -133,21 +269,20 @@ export default function ChatPage() {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* 輸入區域 */}
         <div className="input-area">
           <input
             type="text"
             className="chat-input"
-            placeholder="輸入訊息..."
+            placeholder="例如：浴室洗手台下方一直漏水"
             value={input}
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(event) => setInput(event.target.value)}
             onKeyDown={handleKeyDown}
-            disabled={isLoading}
+            disabled={isLoading || isConnecting || !conversationId}
           />
           <button
             className="send-btn"
-            onClick={sendMessage}
-            disabled={!input.trim() || isLoading}
+            onClick={() => void sendMessage()}
+            disabled={!input.trim() || isLoading || !conversationId}
           >
             傳送
           </button>

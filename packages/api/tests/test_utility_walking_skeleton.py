@@ -318,6 +318,26 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
             response.get_json()["data"]["service"], "utility-walking-skeleton"
         )
 
+    def test_local_cors_allows_vite_hosts_but_not_arbitrary_origins(self) -> None:
+        localhost = self.client.get(
+            "/api/v1/health", headers={"Origin": "http://localhost:5173"}
+        )
+        loopback = self.client.get(
+            "/api/v1/health", headers={"Origin": "http://127.0.0.1:5173"}
+        )
+        untrusted = self.client.get(
+            "/api/v1/health", headers={"Origin": "https://untrusted.example"}
+        )
+        self.assertEqual(
+            localhost.headers["Access-Control-Allow-Origin"],
+            "http://localhost:5173",
+        )
+        self.assertEqual(
+            loopback.headers["Access-Control-Allow-Origin"],
+            "http://127.0.0.1:5173",
+        )
+        self.assertNotIn("Access-Control-Allow-Origin", untrusted.headers)
+
 
 if __name__ == "__main__":
     unittest.main()

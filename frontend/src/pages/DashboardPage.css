@@ -234,3 +234,84 @@
   color: #999;
   font-size: 15px;
 }
+
+.provider-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 12px;
+  background: #eef0ff;
+  border-bottom: 1px solid #d9dcf7;
+}
+
+.provider-switcher-label {
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.provider-switcher button {
+  padding: 5px 9px;
+  border: 1px solid #9fa8da;
+  border-radius: 14px;
+  background: #fff;
+  color: #3949ab;
+  font-size: 10px;
+  cursor: pointer;
+}
+
+.provider-switcher button.active {
+  background: #3949ab;
+  color: #fff;
+}
+
+.dashboard-error {
+  margin: 10px 16px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fff3e0;
+  color: #bf360c;
+  font-size: 12px;
+}
+
+.dashboard-field {
+  display: block;
+  margin-top: 10px;
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.dashboard-field input {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 9px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 11px;
+  outline: none;
+}
+
+.dashboard-field input:focus {
+  border-color: #3949ab;
+}
+
+.request-actions.four-actions .action-btn {
+  padding: 10px 4px;
+  font-size: 11px;
+}
+
+.action-btn.question {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+
+.action-btn.timeout {
+  background: #ede7f6;
+  color: #5e35b1;
+}
+
+.action-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}

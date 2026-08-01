@@ -28,9 +28,17 @@ def create_app(*, testing: bool = False) -> Flask:
     @app.after_request
     def add_response_headers(response):
         response.headers["X-Request-Id"] = g.get("request_id", "")
-        allowed_origin = os.getenv("CORS_ALLOWED_ORIGIN", "http://localhost:5173")
-        if request.headers.get("Origin") == allowed_origin:
-            response.headers["Access-Control-Allow-Origin"] = allowed_origin
+        allowed_origins = {
+            origin.strip()
+            for origin in os.getenv(
+                "CORS_ALLOWED_ORIGINS",
+                "http://localhost:5173,http://127.0.0.1:5173",
+            ).split(",")
+            if origin.strip()
+        }
+        request_origin = request.headers.get("Origin")
+        if request_origin in allowed_origins:
+            response.headers["Access-Control-Allow-Origin"] = request_origin
             response.headers["Vary"] = "Origin"
             response.headers["Access-Control-Allow-Headers"] = (
                 "Content-Type, Idempotency-Key, X-Demo-Resident-Id, "

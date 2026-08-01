@@ -3,7 +3,7 @@
 AI 生活管家是「2026 雲湧智生：臺灣生成式 AI 應用黑客松」參賽專案。使用者可以用自然語言描述生活需求，由 AgentCore Runtime 內的 Supervisor 路由至五個領域 Agent，透過多輪對話產生需求文件並自動委派商家；Step Functions 等待廠商承接、補問或拒絕，必要時恢復原 Agent 向住戶補件，最後把結論與進度顯示在原對話及提醒頁。
 
 > [!IMPORTANT]
-> `main` 分支目前仍在 MVP 基礎建設階段。`backend/app.py` 只有 Flask／AWS Lambda 連線骨架與測試端點，尚未實作完整的需求理解、建案與媒合流程。
+> `main` 已完成「水電修繕 walking skeleton」的本機閉環：智慧助理多輪確認、版本化需求文件、住戶確認、確定性媒合、廠商補問／拒絕／接受、住戶補件、管理員模擬逾時及我的預約進度。正式 AgentCore、Step Functions 與 RDS staging 部署仍依 OpenSpec 10.4 進行；本機 API 會誠實標示 `orchestrationMode: deterministic-demo`。
 
 ## MVP 服務範圍
 
@@ -38,7 +38,9 @@ MVP 聚焦在「理解需求 → 補齊欄位 → 產生文件 → 使用者確�
 .
 ├── .agents/skills/       # 專案限定的 Codex 工作流
 ├── .codex/rules/         # Codex 指令防護規則
-├── backend/              # Flask 與 AWS Lambda 後端入口
+├── backend/              # 早期 Flask／Lambda 連線骨架（參考）
+├── frontend/             # React：智慧助理、我的預約與後台管理
+├── packages/api/         # 現行 Flask API、walking skeleton core 與測試
 ├── data/competition/     # 主辦單位原始資料；不可覆寫
 ├── data/mock/            # 由資料工具產生的開發用資料
 ├── docs/                 # 命題、ADR、架構圖與資料說明
@@ -51,7 +53,7 @@ MVP 聚焦在「理解需求 → 補齊欄位 → 產生文件 → 使用者確�
 └── uv.lock               # 可重現的完整依賴鎖檔
 ```
 
-正式 Python 入口是 `backend/app.py`；根目錄不再保留無功能的 `main.py` 或一次性 Bedrock 測試腳本。
+現行 Python 入口是 `packages/api/app.py`；`packages/api/op_agent/` 與 `backend/app.py` 保留為合併前參考，不是 React 目前呼叫的 API。
 
 ## 架構決策
 
@@ -83,17 +85,36 @@ uv sync --locked
 - `flask`：HTTP 後端框架
 - `boto3`：Amazon Bedrock Runtime 與其他 AWS 服務客戶端
 - `pydantic-settings`：環境設定驗證
-- `supabase`：舊方案遺留的 Supabase API 客戶端；依 active OpenSpec 待移除，不是正式部署目標
+
+Supabase 直接依賴已移除；正式部署只使用 AWS 服務。
 
 `pyproject.toml` 與 `uv.lock` 是唯一依賴來源；不要另外手動維護 `requirements.txt`。若部署工具未來要求該格式，應由鎖檔在部署流程中產生。
 
-## 啟動目前的後端骨架
+## 啟動水電 walking skeleton
+
+先啟動 Flask：
 
 ```bash
-uv run --locked python backend/app.py
+PORT=8000 .venv/bin/python packages/api/app.py
 ```
 
-預設監聽 `http://127.0.0.1:5000`，目前只有 `GET /api/test`。AWS Lambda handler 為 `backend.app.lambda_handler`；完整 `/health`、REST API 與 MCP tools 仍以 OpenSpec tasks 為準。
+再開另一個 terminal 啟動 React：
+
+```bash
+cd frontend
+npm run dev -- --host 127.0.0.1
+```
+
+打開 `http://127.0.0.1:5173`。從首頁進「智慧助理」輸入水電需求；案件會同步出現在「我的預約」，廠商操作在快捷功能旁新增的「後台管理」。
+
+本機驗證：
+
+```bash
+.venv/bin/python -m unittest packages/api/tests/test_utility_walking_skeleton.py
+npm --prefix frontend test
+npm --prefix frontend run build
+npm --prefix frontend run lint
+```
 
 ## 環境變數
 

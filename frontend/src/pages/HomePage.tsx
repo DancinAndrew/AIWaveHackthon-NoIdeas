@@ -237,8 +237,12 @@ export default function HomePage() {
           <h3 className="block-title">快捷功能</h3>
           <div className="icon-grid">
             <div className="icon-item new-feature" onClick={() => navigate("/my-bookings")}>
-              <div className="icon-circle green-outline highlight">�</div>
+              <div className="icon-circle green-outline highlight">📅</div>
               <span className="icon-label">我的預約</span>
+            </div>
+            <div className="icon-item new-feature" onClick={() => navigate("/dashboard")}>
+              <div className="icon-circle green-outline highlight">🛠️</div>
+              <span className="icon-label">後台管理</span>
             </div>
           </div>
         </div>

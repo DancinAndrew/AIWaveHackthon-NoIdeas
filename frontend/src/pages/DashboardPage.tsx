@@ -1,139 +1,150 @@
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { createApiClient } from "../api/client";
+import type { ProviderTask } from "../api/types";
+import { providerTaskPresentation } from "../api/viewModels";
 import "./DashboardPage.css";
 
-// 對應 mms_order_record 的前端型別
-interface BookingRequest {
-  record_id: number;
-  order_no: string;
-  order_type: string;
-  order_status: string;
-  order_time: string;
-  service_time: string | null;
-  service_name: string;
-  customer_name: string;
-  customer_phone: string;
-  address: string;
-  final_amount: number;
-  note: string;
+
+const DEMO_PROVIDERS = [
+  {
+    providerId: "31324fe0-9899-5382-8211-d0122c20bda0",
+    name: "京鑫水電工程行",
+  },
+  {
+    providerId: "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
+    name: "新旺水電工程行",
+  },
+] as const;
+
+interface ProcessedTask {
+  task: ProviderTask;
+  action: "accepted" | "declined" | "needs_information" | "expired";
 }
-
-const ORDER_TYPE_MAP: Record<string, string> = {
-  "01": "服務訂單",
-  "02": "訂位",
-  "03": "預約",
-  "04": "其他",
-  "05": "商品訂單",
-  "06": "訂餐",
-};
-
-// Mock 資料 — 之後接後端 API
-const MOCK_REQUESTS: BookingRequest[] = [
-  {
-    record_id: 101,
-    order_no: "ORD20260801010",
-    order_type: "01",
-    order_status: "02",
-    order_time: "2026-08-01T11:30:00Z",
-    service_time: "2026-08-03T14:00:00Z",
-    service_name: "冷氣清洗（分離式 x2）",
-    customer_name: "王*明",
-    customer_phone: "0912***456",
-    address: "台北市信義區松仁路 XX 號",
-    final_amount: 4000,
-    note: "希望下午 2 點後到，有養寵物請注意",
-  },
-  {
-    record_id: 102,
-    order_no: "ORD20260801011",
-    order_type: "03",
-    order_status: "02",
-    order_time: "2026-08-01T10:00:00Z",
-    service_time: "2026-08-02T10:00:00Z",
-    service_name: "洗衣機清洗（直立式）",
-    customer_name: "李*華",
-    customer_phone: "0987***321",
-    address: "新北市板橋區文化路 XX 號 3F",
-    final_amount: 1800,
-    note: "",
-  },
-  {
-    record_id: 103,
-    order_no: "ORD20260731008",
-    order_type: "01",
-    order_status: "02",
-    order_time: "2026-07-31T16:00:00Z",
-    service_time: "2026-08-04T09:00:00Z",
-    service_name: "水電修繕 — 浴室漏水檢修",
-    customer_name: "張*芬",
-    customer_phone: "0955***789",
-    address: "台北市大安區忠孝東路 XX 巷 X 號",
-    final_amount: 0,
-    note: "需現場估價，希望早上時段",
-  },
-  {
-    record_id: 104,
-    order_no: "ORD20260730005",
-    order_type: "02",
-    order_status: "02",
-    order_time: "2026-07-30T20:00:00Z",
-    service_time: "2026-08-02T18:30:00Z",
-    service_name: "餐廳訂位 — 鼎泰豐信義店（4 位）",
-    customer_name: "陳*宇",
-    customer_phone: "0922***654",
-    address: "",
-    final_amount: 0,
-    note: "需要兒童座椅 x1",
-  },
-];
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const [requests, setRequests] = useState<BookingRequest[]>([]);
+  const [providerId, setProviderId] = useState<string>(
+    DEMO_PROVIDERS[0].providerId,
+  );
+  const api = useMemo(() => createApiClient({ providerId }), [providerId]);
+  const [tasks, setTasks] = useState<ProviderTask[]>([]);
+  const [processed, setProcessed] = useState<ProcessedTask[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [busyTaskId, setBusyTaskId] = useState<string | null>(null);
+  const [questions, setQuestions] = useState<Record<string, string>>({});
+  const [arrivalWindows, setArrivalWindows] = useState<Record<string, string>>(
+    {},
+  );
 
   useEffect(() => {
-    // TODO: 之後換成 fetch(`${API_BASE_URL}/api/admin/bookings?status=pending`)
-    setTimeout(() => {
-      setRequests(MOCK_REQUESTS);
-      setLoading(false);
-    }, 400);
-  }, []);
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const result = await api.listProviderTasks();
+        if (!cancelled) {
+          setTasks(result.items);
+          setError(null);
+        }
+      } catch {
+        if (!cancelled) setError("無法取得廠商任務，請確認後端連線。 ");
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    };
+    setLoading(true);
+    void load();
+    const timer = window.setInterval(() => void load(), 3000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [api]);
 
-  const handleAccept = (recordId: number) => {
-    setRequests((prev) =>
-      prev.map((r) =>
-        r.record_id === recordId ? { ...r, order_status: "03" } : r
-      )
-    );
+  const respond = async (
+    task: ProviderTask,
+    action: "accept" | "decline" | "needs_information",
+  ) => {
+    const question = questions[task.taskId]?.trim();
+    const arrivalWindow =
+      arrivalWindows[task.taskId]?.trim() || "2026-08-03 14:00-17:00";
+    if (action === "needs_information" && !question) {
+      setError("請先輸入要詢問住戶的問題。 ");
+      return;
+    }
+    setBusyTaskId(task.taskId);
+    setError(null);
+    try {
+      await api.respondToProviderTask(task.taskId, {
+        action,
+        expectedVersion: task.version,
+        message:
+          action === "needs_information"
+            ? question
+            : action === "decline"
+              ? "目前滿單，請平台改派。"
+              : "到場先檢測問題與報價，住戶確認後才施工。",
+        arrivalWindow: action === "accept" ? arrivalWindow : undefined,
+      });
+      setProcessed((current) => [
+        {
+          task,
+          action:
+            action === "accept"
+              ? "accepted"
+              : action === "decline"
+                ? "declined"
+                : "needs_information",
+        },
+        ...current.filter((item) => item.task.taskId !== task.taskId),
+      ]);
+      setTasks((current) =>
+        current.filter((item) => item.taskId !== task.taskId),
+      );
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : "操作失敗，請稍後再試。",
+      );
+    } finally {
+      setBusyTaskId(null);
+    }
   };
 
-  const handleReject = (recordId: number) => {
-    setRequests((prev) =>
-      prev.map((r) =>
-        r.record_id === recordId ? { ...r, order_status: "90" } : r
-      )
-    );
+  const simulateTimeout = async (task: ProviderTask) => {
+    setBusyTaskId(task.taskId);
+    setError(null);
+    try {
+      await api.simulateTimeout(task.taskId, "Demo 展示廠商逾時後自動改派");
+      setProcessed((current) => [
+        { task, action: "expired" },
+        ...current.filter((item) => item.task.taskId !== task.taskId),
+      ]);
+      setTasks((current) =>
+        current.filter((item) => item.taskId !== task.taskId),
+      );
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error ? requestError.message : "操作失敗，請稍後再試。",
+      );
+    } finally {
+      setBusyTaskId(null);
+    }
   };
 
-  const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString("zh-TW", {
+  const formatDate = (date: string) =>
+    new Date(date).toLocaleDateString("zh-TW", {
       month: "numeric",
       day: "numeric",
       weekday: "short",
       hour: "2-digit",
       minute: "2-digit",
     });
-  };
-
-  const pendingRequests = requests.filter((r) => r.order_status === "02");
-  const processedRequests = requests.filter((r) => r.order_status !== "02");
 
   return (
     <div className="phone-frame">
       <div className="dashboard-page">
-        {/* 頂部導航 */}
         <div className="dashboard-header">
           <button className="back-btn" onClick={() => navigate("/")}>
             ← 返回
@@ -142,93 +153,162 @@ export default function DashboardPage() {
           <div className="header-spacer" />
         </div>
 
-        {/* 統計摘要 */}
         <div className="stats-bar">
           <div className="stat-item">
-            <span className="stat-number">{pendingRequests.length}</span>
+            <span className="stat-number">{tasks.length}</span>
             <span className="stat-label">待處理</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number accepted">{processedRequests.filter((r) => r.order_status === "03").length}</span>
+            <span className="stat-number accepted">
+              {processed.filter((item) => item.action === "accepted").length}
+            </span>
             <span className="stat-label">已接受</span>
           </div>
           <div className="stat-item">
-            <span className="stat-number rejected">{processedRequests.filter((r) => r.order_status === "90").length}</span>
-            <span className="stat-label">已拒絕</span>
+            <span className="stat-number rejected">
+              {processed.filter((item) => item.action !== "accepted").length}
+            </span>
+            <span className="stat-label">其他處理</span>
           </div>
         </div>
 
-        {/* 待處理預約列表 */}
+        <div className="provider-switcher">
+          <span className="provider-switcher-label">Demo 登入：</span>
+          {DEMO_PROVIDERS.map((provider) => (
+            <button
+              key={provider.providerId}
+              className={providerId === provider.providerId ? "active" : ""}
+              onClick={() => setProviderId(provider.providerId)}
+            >
+              {provider.name.replace("水電工程行", "")}
+            </button>
+          ))}
+        </div>
+
+        {error && <div className="dashboard-error">{error}</div>}
+
         <div className="dashboard-list">
           {loading ? (
             <div className="loading-state">載入中...</div>
-          ) : pendingRequests.length === 0 && processedRequests.length === 0 ? (
+          ) : tasks.length === 0 && processed.length === 0 ? (
             <div className="empty-state">
               <span className="empty-icon">✅</span>
               <p>目前沒有待處理的預約</p>
             </div>
           ) : (
             <>
-              {pendingRequests.length > 0 && (
-                <h3 className="list-section-title">待處理（{pendingRequests.length}）</h3>
+              {tasks.length > 0 && (
+                <h3 className="list-section-title">待處理（{tasks.length}）</h3>
               )}
-              {pendingRequests.map((req) => (
-                <div key={req.record_id} className="request-card pending">
-                  <div className="request-card-header">
-                    <span className="request-type">{ORDER_TYPE_MAP[req.order_type] || "其他"}</span>
-                    <span className="request-time">提交：{formatDate(req.order_time)}</span>
-                  </div>
-                  <div className="request-card-body">
-                    <h4 className="request-service">{req.service_name}</h4>
-                    <div className="request-detail">
-                      <span>👤 {req.customer_name}　📱 {req.customer_phone}</span>
+              {tasks.map((task) => {
+                const request = providerTaskPresentation(task);
+                const busy = busyTaskId === task.taskId;
+                return (
+                  <div key={task.taskId} className="request-card pending">
+                    <div className="request-card-header">
+                      <span className="request-type">候選派工</span>
+                      <span className="request-time">
+                        提交：{formatDate(request.createdAt)}
+                      </span>
                     </div>
-                    {req.address && (
+                    <div className="request-card-body">
+                      <h4 className="request-service">{request.serviceName}</h4>
                       <div className="request-detail">
-                        <span>📍 {req.address}</span>
+                        <span>📄 {request.summary}</span>
                       </div>
-                    )}
-                    <div className="request-detail">
-                      <span>📅 預約時間：{req.service_time ? formatDate(req.service_time) : "待確認"}</span>
+                      <div className="request-detail">
+                        <span>🔢 案件：{request.serviceRequestId}</span>
+                      </div>
+                      <div className="request-note">📝 {request.note}</div>
+                      <label className="dashboard-field">
+                        <span>需要住戶補充</span>
+                        <input
+                          value={questions[task.taskId] ?? ""}
+                          onChange={(event) =>
+                            setQuestions((current) => ({
+                              ...current,
+                              [task.taskId]: event.target.value,
+                            }))
+                          }
+                          placeholder="例如：總水閥是否能關閉？"
+                        />
+                      </label>
+                      <label className="dashboard-field">
+                        <span>可到場時段</span>
+                        <input
+                          value={arrivalWindows[task.taskId] ?? ""}
+                          onChange={(event) =>
+                            setArrivalWindows((current) => ({
+                              ...current,
+                              [task.taskId]: event.target.value,
+                            }))
+                          }
+                          placeholder="2026-08-03 14:00-17:00"
+                        />
+                      </label>
                     </div>
-                    {req.final_amount > 0 && (
-                      <div className="request-detail amount">
-                        <span>💰 NT$ {req.final_amount.toLocaleString()}</span>
-                      </div>
-                    )}
-                    {req.note && (
-                      <div className="request-note">
-                        <span>📝 備註：{req.note}</span>
-                      </div>
-                    )}
+                    <div className="request-actions four-actions">
+                      <button
+                        className="action-btn timeout"
+                        disabled={busy}
+                        onClick={() => void simulateTimeout(task)}
+                      >
+                        模擬逾時
+                      </button>
+                      <button
+                        className="action-btn question"
+                        disabled={busy}
+                        onClick={() => void respond(task, "needs_information")}
+                      >
+                        補問
+                      </button>
+                      <button
+                        className="action-btn reject"
+                        disabled={busy}
+                        onClick={() => void respond(task, "decline")}
+                      >
+                        拒絕
+                      </button>
+                      <button
+                        className="action-btn accept"
+                        disabled={busy}
+                        onClick={() => void respond(task, "accept")}
+                      >
+                        接受
+                      </button>
+                    </div>
                   </div>
-                  <div className="request-actions">
-                    <button className="action-btn reject" onClick={() => handleReject(req.record_id)}>
-                      拒絕
-                    </button>
-                    <button className="action-btn accept" onClick={() => handleAccept(req.record_id)}>
-                      接受
-                    </button>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
 
-              {processedRequests.length > 0 && (
+              {processed.length > 0 && (
                 <>
-                  <h3 className="list-section-title">已處理（{processedRequests.length}）</h3>
-                  {processedRequests.map((req) => (
-                    <div key={req.record_id} className={`request-card ${req.order_status === "03" ? "accepted" : "rejected"}`}>
+                  <h3 className="list-section-title">
+                    本次已處理（{processed.length}）
+                  </h3>
+                  {processed.map(({ task, action }) => (
+                    <div
+                      key={task.taskId}
+                      className={`request-card ${action === "accepted" ? "accepted" : "rejected"}`}
+                    >
                       <div className="request-card-header">
-                        <span className="request-type">{ORDER_TYPE_MAP[req.order_type] || "其他"}</span>
-                        <span className={`request-badge ${req.order_status === "03" ? "badge-accepted" : "badge-rejected"}`}>
-                          {req.order_status === "03" ? "已接受" : "已拒絕"}
+                        <span className="request-type">水電修繕</span>
+                        <span
+                          className={`request-badge ${action === "accepted" ? "badge-accepted" : "badge-rejected"}`}
+                        >
+                          {action === "accepted"
+                            ? "已接受"
+                            : action === "declined"
+                              ? "已拒絕"
+                              : action === "expired"
+                                ? "已改派"
+                                : "待住戶補充"}
                         </span>
                       </div>
                       <div className="request-card-body">
-                        <h4 className="request-service">{req.service_name}</h4>
-                        <div className="request-detail">
-                          <span>👤 {req.customer_name}　📅 {req.service_time ? formatDate(req.service_time) : "待確認"}</span>
-                        </div>
+                        <h4 className="request-service">
+                          {task.brief?.summary ?? "水電修繕需求"}
+                        </h4>
                       </div>
                     </div>
                   ))}
