@@ -4,10 +4,12 @@ AWS Lambda + Flask 後端入口點
 """
 
 from flask import Flask, jsonify
+from flask_cors import CORS
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver
 
 # 初始化 Flask App
 flask_app = Flask(__name__)
+CORS(flask_app)  # 允許前端跨域請求
 
 # 初始化 Lambda Powertools Resolver
 resolver = APIGatewayRestResolver()
@@ -34,6 +36,11 @@ def lambda_handler(event, context):
 # --- 本地開發模式 ---
 
 # 將 Resolver 的路由同步註冊到 Flask，方便本地測試
+@flask_app.route("/", methods=["GET"])
+def hello():
+    return "Hello World! Flask is running."
+
+
 @flask_app.route("/api/test", methods=["GET"])
 def local_test_endpoint():
     return jsonify({
@@ -43,4 +50,4 @@ def local_test_endpoint():
 
 
 if __name__ == "__main__":
-    flask_app.run(debug=True, port=5000)
+    flask_app.run(debug=True, port=8000)

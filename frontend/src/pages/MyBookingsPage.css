@@ -1,0 +1,144 @@
+.bookings-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f5f5f5;
+}
+
+/* 頂部導航 */
+.bookings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: #2e7d32;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.bookings-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* 篩選 Tab */
+.filter-tabs {
+  display: flex;
+  padding: 12px 16px;
+  gap: 8px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.filter-tab {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-tab.active {
+  background: #2e7d32;
+  color: #fff;
+  border-color: #2e7d32;
+}
+
+/* 預約列表 */
+.bookings-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 預約卡片 */
+.booking-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.booking-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #fafafa;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.booking-type {
+  font-size: 12px;
+  color: #666;
+  font-weight: 500;
+}
+
+.booking-status {
+  font-size: 11px;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.booking-card-body {
+  padding: 14px;
+}
+
+.booking-service {
+  font-size: 15px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 10px;
+}
+
+.booking-info {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 6px;
+}
+
+.booking-amount {
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+/* 空狀態 */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 15px;
+}
+
+/* 載入中 */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 15px;
+}
