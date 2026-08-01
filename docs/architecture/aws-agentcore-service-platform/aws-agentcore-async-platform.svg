@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1280" viewBox="0 0 1920 1280">
+  <defs>
+    <style>
+      .title { font: 700 31px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #10213b; }
+      .subtitle { font: 500 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #51627a; }
+      .group { font: 700 17px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #23344d; }
+      .label { font: 700 16px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #172033; }
+      .small { font: 500 13px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #44516a; }
+      .tiny { font: 500 12px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #526077; }
+      .flow { font: 700 12px -apple-system, BlinkMacSystemFont, "Noto Sans TC", sans-serif; fill: #31506f; }
+      .card { stroke-width: 2; rx: 14; }
+      .arrow { fill: none; stroke: #54708f; stroke-width: 2.5; marker-end: url(#arrow); }
+      .callback { fill: none; stroke: #c0266d; stroke-width: 3; marker-end: url(#pinkArrow); }
+      .dataflow { fill: none; stroke: #16834a; stroke-width: 2.5; marker-end: url(#greenArrow); }
+      .dash { fill: none; stroke: #6b7280; stroke-width: 2; stroke-dasharray: 7 6; marker-end: url(#arrow); }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#54708f"/></marker>
+    <marker id="pinkArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#c0266d"/></marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#16834a"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#243b5a" flood-opacity="0.12"/></filter>
+  </defs>
+
+  <rect width="1920" height="1280" fill="#f7f9fc"/>
+  <text x="48" y="51" class="title">AI 生活管家｜AWS AgentCore 非同步三方閉環架構</text>
+  <text x="48" y="79" class="subtitle">us-west-2 · Supervisor＋5 個邏輯 Agent · Step Functions human callback · Flask Lambda · RDS PostgreSQL · Demo 無 NAT</text>
+
+  <!-- Web and identity -->
+  <rect x="35" y="112" width="770" height="228" rx="18" fill="#eef7ff" stroke="#9bc9ea" stroke-width="2"/>
+  <text x="57" y="141" class="group">A. 使用者、前端與 API</text>
+  <rect class="card" x="58" y="165" width="175" height="135" fill="#f3e8ff" stroke="#7c3aed" filter="url(#shadow)"/>
+  <text x="146" y="195" text-anchor="middle" class="label">三種 Demo 角色</text>
+  <text x="79" y="224" class="small">住戶 RESIDENT</text><text x="79" y="249" class="small">廠商 PROVIDER</text><text x="79" y="274" class="small">管理員 ADMIN</text>
+
+  <rect class="card" x="282" y="165" width="245" height="135" fill="#e0f2fe" stroke="#0284c7" filter="url(#shadow)"/>
+  <text x="405" y="195" text-anchor="middle" class="label">React SPA · Amplify</text>
+  <text x="405" y="222" text-anchor="middle" class="small">AI 對話＋需求文件</text><text x="405" y="245" text-anchor="middle" class="small">提醒／進度頁＋廠商後台</text><text x="405" y="270" text-anchor="middle" class="tiny">REST 短輪詢，不使用 WebSocket</text>
+
+  <rect class="card" x="575" y="165" width="200" height="55" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="675" y="197" text-anchor="middle" class="label">Amazon Cognito</text>
+  <rect class="card" x="575" y="245" width="200" height="55" fill="#e0f2fe" stroke="#0284c7"/>
+  <text x="675" y="277" text-anchor="middle" class="label">API Gateway</text>
+
+  <!-- Managed AI services -->
+  <rect x="35" y="370" width="770" height="710" rx="18" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+  <text x="57" y="400" class="group">B. AWS managed AI／workflow services</text>
+
+  <rect class="card" x="60" y="430" width="450" height="320" fill="#ffedd5" stroke="#ea580c" filter="url(#shadow)"/>
+  <text x="285" y="462" text-anchor="middle" class="label">一個 Amazon Bedrock AgentCore Runtime</text>
+  <rect x="92" y="485" width="386" height="58" rx="12" fill="#fff7ed" stroke="#f97316" stroke-width="2"/>
+  <text x="285" y="520" text-anchor="middle" class="label">Supervisor｜只做路由與跨類別協調</text>
+  <rect x="82" y="577" width="118" height="58" rx="10" fill="#fffaf5" stroke="#fb923c"/><text x="141" y="612" text-anchor="middle" class="small">餐廳 Agent</text>
+  <rect x="218" y="577" width="118" height="58" rx="10" fill="#fffaf5" stroke="#fb923c"/><text x="277" y="612" text-anchor="middle" class="small">商品 Agent</text>
+  <rect x="354" y="577" width="118" height="58" rx="10" fill="#fffaf5" stroke="#fb923c"/><text x="413" y="612" text-anchor="middle" class="small">家事 Agent</text>
+  <rect x="150" y="658" width="118" height="58" rx="10" fill="#fffaf5" stroke="#fb923c"/><text x="209" y="693" text-anchor="middle" class="small">水電 Agent</text>
+  <rect x="286" y="658" width="118" height="58" rx="10" fill="#fffaf5" stroke="#fb923c"/><text x="345" y="693" text-anchor="middle" class="small">社區 Agent</text>
+  <text x="285" y="738" text-anchor="middle" class="tiny">Nova 2 Lite baseline · 多輪追問／文件／訊息判讀／最終結論</text>
+
+  <rect class="card" x="550" y="430" width="225" height="105" fill="#ffedd5" stroke="#ea580c" filter="url(#shadow)"/>
+  <text x="663" y="462" text-anchor="middle" class="label">AgentCore Gateway</text><text x="663" y="490" text-anchor="middle" class="small">MCP tool allowlist</text><text x="663" y="513" text-anchor="middle" class="tiny">Lambda targets</text>
+
+  <rect class="card" x="550" y="570" width="225" height="115" fill="#ffedd5" stroke="#ea580c" filter="url(#shadow)"/>
+  <text x="663" y="602" text-anchor="middle" class="label">Managed Knowledge Base</text><text x="663" y="630" text-anchor="middle" class="small">Cohere multilingual v3</text><text x="663" y="655" text-anchor="middle" class="tiny">service_type metadata filter</text>
+
+  <rect class="card" x="60" y="790" width="715" height="240" fill="#fce7f3" stroke="#db2777" filter="url(#shadow)"/>
+  <text x="418" y="825" text-anchor="middle" class="label">AWS Step Functions Standard｜長時間等待與分支 owner</text>
+  <rect x="86" y="860" width="132" height="58" rx="10" fill="#fff1f7" stroke="#db2777"/><text x="152" y="884" text-anchor="middle" class="tiny">matching</text><text x="152" y="903" text-anchor="middle" class="tiny">provider</text>
+  <rect x="244" y="860" width="150" height="58" rx="10" fill="#fff1f7" stroke="#db2777"/><text x="319" y="884" text-anchor="middle" class="tiny">waiting provider</text><text x="319" y="903" text-anchor="middle" class="tiny">callback</text>
+  <rect x="420" y="860" width="150" height="58" rx="10" fill="#fff1f7" stroke="#db2777"/><text x="495" y="884" text-anchor="middle" class="tiny">補件／拒絕</text><text x="495" y="903" text-anchor="middle" class="tiny">或模擬逾時</text>
+  <rect x="596" y="860" width="150" height="58" rx="10" fill="#fff1f7" stroke="#db2777"/><text x="671" y="884" text-anchor="middle" class="tiny">resume Agent</text><text x="671" y="903" text-anchor="middle" class="tiny">final conclusion</text>
+  <text x="418" y="956" text-anchor="middle" class="small">人工等待期間 AgentCore 不保持 busy；task token 僅 server-side KMS 加密保存</text>
+  <text x="418" y="987" text-anchor="middle" class="tiny">拒絕／ADMIN 模擬逾時 → 立即依既有候選排序 rematch</text>
+
+  <!-- VPC -->
+  <rect x="840" y="112" width="1038" height="968" rx="18" fill="#f0fdf4" stroke="#86cfa3" stroke-width="2"/>
+  <text x="865" y="141" class="group">C. VPC｜至少 2 AZ private subnets｜RDS 不公開｜Demo 無 NAT Gateway</text>
+
+  <rect class="card" x="875" y="175" width="290" height="125" fill="#e0e7ff" stroke="#4f46e5" filter="url(#shadow)"/>
+  <text x="1020" y="207" text-anchor="middle" class="label">Flask Lambda</text><text x="1020" y="235" text-anchor="middle" class="small">REST＋resource authorization</text><text x="1020" y="258" text-anchor="middle" class="small">progress／messages／reminders</text><text x="1020" y="282" text-anchor="middle" class="tiny">start／server-side callback</text>
+
+  <rect class="card" x="1210" y="175" width="290" height="125" fill="#e0e7ff" stroke="#4f46e5" filter="url(#shadow)"/>
+  <text x="1355" y="207" text-anchor="middle" class="label">Gateway Tool Lambdas</text><text x="1355" y="235" text-anchor="middle" class="small">service-request tools</text><text x="1355" y="258" text-anchor="middle" class="small">＋五個領域 target groups</text><text x="1355" y="282" text-anchor="middle" class="tiny">模型不直接查寫 RDS</text>
+
+  <rect class="card" x="1545" y="175" width="290" height="125" fill="#e0e7ff" stroke="#4f46e5" filter="url(#shadow)"/>
+  <text x="1690" y="207" text-anchor="middle" class="label">Workflow Worker Lambda</text><text x="1690" y="235" text-anchor="middle" class="small">喚起原領域 Agent</text><text x="1690" y="258" text-anchor="middle" class="small">projection reconcile</text><text x="1690" y="282" text-anchor="middle" class="tiny">冪等恢復與重試</text>
+
+  <rect class="card" x="1040" y="360" width="630" height="120" fill="#eef2ff" stroke="#4f46e5" filter="url(#shadow)"/>
+  <text x="1355" y="394" text-anchor="middle" class="label">Shared Python Application Core</text><text x="1355" y="423" text-anchor="middle" class="small">Schema validation · authorization · deterministic matching · state machine</text><text x="1355" y="450" text-anchor="middle" class="small">artifact · conversation · workflow projection · idempotency</text>
+
+  <rect class="card" x="1015" y="545" width="680" height="185" fill="#dcfce7" stroke="#16a34a" filter="url(#shadow)"/>
+  <text x="1355" y="580" text-anchor="middle" class="label">Amazon RDS for PostgreSQL｜產品與進度真實來源</text>
+  <text x="1060" y="615" class="small">service_requests／matches／events</text><text x="1060" y="645" class="small">service_request_artifacts</text><text x="1060" y="675" class="small">conversation_threads／messages</text>
+  <text x="1405" y="615" class="small">workflow_executions／tasks</text><text x="1405" y="645" class="small">provider replies／idempotency</text><text x="1405" y="675" class="small">PII refs＋UI read projection</text>
+  <text x="1355" y="707" text-anchor="middle" class="tiny">前端不直接讀 Step Functions history；AgentCore Runtime 不直接連 RDS</text>
+
+  <rect class="card" x="875" y="790" width="290" height="115" fill="#f3f4f6" stroke="#4b5563"/>
+  <text x="1020" y="824" text-anchor="middle" class="label">Secrets Manager＋KMS</text><text x="1020" y="852" text-anchor="middle" class="small">DB credential／PII</text><text x="1020" y="876" text-anchor="middle" class="small">callback token／artifact encryption</text>
+
+  <rect class="card" x="1210" y="790" width="290" height="115" fill="#eef2ff" stroke="#4f46e5"/>
+  <text x="1355" y="824" text-anchor="middle" class="label">VPC Endpoints</text><text x="1355" y="852" text-anchor="middle" class="small">AgentCore interface endpoint</text><text x="1355" y="876" text-anchor="middle" class="small">S3 gateway endpoint</text>
+
+  <rect class="card" x="1545" y="790" width="290" height="115" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1690" y="824" text-anchor="middle" class="label">Mock Adapters</text><text x="1690" y="852" text-anchor="middle" class="small">付款／餐廳／供應商／派工</text><text x="1690" y="876" text-anchor="middle" class="tiny">無公網、無真實不可逆交易</text>
+
+  <rect class="card" x="875" y="950" width="445" height="90" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1098" y="982" text-anchor="middle" class="label">S3 Knowledge Base Bucket</text><text x="1098" y="1011" text-anchor="middle" class="small">只有 static FAQ／terms／SOP＋metadata</text>
+  <rect class="card" x="1390" y="950" width="445" height="90" fill="#dcfce7" stroke="#16a34a"/>
+  <text x="1613" y="982" text-anchor="middle" class="label">Private S3 Artifact Bucket</text><text x="1613" y="1011" text-anchor="middle" class="small">optional HTML／PDF；絕不進 KB</text>
+
+  <!-- Main flows -->
+  <path class="arrow" d="M233 232 H282"/><text x="247" y="220" class="flow">1</text>
+  <path class="arrow" d="M527 210 H575"/><text x="541" y="198" class="flow">登入</text>
+  <path class="arrow" d="M527 270 H575"/><text x="537" y="258" class="flow">JWT</text>
+  <path class="arrow" d="M775 272 C820 272 820 238 875 238"/><text x="812" y="235" class="flow">1 對話／後台／poll</text>
+  <path class="arrow" d="M1020 175 C1020 100 215 100 215 430 H240"/><text x="466" y="108" class="flow">2 經 AgentCore endpoint 呼叫 Runtime</text>
+  <path class="arrow" d="M510 490 H550"/><text x="520" y="478" class="flow">3 tools</text>
+  <path class="arrow" d="M550 626 H510"/>
+  <path class="arrow" d="M775 483 C860 483 930 270 1210 238"/><text x="835" y="448" class="flow">MCP</text>
+  <path class="dataflow" d="M1020 300 V360"/><path class="dataflow" d="M1355 300 V360"/><path class="dataflow" d="M1690 300 C1690 340 1600 360 1550 360"/>
+  <path class="dataflow" d="M1355 480 V545"/><text x="1367" y="520" class="flow">4 交易／文件／進度</text>
+  <path class="callback" d="M875 285 C810 330 805 750 775 820"/><text x="789" y="566" class="flow">5 start／provider callback</text>
+  <path class="callback" d="M775 910 C830 910 835 238 1545 238"/><text x="851" y="898" class="flow">6 resume original Agent</text>
+  <path class="dataflow" d="M1098 950 C1000 910 800 720 775 630"/>
+  <path class="dataflow" d="M1613 950 C1613 900 1570 730 1530 730"/>
+  <path class="dash" d="M1165 846 H1210"/>
+
+  <!-- Sequence and observability -->
+  <rect x="35" y="1115" width="1843" height="112" rx="18" fill="#edf2f7" stroke="#94a3b8" stroke-width="2"/>
+  <text x="57" y="1146" class="group">完整 Demo：1 對話輸入 → 2 Supervisor 路由 → 3 Subagent 多輪＋需求文件 → 4 確定性媒合 → 5 等待廠商 callback → 6 補件／改派／恢復 Agent → 7 原對話與進度頁顯示結論</text>
+  <text x="57" y="1180" class="small">CloudWatch＋AgentCore Observability：request ID／runtimeSessionId／Step Functions execution ARN／service_request_id 串聯；AWS CDK for Python 為基礎設施 source of truth。</text>
+  <text x="57" y="1208" class="small">安全邊界：Cognito JWT＋Flask resource authorization；callback token server-side only；RDS SG 只接受 Lambda SG 的 5432；住戶 artifact bucket 與 KB bucket 完全分離。</text>
+</svg>

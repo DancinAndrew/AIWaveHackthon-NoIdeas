@@ -1,0 +1,80 @@
+flowchart LR
+  subgraph Actors[使用者]
+    Resident[住戶 RESIDENT]
+    Provider[廠商 PROVIDER]
+    Admin[管理員 ADMIN]
+  end
+
+  subgraph Edge[Web 與身分]
+    Amplify[React SPA<br/>Amplify Hosting<br/>AI 對話＋提醒／進度＋廠商後台]
+    Cognito[Amazon Cognito<br/>預建 Demo 帳號與群組]
+    APIGW[Amazon API Gateway<br/>JWT authorizer]
+  end
+
+  subgraph VPC[VPC：至少 2 AZ private subnets；Demo 無 NAT]
+    Flask[Flask Lambda<br/>REST、resource authorization、polling API]
+    ToolLambda[AgentCore Gateway<br/>Lambda tool targets<br/>共用＋五個領域群組]
+    Worker[Workflow worker Lambda<br/>resume AgentCore／projection reconcile]
+    Core[Shared Python application core<br/>validation、matching、state machine、idempotency]
+    RDS[(Amazon RDS for PostgreSQL<br/>service requests、artifacts、messages、workflow tasks、events)]
+    Mock[Mock vendor／payment adapters]
+    Security[Secrets Manager＋KMS<br/>PII、DB credential、callback token]
+    Endpoints[AgentCore interface endpoint<br/>S3 gateway endpoint]
+  end
+
+  subgraph Managed[AWS managed AI／workflow services]
+    subgraph Runtime[一個 AgentCore Runtime]
+      Supervisor[Supervisor：只負責路由]
+      Restaurant[餐廳 Agent]
+      Product[商品 Agent]
+      Housekeeping[家事 Agent]
+      Repair[水電 Agent]
+      Community[社區 Agent]
+    end
+    Gateway[Amazon Bedrock AgentCore Gateway]
+    SFN[AWS Step Functions Standard<br/>waiting provider／resident callback<br/>decline or timeout → rematch]
+    KB[Amazon Bedrock Managed Knowledge Base<br/>Cohere Embed Multilingual v3]
+    Model[Amazon Nova 2 Lite baseline]
+  end
+
+  S3KB[(S3 KB bucket<br/>static FAQ／terms／SOP＋metadata)]
+  S3Artifact[(Private S3 artifact bucket<br/>optional HTML／PDF；KMS)]
+  Observe[CloudWatch＋AgentCore Observability<br/>request ID／session ID／trace ID]
+
+  Actors --> Amplify
+  Amplify -->|登入| Cognito
+  Amplify -->|JWT REST／短輪詢| APIGW
+  APIGW --> Flask
+  Flask -->|對話 invocation| Endpoints --> Runtime
+  Supervisor --> Restaurant & Product & Housekeeping & Repair & Community
+  Restaurant & Product & Housekeeping & Repair & Community --> Model
+  Restaurant & Product & Housekeeping & Repair & Community -->|MCP tools| Gateway
+  Restaurant & Product & Housekeeping & Repair & Community -->|service_type filter| KB
+  Gateway --> ToolLambda
+  Flask --> Core
+  ToolLambda --> Core
+  Worker --> Core
+  Core --> RDS
+  Core --> Mock
+  Core --> S3Artifact
+  Flask -->|start／server-side callback| SFN
+  SFN -->|等待結束後恢復| Worker
+  Worker -->|重新喚起原領域 Agent| Endpoints
+  S3KB --> KB
+  Security -.-> Flask & ToolLambda & Worker & RDS & S3Artifact
+  Flask & ToolLambda & Worker & Runtime & Gateway & SFN --> Observe
+
+  classDef actor fill:#F3E8FF,stroke:#7C3AED,color:#3B0764;
+  classDef app fill:#E0F2FE,stroke:#0284C7,color:#0C4A6E;
+  classDef compute fill:#E0E7FF,stroke:#4F46E5,color:#312E81;
+  classDef agent fill:#FFEDD5,stroke:#EA580C,color:#7C2D12;
+  classDef workflow fill:#FCE7F3,stroke:#DB2777,color:#831843;
+  classDef data fill:#DCFCE7,stroke:#16A34A,color:#14532D;
+  classDef security fill:#F3F4F6,stroke:#4B5563,color:#111827;
+  class Resident,Provider,Admin actor;
+  class Amplify,Cognito,APIGW app;
+  class Flask,ToolLambda,Worker,Core,Endpoints compute;
+  class Supervisor,Restaurant,Product,Housekeeping,Repair,Community,Gateway,KB,Model agent;
+  class SFN workflow;
+  class RDS,Mock,S3KB,S3Artifact data;
+  class Security,Observe security;

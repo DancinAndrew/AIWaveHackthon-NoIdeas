@@ -1,0 +1,60 @@
+flowchart LR
+    subgraph CLIENTS["使用者"]
+        RESIDENT["住戶端\nReact SPA"]
+        VENDOR["服務商管理後台\nReact SPA"]
+    end
+
+    subgraph EDGE["前端、身分與 API"]
+        CDN["Amazon CloudFront\n+ AWS WAF"]
+        WEB["Amazon S3\nReact 靜態檔案"]
+        AUTH["Amazon Cognito\n住戶／廠商角色與 JWT"]
+        APIGW["Amazon API Gateway\nHTTP API"]
+        API["AWS Lambda\nFastAPI + Agent Orchestrator"]
+    end
+
+    subgraph AI["AI 與 MCP 工具"]
+        MODEL["Amazon Bedrock Runtime\n需求分類、欄位抽取、對話"]
+        KB["Bedrock Knowledge Bases\nFAQ、條款、SOP"]
+        GATEWAY["Amazon Bedrock AgentCore Gateway\nMCP tools/list + tools/call"]
+        TOOLS["AWS Lambda：Domain Tools\n表單｜媒合｜案件｜狀態\n餐廳｜商品｜家事｜水電｜社區"]
+    end
+
+    subgraph DATA["資料、營運與安全"]
+        DB["Amazon RDS Proxy\n+ Aurora Serverless v2 PostgreSQL\n主檔、表單、案件、媒合、狀態"]
+        DOCS["Amazon S3\n知識文件 + 使用者照片"]
+        VECTOR["Amazon OpenSearch Serverless\nKnowledge Base 向量索引"]
+        OBS["Amazon CloudWatch / CloudTrail\n日誌、指標、稽核"]
+        SEC["AWS Secrets Manager + KMS\n密鑰、資料加密"]
+    end
+
+    RESIDENT --> CDN
+    VENDOR --> CDN
+    CDN -->|靜態資源| WEB
+    CDN -->|/api/*| APIGW
+    AUTH -. JWT Authorizer .-> APIGW
+    APIGW --> API
+
+    API -->|Prompt / Tool loop| MODEL
+    MODEL -->|Retrieve| KB
+    API -->|MCP client| GATEWAY
+    GATEWAY --> TOOLS
+
+    TOOLS --> DB
+    TOOLS -->|預簽上傳／讀取| DOCS
+    DOCS -->|同步文件| KB
+    KB --> VECTOR
+
+    API -. Logs / Metrics .-> OBS
+    TOOLS -. Audit .-> OBS
+    SEC -. Encrypt / Secrets .-> API
+    SEC -. Encrypt / Secrets .-> TOOLS
+
+    classDef client fill:#eaf3ff,stroke:#5b8def,color:#172b4d,stroke-width:1px;
+    classDef aws fill:#fff7e6,stroke:#ff9900,color:#232f3e,stroke-width:1px;
+    classDef ai fill:#f4edff,stroke:#8b5cf6,color:#232f3e,stroke-width:1px;
+    classDef data fill:#ecfdf3,stroke:#2f855a,color:#183b2b,stroke-width:1px;
+    class RESIDENT,VENDOR client;
+    class CDN,WEB,AUTH,APIGW,API aws;
+    class MODEL,KB,GATEWAY,TOOLS ai;
+    class DB,DOCS,VECTOR,OBS,SEC data;
+

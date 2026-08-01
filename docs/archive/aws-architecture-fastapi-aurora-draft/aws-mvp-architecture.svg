@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+  <title id="title">AI 生活管家 AWS MVP 架構</title>
+  <desc id="desc">React 前端經 CloudFront、S3、Cognito 與 API Gateway 進入 FastAPI Lambda，再連接 Amazon Bedrock、Knowledge Bases、AgentCore Gateway、MCP domain tools、Aurora PostgreSQL、S3 與 OpenSearch Serverless。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5c6670"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#7457c8"/>
+    </marker>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#111827" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .bg { fill: #f6f7f9; }
+      .title { fill: #172033; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 42px; font-weight: 700; }
+      .subtitle { fill: #5f6b7a; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 20px; }
+      .section { fill: #ffffff; stroke: #d8dee6; stroke-width: 1.5; rx: 18; filter: url(#shadow); }
+      .section-title { fill: #232f3e; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 22px; font-weight: 700; }
+      .section-rule { stroke: #ff9900; stroke-width: 4; stroke-linecap: round; }
+      .node { fill: #ffffff; stroke: #aeb7c2; stroke-width: 1.5; rx: 13; }
+      .node-ai { fill: #fbf9ff; stroke: #8f72d8; stroke-width: 1.5; rx: 13; }
+      .node-data { fill: #f7fcf9; stroke: #55a879; stroke-width: 1.5; rx: 13; }
+      .node-client { fill: #f6faff; stroke: #6191d5; stroke-width: 1.5; rx: 13; }
+      .node-title { fill: #172033; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 19px; font-weight: 700; }
+      .node-sub { fill: #5f6b7a; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 15px; }
+      .icon-bg { fill: #ff9900; rx: 9; }
+      .icon-bg-ai { fill: #7457c8; rx: 9; }
+      .icon-bg-data { fill: #2f855a; rx: 9; }
+      .icon-bg-client { fill: #3d73b9; rx: 9; }
+      .icon-text { fill: #ffffff; font-family: Arial, sans-serif; font-size: 14px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .flow { fill: none; stroke: #5c6670; stroke-width: 2.2; marker-end: url(#arrow); }
+      .flow-ai { fill: none; stroke: #7457c8; stroke-width: 2.4; marker-end: url(#arrow-purple); }
+      .flow-dash { fill: none; stroke: #7a8491; stroke-width: 2; stroke-dasharray: 8 7; marker-end: url(#arrow); }
+      .edge-label-bg { fill: #f6f7f9; rx: 5; }
+      .edge-label { fill: #596574; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 14px; font-weight: 600; text-anchor: middle; }
+      .pill { fill: #eee9fb; stroke: #c8bbed; rx: 12; }
+      .pill-text { fill: #4b3a7b; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 13px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .note-box { fill: #fff8e8; stroke: #ffb547; stroke-width: 1.5; rx: 14; }
+      .note-title { fill: #7a4d00; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 17px; font-weight: 700; }
+      .note-text { fill: #5c4a2f; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 15px; }
+      .legend { fill: #657181; font-family: "PingFang TC", "Noto Sans TC", sans-serif; font-size: 14px; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1920" height="1080"/>
+  <text class="title" x="70" y="62">AI 生活管家 — AWS MVP 架構</text>
+  <text class="subtitle" x="70" y="96">單一 Orchestrator + 五類 MCP 工具；Knowledge Base 與交易資料明確分離</text>
+
+  <!-- Section containers -->
+  <rect class="section" x="70" y="135" width="290" height="790"/>
+  <rect class="section" x="390" y="135" width="390" height="790"/>
+  <rect class="section" x="810" y="135" width="500" height="790"/>
+  <rect class="section" x="1340" y="135" width="510" height="790"/>
+
+  <line class="section-rule" x1="95" y1="175" x2="135" y2="175"/>
+  <text class="section-title" x="150" y="183">使用者</text>
+  <line class="section-rule" x1="415" y1="175" x2="455" y2="175"/>
+  <text class="section-title" x="470" y="183">前端、身分與 API</text>
+  <line class="section-rule" x1="835" y1="175" x2="875" y2="175"/>
+  <text class="section-title" x="890" y="183">AI 與 MCP 工具</text>
+  <line class="section-rule" x1="1365" y1="175" x2="1405" y2="175"/>
+  <text class="section-title" x="1420" y="183">資料、營運與安全</text>
+
+  <!-- Flows rendered behind nodes -->
+  <path class="flow" d="M320 270 C355 270, 385 250, 430 250"/>
+  <path class="flow" d="M320 395 C365 395, 380 275, 430 265"/>
+  <path class="flow" d="M585 295 L585 330"/>
+  <path class="flow" d="M740 250 C765 250, 762 605, 740 605"/>
+  <path class="flow-dash" d="M585 535 L585 565"/>
+  <path class="flow" d="M585 645 L585 690"/>
+
+  <path class="flow-ai" d="M740 755 C810 755, 790 260, 850 260"/>
+  <path class="flow-ai" d="M1055 310 L1055 350"/>
+  <path class="flow-ai" d="M740 780 C790 780, 800 555, 850 555"/>
+  <path class="flow-ai" d="M1055 620 L1055 690"/>
+
+  <path class="flow" d="M1260 760 C1330 760, 1320 255, 1380 255"/>
+  <path class="flow" d="M1260 800 C1320 800, 1320 410, 1380 410"/>
+  <path class="flow-ai" d="M1380 400 C1335 400, 1320 395, 1260 395"/>
+  <path class="flow-ai" d="M1260 415 C1335 415, 1320 555, 1380 555"/>
+  <path class="flow-dash" d="M740 805 C880 900, 1260 900, 1380 705"/>
+  <path class="flow-dash" d="M1260 830 C1320 850, 1330 855, 1380 855"/>
+
+  <!-- Edge labels -->
+  <rect class="edge-label-bg" x="345" y="240" width="76" height="24"/>
+  <text class="edge-label" x="383" y="257">HTTPS</text>
+  <rect class="edge-label-bg" x="598" y="299" width="88" height="24"/>
+  <text class="edge-label" x="642" y="316">靜態資源</text>
+  <rect class="edge-label-bg" x="684" y="424" width="74" height="24"/>
+  <text class="edge-label" x="721" y="441">/api/*</text>
+  <rect class="edge-label-bg" x="600" y="542" width="110" height="24"/>
+  <text class="edge-label" x="655" y="559">JWT Authorizer</text>
+  <rect class="edge-label-bg" x="776" y="473" width="99" height="24"/>
+  <text class="edge-label" x="825" y="490">Prompt loop</text>
+  <rect class="edge-label-bg" x="786" y="650" width="83" height="24"/>
+  <text class="edge-label" x="827" y="667">MCP client</text>
+  <rect class="edge-label-bg" x="1280" y="231" width="90" height="24"/>
+  <text class="edge-label" x="1325" y="248">SQL / Pool</text>
+  <rect class="edge-label-bg" x="1283" y="375" width="82" height="24"/>
+  <text class="edge-label" x="1324" y="392">文件同步</text>
+
+  <!-- Client nodes -->
+  <g>
+    <rect class="node-client" x="105" y="220" width="215" height="100"/>
+    <rect class="icon-bg-client" x="125" y="243" width="46" height="46"/>
+    <text class="icon-text" x="148" y="267">UI</text>
+    <text class="node-title" x="188" y="259">住戶端</text>
+    <text class="node-sub" x="188" y="284">React SPA</text>
+    <text class="node-sub" x="125" y="306">文字／語音需求、案件追蹤</text>
+  </g>
+  <g>
+    <rect class="node-client" x="105" y="345" width="215" height="100"/>
+    <rect class="icon-bg-client" x="125" y="368" width="46" height="46"/>
+    <text class="icon-text" x="148" y="392">ADM</text>
+    <text class="node-title" x="188" y="384">廠商後台</text>
+    <text class="node-sub" x="188" y="409">React SPA</text>
+    <text class="node-sub" x="125" y="431">接案、回覆、更新狀態</text>
+  </g>
+  <g>
+    <rect class="note-box" x="105" y="510" width="215" height="170"/>
+    <text class="note-title" x="125" y="543">兩個角色，共用前端</text>
+    <text class="note-text" x="125" y="575">• 住戶：建立與查看自己的案件</text>
+    <text class="note-text" x="125" y="607">• 廠商：只看授權與媒合案件</text>
+    <text class="note-text" x="125" y="639">• API 層執行 RBAC 與資料隔離</text>
+  </g>
+
+  <!-- Edge/API nodes -->
+  <g>
+    <rect class="node" x="430" y="210" width="310" height="85"/>
+    <rect class="icon-bg" x="450" y="229" width="46" height="46"/>
+    <text class="icon-text" x="473" y="253">CF</text>
+    <text class="node-title" x="515" y="245">Amazon CloudFront</text>
+    <text class="node-sub" x="515" y="270">HTTPS、快取；AWS WAF 可選</text>
+  </g>
+  <g>
+    <rect class="node" x="430" y="330" width="310" height="75"/>
+    <rect class="icon-bg" x="450" y="345" width="46" height="46"/>
+    <text class="icon-text" x="473" y="369">S3</text>
+    <text class="node-title" x="515" y="359">Amazon S3</text>
+    <text class="node-sub" x="515" y="383">React build 靜態檔案</text>
+  </g>
+  <g>
+    <rect class="node" x="430" y="450" width="310" height="85"/>
+    <rect class="icon-bg" x="450" y="469" width="46" height="46"/>
+    <text class="icon-text" x="473" y="493">ID</text>
+    <text class="node-title" x="515" y="485">Amazon Cognito</text>
+    <text class="node-sub" x="515" y="510">住戶／廠商角色、JWT</text>
+  </g>
+  <g>
+    <rect class="node" x="430" y="565" width="310" height="80"/>
+    <rect class="icon-bg" x="450" y="582" width="46" height="46"/>
+    <text class="icon-text" x="473" y="606">API</text>
+    <text class="node-title" x="515" y="598">Amazon API Gateway</text>
+    <text class="node-sub" x="515" y="622">HTTP API、驗證、限流</text>
+  </g>
+  <g>
+    <rect class="node" x="430" y="690" width="310" height="130"/>
+    <rect class="icon-bg" x="450" y="711" width="46" height="46"/>
+    <text class="icon-text" x="473" y="735">λ</text>
+    <text class="node-title" x="515" y="727">AWS Lambda</text>
+    <text class="node-sub" x="515" y="752">FastAPI + Agent Orchestrator</text>
+    <text class="node-sub" x="450" y="785">驗證輸入、管理 session、工具呼叫與確認</text>
+    <text class="node-sub" x="450" y="806">無狀態；不在函式內保存交易資料</text>
+  </g>
+
+  <!-- AI nodes -->
+  <g>
+    <rect class="node-ai" x="850" y="210" width="410" height="100"/>
+    <rect class="icon-bg-ai" x="870" y="235" width="48" height="48"/>
+    <text class="icon-text" x="894" y="260">AI</text>
+    <text class="node-title" x="940" y="247">Amazon Bedrock Runtime</text>
+    <text class="node-sub" x="940" y="273">需求分類、欄位抽取、追問與摘要</text>
+    <text class="node-sub" x="940" y="294">套用 Bedrock Guardrails</text>
+  </g>
+  <g>
+    <rect class="node-ai" x="850" y="350" width="410" height="90"/>
+    <rect class="icon-bg-ai" x="870" y="371" width="48" height="48"/>
+    <text class="icon-text" x="894" y="396">KB</text>
+    <text class="node-title" x="940" y="382">Bedrock Knowledge Bases</text>
+    <text class="node-sub" x="940" y="408">只放 FAQ、條款、服務說明與 SOP</text>
+  </g>
+  <g>
+    <rect class="node-ai" x="850" y="510" width="410" height="110"/>
+    <rect class="icon-bg-ai" x="870" y="538" width="48" height="48"/>
+    <text class="icon-text" x="894" y="563">MCP</text>
+    <text class="node-title" x="940" y="548">Amazon Bedrock AgentCore Gateway</text>
+    <text class="node-sub" x="940" y="575">MCP tools/list、tools/call、工具授權</text>
+    <text class="node-sub" x="940" y="598">若無 AgentCore，可自架相同 MCP contract</text>
+  </g>
+  <g>
+    <rect class="node-ai" x="850" y="690" width="410" height="150"/>
+    <rect class="icon-bg-ai" x="870" y="711" width="48" height="48"/>
+    <text class="icon-text" x="894" y="736">λ</text>
+    <text class="node-title" x="940" y="725">AWS Lambda — Domain Tools</text>
+    <text class="node-sub" x="940" y="751">表單 Schema、媒合、建案、狀態查詢／更新</text>
+    <rect class="pill" x="875" y="784" width="64" height="28"/><text class="pill-text" x="907" y="799">餐廳</text>
+    <rect class="pill" x="947" y="784" width="64" height="28"/><text class="pill-text" x="979" y="799">商品</text>
+    <rect class="pill" x="1019" y="784" width="64" height="28"/><text class="pill-text" x="1051" y="799">家事</text>
+    <rect class="pill" x="1091" y="784" width="64" height="28"/><text class="pill-text" x="1123" y="799">水電</text>
+    <rect class="pill" x="1163" y="784" width="72" height="28"/><text class="pill-text" x="1199" y="799">社區</text>
+    <text class="node-sub" x="875" y="830">五類共用一個工具契約，不建立五個 Agent</text>
+  </g>
+
+  <!-- Data and operations nodes -->
+  <g>
+    <rect class="node-data" x="1380" y="210" width="430" height="110"/>
+    <rect class="icon-bg-data" x="1400" y="239" width="48" height="48"/>
+    <text class="icon-text" x="1424" y="264">DB</text>
+    <text class="node-title" x="1470" y="241">Amazon RDS Proxy</text>
+    <text class="node-title" x="1470" y="267">Aurora Serverless v2 PostgreSQL</text>
+    <text class="node-sub" x="1470" y="294">主檔、表單、案件、媒合與狀態歷程</text>
+  </g>
+  <g>
+    <rect class="node-data" x="1380" y="360" width="430" height="100"/>
+    <rect class="icon-bg-data" x="1400" y="386" width="48" height="48"/>
+    <text class="icon-text" x="1424" y="411">S3</text>
+    <text class="node-title" x="1470" y="394">Amazon S3 — 資料 Bucket</text>
+    <text class="node-sub" x="1470" y="420">Knowledge 文件、修繕照片、附件</text>
+    <text class="node-sub" x="1470" y="442">使用預簽 URL；與前端 Bucket 分離</text>
+  </g>
+  <g>
+    <rect class="node-data" x="1380" y="510" width="430" height="90"/>
+    <rect class="icon-bg-data" x="1400" y="531" width="48" height="48"/>
+    <text class="icon-text" x="1424" y="556">OS</text>
+    <text class="node-title" x="1470" y="544">Amazon OpenSearch Serverless</text>
+    <text class="node-sub" x="1470" y="571">Knowledge Base 向量索引</text>
+  </g>
+  <g>
+    <rect class="node-data" x="1380" y="660" width="430" height="90"/>
+    <rect class="icon-bg-data" x="1400" y="681" width="48" height="48"/>
+    <text class="icon-text" x="1424" y="706">OBS</text>
+    <text class="node-title" x="1470" y="694">Amazon CloudWatch / CloudTrail</text>
+    <text class="node-sub" x="1470" y="721">日誌、指標、告警、工具呼叫稽核</text>
+  </g>
+  <g>
+    <rect class="node-data" x="1380" y="810" width="430" height="90"/>
+    <rect class="icon-bg-data" x="1400" y="831" width="48" height="48"/>
+    <text class="icon-text" x="1424" y="856">KEY</text>
+    <text class="node-title" x="1470" y="844">AWS Secrets Manager + KMS</text>
+    <text class="node-sub" x="1470" y="871">API secret、資料庫憑證與個資加密</text>
+  </g>
+
+  <!-- Footer -->
+  <rect class="note-box" x="70" y="955" width="1780" height="78"/>
+  <text class="note-title" x="95" y="985">MVP 取捨</text>
+  <text class="note-text" x="205" y="985">先完成 CloudFront + S3、Cognito、API Gateway、Lambda、Bedrock Runtime、單一 PostgreSQL 與 MCP contract。</text>
+  <text class="note-text" x="205" y="1012">Knowledge Base、OpenSearch、WAF 與 AgentCore 託管 Gateway 可在核心流程跑通後加入；若沿用 Supabase，直接替換 Aurora 節點。</text>
+  <line x1="1220" y1="1053" x2="1260" y2="1053" stroke="#5c6670" stroke-width="2.2" marker-end="url(#arrow)"/>
+  <text class="legend" x="1270" y="1058">請求／資料流</text>
+  <line x1="1400" y1="1053" x2="1440" y2="1053" stroke="#7a8491" stroke-width="2" stroke-dasharray="8 7" marker-end="url(#arrow)"/>
+  <text class="legend" x="1450" y="1058">授權／稽核／安全</text>
+</svg>

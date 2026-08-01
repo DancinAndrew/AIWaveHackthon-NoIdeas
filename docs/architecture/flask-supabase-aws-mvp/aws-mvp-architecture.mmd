@@ -1,0 +1,63 @@
+flowchart LR
+    subgraph USERS["使用者與外部呼叫者"]
+        CONSUMER["住戶端 React SPA"]
+        PROVIDER["服務商後台 React SPA"]
+        EXTERNAL["外部 Agent / Lumine One"]
+    end
+
+    subgraph EDGE["前端、身分與入口"]
+        CDN["Amazon CloudFront\n+ AWS WAF（可選）"]
+        WEB["Amazon S3\nReact 靜態檔案"]
+        IDP["Identity Provider（待決）\nAmazon Cognito 或 Supabase Auth"]
+        API["Amazon API Gateway\n/api/v1 REST + /mcp"]
+    end
+
+    subgraph APP["Flask 應用與 AI"]
+        FLASK["AWS Lambda：Flask Application\nREST Blueprints｜MCP Adapter｜Orchestrator\nApplication Services\nRepositories｜Vendor Adapters"]
+        BEDROCK["Amazon Bedrock Runtime\n分類、欄位抽取、追問、工具選擇\n+ Bedrock Guardrails"]
+        KB["Bedrock Knowledge Bases\nFAQ、條款、服務說明、SOP"]
+        AGENTCORE["Amazon Bedrock AgentCore Gateway（可選）\n託管 MCP front door"]
+    end
+
+    subgraph DATA["資料、外部整合與營運"]
+        SUPABASE["Supabase PostgreSQL + RLS\n表單、供應商、案件、媒合、狀態歷程"]
+        DOCS["Amazon S3\nKnowledge 文件、照片、附件"]
+        VECTOR["Amazon OpenSearch Serverless\nKnowledge Base 向量索引"]
+        PARTNERS["合作廠商 API\n時段、庫存、價格、服務狀態"]
+        OBS["Amazon CloudWatch / CloudTrail\n日誌、指標、告警、稽核"]
+        SEC["AWS Secrets Manager + KMS\nSecrets 與個資加密金鑰"]
+    end
+
+    CONSUMER --> CDN
+    PROVIDER --> CDN
+    CDN -->|靜態資源| WEB
+    CDN -->|/api/v1| API
+    IDP -. JWT / actor context .-> API
+    API -->|REST 或 MCP| FLASK
+
+    EXTERNAL -->|直接 /mcp| API
+    EXTERNAL -. 託管入口 .-> AGENTCORE
+    AGENTCORE -. MCP target .-> FLASK
+
+    FLASK -->|Prompt / tool loop| BEDROCK
+    BEDROCK -->|Retrieve| KB
+    FLASK -->|Repository| SUPABASE
+    FLASK -->|預簽上傳／讀取| DOCS
+    FLASK -->|Vendor adapter| PARTNERS
+    DOCS -->|同步文件| KB
+    KB --> VECTOR
+
+    FLASK -. Logs / Metrics .-> OBS
+    FLASK -. Secrets / Encrypt .-> SEC
+
+    classDef client fill:#eaf3ff,stroke:#5b8def,color:#172b4d;
+    classDef aws fill:#fff7e6,stroke:#ff9900,color:#232f3e;
+    classDef ai fill:#f4edff,stroke:#8b5cf6,color:#232f3e;
+    classDef external fill:#ecfdf3,stroke:#2f855a,color:#183b2b;
+    classDef pending fill:#ffffff,stroke:#7a8491,color:#232f3e,stroke-dasharray:5 4;
+    class CONSUMER,PROVIDER,EXTERNAL client;
+    class CDN,WEB,API,FLASK aws;
+    class BEDROCK,KB,AGENTCORE ai;
+    class SUPABASE,DOCS,VECTOR,PARTNERS,OBS,SEC external;
+    class IDP pending;
+
