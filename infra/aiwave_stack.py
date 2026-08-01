@@ -482,7 +482,7 @@ class AiwaveStagingStack(Stack):
         vector_index = s3vectors.CfnIndex(
             self,
             "KnowledgeVectorIndex",
-            index_name="utility-repair",
+            index_name="utility-repair-bedrock-v1",
             vector_bucket_arn=vector_bucket.attr_vector_bucket_arn,
             data_type="float32",
             dimension=1024,

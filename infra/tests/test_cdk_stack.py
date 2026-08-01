@@ -236,6 +236,10 @@ class AiwaveStagingStackTests(unittest.TestCase):
         )
         indexes = self.resources("AWS::S3Vectors::Index")
         self.assertEqual(len(indexes), 1)
+        self.assertEqual(
+            indexes[0]["Properties"]["IndexName"],
+            "utility-repair-bedrock-v1",
+        )
         self.assertEqual(indexes[0]["Properties"]["Dimension"], 1024)
         self.assertEqual(indexes[0]["Properties"]["DistanceMetric"], "cosine")
         self.assertEqual(
