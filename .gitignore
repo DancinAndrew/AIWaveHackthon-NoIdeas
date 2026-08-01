@@ -1,5 +1,8 @@
 .DS_Store
 .env
-.venv
+.venv/
+venv/
+package/
+lambda_deploy.zip
 __pycache__/
 *.pyc
