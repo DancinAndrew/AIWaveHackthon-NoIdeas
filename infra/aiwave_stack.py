@@ -137,7 +137,10 @@ class AiwaveStagingStack(Stack):
         api_function.add_to_role_policy(
             iam.PolicyStatement(
                 actions=["bedrock-agentcore:InvokeAgentRuntime"],
-                resources=[runtime.agent_runtime_arn],
+                resources=[
+                    runtime.agent_runtime_arn,
+                    runtime_endpoint.agent_runtime_endpoint_arn,
+                ],
             )
         )
 

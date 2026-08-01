@@ -165,6 +165,24 @@ class AiwaveStagingStackTests(unittest.TestCase):
                 ["arm64"],
             )
 
+    def test_flask_lambda_can_invoke_only_runtime_and_staging_endpoint(self) -> None:
+        invoke_statements = []
+        for policy in self.resources("AWS::IAM::Policy"):
+            for statement in policy["Properties"]["PolicyDocument"]["Statement"]:
+                actions = statement["Action"]
+                if not isinstance(actions, list):
+                    actions = [actions]
+                if "bedrock-agentcore:InvokeAgentRuntime" in actions:
+                    invoke_statements.append(statement)
+
+        self.assertEqual(len(invoke_statements), 1)
+        resources = invoke_statements[0]["Resource"]
+        self.assertIsInstance(resources, list)
+        self.assertEqual(len(resources), 2)
+        serialized = json.dumps(resources)
+        self.assertIn("AgentRuntimeArn", serialized)
+        self.assertIn("AgentRuntimeEndpointArn", serialized)
+
     def test_one_runtime_hosts_the_supervisor_and_five_logical_agents(self) -> None:
         runtimes = self.resources("AWS::BedrockAgentCore::Runtime")
         self.assertEqual(len(runtimes), 1)
