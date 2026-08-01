@@ -31,5 +31,10 @@ _tmp_*
 frontend/node_modules/
 frontend/package-lock.json
 
+# AWS CDK
+infra/node_modules/
+infra/cdk.out/
+.cdk.staging/
+
 # packages/backend (reference)
 packages/backend/node_modules/

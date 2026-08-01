@@ -5,8 +5,11 @@ description = "AI 生活管家的服務需求理解、媒合與案件追蹤平�
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "aws-cdk-lib>=2.261.0,<3",
     "aws-lambda-powertools>=2.0.0",
+    "bedrock-agentcore>=1.18,<2",
     "boto3>=1.43.62",
+    "constructs>=10.5,<11",
     "flask>=3.0.0",
     "flask-cors>=4.0.0",
     "pydantic-settings>=2.14.2",
