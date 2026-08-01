@@ -106,6 +106,13 @@ class AiwaveStagingStackTests(unittest.TestCase):
 
         for subnet in self.resources("AWS::EC2::Subnet"):
             self.assertFalse(subnet["Properties"]["MapPublicIpOnLaunch"])
+        self.assertEqual(
+            {
+                subnet["Properties"]["AvailabilityZone"]
+                for subnet in self.resources("AWS::EC2::Subnet")
+            },
+            {"us-west-2a", "us-west-2b"},
+        )
 
         security_groups = self.resources("AWS::EC2::SecurityGroup")
         for security_group in security_groups:
