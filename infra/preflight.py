@@ -18,7 +18,6 @@ REQUIRED_CREDENTIAL_KEYS = (
     "AWS_ACCESS_KEY_ID",
     "AWS_SECRET_ACCESS_KEY",
     "AWS_SESSION_TOKEN",
-    "AWS_CREDENTIAL_EXPIRATION",
 )
 
 
@@ -36,16 +35,21 @@ class AwsPreflightResult:
     access_key_id: str
     secret_access_key: str
     session_token: str
-    expiration: datetime
+    expiration: datetime | None
 
     def safe_summary(self) -> str:
         """Return a summary that never contains credential material."""
 
         masked_access_key = _mask_identifier(self.access_key_id)
+        expiration_summary = (
+            self.expiration.isoformat()
+            if self.expiration is not None
+            else "unknown(user-approved)"
+        )
         return (
             f"AWS preflight passed: region={self.region}, "
             f"access_key={masked_access_key}, temporary_credentials=true, "
-            f"expires_at={self.expiration.isoformat()}"
+            f"expires_at={expiration_summary}"
         )
 
 
@@ -81,10 +85,14 @@ def validate_aws_environment(
     environment: Mapping[str, str],
     *,
     now: datetime | None = None,
+    allow_unknown_expiration: bool = False,
 ) -> AwsPreflightResult:
     """Validate temporary credentials locally without making an AWS request."""
 
-    missing = [key for key in REQUIRED_CREDENTIAL_KEYS if not environment.get(key)]
+    required_keys = list(REQUIRED_CREDENTIAL_KEYS)
+    if not allow_unknown_expiration:
+        required_keys.append("AWS_CREDENTIAL_EXPIRATION")
+    missing = [key for key in required_keys if not environment.get(key)]
     if missing:
         raise AwsPreflightError(
             "missing required temporary credential values: " + ", ".join(missing)
@@ -100,24 +108,26 @@ def validate_aws_environment(
             f"deployment region must be {REQUIRED_REGION}, got {selected_region or 'unset'}"
         )
 
-    expiration_text = environment["AWS_CREDENTIAL_EXPIRATION"].strip()
-    try:
-        expiration = datetime.fromisoformat(expiration_text.replace("Z", "+00:00"))
-    except ValueError as error:
-        raise AwsPreflightError(
-            "AWS_CREDENTIAL_EXPIRATION must be an ISO-8601 timestamp"
-        ) from error
-    if expiration.tzinfo is None:
-        raise AwsPreflightError("AWS_CREDENTIAL_EXPIRATION must include a timezone")
-    current_time = now or datetime.now(UTC)
-    if current_time.tzinfo is None:
-        raise AwsPreflightError("preflight current time must include a timezone")
-    if expiration.astimezone(UTC) - current_time.astimezone(UTC) < (
-        MINIMUM_CREDENTIAL_LIFETIME
-    ):
-        raise AwsPreflightError(
-            "temporary AWS credentials expire in less than 15 minutes"
-        )
+    expiration_text = environment.get("AWS_CREDENTIAL_EXPIRATION", "").strip()
+    expiration: datetime | None = None
+    if expiration_text:
+        try:
+            expiration = datetime.fromisoformat(expiration_text.replace("Z", "+00:00"))
+        except ValueError as error:
+            raise AwsPreflightError(
+                "AWS_CREDENTIAL_EXPIRATION must be an ISO-8601 timestamp"
+            ) from error
+        if expiration.tzinfo is None:
+            raise AwsPreflightError("AWS_CREDENTIAL_EXPIRATION must include a timezone")
+        current_time = now or datetime.now(UTC)
+        if current_time.tzinfo is None:
+            raise AwsPreflightError("preflight current time must include a timezone")
+        if expiration.astimezone(UTC) - current_time.astimezone(UTC) < (
+            MINIMUM_CREDENTIAL_LIFETIME
+        ):
+            raise AwsPreflightError(
+                "temporary AWS credentials expire in less than 15 minutes"
+            )
 
     return AwsPreflightResult(
         region=selected_region,
@@ -157,10 +167,21 @@ def main() -> int:
         action="store_true",
         help="also perform one read-only STS GetCallerIdentity request",
     )
+    parser.add_argument(
+        "--allow-unknown-expiration",
+        action="store_true",
+        help=(
+            "accept a missing AWS_CREDENTIAL_EXPIRATION only after explicit "
+            "user approval; an online STS check is still recommended"
+        ),
+    )
     arguments = parser.parse_args()
 
     environment = {**load_env_file(arguments.env_file), **os.environ}
-    result = validate_aws_environment(environment)
+    result = validate_aws_environment(
+        environment,
+        allow_unknown_expiration=arguments.allow_unknown_expiration,
+    )
     print(result.safe_summary())
     if arguments.online:
         import boto3
