@@ -73,6 +73,30 @@ class AwsPreflightTests(unittest.TestCase):
                 with self.assertRaisesRegex(AwsPreflightError, key):
                     validate_aws_environment(environment)
 
+    def test_expiration_can_be_unknown_only_with_explicit_user_override(self) -> None:
+        environment = valid_environment()
+        environment.pop("AWS_CREDENTIAL_EXPIRATION")
+
+        result = validate_aws_environment(
+            environment,
+            allow_unknown_expiration=True,
+        )
+
+        self.assertIsNone(result.expiration)
+        self.assertIn("expires_at=unknown(user-approved)", result.safe_summary())
+        self.assertNotIn(environment["AWS_SECRET_ACCESS_KEY"], result.safe_summary())
+
+    def test_override_never_accepts_missing_session_token(self) -> None:
+        environment = valid_environment()
+        environment.pop("AWS_CREDENTIAL_EXPIRATION")
+        environment.pop("AWS_SESSION_TOKEN")
+
+        with self.assertRaisesRegex(AwsPreflightError, "AWS_SESSION_TOKEN"):
+            validate_aws_environment(
+                environment,
+                allow_unknown_expiration=True,
+            )
+
     def test_env_file_parser_does_not_execute_shell_syntax(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             marker = Path(directory) / "must-not-exist"
