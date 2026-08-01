@@ -1,0 +1,1 @@
+"""Walking skeleton contract tests."""

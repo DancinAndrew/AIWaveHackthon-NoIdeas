@@ -68,3 +68,37 @@ React SPA SHALL 以短週期 REST polling 取得 messages、progress 與 reminde
 #### Scenario: 結論在輪詢後出現
 - **WHEN** workflow 寫入新的 final Agent message
 - **THEN** 下一次 polling 回傳該訊息與新 stage，前端只新增一次且不重新執行 workflow
+
+### Requirement: 水電 walking skeleton REST 契約
+Flask SHALL 暴露版本化 `/api/v1` REST 介面，讓現有 React 頁面完成單一水電案例。住戶身分 SHALL 由受信任的 request context 取得；Demo local adapter MAY 使用 `X-Demo-Resident-Id`、`X-Demo-Provider-Id` 與 `X-Demo-Role` header 模擬該 context，但服務層 MUST NOT 接受 request body 覆寫 actor。所有寫入端點 SHALL 驗證 JSON object、動作白名單與 `Idempotency-Key`。
+
+Walking skeleton SHALL 至少提供：
+
+- `POST /api/v1/conversations`
+- `POST /api/v1/conversations/{conversation_id}/messages`
+- `GET /api/v1/conversations/{conversation_id}/messages`
+- `GET /api/v1/service-requests`
+- `GET /api/v1/service-requests/{service_request_id}/progress`
+- `GET /api/v1/reminders`
+- `GET /api/v1/provider-service-requests`
+- `POST /api/v1/provider-service-requests/{task_id}/responses`
+- `POST /api/v1/admin/workflow-tasks/{task_id}/simulate-timeout`
+
+#### Scenario: 現有三個前端頁面讀取同一流程投影
+- **WHEN** 住戶在「智慧助理」確認水電需求文件並開始媒合
+- **THEN**「我的預約」從 `service-requests` 與 `progress` 顯示同一案件，「後台管理」從 `provider-service-requests` 顯示目前受派廠商可操作的 task
+
+#### Scenario: actor 不可由 body 冒用
+- **WHEN** 廠商在 response body 放入另一個 `providerId` 或住戶在 body 放入另一個 `residentId`
+- **THEN** Flask 忽略該欄位並只以受信任 request context 執行資源授權
+
+### Requirement: 水電 Agent 的確定性 Demo fallback
+正式部署 SHALL 由一個 AgentCore Runtime 中的 Supervisor 將水電任務當工具委派給水電邏輯 Agent。為使本機與 CI 不依賴模型連線，application core SHALL 同時提供符合相同 turn contract 的確定性 Demo fallback；fallback 的安全判斷、狀態轉移、廠商硬條件過濾與冪等 MUST 為程式規則，不得由模型自由決定。
+
+#### Scenario: 模型或 AgentCore 尚未連線
+- **WHEN** local／test 設定選擇 deterministic adapter
+- **THEN** 完整 water-repair E2E 仍可走完，且 API 明確回傳 `orchestrationMode: deterministic-demo`，不得假裝已由 AgentCore 執行
+
+#### Scenario: 正式 AgentCore 委派
+- **WHEN** staging 設定選擇 AgentCore adapter 且 Supervisor 判斷為 `utility_repair`
+- **THEN** turn trace 顯示 Supervisor 呼叫 `utility_repair_agent`，而狀態改變仍只能透過核准的 application tools
