@@ -28,7 +28,7 @@ def _get_config() -> Config:
     return Config(
         region=os.environ.get("AWS_REGION") or "us-west-2",
         model_id=os.environ.get("BEDROCK_MODEL_ID")
-        or "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+        or "amazon.nova-2-lite-v1:0",
         repo_driver=(os.environ.get("REPO_DRIVER") or "memory").lower(),
         table_name=os.environ.get("TABLE_NAME") or "op-life-agent",
         match_function_name=os.environ.get("MATCH_FUNCTION_NAME") or None,

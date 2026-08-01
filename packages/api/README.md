@@ -4,6 +4,8 @@
 
 AWS Lambda 入口為 `lambda_handler.handler`。它只接受 API Gateway HTTP API payload v2，將 method、path、query、headers、cookies、UTF-8／base64 body 轉交目前的 Flask app；不再依賴舊原型使用的 `apig-wsgi` 或媒合 handler。無效 event 會 fail closed 回傳安全的 `400 invalid_lambda_event`。
 
+所有直接 Bedrock Converse 呼叫必須經過 `bedrock_safety.GuardedBedrockRuntime`。共用 gate 將請求起始間隔固定為至少 1.05 秒，因而低於 1 RPS，並只允許專案核准的 Nova 2 Lite；底層 SDK 不可自行 retry，重試必須重新通過 gate。這是單一 AgentCore Runtime／單 process Demo 的執行期邊界，不可在未增加分散式節流前水平擴充模型呼叫者。
+
 ## 本機啟動
 
 使用已核准並完成同步的 Python 環境：
@@ -49,6 +51,7 @@ curl http://127.0.0.1:8000/api/v1/health
 ```bash
 .venv/bin/python -m unittest packages/api/tests/test_utility_walking_skeleton.py
 .venv/bin/python -m unittest packages/api/tests/test_lambda_handler.py
+.venv/bin/python -m unittest packages/api/tests/test_bedrock_safety.py
 .venv/bin/python -m compileall -q packages/api/walking_skeleton packages/api/app.py
 openspec validate define-flask-mcp-service-intake --strict
 uv lock --check

@@ -147,7 +147,7 @@ npm --prefix frontend run lint
 
 帳號預檢只接受 `us-west-2`、含 session token 且至少還有 15 分鐘效期的暫時憑證；輸出會遮蔽 access key，線上模式只呼叫 STS `GetCallerIdentity`。基礎設施閘門會要求所有 S3 bucket 明確開啟四項 Block Public Access、RDS 明確設為非公開、Security Group 不得對全網開放，並禁止建立 EC2 instance、EMR cluster、SageMaker training job 或引用未核准的 Bedrock 模型。S3 只允許上傳 [`utility_repair`](data/mock/knowledge_base/utility_repair/) 的 10 個合成文件／metadata sidecar；路徑與 SHA-256 皆固定在 [`upload-manifest.json`](infra/upload-manifest.json)，同時掃描常見個資、支付識別碼、二進位及執行檔內容。`data/competition/`、`pii_vault.json`、住戶對話與附件均不在上傳白名單。
 
-這個檢查只驗證本機部署輸入，不會自行呼叫 AWS。部署腳本仍須在通過後才可建立或上傳資源，且 AgentCore／Bedrock 呼叫必須另行實施低於 1 RPS 的執行期節流。
+這個檢查只驗證本機部署輸入，不會自行呼叫 AWS。所有直接 Bedrock Converse 呼叫另由 [`bedrock_safety.py`](packages/api/bedrock_safety.py) 共用同一個 process gate：請求起始間隔固定至少 1.05 秒、模型只允許 `amazon.nova-2-lite-v1:0`，SDK 自動 retry 關閉；任何明確重試都必須重新進入 gate。正式 AgentCore Runtime 仍須限制為 Demo 所需的單一承載方式，避免多個 process 各自節流後合計超過帳號限制。
 
 ## 規格流程
 

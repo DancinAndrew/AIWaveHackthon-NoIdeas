@@ -75,4 +75,5 @@
 - [x] 10.3 將「智慧助理」「我的預約」「後台管理」接到 `/api/v1` 投影，並在快捷功能的「我的預約」旁新增「後台管理」；驗證：保留既有 layout／色彩／手機框，frontend build、lint 與瀏覽器 E2E 通過。
 - [x] 10.4 建立 fail-closed AWS account preflight、pre-deploy guardrail 與合成 KB upload manifest；驗證：只允許 us-west-2 有效暫時憑證、唯讀 STS 身分檢查，policy tests 阻擋公開 S3／RDS、全網 Security Group、EC2／EMR／SageMaker training、未核准模型、非白名單路徑、雜湊變更、常見 PII／付款識別碼及執行檔，且 guardrail 不呼叫 AWS。
 - [x] 10.5 將 API Gateway HTTP API payload v2 接到現行 Flask app，移除舊 handler 對未宣告 adapter 與舊媒合 Agent 的依賴；驗證：health、base64 JSON、actor headers、受限 CORS 與 invalid-event contract tests 通過。
-- [ ] 10.6 建立 AWS staging IaC 與部署腳本，涵蓋 frontend hosting、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions、RDS、Cognito、S3 KB；驗證：diff／synth 不含 Supabase、RDS 不公開，部署後以公開 URL 重跑 water-repair smoke。
+- [x] 10.6 建立共用 Bedrock runtime safety boundary；驗證：直接 Converse 請求起始間隔至少 1.05 秒、只允許核准模型、SDK retry 不可繞過 gate，且 deterministic Demo 不產生 Bedrock 請求。
+- [ ] 10.7 建立 AWS staging IaC 與部署腳本，涵蓋 frontend hosting、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions、RDS、Cognito、S3 KB；驗證：diff／synth 不含 Supabase、RDS 不公開，部署後以公開 URL 重跑 water-repair smoke。

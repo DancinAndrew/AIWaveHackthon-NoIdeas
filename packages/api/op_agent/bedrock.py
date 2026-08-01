@@ -16,16 +16,26 @@ from typing import Any
 import boto3
 from botocore.config import Config as BotoConfig
 
+from bedrock_safety import GuardedBedrockRuntime
+
 from .config import config
 from .domain import AgentTraceEntry
 
 logger = logging.getLogger(__name__)
 
 # Bedrock 的 tool loop 一輪可能跑好幾次 API，逾時要放寬
-_bedrock = boto3.client(
-    "bedrock-runtime",
-    region_name=config.region,
-    config=BotoConfig(read_timeout=120, connect_timeout=10, retries={"max_attempts": 3}),
+_bedrock = GuardedBedrockRuntime(
+    boto3.client(
+        "bedrock-runtime",
+        region_name=config.region,
+        config=BotoConfig(
+            read_timeout=120,
+            connect_timeout=10,
+            # SDK-level retries could bypass the process-wide request gate.
+            # Any explicit retry must re-enter GuardedBedrockRuntime instead.
+            retries={"total_max_attempts": 1},
+        ),
+    )
 )
 
 
