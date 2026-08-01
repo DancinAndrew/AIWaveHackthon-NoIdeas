@@ -12,8 +12,9 @@ from __future__ import annotations
 
 import logging
 import time
+from pathlib import Path
 
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 from op_agent.config import config
@@ -26,6 +27,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger("op.api")
 
+# React 前端 build 產物。存在的話 `/` 直接吐 App，
+# 這樣單一個 Flask 程序就能 demo 全部功能，不需要另外開 vite。
+FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+
 
 def create_app() -> Flask:
     app = Flask(__name__, static_folder="static", static_url_path="/static")
@@ -37,16 +42,39 @@ def create_app() -> Flask:
     # 上線前必須改成驗證 OpenPoint SSO token 後由 token 解出會員身分。
     CORS(app, resources={r"/*": {"origins": "*"}})
 
+    # ---------------- 前端 ----------------
+
     @app.get("/")
+    def index():
+        """有 build 過的 React 就吐它，否則退回開發控制台並提示怎麼 build。"""
+        if (FRONTEND_DIST / "index.html").exists():
+            return send_from_directory(FRONTEND_DIST, "index.html")
+        return app.send_static_file("index.html")
+
+    @app.get("/assets/<path:filename>")
+    def frontend_assets(filename: str):
+        """Vite build 出來的 index.html 引用 /assets/xxx.js 這種絕對路徑。"""
+        return send_from_directory(FRONTEND_DIST / "assets", filename)
+
+    @app.get("/console")
     def console():
         """開發用可視化控制台（零依賴 HTML，不需要 npm build）。
 
-        正式的 React 前端另外做；這頁的用途是隨時能眼睛確認
-        slot filling、媒合結果、agent 工具呼叫順序有沒有跑對。
+        把 agent 的內部狀態全部攤開：slot filling、媒合結果、
+        每個工具的輸入輸出。除錯時比看 App 快得多。
         """
         return app.send_static_file("index.html")
 
+    # ---------------- API ----------------
+    #
+    # 每個 API 都註冊兩條路徑：
+    #   /chat      給 Flask 自己 serve 前端時用（同源，前端打 /api/chat 會走下面那條）
+    #   /api/chat  給前端統一使用 —— vite dev 時 proxy 會把 /api 前綴拿掉，
+    #              Flask 直接 serve 時則由這裡的別名接住。
+    # 這樣同一份前端 build 在兩種情境都能跑，不用改 base url。
+
     @app.get("/health")
+    @app.get("/api/health")
     def health():
         return jsonify(
             {
@@ -59,6 +87,7 @@ def create_app() -> Flask:
         )
 
     @app.get("/context")
+    @app.get("/api/context")
     def context():
         """給前端開場用：會員資訊 + 歷史單 + 建議話術。"""
         repo = get_repo()
@@ -76,6 +105,7 @@ def create_app() -> Flask:
         )
 
     @app.post("/chat")
+    @app.post("/api/chat")
     def chat():
         body = request.get_json(silent=True) or {}
         message = body.get("message")
@@ -111,15 +141,20 @@ app = create_app()
 
 
 if __name__ == "__main__":
+    has_build = (FRONTEND_DIST / "index.html").exists()
     print(
-        f"\n生活管家後端已啟動"
-        f"\n\n  >> 可視化控制台：http://127.0.0.1:{config.port}/  <<  用瀏覽器打開這個"
+        f"\n生活管家已啟動\n"
+        f"\n  >> App：      http://127.0.0.1:{config.port}/"
+        + ("" if has_build else "   (尚未 build，目前顯示開發控制台)")
+        + f"\n  >> 開發控制台：http://127.0.0.1:{config.port}/console"
         f"\n"
-        f"\n  GET  http://127.0.0.1:{config.port}/health"
-        f"\n  GET  http://127.0.0.1:{config.port}/context"
-        f"\n  POST http://127.0.0.1:{config.port}/chat   "
-        f'{{ "message": "冷氣不冷了" }}'
-        f"\n\n  資料層: {config.repo_driver}   模型: {config.model_id}   區域: {config.region}\n"
+        f"\n  資料層: {config.repo_driver}   模型: {config.model_id}   區域: {config.region}"
+        + (
+            ""
+            if has_build
+            else "\n\n  要看 App 請先執行： npm run build -w @op/frontend"
+        )
+        + "\n"
     )
     # debug=False：Flask reloader 會讓 MemoryRepo 的資料在重載時被清掉，demo 時很困擾
     app.run(host="127.0.0.1", port=config.port, debug=False)

@@ -134,3 +134,58 @@ Stop-Process -Id <PID> -Force
 `TIME_WAIT` 的那幾行可以忽略，那是已關閉連線的殘留，不會擋新的 server。
 
 改完程式碼後的正確流程：**Ctrl+C 停掉 → 重新 `python app.py` → 瀏覽器重新整理**。
+
+## 兩種前端執行方式
+
+### A. 單一程序（demo 用，最省事）
+
+先 build 一次，之後只要開 Flask 一個程序：
+
+```powershell
+npm run build -w @op/frontend          # 產出 packages/frontend/dist
+.venv\Scripts\python.exe packages\api\app.py
+```
+
+| 路徑 | 內容 |
+|---|---|
+| `http://127.0.0.1:3001/` | React App（OpenPoint 介面） |
+| `http://127.0.0.1:3001/console` | 開發控制台（攤開 agent 內部狀態） |
+
+因為同源，沒有 CORS 問題，網路環境再爛也不會出事。**demo 建議用這個。**
+
+### B. 前後端分離（改前端時用）
+
+```powershell
+# 終端機 1
+.venv\Scripts\python.exe packages\api\app.py
+# 終端機 2
+npm run dev -w @op/frontend            # http://localhost:5173，有 HMR
+```
+
+Vite 會把 `/api/*` proxy 到 3001。
+
+### 為什麼 API 有兩組路徑
+
+每個 API 都註冊了 `/chat` 和 `/api/chat` 兩條：
+
+- 方式 B：vite proxy 把 `/api` 前綴拿掉 → 打到 Flask 的 `/chat`
+- 方式 A：同源沒有 proxy → 由 `/api/chat` 別名接住
+
+這樣**同一份前端 build 在兩種情境都能跑**，不用改 base url、不用重新 build。
+
+## 規則式槽位抽取（op_agent/extract.py）
+
+實測發現模型會「說記下來了但沒真的呼叫 `update_request`」，
+那樣服務單是空的、前端進度條全白，看起來像壞掉。
+
+所以在呼叫 LLM 之前先跑一輪規則抽取（trace 裡會看到 `rule_prefill`）：
+
+| 抽什麼 | 依據 |
+|---|---|
+| 症狀 | `SYMPTOM_TO_ITEMS` 的 key 當字典，與報價引擎永遠同步 |
+| 品牌／機型／機齡 | 「主臥那台」對應到會員家電檔，機齡由 `installedYear` 算 |
+| 地址 | 訊息含完整地址，或含「爸媽家」「板橋」等既有地址的特徵詞 |
+| 時段 | 上午／下午／都可以 等關鍵詞 |
+
+**會員有多個地址而訊息沒指明時刻意回 `None`**，讓管家去問。
+派錯地址的代價太高，寧可多問一句。

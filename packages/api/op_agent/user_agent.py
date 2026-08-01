@@ -11,6 +11,7 @@ import json
 from typing import Any
 
 from .bedrock import AgentTool, run_agent
+from .extract import extract_slots
 from .domain import (
     PERIOD_LABEL,
     SERVICE_VENDOR_ID,
@@ -209,6 +210,55 @@ def run_user_agent_turn(
     if state["request"]:
         state["match"] = repo.get_match(state["request"]["requestId"])
     extra_trace: list[AgentTraceEntry] = []
+
+    def prefill_from_message(text: str) -> None:
+        """規則式預抽取：LLM 忘記呼叫 update_request 時的安全網。
+
+        實測模型會「說記下來了但沒呼叫工具」，那樣前端進度條會全白。
+        這裡先把明確的資訊寫進服務單，LLM 之後仍可補充細節。
+        """
+        pre_slots, address, period = extract_slots(text, user)
+        if not pre_slots and not address and not period:
+            return
+
+        req = ensure_request()
+        slots = req.setdefault("slots", {})
+
+        if pre_slots.get("symptoms"):
+            existing = slots.get("symptoms") or []
+            for s in pre_slots["symptoms"]:
+                if s not in existing:
+                    existing.append(s)
+            slots["symptoms"] = existing
+        for key in ("brand", "variant"):
+            if pre_slots.get(key) and not slots.get(key):
+                slots[key] = pre_slots[key]
+        if pre_slots.get("ageYears") is not None and slots.get("ageYears") is None:
+            slots["ageYears"] = pre_slots["ageYears"]
+
+        # 地址與時段一旦會員講過就不覆寫，避免舊值蓋掉新值
+        if address and not req.get("address"):
+            req["address"] = address
+        if period:
+            req["preferredContactTime"] = period
+
+        req["updatedAt"] = now_iso()
+        req["status"] = "READY_TO_MATCH" if not missing_fields(req) else "COLLECTING"
+        repo.put_request(req)
+
+        extra_trace.append(
+            {
+                "agent": "user-agent",
+                "tool": "rule_prefill",
+                "input": {"message": text},
+                "output": {
+                    "slots": pre_slots,
+                    "address": describe_address(address) if address else None,
+                    "preferredContactTime": period,
+                },
+                "at": now_iso(),
+            }
+        )
 
     def ensure_request(category: str = "AC_REPAIR") -> ServiceRequest:
         if state["request"]:
@@ -603,6 +653,9 @@ def run_user_agent_turn(
             run=remember_preference,
         ),
     ]
+
+    # 先用規則抽一輪，確保就算 LLM 沒呼叫 update_request，服務單也反映會員說過的話
+    prefill_from_message(message)
 
     result = run_agent(
         agent_name="user-agent",

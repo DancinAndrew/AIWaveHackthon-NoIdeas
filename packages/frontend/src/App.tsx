@@ -5,12 +5,15 @@ import type {
   ChatMessage,
   ContextResponse,
   ServiceRequest,
+  UserPreferences,
   VendorProposal,
 } from './types';
 import { PhoneFrame } from './components/PhoneFrame';
 import { HomeScreen } from './components/HomeScreen';
 import { AgentSheet } from './components/AgentSheet';
 import { OrderScreen } from './components/OrderScreen';
+import { MemberScreen } from './components/MemberScreen';
+import { PayScreen, PointsScreen } from './components/SimpleScreens';
 import {
   HomeIcon,
   MemberIcon,
@@ -41,6 +44,8 @@ export default function App() {
   const [busy, setBusy] = useState(false);
   const [request, setRequest] = useState<ServiceRequest | null>(null);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  /** 對話中即時更新的偏好，會員中心會馬上反映管家學到什麼 */
+  const [livePrefs, setLivePrefs] = useState<UserPreferences | null>(null);
   const sessionId = useRef<string | undefined>(undefined);
 
   /* ---- 時鐘與 banner 輪播，純視覺 ---- */
@@ -81,6 +86,7 @@ export default function App() {
         const res = await postChat({ message: text, sessionId: sessionId.current });
         sessionId.current = res.sessionId;
         setRequest(res.request ?? null);
+        if (res.preferences) setLivePrefs(res.preferences);
         if (res.booking) {
           setBookings((prev) =>
             prev.some((b) => b.orderNo === res.booking!.orderNo)
@@ -181,10 +187,14 @@ export default function App() {
           key={t.id}
           aria-current={tab === t.id && !showOrders ? 'page' : undefined}
           onClick={() => {
-            setTab(t.id as Tab);
             setShowOrders(false);
-            // 「服務」分頁在原 App 是服務清單，這裡直接接管家，因為那正是我們要取代的入口
-            if (t.id === 'service') openAgent();
+            if (t.id === 'service') {
+              // 「服務」在原 App 是服務分類清單 —— 那正是我們要取代的東西，
+              // 所以這裡直接叫出管家，底層畫面保持不動。
+              openAgent();
+              return;
+            }
+            setTab(t.id as Tab);
           }}
         >
           {t.icon}
@@ -202,6 +212,7 @@ export default function App() {
         </div>
       )}
 
+      {/* 訂單頁是浮動入口叫出來的，優先於 tab */}
       {showOrders ? (
         <OrderScreen
           bookings={bookings}
@@ -209,6 +220,12 @@ export default function App() {
           onBack={() => setShowOrders(false)}
           onOpenAgent={() => openAgent()}
         />
+      ) : tab === 'member' ? (
+        <MemberScreen user={ctx?.user} livePreferences={livePrefs} />
+      ) : tab === 'points' ? (
+        <PointsScreen user={ctx?.user} />
+      ) : tab === 'pay' ? (
+        <PayScreen user={ctx?.user} />
       ) : (
         <HomeScreen onOpenAgent={openAgent} bannerIndex={bannerIndex} />
       )}
