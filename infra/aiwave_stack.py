@@ -133,7 +133,12 @@ class AiwaveStagingStack(Stack):
             runtime.agent_runtime_arn,
         )
         api_function.add_environment("AGENT_RUNTIME_QUALIFIER", "staging")
-        runtime.grant_invoke(api_function)
+        api_function.add_to_role_policy(
+            iam.PolicyStatement(
+                actions=["bedrock-agentcore:InvokeAgentRuntime"],
+                resources=[runtime.agent_runtime_arn],
+            )
+        )
 
         amplify_app, amplify_branch = self._create_frontend()
         self._create_outputs(
@@ -221,6 +226,7 @@ class AiwaveStagingStack(Stack):
             vpc.add_interface_endpoint(
                 endpoint_id,
                 service=service,
+                open=False,
                 private_dns_enabled=True,
                 security_groups=[endpoint_security_group],
                 subnets=ec2.SubnetSelection(
