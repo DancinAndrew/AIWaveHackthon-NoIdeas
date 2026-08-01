@@ -196,9 +196,11 @@ class AiwaveStagingStackTests(unittest.TestCase):
         self.assertIn("lambda:InvokeFunction", actions)
 
     def test_managed_knowledge_base_uses_titan_and_s3_vectors(self) -> None:
+        vector_buckets = self.resources("AWS::S3Vectors::VectorBucket")
+        self.assertEqual(len(vector_buckets), 1)
         self.assertEqual(
-            len(self.resources("AWS::S3Vectors::VectorBucket")),
-            1,
+            vector_buckets[0]["Properties"]["EncryptionConfiguration"],
+            {"SseType": "AES256"},
         )
         indexes = self.resources("AWS::S3Vectors::Index")
         self.assertEqual(len(indexes), 1)

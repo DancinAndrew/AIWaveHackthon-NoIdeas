@@ -470,8 +470,7 @@ class AiwaveStagingStack(Stack):
             vector_bucket_name="aiwave-utility-repair-vectors",
             encryption_configuration=(
                 s3vectors.CfnVectorBucket.EncryptionConfigurationProperty(
-                    sse_type="aws:kms",
-                    kms_key_arn=encryption_key.key_arn,
+                    sse_type="AES256",
                 )
             ),
         )
