@@ -82,7 +82,7 @@ export default function MyBookingsPage() {
             className={`filter-tab ${filter === "completed" ? "active" : ""}`}
             onClick={() => setFilter("completed")}
           >
-            已確認
+            已完成
           </button>
         </div>
 
@@ -137,7 +137,9 @@ export default function MyBookingsPage() {
                       </span>
                     </div>
                     {reward && (
-                      <div className="booking-points">
+                      <div
+                        className={`booking-points${reward.granted ? " granted" : ""}`}
+                      >
                         <div className="booking-points-head">
                           <span className="booking-points-program">
                             {reward.program}

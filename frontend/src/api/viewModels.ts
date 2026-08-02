@@ -41,6 +41,16 @@ const BOOKING_STATUS: Record<WorkflowStage, BookingStatusPresentation> = {
   provider_confirmed: {
     label: "廠商已確認",
     color: "#27ae60",
+    filter: "upcoming",
+  },
+  awaiting_resident_acceptance: {
+    label: "待你驗收",
+    color: "#e67e22",
+    filter: "upcoming",
+  },
+  completed: {
+    label: "已完成",
+    color: "#16a085",
     filter: "completed",
   },
 };
@@ -82,6 +92,8 @@ export interface PointsRewardPresentation {
   program: string;
   headline: string;
   statusLabel: string;
+  /** true 代表點數已入帳（point_status 02），false 為待發放。 */
+  granted: boolean;
   basis: string;
   note: string;
   /** true 代表平台內 Demo 記帳，UI 必須明示尚未連動 OPENPOINT 正式帳戶。 */
@@ -94,15 +106,24 @@ export interface PointsRewardPresentation {
 export function pointsRewardPresentation(
   reward: PointsReward,
 ): PointsRewardPresentation {
+  const granted = reward.grantedPoints !== null;
+  const points = granted ? reward.grantedPoints! : reward.estimatedPoints;
   const amount = `NT$${reward.basisAmount.toLocaleString("zh-TW")}`;
   const capped = reward.capped
     ? `，已套用單筆上限 ${reward.maxPointsPerOrder} 點`
     : "";
+  // 完工金額讓實際點數與預估不同時必須說明，不能靜默換掉數字。
+  const adjusted = reward.amountAdjusted
+    ? `，原預估 ${reward.estimatedPoints.toLocaleString("zh-TW")} 點`
+    : "";
   return {
     program: reward.program,
-    headline: `預計回饋 ${reward.estimatedPoints.toLocaleString("zh-TW")} 點`,
+    headline: granted
+      ? `已回饋 ${points.toLocaleString("zh-TW")} 點`
+      : `預計回饋 ${points.toLocaleString("zh-TW")} 點`,
     statusLabel: reward.statusLabel,
-    basis: `${reward.amountSourceLabel} ${amount} × ${reward.earnRate}${capped}`,
+    granted,
+    basis: `${reward.amountSourceLabel} ${amount} × ${reward.earnRate}${capped}${adjusted}`,
     note: reward.isDemoLedger
       ? `${reward.grantCondition} · ${reward.disclosure}`
       : reward.grantCondition,

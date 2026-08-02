@@ -53,17 +53,21 @@ test("booking card states the points basis and the demo ledger boundary", () => 
     status: "01",
     statusLabel: "待發放",
     estimatedPoints: 50,
+    grantedPoints: null,
     earnRate: "1%",
     earnRateBasisPoints: 100,
     basisAmount: 5000,
+    estimatedBasisAmount: 5000,
     amountSource: "provider_reported",
     amountSourceLabel: "廠商回報預估金額",
     capped: false,
     maxPointsPerOrder: 500,
+    amountAdjusted: false,
     grantCondition: "服務完成並經住戶驗收後發放",
     isDemoLedger: true,
     disclosure: "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶",
     estimatedAt: "2026-08-02T10:00:00+00:00",
+    grantedAt: null,
   });
 
   assert.equal(view.headline, "預計回饋 50 點");
@@ -81,19 +85,85 @@ test("capped rewards say so instead of silently trimming the number", () => {
     status: "01",
     statusLabel: "待發放",
     estimatedPoints: 500,
+    grantedPoints: null,
     earnRate: "1%",
     earnRateBasisPoints: 100,
     basisAmount: 1000000,
+    estimatedBasisAmount: 1000000,
     amountSource: "provider_reported",
     amountSourceLabel: "廠商回報預估金額",
     capped: true,
     maxPointsPerOrder: 500,
+    amountAdjusted: false,
     grantCondition: "服務完成並經住戶驗收後發放",
     isDemoLedger: true,
     disclosure: "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶",
     estimatedAt: "2026-08-02T10:00:00+00:00",
+    grantedAt: null,
   });
 
   assert.equal(view.headline, "預計回饋 500 點");
   assert.match(view.basis, /已套用單筆上限 500 點/);
+});
+
+const PENDING_REWARD = {
+  program: "OPENPOINT",
+  status: "01",
+  statusLabel: "待發放",
+  estimatedPoints: 50,
+  grantedPoints: null,
+  earnRate: "1%",
+  earnRateBasisPoints: 100,
+  basisAmount: 5000,
+  estimatedBasisAmount: 5000,
+  amountSource: "provider_reported",
+  amountSourceLabel: "廠商回報預估金額",
+  capped: false,
+  maxPointsPerOrder: 500,
+  amountAdjusted: false,
+  grantCondition: "服務完成並經住戶驗收後發放",
+  isDemoLedger: true,
+  disclosure: "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶",
+  estimatedAt: "2026-08-02T10:00:00+00:00",
+  grantedAt: null,
+} as const;
+
+test("granted rewards read as already credited, not as an estimate", () => {
+  const view = pointsRewardPresentation({
+    ...PENDING_REWARD,
+    status: "02",
+    statusLabel: "已發放",
+    grantedPoints: 62,
+    basisAmount: 6200,
+    amountAdjusted: true,
+    grantCondition: "住戶已驗收，點數已入帳",
+    grantedAt: "2026-08-03T09:00:00+00:00",
+  });
+
+  assert.equal(view.granted, true);
+  assert.equal(view.headline, "已回饋 62 點");
+  assert.equal(view.statusLabel, "已發放");
+  // 完工金額改變了點數，必須把原預估講出來而不是靜默換數字。
+  assert.match(view.basis, /NT\$6,200/);
+  assert.match(view.basis, /原預估 50 點/);
+  assert.match(view.note, /點數已入帳/);
+});
+
+test("pending rewards stay labelled as an estimate", () => {
+  const view = pointsRewardPresentation(PENDING_REWARD);
+
+  assert.equal(view.granted, false);
+  assert.equal(view.headline, "預計回饋 50 點");
+  assert.doesNotMatch(view.basis, /原預估/);
+});
+
+test("my bookings separates awaiting acceptance from a completed case", () => {
+  assert.deepEqual(bookingStatusPresentation("awaiting_resident_acceptance"), {
+    label: "待你驗收",
+    color: "#e67e22",
+    filter: "upcoming",
+  });
+  assert.equal(bookingStatusPresentation("completed").filter, "completed");
+  // 廠商確認到場還不是完成，不能被歸到「已完成」分頁。
+  assert.equal(bookingStatusPresentation("provider_confirmed").filter, "upcoming");
 });

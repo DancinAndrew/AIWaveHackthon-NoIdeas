@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { createApiClient } from "../api/client";
-import type { ProviderTask } from "../api/types";
+import type { ProviderActiveCase, ProviderTask } from "../api/types";
 import { providerTaskPresentation } from "../api/viewModels";
 import "./DashboardPage.css";
 
@@ -18,6 +18,14 @@ const DEMO_PROVIDERS = [
   },
 ] as const;
 
+/** 把第一個真正的失敗原因講出來，而不是一律推給連線問題。 */
+function describeFailure(...results: PromiseSettledResult<unknown>[]): string {
+  const rejected = results.find((result) => result.status === "rejected");
+  if (rejected?.status !== "rejected") return "未知錯誤";
+  const reason = rejected.reason;
+  return reason instanceof Error ? reason.message : String(reason);
+}
+
 interface ProcessedTask {
   task: ProviderTask;
   action: "accepted" | "declined" | "needs_information" | "expired";
@@ -31,6 +39,12 @@ export default function DashboardPage() {
   );
   const api = useMemo(() => createApiClient({ providerId }), [providerId]);
   const [tasks, setTasks] = useState<ProviderTask[]>([]);
+  const [activeCases, setActiveCases] = useState<ProviderActiveCase[]>([]);
+  const [finalAmounts, setFinalAmounts] = useState<Record<string, string>>({});
+  const [completionNotes, setCompletionNotes] = useState<Record<string, string>>(
+    {},
+  );
+  const [busyCaseId, setBusyCaseId] = useState<string | null>(null);
   const [processed, setProcessed] = useState<ProcessedTask[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,14 +60,24 @@ export default function DashboardPage() {
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
+      // 兩個查詢分別處理，否則單一端點失敗會被誤報成「連不上後端」。
+      const [queue, active] = await Promise.allSettled([
+        api.listProviderTasks(),
+        api.listProviderActiveCases(),
+      ]);
       try {
-        const result = await api.listProviderTasks();
-        if (!cancelled) {
-          setTasks(result.items);
-          setError(null);
-        }
-      } catch {
-        if (!cancelled) setError("無法取得廠商任務，請確認後端連線。 ");
+        if (cancelled) return;
+        if (queue.status === "fulfilled") setTasks(queue.value.items);
+        if (active.status === "fulfilled") setActiveCases(active.value.items);
+        const failures = [
+          queue.status === "rejected" ? "待處理派工" : null,
+          active.status === "rejected" ? "進行中案件" : null,
+        ].filter(Boolean);
+        setError(
+          failures.length === 0
+            ? null
+            : `無法取得${failures.join("與")}：${describeFailure(queue, active)}`,
+        );
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -125,6 +149,39 @@ export default function DashboardPage() {
       );
     } finally {
       setBusyTaskId(null);
+    }
+  };
+
+  const reportCompletion = async (activeCase: ProviderActiveCase) => {
+    const rawAmount = finalAmounts[activeCase.serviceRequestId]?.trim();
+    let finalAmount: number | undefined;
+    if (rawAmount) {
+      const parsed = Number(rawAmount);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 1_000_000) {
+        setError("完工金額請填 1 到 1,000,000 之間的整數（新台幣元）。 ");
+        return;
+      }
+      finalAmount = parsed;
+    }
+    setBusyCaseId(activeCase.serviceRequestId);
+    setError(null);
+    try {
+      await api.reportCompletion(activeCase.serviceRequestId, {
+        message:
+          completionNotes[activeCase.serviceRequestId]?.trim() ||
+          "施工已完成，現場已清理並測試無異常。",
+        finalAmount,
+      });
+      const active = await api.listProviderActiveCases();
+      setActiveCases(active.items);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "操作失敗，請稍後再試。",
+      );
+    } finally {
+      setBusyCaseId(null);
     }
   };
 
@@ -206,7 +263,9 @@ export default function DashboardPage() {
         <div className="dashboard-list">
           {loading ? (
             <div className="loading-state">載入中...</div>
-          ) : tasks.length === 0 && processed.length === 0 ? (
+          ) : tasks.length === 0 &&
+            activeCases.length === 0 &&
+            processed.length === 0 ? (
             <div className="empty-state">
               <span className="empty-icon">✅</span>
               <p>目前沒有待處理的預約</p>
@@ -314,6 +373,109 @@ export default function DashboardPage() {
                   </div>
                 );
               })}
+
+              {activeCases.length > 0 && (
+                <>
+                  <h3 className="list-section-title">
+                    進行中（{activeCases.length}）
+                  </h3>
+                  {activeCases.map((activeCase) => {
+                    const busy = busyCaseId === activeCase.serviceRequestId;
+                    return (
+                      <div
+                        key={activeCase.serviceRequestId}
+                        className="request-card accepted"
+                      >
+                        <div className="request-card-header">
+                          <span className="request-type">已承接</span>
+                          <span className="request-time">
+                            {activeCase.displayLabel}
+                          </span>
+                        </div>
+                        <div className="request-card-body">
+                          <h4 className="request-service">
+                            {activeCase.summary}
+                          </h4>
+                          <div className="request-detail">
+                            <span>
+                              🕒 到場時段：{activeCase.arrivalWindow ?? "未填"}
+                            </span>
+                          </div>
+                          {activeCase.estimatedAmount !== null && (
+                            <div className="request-detail">
+                              <span>
+                                💰 承接時預估：NT$
+                                {activeCase.estimatedAmount.toLocaleString(
+                                  "zh-TW",
+                                )}
+                              </span>
+                            </div>
+                          )}
+                          {activeCase.canReportCompletion ? (
+                            <>
+                              <label className="dashboard-field">
+                                <span>完工說明</span>
+                                <input
+                                  value={
+                                    completionNotes[
+                                      activeCase.serviceRequestId
+                                    ] ?? ""
+                                  }
+                                  onChange={(event) =>
+                                    setCompletionNotes((current) => ({
+                                      ...current,
+                                      [activeCase.serviceRequestId]:
+                                        event.target.value,
+                                    }))
+                                  }
+                                  placeholder="例如：已更換水管接頭並測試無滲漏"
+                                />
+                              </label>
+                              <label className="dashboard-field">
+                                <span>完工金額（選填，重算回饋點數）</span>
+                                <input
+                                  type="number"
+                                  min={1}
+                                  max={1000000}
+                                  step={1}
+                                  inputMode="numeric"
+                                  value={
+                                    finalAmounts[activeCase.serviceRequestId] ??
+                                    ""
+                                  }
+                                  onChange={(event) =>
+                                    setFinalAmounts((current) => ({
+                                      ...current,
+                                      [activeCase.serviceRequestId]:
+                                        event.target.value,
+                                    }))
+                                  }
+                                  placeholder="未填則沿用承接時的計算基礎"
+                                />
+                              </label>
+                            </>
+                          ) : (
+                            <div className="request-note">
+                              ⏳ 已回報完工，等待住戶在對話中回覆「驗收」後才會發放點數
+                            </div>
+                          )}
+                        </div>
+                        {activeCase.canReportCompletion && (
+                          <div className="request-actions">
+                            <button
+                              className="action-btn accept"
+                              disabled={busy}
+                              onClick={() => void reportCompletion(activeCase)}
+                            >
+                              回報完工
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
 
               {processed.length > 0 && (
                 <>

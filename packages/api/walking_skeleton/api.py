@@ -150,6 +150,24 @@ def create_app(*, testing: bool = False) -> Flask:
             )
         )
 
+    @app.get("/api/v1/provider-active-cases")
+    def provider_active_cases():
+        provider_id = _actor("PROVIDER", "X-Demo-Provider-Id")
+        return _ok(service.list_provider_active_cases(provider_id))
+
+    @app.post("/api/v1/provider-active-cases/<service_request_id>/completion")
+    def provider_completion(service_request_id: str):
+        provider_id = _actor("PROVIDER", "X-Demo-Provider-Id")
+        body = _json_object()
+        return _ok(
+            service.provider_report_completion(
+                service_request_id=service_request_id,
+                provider_id=provider_id,
+                payload=body,
+                idempotency_key=_idempotency_key(),
+            )
+        )
+
     @app.post("/api/v1/admin/workflow-tasks/<task_id>/simulate-timeout")
     def simulate_timeout(task_id: str):
         admin_id = _actor("ADMIN", "X-Demo-Admin-Id")

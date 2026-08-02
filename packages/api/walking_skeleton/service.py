@@ -61,6 +61,8 @@ NEGATED_RISK_PHRASES = (
     "水量不大",
 )
 CONFIRM_PHRASES = ("確認送出", "確認建立", "內容正確", "可以送出")
+# 驗收語句刻意保持明確，避免「好」「可以」這類泛用回覆意外觸發點數發放。
+ACCEPTANCE_PHRASES = ("驗收", "確認完工", "確認完成", "施工沒問題")
 
 STAGE_LABELS = {
     "collecting_details": "水電 Agent 正在確認需求",
@@ -70,6 +72,8 @@ STAGE_LABELS = {
     "waiting_resident_information": "廠商需要住戶補充資訊",
     "rematching": "正在改派下一位廠商",
     "provider_confirmed": "廠商已確認，可依約到場",
+    "awaiting_resident_acceptance": "廠商已回報完工，待住戶驗收",
+    "completed": "服務已完成，點數已入帳",
 }
 
 
@@ -253,6 +257,53 @@ class WalkingSkeletonService:
             ),
         )
 
+    def list_provider_active_cases(self, provider_id: str) -> dict[str, Any]:
+        """廠商已承接、尚未完成驗收的案件；廠商從這裡回報完工。"""
+
+        with self.store.lock:
+            items = [
+                self._active_case_projection(request)
+                for request in self.store.service_requests.values()
+                if request.get("currentProviderId") == provider_id
+                and self.store.progress[request["serviceRequestId"]]["stage"]
+                in {"provider_confirmed", "awaiting_resident_acceptance"}
+            ]
+            items.sort(key=lambda item: item["updatedAt"], reverse=True)
+            return {"items": items}
+
+    def provider_report_completion(
+        self,
+        *,
+        service_request_id: str,
+        provider_id: str,
+        payload: dict[str, Any],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        # 授權先於 payload 驗證，避免未指派的廠商用驗證差異探測案件是否存在。
+        with self.store.lock:
+            request = self.store.service_requests.get(service_request_id)
+            if not request:
+                raise NotFoundError("找不到服務需求")
+            if request.get("currentProviderId") != provider_id:
+                raise ForbiddenError()
+        message = payload.get("message")
+        if message is not None and (not isinstance(message, str) or len(message) > 1000):
+            raise ValidationError("message 必須是 1000 字以內的文字")
+        # 金額格式錯誤不得推進狀態，否則廠商要等平台人工處理才能重報。
+        final_amount = points.normalize_reported_amount(payload.get("finalAmount"))
+
+        return self.store.idempotent(
+            actor_id=provider_id,
+            operation=f"provider-completion:{service_request_id}",
+            key=idempotency_key,
+            payload=payload,
+            command=lambda: self._apply_completion_report(
+                service_request_id=service_request_id,
+                message=(message or "").strip(),
+                final_amount=final_amount,
+            ),
+        )
+
     def simulate_timeout(
         self,
         *,
@@ -309,6 +360,8 @@ class WalkingSkeletonService:
             "providerQuestion": None,
             "providerAnswer": None,
             "estimatedAmount": None,
+            "finalAmount": None,
+            "completionMessage": None,
             "pointsReward": None,
             "createdAt": now,
             "updatedAt": now,
@@ -380,6 +433,34 @@ class WalkingSkeletonService:
                 assistant,
                 artifact=self.store.artifacts[request["serviceRequestId"]],
             )
+
+        if stage == "awaiting_resident_acceptance":
+            if any(phrase in content for phrase in ACCEPTANCE_PHRASES):
+                return self._accept_completion(conversation, request)
+            reward = request.get("pointsReward") or {}
+            assistant = self._append_assistant(
+                conversation["conversationId"],
+                (
+                    f"廠商已回報完工：{request.get('completionMessage') or '施工已結束'}。"
+                    f"請確認現場狀況無誤後回覆「驗收」，我才會結案並發放"
+                    f"{reward.get('estimatedPoints', 0)} 點 OPENPOINT。"
+                    "若施工有問題請直接描述，我不會先結案。"
+                ),
+                agent=ACTIVE_AGENT,
+            )
+            return self._turn_payload(conversation, assistant)
+
+        if stage == "completed":
+            reward = request.get("pointsReward") or {}
+            assistant = self._append_assistant(
+                conversation["conversationId"],
+                (
+                    f"這個案件已完成驗收，{reward.get('grantedPoints', 0)} 點 OPENPOINT 已入帳。"
+                    "有新的水電需求可以直接描述，我會另開一個案件。"
+                ),
+                agent=ACTIVE_AGENT,
+            )
+            return self._turn_payload(conversation, assistant)
 
         if stage in {"waiting_provider_response", "provider_confirmed"}:
             assistant = self._append_assistant(
@@ -553,6 +634,112 @@ class WalkingSkeletonService:
                 "pointsReward": reward,
                 "assistantMessage": assistant,
             }
+
+    def _apply_completion_report(
+        self,
+        *,
+        service_request_id: str,
+        message: str,
+        final_amount: int | None,
+    ) -> dict[str, Any]:
+        with self.store.lock:
+            request = self.store.service_requests[service_request_id]
+            stage = self.store.progress[service_request_id]["stage"]
+            if stage != "provider_confirmed":
+                raise ConflictError("只有已確認到場的案件可以回報完工")
+            request["completionMessage"] = message
+            request["finalAmount"] = final_amount
+            request["updatedAt"] = _now()
+            self._event(request, "provider_reported_completion", "廠商已回報完工，等待住戶驗收")
+            self._set_progress(
+                request, "awaiting_resident_acceptance", waiting_for="resident"
+            )
+            reward = request.get("pointsReward") or {}
+            assistant = self._append_assistant(
+                request["conversationId"],
+                (
+                    f"廠商回報施工已完成：{message or '施工已結束'}。"
+                    "請確認現場狀況無誤後回覆「驗收」，我會結案並發放"
+                    f" {reward.get('estimatedPoints', 0)} 點 OPENPOINT。"
+                ),
+                agent=ACTIVE_AGENT,
+            )
+            return {
+                "serviceRequestId": service_request_id,
+                "progress": self._progress_projection(request),
+                "assistantMessage": assistant,
+            }
+
+    def _accept_completion(
+        self, conversation: dict[str, Any], request: dict[str, Any]
+    ) -> dict[str, Any]:
+        request_id = request["serviceRequestId"]
+        estimate = request.get("pointsReward")
+        if not estimate:
+            raise ConflictError("案件缺少回饋點數紀錄，無法結案")
+        # Ledger 是「是否已發放」的真實來源。狀態機已保證只會進來一次，
+        # 這裡再擋一層，讓重複驗收不可能重複入帳。
+        if self._granted_ledger_entry(request_id):
+            raise ConflictError("這個案件的點數已經發放過")
+
+        granted_at = _now()
+        reward = points.grant_reward(
+            estimate=estimate,
+            issue_type=request["issueType"],
+            final_amount=request.get("finalAmount"),
+            granted_at=granted_at,
+        )
+        request["pointsReward"] = reward
+        request["updatedAt"] = granted_at
+
+        ledger_id = _id("ledger")
+        self.store.point_ledger[ledger_id] = points.ledger_entry(
+            ledger_id=ledger_id,
+            service_request_id=request_id,
+            resident_id=request["residentId"],
+            reward=reward,
+            reason_code="service_completed",
+        )
+
+        self._event(request, "resident_accepted_completion", "住戶已完成驗收")
+        self._event(
+            request,
+            "points_granted",
+            f"{reward['grantedPoints']} 點 {reward['program']} 已入帳（{reward['statusLabel']}）",
+        )
+        self._set_progress(request, "completed", waiting_for=None)
+        assistant = self._append_assistant(
+            conversation["conversationId"],
+            points.grant_disclosure_sentence(reward),
+            agent=ACTIVE_AGENT,
+            kind="final",
+        )
+        return self._turn_payload(conversation, assistant)
+
+    def _granted_ledger_entry(self, service_request_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                entry
+                for entry in self.store.point_ledger.values()
+                if entry["serviceRequestId"] == service_request_id
+                and entry["direction"] == points.DIRECTION_EARN
+            ),
+            None,
+        )
+
+    def _active_case_projection(self, request: dict[str, Any]) -> dict[str, Any]:
+        artifact = self.store.artifacts.get(request["serviceRequestId"])
+        progress = self.store.progress[request["serviceRequestId"]]
+        return {
+            "serviceRequestId": request["serviceRequestId"],
+            "stage": progress["stage"],
+            "displayLabel": progress["displayLabel"],
+            "summary": artifact["summary"] if artifact else request["symptoms"],
+            "arrivalWindow": request.get("confirmedArrivalWindow"),
+            "estimatedAmount": request.get("estimatedAmount"),
+            "canReportCompletion": progress["stage"] == "provider_confirmed",
+            "updatedAt": request["updatedAt"],
+        }
 
     def _apply_timeout(self, task_id: str, admin_id: str, reason: str) -> dict[str, Any]:
         with self.store.lock:

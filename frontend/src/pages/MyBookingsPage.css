@@ -245,3 +245,30 @@
   color: #a1887f;
   line-height: 1.4;
 }
+
+/* 已入帳（point_status 02）改用綠色，與「待發放」在視覺上分得開 */
+.booking-points.granted {
+  border-color: #a5d6a7;
+  background: #f1f8e9;
+}
+
+.booking-points.granted .booking-points-program {
+  background: #2e7d32;
+}
+
+.booking-points.granted .booking-points-value {
+  color: #1b5e20;
+}
+
+.booking-points.granted .booking-points-status {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.booking-points.granted .booking-points-basis {
+  color: #33691e;
+}
+
+.booking-points.granted .booking-points-note {
+  color: #7cb342;
+}

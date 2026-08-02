@@ -3,6 +3,8 @@ import type {
   ChatTurn,
   ConversationCreated,
   PointsReward,
+  ProviderActiveCase,
+  ProviderCompletionRequest,
   ProviderTask,
   ProviderTaskResponse,
   ServiceRequestProjection,
@@ -167,6 +169,29 @@ export function createApiClient(options: ClientOptions = {}) {
         pointsReward?: PointsReward | null;
       }>(
         `/api/v1/provider-service-requests/${encodeURIComponent(taskId)}/responses`,
+        "PROVIDER",
+        {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Idempotency-Key": newIdempotencyKey() },
+        },
+      ),
+
+    listProviderActiveCases: () =>
+      requestJson<{ items: ProviderActiveCase[] }>(
+        "/api/v1/provider-active-cases",
+        "PROVIDER",
+      ),
+
+    reportCompletion: (
+      serviceRequestId: string,
+      payload: ProviderCompletionRequest,
+    ) =>
+      requestJson<{
+        serviceRequestId: string;
+        progress: WorkflowProgress;
+      }>(
+        `/api/v1/provider-active-cases/${encodeURIComponent(serviceRequestId)}/completion`,
         "PROVIDER",
         {
           method: "POST",

@@ -62,7 +62,11 @@ BASELINE_AMOUNT_BY_ISSUE_TYPE: dict[str, int] = {
 }
 
 GRANT_CONDITION = "服務完成並經住戶驗收後發放"
+GRANTED_CONDITION = "住戶已驗收，點數已入帳"
 LEDGER_DISCLOSURE = "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶"
+
+# Ledger 方向。目前只實作 earn；redeem／refund／revoke 留待折抵與退點變更。
+DIRECTION_EARN = "earn"
 
 AMOUNT_SOURCE_PROVIDER = "provider_reported"
 AMOUNT_SOURCE_BASELINE = "issue_type_baseline"
@@ -154,17 +158,85 @@ def estimate_reward(
         "status": STATUS_PENDING,
         "statusLabel": STATUS_LABELS[STATUS_PENDING],
         "estimatedPoints": estimated_points,
+        # 發放後才有值；訂單成立階段一律 None，避免 UI 誤顯示為已入帳。
+        "grantedPoints": None,
         "earnRate": format_rate(rate_basis_points),
         "earnRateBasisPoints": rate_basis_points,
         "basisAmount": basis_amount,
+        "estimatedBasisAmount": basis_amount,
         "amountSource": amount_source,
         "amountSourceLabel": _AMOUNT_SOURCE_LABELS[amount_source],
         "capped": uncapped > MAX_POINTS_PER_ORDER,
         "maxPointsPerOrder": MAX_POINTS_PER_ORDER,
+        "amountAdjusted": False,
         "grantCondition": GRANT_CONDITION,
         "isDemoLedger": True,
         "disclosure": LEDGER_DISCLOSURE,
         "estimatedAt": estimated_at,
+        "grantedAt": None,
+    }
+
+
+def grant_reward(
+    *,
+    estimate: dict[str, Any],
+    issue_type: str,
+    final_amount: int | None,
+    granted_at: str,
+) -> dict[str, Any]:
+    """以完工金額重算並產生「02 已發放」的投影。
+
+    ADR-0007 明訂實際發放必須以完工金額重算，不可沿用訂單成立時的預估值。
+    預估值仍保留在 ``estimatedPoints`` 與 ``estimatedBasisAmount``，讓住戶能
+    看出調整幅度，而不是靜默換掉數字。
+    """
+
+    rate_basis_points = estimate["earnRateBasisPoints"]
+    if final_amount is not None:
+        basis_amount = final_amount
+        amount_source = AMOUNT_SOURCE_PROVIDER
+    else:
+        # 廠商未回報完工金額時沿用訂單成立時的基礎，並保留原本的來源標示。
+        basis_amount = estimate["estimatedBasisAmount"]
+        amount_source = estimate["amountSource"]
+    granted_points = calculate_points(basis_amount, rate_basis_points)
+    uncapped = basis_amount * rate_basis_points // 10_000
+    return {
+        **estimate,
+        "status": STATUS_GRANTED,
+        "statusLabel": STATUS_LABELS[STATUS_GRANTED],
+        "grantedPoints": granted_points,
+        "basisAmount": basis_amount,
+        "amountSource": amount_source,
+        "amountSourceLabel": _AMOUNT_SOURCE_LABELS[amount_source],
+        "capped": uncapped > MAX_POINTS_PER_ORDER,
+        "amountAdjusted": granted_points != estimate["estimatedPoints"],
+        "grantCondition": GRANTED_CONDITION,
+        "grantedAt": granted_at,
+    }
+
+
+def ledger_entry(
+    *,
+    ledger_id: str,
+    service_request_id: str,
+    resident_id: str,
+    reward: dict[str, Any],
+    reason_code: str,
+) -> dict[str, Any]:
+    """Append-only 流水帳項目。餘額由項目加總得出，不直接 UPDATE 餘額欄位。"""
+
+    return {
+        "ledgerId": ledger_id,
+        "serviceRequestId": service_request_id,
+        "residentId": resident_id,
+        "program": PROGRAM,
+        "direction": DIRECTION_EARN,
+        "points": reward["grantedPoints"],
+        "status": reward["status"],
+        "basisAmount": reward["basisAmount"],
+        "reasonCode": reason_code,
+        "grantedAt": reward["grantedAt"],
     }
 
 
@@ -181,5 +253,28 @@ def reward_disclosure_sentence(reward: dict[str, Any]) -> str:
     return (
         f"{reward['grantCondition']}，預計回饋 {reward['estimatedPoints']} 點 "
         f"{reward['program']}{capped}：{basis}。"
+        f"目前狀態為「{reward['statusLabel']}」，{reward['disclosure']}。"
+    )
+
+
+def grant_disclosure_sentence(reward: dict[str, Any]) -> str:
+    """住戶驗收後看到的入帳揭露句。金額有調整時必須說明，不可靜默換數字。"""
+
+    basis = (
+        f"以{reward['amountSourceLabel']} {format_amount(reward['basisAmount'])}"
+        f" × {reward['earnRate']} 計算"
+    )
+    adjusted = ""
+    if reward["amountAdjusted"]:
+        adjusted = (
+            f"（訂單成立時預估 {reward['estimatedPoints']} 點，"
+            f"已依完工金額重算）"
+        )
+    capped = (
+        f"（已套用單筆上限 {reward['maxPointsPerOrder']} 點）" if reward["capped"] else ""
+    )
+    return (
+        f"已完成驗收，{reward['grantedPoints']} 點 {reward['program']} 已入帳"
+        f"{adjusted}{capped}：{basis}。"
         f"目前狀態為「{reward['statusLabel']}」，{reward['disclosure']}。"
     )

@@ -5,7 +5,9 @@ export type WorkflowStage =
   | "waiting_provider_response"
   | "waiting_resident_information"
   | "rematching"
-  | "provider_confirmed";
+  | "provider_confirmed"
+  | "awaiting_resident_acceptance"
+  | "completed";
 
 export interface ApiMessage {
   messageId: string;
@@ -38,18 +40,43 @@ export interface PointsReward {
   program: "OPENPOINT";
   status: PointStatus;
   statusLabel: string;
+  /** 訂單成立時揭露的預估點數，發放後仍保留供比較。 */
   estimatedPoints: number;
+  /** 住戶驗收發放後才有值；未發放為 null。 */
+  grantedPoints: number | null;
   earnRate: string;
   earnRateBasisPoints: number;
+  /** 目前的計算基礎；發放後等於完工金額。 */
   basisAmount: number;
+  estimatedBasisAmount: number;
   amountSource: "provider_reported" | "issue_type_baseline";
   amountSourceLabel: string;
   capped: boolean;
   maxPointsPerOrder: number;
+  /** 完工金額使實際點數與預估不同時為 true。 */
+  amountAdjusted: boolean;
   grantCondition: string;
   isDemoLedger: boolean;
   disclosure: string;
   estimatedAt: string;
+  grantedAt: string | null;
+}
+
+export interface ProviderActiveCase {
+  serviceRequestId: string;
+  stage: WorkflowStage;
+  displayLabel: string;
+  summary: string;
+  arrivalWindow: string | null;
+  estimatedAmount: number | null;
+  canReportCompletion: boolean;
+  updatedAt: string;
+}
+
+export interface ProviderCompletionRequest {
+  message?: string;
+  /** 完工實付金額（新台幣元）；未填則沿用訂單成立時的計算基礎。 */
+  finalAmount?: number;
 }
 
 export interface WorkflowProgress {
