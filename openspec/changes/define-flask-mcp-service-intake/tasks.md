@@ -77,3 +77,17 @@
 - [x] 10.5 將 API Gateway HTTP API payload v2 接到現行 Flask app，移除舊 handler 對未宣告 adapter 與舊媒合 Agent 的依賴；驗證：health、base64 JSON、actor headers、受限 CORS 與 invalid-event contract tests 通過。
 - [x] 10.6 建立共用 Bedrock runtime safety boundary；驗證：直接 Converse 請求起始間隔至少 1.05 秒、只允許核准模型、SDK retry 不可繞過 gate，且 deterministic Demo 不產生 Bedrock 請求。
 - [x] 10.7 建立 AWS staging IaC 與部署腳本，涵蓋 frontend hosting、API Gateway、Flask Lambda、AgentCore Runtime／Gateway、Step Functions、RDS、Cognito、S3 KB；驗證：diff／synth 不含 Supabase、RDS 不公開，部署後以公開 URL 重跑 water-repair smoke 與完整 Playwright E2E。
+## 11. Runtime 內模型多輪理解與知識檢索增量
+
+- [x] 11.1 建立 `contracts/runtime/agent-turn.json` 固定 Flask 與 Runtime 的每輪請求／回應契約；驗證：契約列出封閉 `extractedFields`、`riskAssessment`、`knowledge` 與 `reasoning`，且 Runtime 與 Flask 測試都對同一契約斷言。
+- [ ] 11.2 在 Runtime 內以核准模型完成水電 Agent 的每輪追問與結構化欄位抽取；驗證：以 fake Converse client 斷言強制單一工具輸出、一句多欄位抽取、固定詞表未涵蓋的時段與地區說法都能推進，且 trace 記錄 `model_invoke` 與模型 ID。
+- [ ] 11.3 在 Runtime 內接上 Managed Knowledge Base retrieval 並固定 `service_type` equals filter；驗證：以 fake retrieve client 斷言 filter 內容、跨領域文件不會被引用、檢索失敗仍完成該輪且 `reasoning.knowledgeBaseQueried` 誠實反映結果。
+- [x] 11.4 Runtime 模型請求共用 Flask 的 Bedrock request gate 與模型白名單，不複製安全邏輯；驗證：Runtime 匯入同一 gate 模組，未核准模型 ID 在送出前被拒，且部署 artifact 內含該模組。
+- [x] 11.5 實作 Flask 的驗證式合併與確定性安全 union；驗證：契約外鍵被丟棄、地區必須命中受控主檔、超出服務範圍給誠實回覆而非重複追問、模型不得清除已觸發的 hazard flag 或解除 safety hold。
+- [x] 11.6 模型或契約驗證失敗時以 Runtime 固定規則誠實降級；驗證：`reasoning.mode` 標記 `rule-fallback` 並附非敏感 `degradedReason`，deterministic Demo 模式仍不產生任何 Bedrock 請求，既有水電閉環契約測試保持 GREEN。
+- [ ] 11.7 在 Supervisor 加入 fail-closed 模型分類，處理關鍵字未命中的口語第一句；驗證：關鍵字命中與 active agent 不產生分類請求，詞表未涵蓋的說法能路由到正確領域，核准清單外的值、缺工具輸出與呼叫失敗都退回澄清或不支援且不臆造領域。
+- [x] 11.8 在 Runtime 檢索後強制知識文件的 `never_authoritative_for` 邊界，使價格、庫存、可預約時段與案件狀態不得由 `authoritative_scope=static_only` 的片段作答；驗證：以 fake retrieve client 餵入含價格與時段的 static_only 片段，斷言回覆不引用該內容、改走受控主檔或誠實表示不確定，且 `reasoning` 記錄被棄用的片段與棄用原因。
+
+## 12. 個人化長期記憶增量
+
+- [ ] 12.1 將 `op_agent/` 的會員長期記憶接回 walking skeleton 執行路徑，每輪可讀 `mms_member_address`、`mms_member_appliance` 與 `mms_member_preference`，並在觀察到長期偏好時以 merge 寫回；驗證：已登錄的家電與慣用地址不再重複詢問、`blockedVendorIds` 於媒合被排除、`priceSensitivity` 影響排序權重、寫回為欄位層 merge 而非整列覆蓋，且記憶讀寫不將明文 PII 帶入 prompt 與 trace。

@@ -26,6 +26,10 @@
 - **WHEN** 水電案件含高風險旗標
 - **THEN** 只有具對應緊急處理能力且服務區域符合的服務商可列入候選，並保留安全分流標記
 
+#### Scenario: 偏好影響媒合結果
+- **WHEN** 會員偏好檔含 `blockedVendorIds`
+- **THEN** 媒合排除這些商家，且排序權重反映 `priceSensitivity`
+
 ### Requirement: 案件與媒合狀態分離
 系統 MUST 分別維護案件狀態與每個候選服務商的媒合狀態。案件狀態 SHALL 使用 `submitted`、`matched`、`accepted`、`needs_information`、`in_progress`、`completed`、`cancelled` 或 `unmatched`；媒合狀態 SHALL 使用 `proposed`、`accepted`、`declined` 或 `expired`。
 

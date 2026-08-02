@@ -7,6 +7,7 @@ one AgentCore Runtime that hosts the Supervisor and five logical agents.
 
 from __future__ import annotations
 
+import shutil
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -43,6 +44,12 @@ LOGICAL_AGENTS = (
     "utility_repair_agent,community_service_agent"
 )
 
+# Modules owned by the shared application core that the Runtime artifact needs.
+# Copying them in at synth time keeps one implementation of the Bedrock request
+# gate and model allowlist instead of a second copy that can drift.
+SHARED_RUNTIME_MODULES = ("bedrock_safety.py",)
+EXCLUDED_RUNTIME_ARTIFACT_NAMES = ("tests", "__pycache__")
+
 
 @dataclass(frozen=True)
 class DeploymentAssets:
@@ -51,6 +58,7 @@ class DeploymentAssets:
     api_code: Path
     agent_runtime_code: Path
     bundle: bool = True
+    staging_root: Path | None = None
 
     @classmethod
     def from_repository(cls) -> "DeploymentAssets":
@@ -58,7 +66,36 @@ class DeploymentAssets:
         return cls(
             api_code=repository_root / "packages" / "api",
             agent_runtime_code=repository_root / "infra" / "runtime",
+            staging_root=repository_root / "infra" / "cdk.out" / "asset-staging",
         )
+
+    def staged_agent_runtime_code(self) -> Path:
+        """Assemble the Runtime source tree, including the shared safety module.
+
+        Returns the unmodified runtime directory when staging is not configured or
+        the shared modules are absent, so fixture-based synth keeps working.
+        """
+
+        shared_sources = [self.api_code / name for name in SHARED_RUNTIME_MODULES]
+        if self.staging_root is None or not all(
+            source.is_file() for source in shared_sources
+        ):
+            return self.agent_runtime_code
+
+        target = self.staging_root / "agent-runtime"
+        # Rebuilt from scratch so a removed file cannot linger and change the
+        # asset hash between synths.
+        if target.exists():
+            shutil.rmtree(target)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(
+            self.agent_runtime_code,
+            target,
+            ignore=shutil.ignore_patterns(*EXCLUDED_RUNTIME_ARTIFACT_NAMES),
+        )
+        for source in shared_sources:
+            shutil.copy2(source, target / source.name)
+        return target
 
 
 class AiwaveStagingStack(Stack):
@@ -734,7 +771,7 @@ class AiwaveStagingStack(Stack):
                 ],
             )
         return agentcore.AgentRuntimeArtifact.from_code_asset(
-            path=str(assets.agent_runtime_code),
+            path=str(assets.staged_agent_runtime_code()),
             runtime=agentcore.AgentCoreRuntime.PYTHON_3_12,
             entrypoint=["agent_runtime.py"],
             bundling=bundling,

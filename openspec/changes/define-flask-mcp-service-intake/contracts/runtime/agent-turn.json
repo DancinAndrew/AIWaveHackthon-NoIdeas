@@ -1,0 +1,740 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aiwave.example/schemas/runtime/agent-turn/1.0.0",
+  "title": "AgentCore Runtime 每輪領域 Agent 契約",
+  "contract_version": "1.0.0",
+  "description": "Flask application core 與單一 AgentCore Runtime 之間的每輪請求／回應契約。protocol 識別字使用 camelCase，與 AgentCore payload 及既有 Runtime 實作一致。v1.0.0 只為 utility_repair 定義封閉的 extractedFields；其餘四類在各自領域落地時追加定義。",
+  "request": {
+    "$ref": "#/$defs/agentTurnRequest"
+  },
+  "response": {
+    "oneOf": [
+      {
+        "$ref": "#/$defs/agentTurnResponse"
+      },
+      {
+        "$ref": "#/$defs/runtimeError"
+      }
+    ]
+  },
+  "$defs": {
+    "serviceType": {
+      "type": "string",
+      "enum": [
+        "restaurant_reservation",
+        "product_purchase",
+        "housekeeping_service",
+        "utility_repair",
+        "community_consultation"
+      ]
+    },
+    "agentName": {
+      "type": "string",
+      "enum": [
+        "restaurant_agent",
+        "product_agent",
+        "housekeeping_agent",
+        "utility_repair_agent",
+        "community_service_agent"
+      ]
+    },
+    "workflowStage": {
+      "type": "string",
+      "enum": [
+        "collecting_details",
+        "safety_hold",
+        "awaiting_resident_confirmation",
+        "waiting_provider_response",
+        "waiting_resident_information",
+        "rematching",
+        "provider_confirmed"
+      ]
+    },
+    "turnGoal": {
+      "type": "string",
+      "description": "Flask 依確定性 stage machine 指派這一輪的唯一目標；Agent 不得自行改變目標或跳過安全篩檢。",
+      "enum": [
+        "route_new_request",
+        "screen_safety",
+        "collect_missing_fields",
+        "confirm_brief",
+        "answer_progress_question",
+        "answer_provider_question"
+      ]
+    },
+    "agentTurnRequest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "sessionId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "activeAgent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/agentName"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "workflowStage": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/workflowStage"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "turnGoal": {
+          "$ref": "#/$defs/turnGoal"
+        },
+        "knownFields": {
+          "type": "object",
+          "description": "Flask 目前已確定的非敏感欄位值，包含由會員記憶帶入的 remembered* 欄位。Agent 只能用於避免重複追問，不得回傳與此矛盾且無使用者依據的覆寫值。MUST NOT 包含姓名、電話、Email 或詳細門牌。",
+          "maxProperties": 40
+        },
+        "missingFields": {
+          "type": "array",
+          "description": "依 Flask 確定性優先序排列；Agent 應針對第一項提問。",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "history": {
+          "type": "array",
+          "description": "最近數輪非敏感對話內容，用於多輪理解；不得包含姓名、電話、Email、詳細地址或附件內容。",
+          "maxItems": 12,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "content"
+            ],
+            "properties": {
+              "role": {
+                "type": "string",
+                "enum": [
+                  "resident",
+                  "agent"
+                ]
+              },
+              "content": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000
+              }
+            }
+          }
+        },
+        "serviceScope": {
+          "type": "object",
+          "description": "Demo 可服務範圍。Agent 必須據此判斷超出範圍，不得臆造覆蓋區域。",
+          "additionalProperties": false,
+          "properties": {
+            "districts": {
+              "type": "array",
+              "maxItems": 400,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              }
+            }
+          }
+        }
+      }
+    },
+    "agentTurnResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "orchestrationMode",
+        "route",
+        "trace",
+        "assistantMessage"
+      ],
+      "properties": {
+        "orchestrationMode": {
+          "const": "agentcore-runtime"
+        },
+        "route": {
+          "$ref": "#/$defs/route"
+        },
+        "trace": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "$ref": "#/$defs/traceEntry"
+          }
+        },
+        "agentTurn": {
+          "$ref": "#/$defs/agentTurn"
+        },
+        "assistantMessage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "serviceType",
+        "agent",
+        "toolName",
+        "reasonCode"
+      ],
+      "properties": {
+        "serviceType": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/serviceType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "agent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/agentName"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "toolName": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/agentName"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reasonCode": {
+          "type": "string",
+          "enum": [
+            "domain_keyword_match",
+            "model_classification",
+            "active_agent_continuation",
+            "ambiguous_domains",
+            "unsupported_domain"
+          ]
+        }
+      }
+    },
+    "traceEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "actor",
+        "action"
+      ],
+      "properties": {
+        "actor": {
+          "anyOf": [
+            {
+              "const": "supervisor"
+            },
+            {
+              "$ref": "#/$defs/agentName"
+            }
+          ]
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "tool_call",
+            "model_invoke",
+            "knowledge_retrieve"
+          ]
+        },
+        "target": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "reasonCode": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "outcome": {
+          "type": "string",
+          "enum": [
+            "ok",
+            "empty",
+            "skipped",
+            "suppressed",
+            "failed"
+          ]
+        }
+      }
+    },
+    "agentTurn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "agent",
+        "serviceType",
+        "intent",
+        "workflowStage",
+        "assistantMessage",
+        "requiredFields",
+        "missingFields",
+        "allowedTools",
+        "extractedFields",
+        "riskAssessment",
+        "knowledge",
+        "reasoning"
+      ],
+      "properties": {
+        "agent": {
+          "$ref": "#/$defs/agentName"
+        },
+        "serviceType": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "intent": {
+          "type": "string",
+          "enum": [
+            "collect_service_request_details",
+            "hold_for_safety",
+            "confirm_service_request_brief",
+            "answer_status_question"
+          ]
+        },
+        "workflowStage": {
+          "$ref": "#/$defs/workflowStage"
+        },
+        "assistantMessage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        },
+        "requiredFields": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "missingFields": {
+          "type": "array",
+          "maxItems": 20,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "allowedTools": {
+          "type": "array",
+          "maxItems": 20,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "extractedFields": {
+          "type": "object"
+        },
+        "riskAssessment": {
+          "$ref": "#/$defs/riskAssessment"
+        },
+        "knowledge": {
+          "type": "array",
+          "description": "只作為說明性參考。價格、庫存、可預約時段、商家啟用狀態與案件狀態不得引用此欄位。",
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/knowledgeReference"
+          }
+        },
+        "reasoning": {
+          "$ref": "#/$defs/reasoning"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "serviceType": {
+                "const": "utility_repair"
+              }
+            },
+            "required": [
+              "serviceType"
+            ]
+          },
+          "then": {
+            "properties": {
+              "extractedFields": {
+                "$ref": "#/$defs/utilityRepairExtractedFields"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "utilityRepairExtractedFields": {
+      "type": "object",
+      "description": "模型抽取結果。Flask MUST 逐欄位重新驗證後才寫入狀態；任何未列出的鍵一律丟棄。",
+      "additionalProperties": false,
+      "properties": {
+        "issueType": {
+          "enum": [
+            "electrical",
+            "toilet",
+            "drain",
+            "water_heater",
+            "leak",
+            "other",
+            null
+          ]
+        },
+        "districtName": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 40
+        },
+        "areaOutOfScope": {
+          "type": "boolean",
+          "description": "使用者已明確給出地區，但該地區不在 serviceScope.districts 內。"
+        },
+        "preferredTime": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 100
+        },
+        "urgency": {
+          "enum": [
+            "routine",
+            "soon",
+            "urgent",
+            "emergency",
+            null
+          ]
+        },
+        "riskScreenAnswered": {
+          "type": "boolean",
+          "description": "使用者已針對安全篩檢問題作答。此欄位不得單獨解除已由確定性檢查觸發的 safetyHold。"
+        },
+        "hazardFlags": {
+          "$ref": "#/$defs/hazardFlags"
+        },
+        "confirmsBrief": {
+          "type": "boolean",
+          "description": "使用者對目前版本需求文件表示明確確認。Flask 仍須自行驗證確認語句與 artifact 版本。"
+        },
+        "observedPreference": {
+          "$ref": "#/$defs/observedPreference"
+        }
+      }
+    },
+    "hazardFlags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "electricShockRisk",
+        "exposedWires",
+        "smokeOrBurningSmell",
+        "activeFlooding"
+      ],
+      "properties": {
+        "electricShockRisk": {
+          "type": "boolean"
+        },
+        "exposedWires": {
+          "type": "boolean"
+        },
+        "smokeOrBurningSmell": {
+          "type": "boolean"
+        },
+        "activeFlooding": {
+          "type": "boolean"
+        }
+      }
+    },
+    "riskAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "level",
+        "signals",
+        "source"
+      ],
+      "properties": {
+        "level": {
+          "type": "string",
+          "enum": [
+            "none",
+            "high"
+          ]
+        },
+        "signals": {
+          "type": "array",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "deterministic 表示 Runtime 固定規則命中；model 表示只有模型判斷；both 表示兩者皆命中。",
+          "enum": [
+            "deterministic",
+            "model",
+            "both",
+            "none"
+          ]
+        }
+      }
+    },
+    "knowledgeReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "serviceType",
+        "docKind",
+        "excerpt"
+      ],
+      "properties": {
+        "serviceType": {
+          "$ref": "#/$defs/serviceType"
+        },
+        "docKind": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "sourceDocId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "sourceUri": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 2048
+        },
+        "excerpt": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1200
+        },
+        "score": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "authoritativeScope": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "文件自身宣告的資料權威範圍。static_only 表示只能作為靜態說明，不得用來回答價格、庫存、可預約時段、排班或案件狀態。",
+          "maxLength": 60
+        }
+      }
+    },
+    "reasoning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "modelId",
+        "knowledgeBaseQueried"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "description": "model 表示這一輪的抽取與文案由核准模型產生；rule-fallback 表示模型不可用而改用 Runtime 固定規則，回應不得宣稱模型已執行。",
+          "enum": [
+            "model",
+            "rule-fallback"
+          ]
+        },
+        "modelId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "knowledgeBaseQueried": {
+          "type": "boolean"
+        },
+        "degradedReason": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 200
+        },
+        "liveValueTopics": {
+          "type": "array",
+          "description": "本輪被判定只能由即時結構化資料回答的主題。非空時 Agent MUST NOT 以靜態知識、條款或模型印象給出金額、庫存、可預約時段、排班或案件狀態。",
+          "maxItems": 10,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 60
+          }
+        },
+        "suppressedKnowledge": {
+          "type": "array",
+          "description": "因 authoritative_scope=static_only 而被棄用的檢索片段。刻意只記識別資訊與棄用原因、不記內容，否則被擋掉的文字會回到 prompt、trace 與日誌。",
+          "maxItems": 10,
+          "items": {
+            "$ref": "#/$defs/suppressedKnowledgeReference"
+          }
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "error"
+      ],
+      "properties": {
+        "error": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "code",
+            "message"
+          ],
+          "properties": {
+            "code": {
+              "type": "string",
+              "enum": [
+                "invalid_runtime_payload"
+              ]
+            },
+            "message": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 300
+            }
+          }
+        }
+      }
+    },
+    "suppressedKnowledgeReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "docKind",
+        "reason"
+      ],
+      "properties": {
+        "sourceDocId": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 120
+        },
+        "docKind": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    },
+    "observedPreference": {
+      "type": "object",
+      "description": "住戶自然表達的長期偏好。Flask 只做欄位層合併，MUST NOT 以單次觀察覆蓋整列偏好；note 不得包含姓名、電話或地址。",
+      "additionalProperties": false,
+      "properties": {
+        "priceSensitivity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "preferredContactTime": {
+          "type": "string",
+          "enum": [
+            "1",
+            "2",
+            "3"
+          ]
+        },
+        "preferredVendorTags": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "blockedVendorIds": {
+          "type": "array",
+          "maxItems": 10,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          }
+        },
+        "note": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
+    }
+  }
+}
