@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import openImg from "../assets/open.PNG";
+import openImg from "../assets/open.png";
 import "./HomePage.css";
 
 export default function HomePage() {

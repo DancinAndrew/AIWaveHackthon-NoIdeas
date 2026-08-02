@@ -36,6 +36,24 @@
   width: 60px;
 }
 
+/* 開啟新對話 */
+.new-chat-btn {
+  width: 60px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  text-align: right;
+}
+
+.new-chat-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 /* 訊息容器 */
 .messages-container {
   flex: 1;

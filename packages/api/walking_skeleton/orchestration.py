@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from collections.abc import Mapping
 from typing import Any, Protocol
 
@@ -21,6 +21,22 @@ APPROVED_ROUTES = frozenset(
 )
 
 
+APPROVED_REASON_CODES = frozenset(
+    {
+        "domain_keyword_match",
+        "model_classification",
+        "active_agent_continuation",
+        "ambiguous_domains",
+        "unsupported_domain",
+    }
+)
+MAX_HISTORY_ENTRIES = 12
+MAX_ASSISTANT_MESSAGE_LENGTH = 2_000
+MAX_KNOWLEDGE_REFERENCES = 5
+MAX_LIVE_VALUE_TOPICS = 10
+MAX_SUPPRESSED_KNOWLEDGE_RECORDS = 10
+
+
 @dataclass(frozen=True, slots=True)
 class Delegation:
     """Supervisor decision consumed by the transport-independent core."""
@@ -30,12 +46,76 @@ class Delegation:
     mode: str
 
 
+@dataclass(frozen=True, slots=True)
+class AgentTurnRequest:
+    """One turn of resident input, described for the routed domain agent."""
+
+    message: str
+    active_agent: str | None = None
+    workflow_stage: str | None = None
+    turn_goal: str | None = None
+    known_fields: Mapping[str, Any] = field(default_factory=dict)
+    missing_fields: tuple[str, ...] = ()
+    history: tuple[Mapping[str, str], ...] = ()
+    service_districts: tuple[str, ...] = ()
+
+    def to_payload(self) -> dict[str, Any]:
+        payload: dict[str, Any] = {"message": self.message}
+        if self.active_agent:
+            payload["activeAgent"] = self.active_agent
+        if self.workflow_stage:
+            payload["workflowStage"] = self.workflow_stage
+        if self.turn_goal:
+            payload["turnGoal"] = self.turn_goal
+        if self.known_fields:
+            payload["knownFields"] = dict(self.known_fields)
+        if self.missing_fields:
+            payload["missingFields"] = list(self.missing_fields)
+        if self.history:
+            payload["history"] = [
+                dict(entry) for entry in self.history[-MAX_HISTORY_ENTRIES:]
+            ]
+        if self.service_districts:
+            payload["serviceScope"] = {"districts": list(self.service_districts)}
+        return payload
+
+
+@dataclass(frozen=True, slots=True)
+class AgentTurn:
+    """Validated per-turn understanding returned by the routed domain agent.
+
+    ``extracted_fields`` is model output. It has already been validated against
+    the runtime contract, and the application service validates it again field by
+    field before any of it reaches stored state.
+    """
+
+    service_type: str | None
+    target_agent: str | None
+    mode: str
+    assistant_message: str | None = None
+    extracted_fields: Mapping[str, Any] = field(default_factory=dict)
+    risk_level: str = "none"
+    risk_source: str = "none"
+    knowledge: tuple[Mapping[str, Any], ...] = ()
+    reasoning_mode: str = "rule-fallback"
+    model_id: str | None = None
+    knowledge_base_queried: bool = False
+    live_value_topics: tuple[str, ...] = ()
+    suppressed_knowledge: tuple[Mapping[str, Any], ...] = ()
+
+    @property
+    def model_backed(self) -> bool:
+        return self.reasoning_mode == "model"
+
+
 class SupervisorOrchestrator(Protocol):
     """Boundary implemented by deterministic local and AgentCore adapters."""
 
     mode: str
 
     def delegate(self, message: str) -> Delegation: ...
+
+    def turn(self, request: AgentTurnRequest) -> AgentTurn: ...
 
 
 class AgentCoreRuntimeClient(Protocol):
@@ -75,6 +155,28 @@ class DeterministicDemoOrchestrator:
             )
         return Delegation(service_type=None, target_agent=None, mode=self.mode)
 
+    def turn(self, request: AgentTurnRequest) -> AgentTurn:
+        """Route only. No model runs offline, so no fields are extracted.
+
+        The application service falls back to its own deterministic extractors,
+        which keeps the offline demo working without claiming a model was used.
+        """
+
+        if request.active_agent == "utility_repair_agent":
+            return AgentTurn(
+                service_type="utility_repair",
+                target_agent=request.active_agent,
+                mode=self.mode,
+                reasoning_mode="rule-fallback",
+            )
+        delegation = self.delegate(request.message)
+        return AgentTurn(
+            service_type=delegation.service_type,
+            target_agent=delegation.target_agent,
+            mode=self.mode,
+            reasoning_mode="rule-fallback",
+        )
+
 
 class AgentCoreSupervisorOrchestrator:
     """Invoke the staging Runtime and validate its Supervisor tool trace."""
@@ -97,8 +199,24 @@ class AgentCoreSupervisorOrchestrator:
         self._request_gate = request_gate
 
     def delegate(self, message: str) -> Delegation:
+        payload = self._invoke({"message": message})
+        return self._validate_delegation(payload)
+
+    def turn(self, request: AgentTurnRequest) -> AgentTurn:
+        """Run one domain agent turn in the Runtime and validate what comes back.
+
+        Routing validation stays fail-closed. The per-turn understanding is
+        additive: a Runtime that cannot produce it still yields a usable turn that
+        honestly reports ``rule-fallback``.
+        """
+
+        payload = self._invoke(request.to_payload())
+        delegation = self._validate_delegation(payload)
+        return _agent_turn_from_payload(payload, delegation)
+
+    def _invoke(self, request_body: Mapping[str, Any]) -> object:
         request_payload = json.dumps(
-            {"message": message},
+            request_body,
             ensure_ascii=False,
             separators=(",", ":"),
         ).encode("utf-8")
@@ -124,12 +242,11 @@ class AgentCoreSupervisorOrchestrator:
         if not isinstance(raw_body, bytes) or len(raw_body) > MAX_RUNTIME_RESPONSE_BYTES:
             raise AgentCoreOrchestrationError("AgentCore response body is invalid or too large")
         try:
-            payload = json.loads(raw_body.decode("utf-8"))
+            return json.loads(raw_body.decode("utf-8"))
         except (UnicodeDecodeError, json.JSONDecodeError) as error:
             raise AgentCoreOrchestrationError(
                 "AgentCore response is not valid UTF-8 JSON"
             ) from error
-        return self._validate_delegation(payload)
 
     def _validate_delegation(self, payload: object) -> Delegation:
         if not isinstance(payload, Mapping):
@@ -166,6 +283,123 @@ class AgentCoreSupervisorOrchestrator:
             target_agent=str(target_agent),
             mode=self.mode,
         )
+
+
+def _agent_turn_from_payload(payload: object, delegation: Delegation) -> AgentTurn:
+    """Project the runtime response onto the application-facing turn value."""
+
+    agent_turn = payload.get("agentTurn") if isinstance(payload, Mapping) else None
+    if not isinstance(agent_turn, Mapping):
+        return AgentTurn(
+            service_type=delegation.service_type,
+            target_agent=delegation.target_agent,
+            mode=delegation.mode,
+            reasoning_mode="rule-fallback",
+        )
+
+    reasoning = agent_turn.get("reasoning")
+    reasoning = reasoning if isinstance(reasoning, Mapping) else {}
+    reasoning_mode = reasoning.get("mode")
+    if reasoning_mode not in {"model", "rule-fallback"}:
+        reasoning_mode = "rule-fallback"
+
+    risk = agent_turn.get("riskAssessment")
+    risk = risk if isinstance(risk, Mapping) else {}
+    risk_level = risk.get("level") if risk.get("level") in {"none", "high"} else "none"
+    risk_source = (
+        risk.get("source")
+        if risk.get("source") in {"none", "model", "deterministic", "both"}
+        else "none"
+    )
+
+    extracted = agent_turn.get("extractedFields")
+    extracted = dict(extracted) if isinstance(extracted, Mapping) else {}
+
+    assistant_message = agent_turn.get("assistantMessage")
+    if not isinstance(assistant_message, str) or not assistant_message.strip():
+        assistant_message = None
+    else:
+        assistant_message = assistant_message.strip()[:MAX_ASSISTANT_MESSAGE_LENGTH]
+
+    return AgentTurn(
+        service_type=delegation.service_type,
+        target_agent=delegation.target_agent,
+        mode=delegation.mode,
+        assistant_message=assistant_message,
+        extracted_fields=extracted,
+        risk_level=risk_level,
+        risk_source=risk_source,
+        knowledge=_knowledge_references(agent_turn.get("knowledge")),
+        reasoning_mode=reasoning_mode,
+        model_id=(
+            reasoning.get("modelId")
+            if isinstance(reasoning.get("modelId"), str)
+            else None
+        ),
+        knowledge_base_queried=reasoning.get("knowledgeBaseQueried") is True,
+        live_value_topics=_bounded_strings(reasoning.get("liveValueTopics")),
+        suppressed_knowledge=_suppressed_knowledge(
+            reasoning.get("suppressedKnowledge")
+        ),
+    )
+
+
+def _bounded_strings(value: object) -> tuple[str, ...]:
+    if not isinstance(value, list):
+        return ()
+    return tuple(
+        item.strip()[:60]
+        for item in value[:MAX_LIVE_VALUE_TOPICS]
+        if isinstance(item, str) and item.strip()
+    )
+
+
+def _suppressed_knowledge(value: object) -> tuple[Mapping[str, Any], ...]:
+    """Keep the audit record only. The withheld excerpt must never travel."""
+
+    if not isinstance(value, list):
+        return ()
+    records: list[Mapping[str, Any]] = []
+    for raw in value[:MAX_SUPPRESSED_KNOWLEDGE_RECORDS]:
+        if not isinstance(raw, Mapping):
+            continue
+        reason = raw.get("reason")
+        doc_kind = raw.get("docKind")
+        if not isinstance(reason, str) or not reason.strip():
+            continue
+        records.append(
+            {
+                "sourceDocId": (
+                    raw.get("sourceDocId")
+                    if isinstance(raw.get("sourceDocId"), str)
+                    else None
+                ),
+                "docKind": doc_kind if isinstance(doc_kind, str) else "unspecified",
+                "reason": reason.strip()[:200],
+            }
+        )
+    return tuple(records)
+
+
+def _knowledge_references(value: object) -> tuple[Mapping[str, Any], ...]:
+    if not isinstance(value, list):
+        return ()
+    references: list[Mapping[str, Any]] = []
+    for raw in value[:MAX_KNOWLEDGE_REFERENCES]:
+        if not isinstance(raw, Mapping):
+            continue
+        excerpt = raw.get("excerpt")
+        if not isinstance(excerpt, str) or not excerpt.strip():
+            continue
+        references.append(
+            {
+                "serviceType": raw.get("serviceType"),
+                "docKind": raw.get("docKind"),
+                "sourceDocId": raw.get("sourceDocId"),
+                "excerpt": excerpt.strip(),
+            }
+        )
+    return tuple(references)
 
 
 def create_orchestrator_from_environment() -> SupervisorOrchestrator:

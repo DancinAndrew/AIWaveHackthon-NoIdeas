@@ -3,7 +3,9 @@
 AI 生活管家是「2026 雲湧智生：臺灣生成式 AI 應用黑客松」參賽專案。使用者可以用自然語言描述生活需求，由 AgentCore Runtime 內的 Supervisor 路由至五個領域 Agent，透過多輪對話產生需求文件並自動委派商家；Step Functions 等待廠商承接、補問或拒絕，必要時恢復原 Agent 向住戶補件，最後把結論與進度顯示在原對話及提醒頁。
 
 > [!IMPORTANT]
-> `main` 已把「水電修繕 walking skeleton」部署到 AWS staging，並以公開 Amplify URL 完成住戶多輪對話、AgentCore Supervisor 委派、版本化需求文件、自動媒合、廠商補問／接受及住戶進度頁 E2E。線上 API 誠實標示 `orchestrationMode: agentcore-runtime`；Cognito JWT、Runtime 內持續多輪、Gateway tool call 與 Step Functions callback worker 仍是下一階段，不冒充已完成。
+> `main` 已把「水電修繕 walking skeleton」部署到 AWS staging，並以公開 Amplify URL 完成住戶多輪對話、AgentCore Supervisor 委派、版本化需求文件、自動媒合、廠商補問／接受及住戶進度頁 E2E。線上 API 誠實標示 `orchestrationMode: agentcore-runtime`。
+>
+> Runtime 內的每輪模型理解、Knowledge Base retrieval 與 Supervisor 模型分類已實作並由契約測試覆蓋，但只以 fake Bedrock／retrieve client 驗證過，**尚未對真實 Bedrock 執行**；每一輪都會誠實回報 `reasoning.mode` 是 `model` 還是 `rule-fallback`。Cognito JWT、Runtime 呼叫 Gateway tool 與 Step Functions callback worker 仍是下一階段，不冒充已完成。
 
 ## MVP 服務範圍
 
@@ -22,9 +24,10 @@ MVP 聚焦在「理解需求 → 補齊欄位 → 產生文件 → 使用者確�
 | 前端 | React SPA，已部署於 AWS Amplify Hosting |
 | 身分 | Cognito User Pool 與三個群組已建立；目前 SPA 仍使用受控 demo actor headers |
 | HTTP 後端 | Amazon API Gateway HTTP API v2＋Flask on AWS Lambda；transport contract 已完成 |
-| AI | 一個 AgentCore Runtime；確定性 Supervisor＋五個邏輯 Agent 契約，水電閉環已完成 |
+| AI | 一個 AgentCore Runtime；Supervisor 關鍵字 fast-path＋fail-closed 模型分類，水電 Agent 以 Nova 2 Lite 強制單一工具做每輪欄位抽取，Knowledge Base 檢索固定 `service_type` filter |
+| 安全兜底 | 高風險停手規則同時存在於 Runtime 與 Flask；模型不得清除已觸發的 hazard flag、不得解除 safety hold，也不撰寫安全文案 |
 | 長流程 | Step Functions Standard durable boundary 已建立；目前等待／改派由 RDS＋Flask 狀態機執行 |
-| 工具介面 | AgentCore Gateway＋Lambda target 已部署；目前 Web 主流程仍由 Flask 呼叫共用 Python core |
+| 工具介面 | AgentCore Gateway＋Lambda target 已部署；目前 Web 主流程仍由 Flask 呼叫共用 Python core，Runtime 尚未呼叫 Gateway tool |
 | 資料庫 | Amazon RDS for PostgreSQL；交易、artifact、三方訊息、workflow task 與進度投影 |
 | Region／模型 | `us-west-2`；Nova 2 Lite 白名單；Titan Text Embeddings V2（1024 維） |
 | 部署 | AWS CDK for Python；private subnets、無 NAT 的 Demo 架構 |
@@ -110,11 +113,15 @@ npm run dev -- --host 127.0.0.1
 本機驗證：
 
 ```bash
-.venv/bin/python -m unittest packages/api/tests/test_utility_walking_skeleton.py
+.venv/bin/python -m unittest discover -s packages/api/tests -t packages/api -p "test_*.py"
+.venv/bin/python -m unittest discover -s infra/runtime/tests -t . -p "test_*.py"
+.venv/bin/python -m unittest discover -s infra/tests -t . -p "test_*.py"
 npm --prefix frontend test
 npm --prefix frontend run build
 npm --prefix frontend run lint
 ```
+
+`infra/runtime/tests` 覆蓋 Runtime 內的模型抽取、知識檢索與 fail-closed 分類；`packages/api/tests` 覆蓋 Flask 的驗證式合併與安全兜底。兩邊都用 fake Bedrock client，所以本機驗證不會產生任何 Bedrock 請求。
 
 ## AWS staging
 

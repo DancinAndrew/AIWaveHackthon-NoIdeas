@@ -40,7 +40,7 @@ function toMessage(message: ApiMessage): Message {
 
 export default function ChatPage() {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -52,12 +52,13 @@ export default function ChatPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const seenServerMessageIds = useRef(new Set<string>());
 
-  const initializeConversation = async () => {
+  const initializeConversation = async ({ forceNew = false } = {}) => {
     setIsConnecting(true);
     setConnectionError(null);
-    const requestedConversation =
-      searchParams.get("conversation") ??
-      window.localStorage.getItem("aiwave-conversation-id");
+    const requestedConversation = forceNew
+      ? null
+      : searchParams.get("conversation") ??
+        window.localStorage.getItem("aiwave-conversation-id");
     try {
       if (requestedConversation) {
         const history = await apiClient.listMessages(requestedConversation);
@@ -86,10 +87,29 @@ export default function ChatPage() {
       );
     } catch {
       setMessages([WELCOME_MESSAGE]);
-      setConnectionError("目前無法連上服務，請確認 Flask 後端已啟動。 ");
+      setConnectionError("目前無法連上智慧助理服務，請稍後再點「重新連線」。");
     } finally {
       setIsConnecting(false);
     }
+  };
+
+  // Past conversations stay reachable from 我的預約, so starting a new one only
+  // needs to drop the local pointers to the previous conversation.
+  const startNewConversation = async () => {
+    if (isConnecting) return;
+    seenServerMessageIds.current.clear();
+    setMessages([]);
+    setInput("");
+    setConversationId(null);
+    setServiceRequestId(null);
+    setProgress(null);
+    window.localStorage.removeItem("aiwave-conversation-id");
+    if (searchParams.has("conversation")) {
+      const nextParams = new URLSearchParams(searchParams);
+      nextParams.delete("conversation");
+      setSearchParams(nextParams, { replace: true });
+    }
+    await initializeConversation({ forceNew: true });
   };
 
   useEffect(() => {
@@ -191,7 +211,16 @@ export default function ChatPage() {
             ← 返回
           </button>
           <span className="chat-title">智慧助理</span>
-          <div className="header-spacer" />
+          <button
+            type="button"
+            className="new-chat-btn"
+            onClick={() => void startNewConversation()}
+            disabled={isConnecting || isLoading}
+            aria-label="開啟新對話"
+            title="開啟新對話"
+          >
+            ＋
+          </button>
         </div>
 
         {progress && (

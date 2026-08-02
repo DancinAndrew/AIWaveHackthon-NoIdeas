@@ -46,7 +46,15 @@ const viteEnv = (
   import.meta as ImportMeta & { env?: Record<string, string | undefined> }
 ).env;
 
-const DEFAULT_BASE_URL = viteEnv?.VITE_API_BASE_URL ?? "http://localhost:8000";
+// Default to the deployed AWS backend (CDK stack AiwaveStaging output
+// "ApiBaseUrl"), which runs the Flask API on Lambda behind API Gateway and
+// orchestrates through AgentCore Runtime.
+// To develop against a local Flask instance instead, set
+// VITE_API_BASE_URL=http://127.0.0.1:8000 (the dev server binds IPv4 loopback
+// only, and "localhost" resolves to ::1 first on macOS).
+const DEFAULT_BASE_URL =
+  viteEnv?.VITE_API_BASE_URL ??
+  "https://67wcdv3h8b.execute-api.us-west-2.amazonaws.com";
 
 export function createApiClient(options: ClientOptions = {}) {
   const baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");

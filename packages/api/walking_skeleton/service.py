@@ -1,12 +1,24 @@
 from __future__ import annotations
 
 import re
+from collections.abc import Sequence
 from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
 from .errors import ConflictError, ForbiddenError, NotFoundError, ValidationError
-from .orchestration import DeterministicDemoOrchestrator, SupervisorOrchestrator
+from .orchestration import (
+    AgentTurn,
+    AgentTurnRequest,
+    DeterministicDemoOrchestrator,
+    SupervisorOrchestrator,
+)
+from .member_memory import (
+    EMPTY_MEMORY,
+    MemberMemory,
+    MemberMemoryStore,
+    NullMemberMemoryStore,
+)
 from .store import InMemoryStore
 
 
@@ -24,6 +36,9 @@ DEMO_PROVIDERS: tuple[dict[str, Any], ...] = (
         "responseSlaHours": 1,
         "capabilities": ["gas_certified", "weekend_available"],
         "districts": ["松山區", "大同區", "信義區", "北投區", "內湖區"],
+        # inspection_fee + min_charge from the same providers.json record. Used
+        # only to order candidates by member price sensitivity, never quoted.
+        "entryCost": 1800,
         "source": "data/mock/master/providers.json",
     },
     {
@@ -33,6 +48,7 @@ DEMO_PROVIDERS: tuple[dict[str, Any], ...] = (
         "responseSlaHours": 4,
         "capabilities": ["emergency_24h", "night_shift", "waterproofing"],
         "districts": ["內湖區", "南港區", "大安區", "中山區", "士林區"],
+        "entryCost": 1200,
         "source": "data/mock/master/providers.json",
     },
 )
@@ -61,6 +77,40 @@ NEGATED_RISK_PHRASES = (
 )
 CONFIRM_PHRASES = ("確認送出", "確認建立", "內容正確", "可以送出")
 
+# Closed allowlist for the model extraction the Runtime returns. Everything the
+# agent sends is re-validated here before it can reach stored state, so an
+# unexpected key, type or enum value is dropped instead of trusted.
+ISSUE_TYPES = ("electrical", "toilet", "drain", "water_heater", "leak", "other")
+URGENCY_LEVELS = ("routine", "soon", "urgent", "emergency")
+HAZARD_FLAG_KEYS = (
+    "electricShockRisk",
+    "exposedWires",
+    "smokeOrBurningSmell",
+    "activeFlooding",
+)
+MAX_PREFERRED_TIME_LENGTH = 100
+MAX_HISTORY_ENTRIES = 8
+
+# Fixed safety wording. The agent never authors this text, and the stop-work rule
+# below is deliberately present here as well as in the Runtime so neither a model
+# nor a knowledge base miss becomes a single point of failure.
+SAFETY_HOLD_TEXT = (
+    "這有觸電或火災風險，請先不要觸碰設備、插座或積水，也不要自行拆修。"
+    "若能在不接近危險處的前提下安全斷電才操作總開關；"
+    "持續冒煙、火花或有人受傷請立即聯絡 119／台電。"
+)
+SAFETY_SCREEN_QUESTION = (
+    "我需要先確認安全：是否有漏電、裸線、冒煙焦味，或大量積水接近插座？"
+)
+DISTRICT_QUESTION = (
+    "請告訴我服務地區（例如台北市內湖區），詳細門牌不需要在 AI 對話中提供。"
+)
+PREFERRED_TIME_QUESTION = "你希望廠商什麼日期與時段到場？例如明天下午兩點到五點。"
+OUT_OF_SCOPE_TEMPLATE = (
+    "目前示範的服務範圍只涵蓋台北市{districts}。"
+    "請改提供這些行政區之一，我才能幫你委派合格廠商。"
+)
+
 STAGE_LABELS = {
     "collecting_details": "水電 Agent 正在確認需求",
     "safety_hold": "偵測到高風險，請先確保人身安全",
@@ -80,6 +130,60 @@ def _id(prefix: str) -> str:
     return f"{prefix}_{uuid4().hex[:16]}"
 
 
+_TURN_GOALS_BY_STAGE = {
+    "collecting_details": "collect_missing_fields",
+    "awaiting_resident_confirmation": "confirm_brief",
+    "waiting_resident_information": "answer_provider_question",
+    "waiting_provider_response": "answer_progress_question",
+    "provider_confirmed": "answer_progress_question",
+    "rematching": "answer_progress_question",
+}
+
+
+PREFERENCE_PATCH_KEYS = (
+    "priceSensitivity",
+    "preferredContactTime",
+    "preferredVendorTags",
+    "blockedVendorIds",
+    "note",
+)
+
+
+def _price_score(
+    provider: dict[str, Any],
+    candidates: Sequence[dict[str, Any]],
+) -> float:
+    """1.0 for the cheapest entry cost among the candidates, 0.0 for the dearest."""
+
+    costs = [candidate["entryCost"] for candidate in candidates]
+    cheapest, dearest = min(costs), max(costs)
+    if dearest == cheapest:
+        return 1.0
+    return (dearest - provider["entryCost"]) / (dearest - cheapest)
+
+
+def _service_score(
+    provider: dict[str, Any],
+    candidates: Sequence[dict[str, Any]],
+) -> float:
+    """Response speed and rating, normalised across the candidates."""
+
+    hours = [candidate["responseSlaHours"] for candidate in candidates]
+    fastest, slowest = min(hours), max(hours)
+    speed = 1.0 if slowest == fastest else (slowest - provider["responseSlaHours"]) / (
+        slowest - fastest
+    )
+    return 0.6 * speed + 0.4 * (provider["rating"] / 5.0)
+
+
+def _preference_patch(value: Any) -> dict[str, Any]:
+    """Keep only allowlisted preference keys the agent may report."""
+
+    if not isinstance(value, dict):
+        return {}
+    return {key: value[key] for key in PREFERENCE_PATCH_KEYS if key in value}
+
+
 def _public_provider(provider: dict[str, Any]) -> dict[str, Any]:
     return {
         "providerId": provider["providerId"],
@@ -95,9 +199,13 @@ class WalkingSkeletonService:
         self,
         store: InMemoryStore | None = None,
         orchestrator: SupervisorOrchestrator | None = None,
+        member_memory: MemberMemoryStore | None = None,
     ) -> None:
         self.store = store or InMemoryStore()
         self.orchestrator = orchestrator or DeterministicDemoOrchestrator()
+        # Defaults to off: a member the platform knows nothing about must get
+        # exactly the previous turn-by-turn flow.
+        self.member_memory = member_memory or NullMemberMemoryStore()
 
     def create_conversation(self, resident_id: str) -> dict[str, Any]:
         now = _now()
@@ -138,11 +246,12 @@ class WalkingSkeletonService:
             self.store.messages[conversation_id].append(
                 self._message(conversation_id, "user", content)
             )
+            memory = self.member_memory.load(resident_id)
             request_id = conversation.get("serviceRequestId")
             if not request_id:
-                result = self._start_utility_request(conversation, content)
+                result = self._start_utility_request(conversation, content, memory)
             else:
-                result = self._continue_utility_request(conversation, content)
+                result = self._continue_utility_request(conversation, content, memory)
             conversation["updatedAt"] = _now()
             return result
 
@@ -269,17 +378,203 @@ class WalkingSkeletonService:
             command=lambda: self._apply_timeout(task_id, admin_id, reason),
         )
 
-    def _start_utility_request(
-        self, conversation: dict[str, Any], content: str
+    def _agent_turn(
+        self,
+        conversation: dict[str, Any],
+        content: str,
+        *,
+        request: dict[str, Any] | None,
+        stage: str | None,
+        turn_goal: str,
+        memory: MemberMemory = EMPTY_MEMORY,
+    ) -> AgentTurn:
+        """Ask the routed domain agent to understand this turn.
+
+        Flask decides the goal and the ordered list of fields still missing, so the
+        stage machine stays deterministic while the agent handles the language.
+        Remembered values travel as PII-masked known fields so the agent confirms
+        instead of asking again.
+        """
+
+        return self.orchestrator.turn(
+            AgentTurnRequest(
+                message=content,
+                active_agent=conversation.get("activeAgent"),
+                workflow_stage=stage,
+                turn_goal=turn_goal,
+                known_fields={
+                    **self._known_fields(request),
+                    **memory.to_known_fields(),
+                },
+                missing_fields=self._missing_fields(request),
+                history=self._history(conversation["conversationId"]),
+                service_districts=tuple(DISTRICTS),
+            )
+        )
+
+    @staticmethod
+    def _known_fields(request: dict[str, Any] | None) -> dict[str, Any]:
+        if not request:
+            return {}
+        return {
+            "issueType": request["issueType"],
+            "districtName": request["districtName"],
+            "preferredTime": request["preferredTime"],
+            "urgency": request["urgency"],
+            "riskScreened": request["riskScreened"],
+        }
+
+    @staticmethod
+    def _missing_fields(request: dict[str, Any] | None) -> tuple[str, ...]:
+        if not request:
+            return ("riskScreening", "district", "preferredTime")
+        missing: list[str] = []
+        if not request["riskScreened"]:
+            missing.append("riskScreening")
+        if not request["districtName"]:
+            missing.append("district")
+        if not request["preferredTime"]:
+            missing.append("preferredTime")
+        return tuple(missing)
+
+    def _history(self, conversation_id: str) -> tuple[dict[str, str], ...]:
+        # The resident message for this turn is already stored, so it is excluded
+        # here and sent as the current message instead.
+        messages = self.store.messages.get(conversation_id, [])[:-1]
+        return tuple(
+            {
+                "role": "resident" if message["role"] == "user" else "agent",
+                "content": message["content"],
+            }
+            for message in messages[-MAX_HISTORY_ENTRIES:]
+        )
+
+    def _merge_agent_extraction(
+        self,
+        request: dict[str, Any],
+        turn: AgentTurn,
     ) -> dict[str, Any]:
-        delegation = self.orchestrator.delegate(content)
-        if delegation.service_type != SERVICE_TYPE:
+        """Apply validated model output and report what needs a Flask answer.
+
+        Only allowlisted keys with contract-valid values are applied. Hazard flags
+        are unioned, never cleared, so a model can not undo a deterministic hit.
+        """
+
+        extracted = turn.extracted_fields or {}
+        notes: dict[str, Any] = {
+            "outOfScopeArea": None,
+            "riskScreenAnswered": extracted.get("riskScreenAnswered") is True,
+            "confirmsBrief": extracted.get("confirmsBrief") is True,
+            "observedPreference": _preference_patch(
+                extracted.get("observedPreference")
+            ),
+        }
+
+        issue_type = extracted.get("issueType")
+        if issue_type in ISSUE_TYPES:
+            request["issueType"] = issue_type
+
+        urgency = extracted.get("urgency")
+        if urgency in URGENCY_LEVELS:
+            request["urgency"] = urgency
+
+        preferred_time = extracted.get("preferredTime")
+        if isinstance(preferred_time, str) and preferred_time.strip():
+            request["preferredTime"] = preferred_time.strip()[
+                :MAX_PREFERRED_TIME_LENGTH
+            ]
+
+        district_name = extracted.get("districtName")
+        if isinstance(district_name, str) and district_name.strip():
+            candidate = district_name.strip()
+            codes = DISTRICTS.get(candidate)
+            if codes is None:
+                # The resident named an area, but it is outside the demo master
+                # data. Recording it would create an unmatchable case.
+                notes["outOfScopeArea"] = candidate[:40]
+            else:
+                request["countyCode"], request["districtCode"] = codes
+                request["districtName"] = candidate
+
+        hazard_flags = extracted.get("hazardFlags")
+        if isinstance(hazard_flags, dict) and all(
+            isinstance(hazard_flags.get(key), bool) for key in HAZARD_FLAG_KEYS
+        ):
+            for key in HAZARD_FLAG_KEYS:
+                request["hazardFlags"][key] = (
+                    request["hazardFlags"].get(key, False) or hazard_flags[key]
+                )
+
+        return notes
+
+    def _high_risk(self, content: str, turn: AgentTurn) -> bool:
+        """Union of the deterministic check and the agent assessment."""
+
+        return self._has_high_risk(content) or turn.risk_level == "high"
+
+    @staticmethod
+    def _out_of_scope_text() -> str:
+        return OUT_OF_SCOPE_TEMPLATE.format(districts="、".join(DISTRICTS))
+
+    def _apply_member_memory(
+        self,
+        request: dict[str, Any],
+        memory: MemberMemory,
+    ) -> None:
+        """Seed the case from memory, validating every remembered value.
+
+        Memory is a default, not an authority: a remembered district still has to
+        exist in the controlled district table before it is written, otherwise a
+        stale profile could create an unmatchable case.
+        """
+
+        address = memory.default_address
+        if address is not None and not request["districtName"]:
+            codes = DISTRICTS.get(address.district_name)
+            if codes is not None:
+                request["countyCode"], request["districtCode"] = codes
+                request["districtName"] = address.district_name
+                request["districtSource"] = "member_memory"
+
+        appliance = memory.appliance_for()
+        if appliance is not None and not request.get("rememberedAppliance"):
+            request["rememberedAppliance"] = appliance.describe()
+
+    def _record_observed_preference(
+        self,
+        request: dict[str, Any],
+        resident_id: str,
+        notes: dict[str, Any],
+    ) -> None:
+        patch = notes.get("observedPreference")
+        if not isinstance(patch, dict) or not patch:
+            return
+        self.member_memory.merge_preference(resident_id, patch)
+        self._event(request, "member_preference_updated", "已更新會員長期偏好")
+
+    def _start_utility_request(
+        self,
+        conversation: dict[str, Any],
+        content: str,
+        memory: MemberMemory = EMPTY_MEMORY,
+    ) -> dict[str, Any]:
+        turn = self._agent_turn(
+            conversation,
+            content,
+            request=None,
+            stage=None,
+            turn_goal="route_new_request",
+            memory=memory,
+        )
+        if turn.service_type != SERVICE_TYPE:
             assistant = self._append_assistant(
                 conversation["conversationId"],
                 "這個 walking skeleton 目前先示範水電修繕。請描述漏水、排水、馬桶、熱水器或用電異常，我會交給水電 Agent。",
                 agent="supervisor",
             )
-            return self._turn_payload(conversation, assistant, trace_agent="supervisor")
+            return self._turn_payload(
+                conversation, assistant, trace_agent="supervisor", turn=turn
+            )
 
         request_id = _id("sr")
         now = _now()
@@ -312,26 +607,41 @@ class WalkingSkeletonService:
         self.store.service_requests[request_id] = request
         self.store.events[request_id] = []
 
+        notes = self._merge_agent_extraction(request, turn)
+        # Memory fills only what this turn did not already establish.
+        self._apply_member_memory(request, memory)
+        self._record_observed_preference(
+            request, conversation["residentId"], notes
+        )
+        request["safetyHold"] = self._high_risk(content, turn)
+
         if request["safetyHold"]:
             self._set_progress(request, "safety_hold", waiting_for="resident")
-            assistant_text = (
-                "這有觸電或火災風險，請先不要觸碰設備、插座或積水，也不要自行拆修。"
-                "若能在不接近危險處的前提下安全斷電才操作總開關；持續冒煙、火花或有人受傷請立即聯絡 119／台電。"
-            )
+            assistant_text = SAFETY_HOLD_TEXT
         else:
             self._set_progress(request, "collecting_details", waiting_for="resident")
-            assistant_text = (
-                "我已交給水電 Agent。先確認用電安全：現場是否有漏電、裸線、冒煙焦味，"
-                "或水已接近插座／形成大量積水？"
-            )
+            if notes["outOfScopeArea"]:
+                assistant_text = f"{self._out_of_scope_text()}{SAFETY_SCREEN_QUESTION}"
+            elif turn.assistant_message:
+                assistant_text = turn.assistant_message
+            else:
+                assistant_text = (
+                    "我已交給水電 Agent。先確認用電安全：現場是否有漏電、裸線、冒煙焦味，"
+                    "或水已接近插座／形成大量積水？"
+                )
 
         assistant = self._append_assistant(
             conversation["conversationId"], assistant_text, agent=ACTIVE_AGENT
         )
-        return self._turn_payload(conversation, assistant, trace_agent="supervisor")
+        return self._turn_payload(
+            conversation, assistant, trace_agent="supervisor", turn=turn
+        )
 
     def _continue_utility_request(
-        self, conversation: dict[str, Any], content: str
+        self,
+        conversation: dict[str, Any],
+        content: str,
+        memory: MemberMemory = EMPTY_MEMORY,
     ) -> dict[str, Any]:
         request = self.store.service_requests[conversation["serviceRequestId"]]
         stage = self.store.progress[request["serviceRequestId"]]["stage"]
@@ -343,6 +653,18 @@ class WalkingSkeletonService:
                 agent=ACTIVE_AGENT,
             )
             return self._turn_payload(conversation, assistant)
+
+        turn_goal = _TURN_GOALS_BY_STAGE.get(stage, "collect_missing_fields")
+        if stage == "collecting_details" and not request["riskScreened"]:
+            turn_goal = "screen_safety"
+        turn = self._agent_turn(
+            conversation,
+            content,
+            request=request,
+            stage=stage,
+            turn_goal=turn_goal,
+            memory=memory,
+        )
 
         if stage == "waiting_resident_information":
             request["providerAnswer"] = content
@@ -357,12 +679,22 @@ class WalkingSkeletonService:
                 "收到，我已把補充內容回傳給原廠商，現在等待廠商確認。你可以在「我的預約」查看最新進度。",
                 agent=ACTIVE_AGENT,
             )
-            return self._turn_payload(conversation, assistant, provider_task=task)
+            return self._turn_payload(
+                conversation, assistant, provider_task=task, turn=turn
+            )
 
         if stage == "awaiting_resident_confirmation":
-            if any(phrase in content for phrase in CONFIRM_PHRASES):
-                return self._confirm_and_match(conversation, request)
+            notes = self._merge_agent_extraction(request, turn)
+            if any(phrase in content for phrase in CONFIRM_PHRASES) or notes[
+                "confirmsBrief"
+            ]:
+                return self._confirm_and_match(
+                    conversation, request, turn=turn, memory=memory
+                )
             self._apply_detail_extractors(request, content)
+            # Re-applied after the fixed patterns so a validated model value wins
+            # over a coarser regex hit on the same correction.
+            self._merge_agent_extraction(request, turn)
             self._render_artifact(request, supersede=True)
             assistant = self._append_assistant(
                 conversation["conversationId"],
@@ -373,6 +705,7 @@ class WalkingSkeletonService:
                 conversation,
                 assistant,
                 artifact=self.store.artifacts[request["serviceRequestId"]],
+                turn=turn,
             )
 
         if stage in {"waiting_provider_response", "provider_confirmed"}:
@@ -381,35 +714,54 @@ class WalkingSkeletonService:
                 "案件已送出，你可以在「我的預約」查看媒合與廠商確認進度。若廠商需要補充，我會回到這個對話詢問你。",
                 agent=ACTIVE_AGENT,
             )
-            return self._turn_payload(conversation, assistant)
+            return self._turn_payload(conversation, assistant, turn=turn)
 
+        # Deterministic extractors run first so the offline demo keeps working;
+        # validated model values then fill in what the fixed patterns miss.
         self._apply_detail_extractors(request, content)
+        notes = self._merge_agent_extraction(request, turn)
+        self._apply_member_memory(request, memory)
+        self._record_observed_preference(
+            request, conversation["residentId"], notes
+        )
+        scope_text = self._out_of_scope_text() if notes["outOfScopeArea"] else ""
+        model_wording_allowed = not scope_text
+
+        safety_hold_triggered = False
+        screened_this_turn = False
         if not request["riskScreened"]:
             # 「沒有漏電、冒煙或積水」是對整串風險的否定；先辨識這種
             # 安全篩檢回答，避免只靠關鍵字把否定句誤判為高風險。
-            safe_screen_answer = self._is_risk_screen_answer(content) and not any(
-                conjunction in content for conjunction in ("但是", "但有", "可是", "仍然")
+            negated_screen_answer = self._is_risk_screen_answer(content) and not any(
+                conjunction in content
+                for conjunction in ("但是", "但有", "可是", "仍然")
             )
-            if safe_screen_answer:
-                request["riskScreened"] = True
-                request["hazardFlags"] = {
-                    "electricShockRisk": False,
-                    "exposedWires": False,
-                    "smokeOrBurningSmell": False,
-                    "activeFlooding": False,
-                }
-                assistant_text = "安全狀況了解。請告訴我服務地區（例如台北市內湖區），詳細門牌不需要在 AI 對話中提供。"
-            elif self._has_high_risk(content):
+            # Only the negation heuristic may suppress a deterministic hit. The
+            # agent saying the resident answered is not permission to stand down.
+            deterministic_high = (
+                self._has_high_risk(content) and not negated_screen_answer
+            )
+            if deterministic_high or turn.risk_level == "high":
+                safety_hold_triggered = True
                 request["safetyHold"] = True
-                request["hazardFlags"] = self._hazard_flags(content)
+                self._raise_hazard_flags(request, self._hazard_flags(content))
                 self._set_progress(request, "safety_hold", waiting_for="resident")
-                assistant_text = "偵測到立即風險，請不要觸碰設備或積水，也不要自行拆修；持續冒煙、火花或有人受傷請立即聯絡 119／台電。"
-            else:
-                assistant_text = "我需要先確認安全：是否有漏電、裸線、冒煙焦味，或大量積水接近插座？"
+            elif negated_screen_answer or notes["riskScreenAnswered"]:
+                request["riskScreened"] = True
+                screened_this_turn = True
+
+        # Safety is settled first, so a turn that supplies the last missing field
+        # can advance in the same turn instead of asking one question per field.
+        acknowledgement = "安全狀況了解。" if screened_this_turn else ""
+        if safety_hold_triggered:
+            assistant_text = SAFETY_HOLD_TEXT
+            model_wording_allowed = False
+        elif not request["riskScreened"]:
+            assistant_text = f"{scope_text}{SAFETY_SCREEN_QUESTION}"
         elif not request["districtName"]:
-            assistant_text = "請告訴我服務地區（例如台北市內湖區），詳細門牌不需要在 AI 對話中提供。"
+            assistant_text = f"{scope_text}{acknowledgement}{DISTRICT_QUESTION}"
         elif not request["preferredTime"]:
-            assistant_text = "你希望廠商什麼日期與時段到場？例如明天下午兩點到五點。"
+            assistant_text = f"{scope_text}{acknowledgement}{PREFERRED_TIME_QUESTION}"
         else:
             artifact = self._render_artifact(request)
             self._set_progress(request, "awaiting_resident_confirmation", waiting_for="resident")
@@ -417,6 +769,11 @@ class WalkingSkeletonService:
                 f"我已整理第 {artifact['version']} 版水電需求文件：{artifact['summary']}。"
                 "請確認內容，正確的話回覆「確認送出」；確認前不會委派廠商。"
             )
+            # The document version and summary are facts Flask owns.
+            model_wording_allowed = False
+
+        if model_wording_allowed and turn.assistant_message:
+            assistant_text = turn.assistant_message
 
         request["updatedAt"] = _now()
         assistant = self._append_assistant(
@@ -426,26 +783,66 @@ class WalkingSkeletonService:
             conversation,
             assistant,
             artifact=self.store.artifacts.get(request["serviceRequestId"]),
+            turn=turn,
         )
 
+    @staticmethod
+    def _raise_hazard_flags(
+        request: dict[str, Any], detected: dict[str, bool]
+    ) -> None:
+        """Raise flags only. A hazard already recorded is never cleared."""
+
+        for key in HAZARD_FLAG_KEYS:
+            request["hazardFlags"][key] = (
+                request["hazardFlags"].get(key, False) or detected.get(key, False)
+            )
+
     def _confirm_and_match(
-        self, conversation: dict[str, Any], request: dict[str, Any]
+        self,
+        conversation: dict[str, Any],
+        request: dict[str, Any],
+        *,
+        turn: AgentTurn | None = None,
+        memory: MemberMemory = EMPTY_MEMORY,
     ) -> dict[str, Any]:
         artifact = self.store.artifacts[request["serviceRequestId"]]
         artifact["status"] = "confirmed"
         artifact["confirmedAt"] = _now()
+        preference = memory.preference
         candidates = [
             provider
             for provider in DEMO_PROVIDERS
             if request["districtName"] in provider["districts"]
+            and provider["providerId"] not in preference.blocked_vendor_ids
         ]
-        candidates.sort(
-            key=lambda provider: (
-                provider["responseSlaHours"],
-                -provider["rating"],
-                provider["providerId"],
+        if preference.is_unset:
+            candidates.sort(
+                key=lambda provider: (
+                    provider["responseSlaHours"],
+                    -provider["rating"],
+                    provider["providerId"],
+                )
             )
-        )
+        else:
+            # A price-sensitive member gets the cheaper entry cost first; an
+            # insensitive one keeps the fastest, best-rated candidate first.
+            # Provider ID is the final tiebreak so the order stays reproducible.
+            sensitivity = preference.price_sensitivity
+            candidates.sort(
+                key=lambda provider: (
+                    -(
+                        sensitivity * _price_score(provider, candidates)
+                        + (1 - sensitivity) * _service_score(provider, candidates)
+                    ),
+                    provider["providerId"],
+                )
+            )
+            request["matchRuleVersion"] = "preference-weighted-1"
+            request["matchReason"] = (
+                "依會員價格敏感度排序"
+                if sensitivity >= 0.5
+                else "依回覆速度與評分排序"
+            )
         if not candidates:
             raise ConflictError("目前服務地區沒有符合硬條件的水電廠商")
         request["candidateProviderIds"] = [p["providerId"] for p in candidates]
@@ -461,7 +858,7 @@ class WalkingSkeletonService:
             agent=ACTIVE_AGENT,
         )
         return self._turn_payload(
-            conversation, assistant, artifact=artifact, provider_task=task
+            conversation, assistant, artifact=artifact, provider_task=task, turn=turn
         )
 
     def _apply_provider_response(
@@ -654,6 +1051,7 @@ class WalkingSkeletonService:
         trace_agent: str = ACTIVE_AGENT,
         artifact: dict[str, Any] | None = None,
         provider_task: dict[str, Any] | None = None,
+        turn: AgentTurn | None = None,
     ) -> dict[str, Any]:
         request_id = conversation.get("serviceRequestId")
         result: dict[str, Any] = {
@@ -669,6 +1067,21 @@ class WalkingSkeletonService:
                     "at": _now(),
                 }
             ],
+            # Reported so the UI and the demo can tell a real model turn from an
+            # honest deterministic fallback instead of guessing.
+            "reasoning": {
+                "mode": turn.reasoning_mode if turn else "rule-fallback",
+                "modelId": turn.model_id if turn else None,
+                "knowledgeBaseQueried": bool(turn and turn.knowledge_base_queried),
+                # Surfaced so a resident can see the platform declined to answer a
+                # live question from static knowledge, rather than that being silent.
+                "liveValueTopics": list(turn.live_value_topics if turn else ()),
+                "suppressedKnowledge": [
+                    dict(record)
+                    for record in (turn.suppressed_knowledge if turn else ())
+                ],
+            },
+            "knowledge": [dict(reference) for reference in (turn.knowledge if turn else ())],
         }
         if request_id:
             request = self.store.service_requests[request_id]
