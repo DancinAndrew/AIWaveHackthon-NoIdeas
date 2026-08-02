@@ -68,14 +68,15 @@ PREFERENCE_PATCH_KEYS = (
 )
 
 HIGH_RISK_TERMS = ("冒煙", "火花", "焦味", "裸線", "觸電", "漏電", "大量積水", "淹水")
-NEGATED_RISK_PHRASES = (
-    "沒有漏電",
-    "無漏電",
-    "沒有冒煙",
-    "無冒煙",
-    "沒有積水",
-    "無積水",
-    "水量不大",
+# 否定是「詞＋範圍」，不是固定片語。住戶回答安全篩檢時會寫
+# 「沒有漏電、冒煙或積水」，一個否定詞涵蓋整串並列項目；逐字比對固定
+# 片語只能中和第一項，剩下的會被誤判成高風險。
+# 刻意不收單獨的「不」：「插座不斷冒煙」「水流不停」都含「不」卻是風險陳述。
+# 這份規則必須與 infra/runtime/domain_reasoning.py 的判斷一致。
+NEGATION_CUES = ("沒有", "没有", "沒", "無", "无", "未", "不會", "不曾")
+# 、與或是並列分隔符，必須留在同一個否定範圍內；句讀與轉折詞才結束範圍。
+_CLAUSE_BOUNDARY_PATTERN = re.compile(
+    r"[，,。．.！!？?；;\n]|但是|但有|但|可是|不過|然而|仍然|仍有"
 )
 CONFIRM_PHRASES = ("確認送出", "確認建立", "內容正確", "可以送出")
 
@@ -157,23 +158,39 @@ def issue_type(content: str) -> str:
     return "other"
 
 
+def unnegated_risk_span(content: str) -> str:
+    """回傳風險詞仍然算數的文字範圍。
+
+    否定詞涵蓋同一子句中它後方的內容，所以「沒有漏電、冒煙或積水」整串都被
+    中和，而「有冒煙，沒有漏電」的冒煙在否定詞之前，仍然算高風險。範圍在句讀
+    或轉折詞處結束，「沒有漏電但有冒煙」因此仍然成立。
+    """
+
+    kept: list[str] = []
+    for clause in _CLAUSE_BOUNDARY_PATTERN.split(content):
+        if not clause:
+            continue
+        cut = min(
+            (clause.find(cue) for cue in NEGATION_CUES if cue in clause),
+            default=-1,
+        )
+        kept.append(clause if cut < 0 else clause[:cut])
+    return "\n".join(kept)
+
+
 def has_high_risk(content: str) -> bool:
-    cleaned = content
-    for phrase in NEGATED_RISK_PHRASES:
-        cleaned = cleaned.replace(phrase, "")
-    return any(term in cleaned for term in HIGH_RISK_TERMS)
+    return any(term in unnegated_risk_span(content) for term in HIGH_RISK_TERMS)
 
 
 def hazard_flags(content: str) -> dict[str, bool]:
-    high_risk = has_high_risk(content)
+    # 逐項旗標同樣只看否定範圍外的文字，否則「沒有漏電但有冒煙」會在案件
+    # 紀錄裡對廠商謊報漏電。
+    span = unnegated_risk_span(content)
     return {
-        "electricShockRisk": high_risk
-        and any(term in content for term in ("觸電", "漏電", "火花")),
-        "exposedWires": high_risk and "裸線" in content,
-        "smokeOrBurningSmell": high_risk
-        and any(term in content for term in ("冒煙", "焦味")),
-        "activeFlooding": high_risk
-        and any(term in content for term in ("大量積水", "淹水")),
+        "electricShockRisk": any(term in span for term in ("觸電", "漏電", "火花")),
+        "exposedWires": "裸線" in span,
+        "smokeOrBurningSmell": any(term in span for term in ("冒煙", "焦味")),
+        "activeFlooding": any(term in span for term in ("大量積水", "淹水")),
     }
 
 

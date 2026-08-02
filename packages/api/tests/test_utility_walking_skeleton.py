@@ -633,3 +633,41 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class NegatedRiskScopeTest(unittest.TestCase):
+    """否定詞的涵蓋範圍，必須與 Runtime 端的判斷一致。
+
+    兩邊各有一份確定性風險規則是刻意的防禦縱深，但兩份規則對同一句話必須
+    得到同樣的結論，否則會出現「Runtime 說安全、Flask 說高風險」這種住戶
+    無法脫離的迴圈。
+    """
+
+    def setUp(self) -> None:
+        self.has_high_risk = import_module("walking_skeleton.utility_flow").has_high_risk
+
+    def test_one_negation_covers_the_whole_listed_group(self) -> None:
+        self.assertFalse(self.has_high_risk("沒有漏電、冒煙或積水，水量不大"))
+
+    def test_repeated_negation_still_clears(self) -> None:
+        self.assertFalse(self.has_high_risk("沒有漏電也沒有冒煙，水量不大"))
+
+    def test_plain_risk_report_still_holds(self) -> None:
+        self.assertTrue(self.has_high_risk("插座冒煙而且有焦味"))
+
+    def test_risk_before_the_negation_still_holds(self) -> None:
+        self.assertTrue(self.has_high_risk("有冒煙，沒有漏電"))
+
+    def test_contradiction_after_the_negation_still_holds(self) -> None:
+        self.assertTrue(self.has_high_risk("沒有漏電但有冒煙"))
+
+    def test_continuous_marker_is_not_a_negation(self) -> None:
+        self.assertTrue(self.has_high_risk("插座不斷冒煙"))
+
+    def test_hazard_flags_do_not_report_a_negated_hazard(self) -> None:
+        hazard_flags = import_module("walking_skeleton.utility_flow").hazard_flags
+
+        flags = hazard_flags("沒有漏電但有冒煙")
+
+        self.assertTrue(flags["smokeOrBurningSmell"])
+        self.assertFalse(flags["electricShockRisk"])

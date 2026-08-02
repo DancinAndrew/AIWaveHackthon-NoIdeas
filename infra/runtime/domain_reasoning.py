@@ -15,6 +15,7 @@ model must answer through a closed schema.  Three boundaries are deliberate:
 from __future__ import annotations
 
 import logging
+import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, field
 from typing import Any
@@ -76,14 +77,14 @@ HIGH_RISK_SIGNAL_TERMS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("smoke_or_burning_smell", ("冒煙", "焦味")),
     ("active_flooding", ("大量積水", "淹水")),
 )
-NEGATED_RISK_PHRASES = (
-    "沒有漏電",
-    "無漏電",
-    "沒有冒煙",
-    "無冒煙",
-    "沒有積水",
-    "無積水",
-    "水量不大",
+# 否定是「詞＋範圍」，不是固定片語。住戶回答安全篩檢時會寫
+# 「沒有漏電、冒煙或積水」，一個否定詞涵蓋整串並列項目；逐字比對固定
+# 片語只能中和第一項，剩下的會被誤判成高風險。
+# 刻意不收單獨的「不」：「插座不斷冒煙」「水流不停」都含「不」卻是風險陳述。
+NEGATION_CUES = ("沒有", "没有", "沒", "無", "无", "未", "不會", "不曾")
+# 、與或是並列分隔符，必須留在同一個否定範圍內；句讀與轉折詞才結束範圍。
+_CLAUSE_BOUNDARY_PATTERN = re.compile(
+    r"[，,。．.！!？?；;\n]|但是|但有|但|可是|不過|然而|仍然|仍有"
 )
 
 KNOWLEDGE_QUESTION_MARKERS = (
@@ -383,10 +384,28 @@ def _should_query_knowledge(
     return any(marker in message for marker in KNOWLEDGE_QUESTION_MARKERS)
 
 
+def unnegated_risk_span(message: str) -> str:
+    """回傳風險詞仍然算數的文字範圍。
+
+    否定詞涵蓋同一子句中它後方的內容，所以「沒有漏電、冒煙或積水」整串都被
+    中和，而「有冒煙，沒有漏電」的冒煙在否定詞之前，仍然算高風險。範圍在句讀
+    或轉折詞處結束，「沒有漏電但有冒煙」因此仍然成立。
+    """
+
+    kept: list[str] = []
+    for clause in _CLAUSE_BOUNDARY_PATTERN.split(message):
+        if not clause:
+            continue
+        cut = min(
+            (clause.find(cue) for cue in NEGATION_CUES if cue in clause),
+            default=-1,
+        )
+        kept.append(clause if cut < 0 else clause[:cut])
+    return "\n".join(kept)
+
+
 def _deterministic_risk(message: str) -> RiskAssessment:
-    cleaned = message
-    for phrase in NEGATED_RISK_PHRASES:
-        cleaned = cleaned.replace(phrase, "")
+    cleaned = unnegated_risk_span(message)
 
     signals = tuple(
         signal

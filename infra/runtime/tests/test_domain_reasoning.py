@@ -361,6 +361,68 @@ class SafetyPrecedenceTests(unittest.TestCase):
         self.assertEqual(result.risk.level, "none")
         self.assertEqual(result.assistant_message, "安全狀況了解。")
 
+    def test_one_negation_covering_a_list_clears_every_listed_term(self) -> None:
+        """「沒有 A、B 或 C」是一個否定涵蓋整串並列項目。
+
+        住戶回答安全篩檢時最自然的寫法就是這種，不會把否定詞逐項重複。
+        """
+
+        client = FakeConverseClient(
+            tool_input={
+                "assistantMessage": "安全狀況了解。",
+                "extractedFields": {"riskScreenAnswered": True},
+                "riskLevel": "none",
+            }
+        )
+
+        result = _reasoner(client).reason(_request("沒有漏電、冒煙或積水，水量不大"))
+
+        self.assertEqual(result.risk.level, "none")
+        self.assertEqual(result.risk.signals, ())
+
+    def test_a_risk_term_before_the_negation_still_counts(self) -> None:
+        """否定詞只涵蓋其後方，不能讓「有冒煙」被後半句洗掉。"""
+
+        client = FakeConverseClient(
+            tool_input={
+                "assistantMessage": "了解。",
+                "extractedFields": {},
+                "riskLevel": "none",
+            }
+        )
+
+        result = _reasoner(client).reason(_request("有冒煙，沒有漏電"))
+
+        self.assertEqual(result.risk.level, "high")
+
+    def test_a_contradiction_after_the_negation_still_counts(self) -> None:
+        client = FakeConverseClient(
+            tool_input={
+                "assistantMessage": "了解。",
+                "extractedFields": {},
+                "riskLevel": "none",
+            }
+        )
+
+        result = _reasoner(client).reason(_request("沒有漏電但有冒煙"))
+
+        self.assertEqual(result.risk.level, "high")
+
+    def test_continuous_smoke_is_not_read_as_a_negation(self) -> None:
+        """「不斷」含「不」但不是否定詞，不可讓風險詞被中和。"""
+
+        client = FakeConverseClient(
+            tool_input={
+                "assistantMessage": "了解。",
+                "extractedFields": {},
+                "riskLevel": "none",
+            }
+        )
+
+        result = _reasoner(client).reason(_request("插座不斷冒煙"))
+
+        self.assertEqual(result.risk.level, "high")
+
 
 class HonestDegradationTests(unittest.TestCase):
     def test_missing_tool_use_block_degrades_to_runtime_rules(self) -> None:
