@@ -355,7 +355,7 @@ export default function DashboardPage() {
               <p>目前沒有待處理的預約</p>
             </div>
           ) : (
-            <>
+            <div className="dashboard-items">
               {tasks.length > 0 && (
                 <h3 className="list-section-title">待處理（{tasks.length}）</h3>
               )}
@@ -626,7 +626,7 @@ export default function DashboardPage() {
                   ))}
                 </>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
