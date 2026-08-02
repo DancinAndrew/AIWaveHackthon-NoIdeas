@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { apiClient } from "../api/client";
+import { DEFAULT_DEMO_RESIDENT_ID, apiClient } from "../api/client";
 import type { ServiceRequestProjection } from "../api/types";
 import {
   bookingStatusPresentation,
@@ -149,6 +149,17 @@ export default function MyBookingsPage() {
 
         {error && <div className="bookings-error">{error}</div>}
 
+        {/* 換 Demo 身分等於換一份乾淨的列表，但空列表和後端故障長得一樣，
+            所以非預設身分時要明講現在站在哪裡、怎麼切回去。 */}
+        {apiClient.residentId !== DEFAULT_DEMO_RESIDENT_ID && (
+          <div className="bookings-identity">
+            測試身分：{apiClient.residentId}
+            <a href={`/my-bookings?resident=${DEFAULT_DEMO_RESIDENT_ID}`}>
+              切回預設資料
+            </a>
+          </div>
+        )}
+
         <div className="bookings-list">
           {loading ? (
             <div className="loading-state">載入中...</div>
@@ -161,20 +172,15 @@ export default function MyBookingsPage() {
               </button>
             </div>
           ) : (
-            filteredBookings.map((booking) => {
+            <ul className="bookings-items">
+            {filteredBookings.map((booking) => {
               const status = bookingStatusPresentation(booking.progress.stage);
               const latestEvent = booking.progress.events?.at(-1);
               const reward = booking.pointsReward
                 ? pointsRewardPresentation(booking.pointsReward)
                 : null;
               return (
-                <button
-                  key={booking.serviceRequestId}
-                  className="booking-card booking-card-button"
-                  onClick={() =>
-                    navigate(`/chat?conversation=${booking.conversationId}`)
-                  }
-                >
+                <li key={booking.serviceRequestId} className="booking-card">
                   <div className="booking-card-header">
                     <span className="booking-type">{booking.serviceName}</span>
                     <span
@@ -185,7 +191,16 @@ export default function MyBookingsPage() {
                     </span>
                   </div>
                   <div className="booking-card-body">
-                    <h4 className="booking-service">{booking.summary}</h4>
+                    <h4 className="booking-service">
+                      <button
+                        className="booking-card-button"
+                        onClick={() =>
+                          navigate(`/chat?conversation=${booking.conversationId}`)
+                        }
+                      >
+                        {booking.summary}
+                      </button>
+                    </h4>
                     {isProduct(booking) ? (
                       <ProductBookingDetails booking={booking} />
                     ) : (
@@ -224,9 +239,10 @@ export default function MyBookingsPage() {
                       )}
                     </div>
                   </div>
-                </button>
+                </li>
               );
-            })
+            })}
+            </ul>
           )}
         </div>
       </div>

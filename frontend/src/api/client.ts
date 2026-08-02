@@ -61,10 +61,64 @@ const DEFAULT_BASE_URL =
   viteEnv?.VITE_API_BASE_URL ??
   "https://67wcdv3h8b.execute-api.us-west-2.amazonaws.com";
 
+export const DEFAULT_DEMO_RESIDENT_ID = "resident-demo-001";
+const DEMO_RESIDENT_STORAGE_KEY = "aiwave.demoResidentId";
+// 這個值會被放進 X-Demo-Resident-Id，所以走白名單而不是黑名單：只允許
+// 識別碼字元，換行與冒號都無法穿透成額外的 header。
+const DEMO_RESIDENT_ID_PATTERN = /^[A-Za-z0-9_-]{1,64}$/;
+
+type DemoIdentityStorage = Pick<Storage, "getItem" | "setItem">;
+
+/**
+ * 決定這一輪 Demo 要用哪個住戶身分。
+ *
+ * 換身分就等於換一份乾淨的預約列表（案件按 residentId 隔離），所以
+ * `/my-bookings?resident=<id>` 可以在不刪任何資料的前提下重新開始測試。
+ * 解析結果會記在 storage，SPA 導覽到其他頁時不會掉回預設身分；帶
+ * `?resident=resident-demo-001` 就能切回原本那份資料。
+ */
+export function resolveDemoResidentId(
+  search: string,
+  storage?: DemoIdentityStorage | null,
+): string {
+  const requested = new URLSearchParams(search).get("resident")?.trim();
+  if (requested && DEMO_RESIDENT_ID_PATTERN.test(requested)) {
+    try {
+      storage?.setItem(DEMO_RESIDENT_STORAGE_KEY, requested);
+    } catch {
+      // 隱私模式下 storage 可能擲錯；記不住不影響這一次的身分。
+    }
+    return requested;
+  }
+
+  let remembered: string | null = null;
+  try {
+    remembered = storage?.getItem(DEMO_RESIDENT_STORAGE_KEY)?.trim() ?? null;
+  } catch {
+    remembered = null;
+  }
+  if (remembered && DEMO_RESIDENT_ID_PATTERN.test(remembered)) {
+    return remembered;
+  }
+  return DEFAULT_DEMO_RESIDENT_ID;
+}
+
+function currentDemoResidentId(): string {
+  // 在 node 測試環境沒有 location／localStorage，兩者都必須是選用的。
+  const scope = globalThis as typeof globalThis & {
+    location?: { search?: string };
+    localStorage?: DemoIdentityStorage;
+  };
+  return resolveDemoResidentId(
+    scope.location?.search ?? "",
+    scope.localStorage ?? null,
+  );
+}
+
 export function createApiClient(options: ClientOptions = {}) {
   const baseUrl = (options.baseUrl ?? DEFAULT_BASE_URL).replace(/\/+$/, "");
   const fetchImpl = options.fetchImpl ?? globalThis.fetch.bind(globalThis);
-  const residentId = options.residentId ?? "resident-demo-001";
+  const residentId = options.residentId ?? currentDemoResidentId();
   const providerId =
     options.providerId ?? "31324fe0-9899-5382-8211-d0122c20bda0";
   const adminId = options.adminId ?? "admin-demo-001";
@@ -254,6 +308,10 @@ export function createApiClient(options: ClientOptions = {}) {
           headers: { "Idempotency-Key": newIdempotencyKey() },
         },
       ),
+
+    // 畫面需要能說出「現在是哪個 Demo 身分」，否則換了乾淨身分之後的空列表
+    // 和「後端掛掉」在視覺上無法區分。
+    residentId,
   };
 }
 

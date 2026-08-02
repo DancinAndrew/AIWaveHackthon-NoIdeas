@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 
-import { ApiError, createApiClient } from "../src/api/client.ts";
+import {
+  ApiError,
+  DEFAULT_DEMO_RESIDENT_ID,
+  createApiClient,
+  resolveDemoResidentId,
+} from "../src/api/client.ts";
 
 
 test("resident conversation uses the versioned API and trusted demo headers", async () => {
@@ -87,4 +92,80 @@ test("API errors expose safe code, status and request id", async () => {
       return true;
     },
   );
+});
+
+
+test("a resident id from the URL is used and remembered for later navigation", () => {
+  const store = new Map<string, string>();
+  const storage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => void store.set(key, value),
+  };
+
+  const resolved = resolveDemoResidentId("?resident=resident-demo-clean-01", storage);
+
+  assert.equal(resolved, "resident-demo-clean-01");
+  // 換頁後（SPA 導覽不會重新解析 query）仍要記得同一個身分。
+  assert.equal(resolveDemoResidentId("", storage), "resident-demo-clean-01");
+});
+
+test("an unsafe resident id is rejected instead of reaching a request header", () => {
+  const store = new Map<string, string>();
+  const storage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => void store.set(key, value),
+  };
+
+  // 這個值會被放進 X-Demo-Resident-Id，換行字元不得穿透。
+  const resolved = resolveDemoResidentId(
+    "?resident=" + encodeURIComponent("bad\r\nX-Demo-Role: ADMIN"),
+    storage,
+  );
+
+  assert.equal(resolved, DEFAULT_DEMO_RESIDENT_ID);
+  assert.equal(store.size, 0);
+});
+
+test("without a URL param or a remembered value the default demo resident applies", () => {
+  assert.equal(resolveDemoResidentId("", null), DEFAULT_DEMO_RESIDENT_ID);
+});
+
+test("an explicit default in the URL switches back from a remembered resident", () => {
+  const store = new Map<string, string>([
+    ["aiwave.demoResidentId", "resident-demo-clean-01"],
+  ]);
+  const storage = {
+    getItem: (key: string) => store.get(key) ?? null,
+    setItem: (key: string, value: string) => void store.set(key, value),
+  };
+
+  const resolved = resolveDemoResidentId(
+    `?resident=${DEFAULT_DEMO_RESIDENT_ID}`,
+    storage,
+  );
+
+  assert.equal(resolved, DEFAULT_DEMO_RESIDENT_ID);
+});
+
+test("resident headers follow the resolved demo identity", async () => {
+  const calls: Array<{ init?: RequestInit }> = [];
+  const fakeFetch = async (_input: string | URL | Request, init?: RequestInit) => {
+    calls.push({ init });
+    return new Response(JSON.stringify({ data: { items: [] } }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
+    });
+  };
+
+  const api = createApiClient({
+    baseUrl: "https://api.example",
+    fetchImpl: fakeFetch,
+    residentId: "resident-demo-clean-01",
+  });
+
+  await api.listServiceRequests();
+
+  const headers = new Headers(calls[0].init?.headers);
+  assert.equal(headers.get("X-Demo-Resident-Id"), "resident-demo-clean-01");
+  assert.equal(headers.get("X-Demo-Role"), "RESIDENT");
 });
