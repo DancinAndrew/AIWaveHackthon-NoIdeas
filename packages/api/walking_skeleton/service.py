@@ -592,18 +592,24 @@ class WalkingSkeletonService:
     ) -> str:
         """Pick between the flow's wording and the agent's wording.
 
-        The flow owns *what* must be conveyed, the agent owns *how*. Two gates,
-        both of which fail back to the flow's wording:
+        The flow owns *what* must be conveyed, the agent owns *how*. Three gates,
+        all of which fail back to the flow's wording:
 
         * ``model_may_rephrase`` is the flow's call. Fixed safety wording, a
           document version, a summary or a matched provider name are facts the
           flow states itself.
+        * the turn must be model-backed. A ``rule-fallback`` turn carries the
+          Runtime's own canned sentence, which knows nothing about the stage the
+          flow has reached and so repeats the same question every turn. The
+          resident then sees no progress even though the state machine advanced.
         * the agent's reply must actually carry an ask. A model that answers a
           field question with "好的。" would otherwise leave the resident with no
           idea what to provide next.
         """
 
         if not model_may_rephrase or turn is None:
+            return flow_text
+        if not turn.model_backed:
             return flow_text
         candidate = (turn.assistant_message or "").strip()
         if not _carries_an_ask(candidate):

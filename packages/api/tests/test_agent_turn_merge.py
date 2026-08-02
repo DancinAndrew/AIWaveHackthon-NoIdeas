@@ -428,3 +428,48 @@ class KnowledgeBoundaryProjectionTests(unittest.TestCase):
 
         self.assertEqual(first["reasoning"]["liveValueTopics"], [])
         self.assertEqual(first["reasoning"]["suppressedKnowledge"], [])
+
+
+class ReplyWordingOwnershipTest(unittest.TestCase):
+    """措辭要交給 Agent，前提是模型真的跑了。
+
+    Runtime 在 rule-fallback 時回的是它自己的罐頭句，那句話不知道 Flask 的
+    stage 走到哪裡，逐輪重複同一個問題。住戶看到的就是「一直在問同一件事」，
+    即使狀態機其實每輪都在前進。
+    """
+
+    def setUp(self) -> None:
+        self.service = WalkingSkeletonService()
+
+    def _turn(self, *, reasoning_mode: str, assistant_message: str) -> AgentTurn:
+        return AgentTurn(
+            service_type="utility_repair",
+            target_agent="utility_repair_agent",
+            mode="agentcore-runtime",
+            assistant_message=assistant_message,
+            reasoning_mode=reasoning_mode,
+        )
+
+    def test_rule_fallback_wording_never_replaces_the_flow_question(self) -> None:
+        turn = self._turn(
+            reasoning_mode="rule-fallback",
+            assistant_message="先確認安全：現場是否有漏電、裸線、冒煙焦味？",
+        )
+
+        reply = self.service.choose_reply(
+            "請告訴我服務地區（例如台北市內湖區）。", turn, model_may_rephrase=True
+        )
+
+        self.assertEqual(reply, "請告訴我服務地區（例如台北市內湖區）。")
+
+    def test_model_backed_wording_may_still_replace_the_flow_question(self) -> None:
+        turn = self._turn(
+            reasoning_mode="model",
+            assistant_message="了解，那你家在哪一個行政區呢？",
+        )
+
+        reply = self.service.choose_reply(
+            "請告訴我服務地區（例如台北市內湖區）。", turn, model_may_rephrase=True
+        )
+
+        self.assertEqual(reply, "了解，那你家在哪一個行政區呢？")
