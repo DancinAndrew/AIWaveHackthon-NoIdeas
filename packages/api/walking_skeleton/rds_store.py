@@ -30,6 +30,7 @@ STATE_FIELDS = (
     "progress",
     "tasks",
     "events",
+    "point_ledger",
 )
 
 

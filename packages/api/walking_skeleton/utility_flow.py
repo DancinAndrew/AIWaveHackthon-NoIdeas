@@ -17,6 +17,7 @@ import re
 from collections.abc import Sequence
 from typing import Any
 
+from . import points
 from .errors import ConflictError, ValidationError
 from .flows import BASE_STAGE_LABELS
 from .geo import DISTRICTS, resolve_district
@@ -657,6 +658,24 @@ class UtilityRepairFlow:
     def validate_accept(self, payload: dict[str, Any]) -> None:
         if not str(payload.get("arrivalWindow") or "").strip():
             raise ValidationError("廠商接受時 arrivalWindow 為必填")
+        # Validated here, before the transaction, so a malformed amount cannot
+        # consume the pending task or feed the points engine a wrong basis.
+        points.normalize_reported_amount(payload.get("estimatedAmount"))
+
+    def reward_basis(
+        self, request: dict[str, Any], payload: dict[str, Any]
+    ) -> tuple[int, str] | None:
+        """A repair has no price until it is quoted, so trust the technician.
+
+        Falls back to a category baseline when the provider reports nothing, and
+        labels it as an estimate so it never reads like a quote.
+        """
+
+        reported = points.normalize_reported_amount(payload.get("estimatedAmount"))
+        request["estimatedAmount"] = reported
+        return points.resolve_basis_amount(
+            issue_type=request["issueType"], reported_amount=reported
+        )
 
     def apply_accept(
         self,

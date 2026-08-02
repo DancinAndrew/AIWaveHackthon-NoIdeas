@@ -2,7 +2,11 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { apiClient, createApiClient } from "../api/client";
-import type { DemoProvider, ProviderTask } from "../api/types";
+import type {
+  DemoProvider,
+  ProviderActiveCase,
+  ProviderTask,
+} from "../api/types";
 import { providerTaskPresentation } from "../api/viewModels";
 import "./DashboardPage.css";
 
@@ -38,9 +42,18 @@ function shortProviderName(name: string): string {
   return name.replace("水電工程行", "").replace("選品商城", "");
 }
 
+/** 把第一個真正的失敗原因講出來，而不是一律推給連線問題。 */
+function describeFailure(...results: PromiseSettledResult<unknown>[]): string {
+  const rejected = results.find((result) => result.status === "rejected");
+  if (rejected?.status !== "rejected") return "未知錯誤";
+  const reason = rejected.reason;
+  return reason instanceof Error ? reason.message : String(reason);
+}
+
 interface ProcessedTask {
   task: ProviderTask;
   action: "accepted" | "declined" | "needs_information" | "expired";
+  estimatedPoints?: number;
 }
 
 export default function DashboardPage() {
@@ -52,6 +65,12 @@ export default function DashboardPage() {
   );
   const api = useMemo(() => createApiClient({ providerId }), [providerId]);
   const [tasks, setTasks] = useState<ProviderTask[]>([]);
+  const [activeCases, setActiveCases] = useState<ProviderActiveCase[]>([]);
+  const [finalAmounts, setFinalAmounts] = useState<Record<string, string>>({});
+  const [completionNotes, setCompletionNotes] = useState<Record<string, string>>(
+    {},
+  );
+  const [busyCaseId, setBusyCaseId] = useState<string | null>(null);
   const [processed, setProcessed] = useState<ProcessedTask[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -61,18 +80,31 @@ export default function DashboardPage() {
     {},
   );
   const [shipDates, setShipDates] = useState<Record<string, string>>({});
+  const [estimatedAmounts, setEstimatedAmounts] = useState<
+    Record<string, string>
+  >({});
 
   useEffect(() => {
     let cancelled = false;
     const load = async () => {
+      // 兩個查詢分別處理，否則單一端點失敗會被誤報成「連不上後端」。
+      const [queue, active] = await Promise.allSettled([
+        api.listProviderTasks(),
+        api.listProviderActiveCases(),
+      ]);
       try {
-        const result = await api.listProviderTasks();
-        if (!cancelled) {
-          setTasks(result.items);
-          setError(null);
-        }
-      } catch {
-        if (!cancelled) setError("無法取得廠商任務，請確認後端連線。 ");
+        if (cancelled) return;
+        if (queue.status === "fulfilled") setTasks(queue.value.items);
+        if (active.status === "fulfilled") setActiveCases(active.value.items);
+        const failures = [
+          queue.status === "rejected" ? "待處理派工" : null,
+          active.status === "rejected" ? "進行中案件" : null,
+        ].filter(Boolean);
+        setError(
+          failures.length === 0
+            ? null
+            : `無法取得${failures.join("與")}：${describeFailure(queue, active)}`,
+        );
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -110,6 +142,15 @@ export default function DashboardPage() {
     return grouped;
   }, [providers]);
 
+  // ProviderActiveCase 不帶 serviceType，但進行中案件一定屬於目前登入的廠商，
+  // 而 Demo 廠商清單帶了 serviceType，用它判斷是否為商品供應商。
+  const isProductProvider = useMemo(
+    () =>
+      providers.find((provider) => provider.providerId === providerId)
+        ?.serviceType === "product_purchase",
+    [providers, providerId],
+  );
+
   const respond = async (
     task: ProviderTask,
     action: "accept" | "decline" | "needs_information",
@@ -126,10 +167,24 @@ export default function DashboardPage() {
       setError("請先輸入要詢問住戶的問題。 ");
       return;
     }
+    // 只有服務類廠商回報金額。商品訂單的金額由伺服器從目錄算出，供應商送來的
+    // 金額後端會忽略，所以連欄位都不提供。
+    const rawAmount = isProduct
+      ? undefined
+      : estimatedAmounts[task.taskId]?.trim();
+    let estimatedAmount: number | undefined;
+    if (action === "accept" && rawAmount) {
+      const parsed = Number(rawAmount);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 1_000_000) {
+        setError("預估金額請填 1 到 1,000,000 之間的整數（新台幣元）。 ");
+        return;
+      }
+      estimatedAmount = parsed;
+    }
     setBusyTaskId(task.taskId);
     setError(null);
     try {
-      await api.respondToProviderTask(task.taskId, {
+      const result = await api.respondToProviderTask(task.taskId, {
         action,
         expectedVersion: task.version,
         message:
@@ -144,6 +199,7 @@ export default function DashboardPage() {
           action === "accept" && !isProduct ? arrivalWindow : undefined,
         estimatedShipDate:
           action === "accept" && isProduct ? estimatedShipDate : undefined,
+        estimatedAmount,
       });
       setProcessed((current) => [
         {
@@ -154,6 +210,7 @@ export default function DashboardPage() {
               : action === "decline"
                 ? "declined"
                 : "needs_information",
+          estimatedPoints: result.pointsReward?.estimatedPoints,
         },
         ...current.filter((item) => item.task.taskId !== task.taskId),
       ]);
@@ -166,6 +223,42 @@ export default function DashboardPage() {
       );
     } finally {
       setBusyTaskId(null);
+    }
+  };
+
+  const reportCompletion = async (activeCase: ProviderActiveCase) => {
+    // 商品訂單的實付金額由伺服器算出，供應商不回報金額，所以連欄位也不提供。
+    const rawAmount = isProductProvider
+      ? undefined
+      : finalAmounts[activeCase.serviceRequestId]?.trim();
+    let finalAmount: number | undefined;
+    if (rawAmount) {
+      const parsed = Number(rawAmount);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 1_000_000) {
+        setError("完工金額請填 1 到 1,000,000 之間的整數（新台幣元）。 ");
+        return;
+      }
+      finalAmount = parsed;
+    }
+    setBusyCaseId(activeCase.serviceRequestId);
+    setError(null);
+    try {
+      await api.reportCompletion(activeCase.serviceRequestId, {
+        message:
+          completionNotes[activeCase.serviceRequestId]?.trim() ||
+          "施工已完成，現場已清理並測試無異常。",
+        finalAmount,
+      });
+      const active = await api.listProviderActiveCases();
+      setActiveCases(active.items);
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? requestError.message
+          : "操作失敗，請稍後再試。",
+      );
+    } finally {
+      setBusyCaseId(null);
     }
   };
 
@@ -254,7 +347,9 @@ export default function DashboardPage() {
         <div className="dashboard-list">
           {loading ? (
             <div className="loading-state">載入中...</div>
-          ) : tasks.length === 0 && processed.length === 0 ? (
+          ) : tasks.length === 0 &&
+            activeCases.length === 0 &&
+            processed.length === 0 ? (
             <div className="empty-state">
               <span className="empty-icon">✅</span>
               <p>目前沒有待處理的預約</p>
@@ -297,6 +392,9 @@ export default function DashboardPage() {
                           placeholder="例如：總水閥是否能關閉？"
                         />
                       </label>
+                      {/* 商品供應商承諾出貨日；服務廠商承諾到場時段並可回報
+                          預估金額。金額欄位只給服務類：商品訂單的金額是伺服器
+                          從目錄算出來的，這裡填了後端也會忽略。 */}
                       {request.serviceType === "product_purchase" ? (
                         <label className="dashboard-field">
                           <span>預計出貨日</span>
@@ -312,19 +410,39 @@ export default function DashboardPage() {
                           />
                         </label>
                       ) : (
-                        <label className="dashboard-field">
-                          <span>可到場時段</span>
-                          <input
-                            value={arrivalWindows[task.taskId] ?? ""}
-                            onChange={(event) =>
-                              setArrivalWindows((current) => ({
-                                ...current,
-                                [task.taskId]: event.target.value,
-                              }))
-                            }
-                            placeholder="2026-08-03 14:00-17:00"
-                          />
-                        </label>
+                        <>
+                          <label className="dashboard-field">
+                            <span>可到場時段</span>
+                            <input
+                              value={arrivalWindows[task.taskId] ?? ""}
+                              onChange={(event) =>
+                                setArrivalWindows((current) => ({
+                                  ...current,
+                                  [task.taskId]: event.target.value,
+                                }))
+                              }
+                              placeholder="2026-08-03 14:00-17:00"
+                            />
+                          </label>
+                          <label className="dashboard-field">
+                            <span>預估金額（選填，計算回饋點數）</span>
+                            <input
+                              type="number"
+                              min={1}
+                              max={1000000}
+                              step={1}
+                              inputMode="numeric"
+                              value={estimatedAmounts[task.taskId] ?? ""}
+                              onChange={(event) =>
+                                setEstimatedAmounts((current) => ({
+                                  ...current,
+                                  [task.taskId]: event.target.value,
+                                }))
+                              }
+                              placeholder="2800；未填則以類別估算"
+                            />
+                          </label>
+                        </>
                       )}
                     </div>
                     <div className="request-actions four-actions">
@@ -361,12 +479,118 @@ export default function DashboardPage() {
                 );
               })}
 
+              {activeCases.length > 0 && (
+                <>
+                  <h3 className="list-section-title">
+                    進行中（{activeCases.length}）
+                  </h3>
+                  {activeCases.map((activeCase) => {
+                    const busy = busyCaseId === activeCase.serviceRequestId;
+                    return (
+                      <div
+                        key={activeCase.serviceRequestId}
+                        className="request-card accepted"
+                      >
+                        <div className="request-card-header">
+                          <span className="request-type">已承接</span>
+                          <span className="request-time">
+                            {activeCase.displayLabel}
+                          </span>
+                        </div>
+                        <div className="request-card-body">
+                          <h4 className="request-service">
+                            {activeCase.summary}
+                          </h4>
+                          <div className="request-detail">
+                            <span>
+                              🕒 到場時段：{activeCase.arrivalWindow ?? "未填"}
+                            </span>
+                          </div>
+                          {activeCase.estimatedAmount !== null && (
+                            <div className="request-detail">
+                              <span>
+                                💰 承接時預估：NT$
+                                {activeCase.estimatedAmount.toLocaleString(
+                                  "zh-TW",
+                                )}
+                              </span>
+                            </div>
+                          )}
+                          {activeCase.canReportCompletion ? (
+                            <>
+                              <label className="dashboard-field">
+                                <span>完工說明</span>
+                                <input
+                                  value={
+                                    completionNotes[
+                                      activeCase.serviceRequestId
+                                    ] ?? ""
+                                  }
+                                  onChange={(event) =>
+                                    setCompletionNotes((current) => ({
+                                      ...current,
+                                      [activeCase.serviceRequestId]:
+                                        event.target.value,
+                                    }))
+                                  }
+                                  placeholder="例如：已更換水管接頭並測試無滲漏"
+                                />
+                              </label>
+                              {!isProductProvider && (
+                                <label className="dashboard-field">
+                                  <span>完工金額（選填，重算回饋點數）</span>
+                                  <input
+                                    type="number"
+                                    min={1}
+                                    max={1000000}
+                                    step={1}
+                                    inputMode="numeric"
+                                    value={
+                                      finalAmounts[
+                                        activeCase.serviceRequestId
+                                      ] ?? ""
+                                    }
+                                    onChange={(event) =>
+                                      setFinalAmounts((current) => ({
+                                        ...current,
+                                        [activeCase.serviceRequestId]:
+                                          event.target.value,
+                                      }))
+                                    }
+                                    placeholder="未填則沿用承接時的計算基礎"
+                                  />
+                                </label>
+                              )}
+                            </>
+                          ) : (
+                            <div className="request-note">
+                              ⏳ 已回報完工，等待住戶在對話中回覆「驗收」後才會發放點數
+                            </div>
+                          )}
+                        </div>
+                        {activeCase.canReportCompletion && (
+                          <div className="request-actions">
+                            <button
+                              className="action-btn accept"
+                              disabled={busy}
+                              onClick={() => void reportCompletion(activeCase)}
+                            >
+                              回報完工
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+
               {processed.length > 0 && (
                 <>
                   <h3 className="list-section-title">
                     本次已處理（{processed.length}）
                   </h3>
-                  {processed.map(({ task, action }) => (
+                  {processed.map(({ task, action, estimatedPoints }) => (
                     <div
                       key={task.taskId}
                       className={`request-card ${action === "accepted" ? "accepted" : "rejected"}`}
@@ -389,6 +613,14 @@ export default function DashboardPage() {
                         <h4 className="request-service">
                           {task.brief?.summary ?? "水電修繕需求"}
                         </h4>
+                        {estimatedPoints !== undefined && (
+                          <div className="request-detail">
+                            <span>
+                              🎁 已告知住戶預計回饋 {estimatedPoints} 點
+                              OPENPOINT（待發放）
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

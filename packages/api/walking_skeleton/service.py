@@ -20,8 +20,9 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
+from . import points
 from .errors import ConflictError, ForbiddenError, NotFoundError, ValidationError
-from .flows import ServiceFlow, UnsupportedServiceTypeError
+from .flows import ACCEPTANCE_PHRASES, ServiceFlow, UnsupportedServiceTypeError
 from .geo import DISTRICTS
 from .member_memory import (
     EMPTY_MEMORY,
@@ -452,6 +453,10 @@ class WalkingSkeletonService:
             "candidateIndex": -1,
             "currentProviderId": None,
             "currentTaskId": None,
+            "estimatedAmount": None,
+            "finalAmount": None,
+            "completionMessage": None,
+            "pointsReward": None,
             "createdAt": now,
             "updatedAt": now,
         }
@@ -471,6 +476,15 @@ class WalkingSkeletonService:
         request = self.store.service_requests[conversation["serviceRequestId"]]
         flow = self._flow_for(request)
         stage = self.current_stage(request)
+        # The completion handshake is identical for every category and its wording
+        # is a fact the skeleton owns (points status, granted amount), so it is
+        # settled here. Handled before `agent_turn` so these stages never spend a
+        # model call on a reply the model is not allowed to author.
+        handshake = self._continue_completion_handshake(
+            conversation, request, content, flow, stage
+        )
+        if handshake is not None:
+            return handshake
         turn = self.agent_turn(
             conversation,
             content,
@@ -482,6 +496,52 @@ class WalkingSkeletonService:
         return flow.continue_turn(
             self, conversation, request, content, turn=turn, memory=memory
         )
+
+    def _continue_completion_handshake(
+        self,
+        conversation: dict[str, Any],
+        request: dict[str, Any],
+        content: str,
+        flow: ServiceFlow,
+        stage: str,
+    ) -> dict[str, Any] | None:
+        """Answer the two completion stages, or return None to let the flow run.
+
+        A provider reporting the work done MUST NOT close the case: only an
+        explicit resident acceptance does, so anything else keeps the case
+        waiting and grants no points.
+        """
+
+        if stage == "awaiting_resident_acceptance":
+            if any(phrase in content for phrase in ACCEPTANCE_PHRASES):
+                return self._accept_completion(conversation, request)
+            reward = request.get("pointsReward") or {}
+            assistant = self.append_assistant(
+                conversation["conversationId"],
+                (
+                    f"廠商已回報完工：{request.get('completionMessage') or '施工已結束'}。"
+                    "請確認現場狀況無誤後回覆「驗收」，我才會結案並發放"
+                    f" {reward.get('estimatedPoints', 0)} 點 OPENPOINT。"
+                    "若施工有問題請直接描述，我不會先結案。"
+                ),
+                agent=flow.agent_name,
+            )
+            return self.turn_payload(conversation, assistant)
+
+        if stage == "completed":
+            reward = request.get("pointsReward") or {}
+            assistant = self.append_assistant(
+                conversation["conversationId"],
+                (
+                    f"這個案件已完成驗收，{reward.get('grantedPoints', 0)} 點"
+                    f" {reward.get('program', 'OPENPOINT')} 已入帳。"
+                    "有新的需求可以直接描述，我會另開一個案件。"
+                ),
+                agent=flow.agent_name,
+            )
+            return self.turn_payload(conversation, assistant)
+
+        return None
 
     # ------------------------------------------------------------------
     # Model-backed turn seam
@@ -886,7 +946,14 @@ class WalkingSkeletonService:
             final_content = self._apply_accept(flow, request, provider, payload)
             self.touch(request)
             self.event(request, "provider_confirmed", "廠商已確認到場時段")
+            # 訂單成立即揭露預計回饋，狀態停在「01 待發放」；實際發放屬於後續的
+            # 服務完成流程，這裡不動用任何外部帳務。
+            reward = self._estimate_reward(flow, request, payload)
             self.set_progress(request, "provider_confirmed", waiting_for=None)
+            if reward is not None:
+                final_content = (
+                    f"{final_content}\n\n{points.reward_disclosure_sentence(reward)}"
+                )
             assistant = self.append_assistant(
                 request["conversationId"],
                 final_content,
@@ -897,8 +964,196 @@ class WalkingSkeletonService:
                 "serviceRequestId": request["serviceRequestId"],
                 "progress": self._progress_projection(request),
                 "provider": _public_provider(provider),
+                "pointsReward": reward,
                 "assistantMessage": assistant,
             }
+
+    def list_provider_active_cases(self, provider_id: str) -> dict[str, Any]:
+        """廠商已承接、尚未完成驗收的案件；廠商從這裡回報完工。"""
+
+        with self.store.lock:
+            items = [
+                self._active_case_projection(request)
+                for request in self.store.service_requests.values()
+                if request.get("currentProviderId") == provider_id
+                and self.current_stage(request)
+                in {"provider_confirmed", "awaiting_resident_acceptance"}
+            ]
+            items.sort(key=lambda item: item["updatedAt"], reverse=True)
+            return {"items": items}
+
+    def provider_report_completion(
+        self,
+        *,
+        service_request_id: str,
+        provider_id: str,
+        payload: dict[str, Any],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        # 授權先於 payload 驗證，避免未指派的廠商用驗證差異探測案件是否存在。
+        with self.store.lock:
+            request = self.store.service_requests.get(service_request_id)
+            if not request:
+                raise NotFoundError("找不到服務需求")
+            if request.get("currentProviderId") != provider_id:
+                raise ForbiddenError()
+        message = payload.get("message")
+        if message is not None and (
+            not isinstance(message, str) or len(message) > 1000
+        ):
+            raise ValidationError("message 必須是 1000 字以內的文字")
+        # 金額格式錯誤不得推進狀態，否則廠商要等平台人工處理才能重報。
+        final_amount = points.normalize_reported_amount(payload.get("finalAmount"))
+        return self.store.idempotent(
+            actor_id=provider_id,
+            operation=f"provider-completion:{service_request_id}",
+            key=idempotency_key,
+            payload=payload,
+            command=lambda: self._apply_completion_report(
+                service_request_id=service_request_id,
+                message=(message or "").strip(),
+                final_amount=final_amount,
+            ),
+        )
+
+    def _estimate_reward(
+        self,
+        flow: ServiceFlow,
+        request: dict[str, Any],
+        payload: dict[str, Any],
+    ) -> dict[str, Any] | None:
+        """Disclose the expected reward, using the basis the flow decides.
+
+        Returns None for a category that discloses no reward, so the accept path
+        stays identical for flows without a points programme.
+        """
+
+        basis = flow.reward_basis(request, payload)
+        if basis is None:
+            return None
+        basis_amount, amount_source = basis
+        reward = points.estimate_reward(
+            service_type=flow.service_type,
+            basis_amount=basis_amount,
+            amount_source=amount_source,
+            estimated_at=_now(),
+        )
+        request["pointsReward"] = reward
+        self.event(
+            request,
+            "points_reward_estimated",
+            f"預計回饋 {reward['estimatedPoints']} 點 {reward['program']}"
+            f"（{reward['statusLabel']}）",
+        )
+        return reward
+
+    def _apply_completion_report(
+        self,
+        *,
+        service_request_id: str,
+        message: str,
+        final_amount: int | None,
+    ) -> dict[str, Any]:
+        with self.store.lock:
+            request = self.store.service_requests[service_request_id]
+            flow = self._flow_for(request)
+            if self.current_stage(request) != "provider_confirmed":
+                raise ConflictError("只有已確認到場的案件可以回報完工")
+            request["completionMessage"] = message
+            request["finalAmount"] = final_amount
+            self.touch(request)
+            self.event(
+                request, "provider_reported_completion", "廠商已回報完工，等待住戶驗收"
+            )
+            self.set_progress(
+                request, "awaiting_resident_acceptance", waiting_for="resident"
+            )
+            reward = request.get("pointsReward") or {}
+            assistant = self.append_assistant(
+                request["conversationId"],
+                (
+                    f"廠商回報施工已完成：{message or '施工已結束'}。"
+                    "請確認現場狀況無誤後回覆「驗收」，我會結案並發放"
+                    f" {reward.get('estimatedPoints', 0)} 點 OPENPOINT。"
+                ),
+                agent=flow.agent_name,
+            )
+            return {
+                "serviceRequestId": service_request_id,
+                "progress": self._progress_projection(request),
+                "assistantMessage": assistant,
+            }
+
+    def _accept_completion(
+        self, conversation: dict[str, Any], request: dict[str, Any]
+    ) -> dict[str, Any]:
+        request_id = request["serviceRequestId"]
+        estimate = request.get("pointsReward")
+        if not estimate:
+            raise ConflictError("案件缺少回饋點數紀錄，無法結案")
+        # Ledger 是「是否已發放」的真實來源。狀態機已保證只會進來一次，
+        # 這裡再擋一層，讓重複驗收不可能重複入帳。
+        if self._granted_ledger_entry(request_id):
+            raise ConflictError("這個案件的點數已經發放過")
+
+        granted_at = _now()
+        reward = points.grant_reward(
+            estimate=estimate,
+            final_amount=request.get("finalAmount"),
+            granted_at=granted_at,
+        )
+        request["pointsReward"] = reward
+        request["updatedAt"] = granted_at
+
+        ledger_id = _id("ledger")
+        self.store.point_ledger[ledger_id] = points.ledger_entry(
+            ledger_id=ledger_id,
+            service_request_id=request_id,
+            resident_id=request["residentId"],
+            reward=reward,
+            reason_code="service_completed",
+        )
+
+        self.event(request, "resident_accepted_completion", "住戶已完成驗收")
+        self.event(
+            request,
+            "points_granted",
+            f"{reward['grantedPoints']} 點 {reward['program']} 已入帳"
+            f"（{reward['statusLabel']}）",
+        )
+        self.set_progress(request, "completed", waiting_for=None)
+        assistant = self.append_assistant(
+            conversation["conversationId"],
+            points.grant_disclosure_sentence(reward),
+            agent=self._flow_for(request).agent_name,
+            kind="final",
+        )
+        return self.turn_payload(conversation, assistant)
+
+    def _granted_ledger_entry(self, service_request_id: str) -> dict[str, Any] | None:
+        return next(
+            (
+                entry
+                for entry in self.store.point_ledger.values()
+                if entry["serviceRequestId"] == service_request_id
+                and entry["direction"] == points.DIRECTION_EARN
+            ),
+            None,
+        )
+
+    def _active_case_projection(self, request: dict[str, Any]) -> dict[str, Any]:
+        artifact = self.store.artifacts.get(request["serviceRequestId"])
+        progress = self.store.progress[request["serviceRequestId"]]
+        return {
+            "serviceRequestId": request["serviceRequestId"],
+            "stage": progress["stage"],
+            "displayLabel": progress["displayLabel"],
+            "summary": artifact["summary"] if artifact else request["symptoms"],
+            "arrivalWindow": request.get("confirmedArrivalWindow"),
+            "estimatedAmount": request.get("estimatedAmount"),
+            "canReportCompletion": progress["stage"] == "provider_confirmed",
+            "updatedAt": request["updatedAt"],
+        }
 
     def _apply_timeout(self, task_id: str, admin_id: str, reason: str) -> dict[str, Any]:
         with self.store.lock:
@@ -1007,6 +1262,7 @@ class WalkingSkeletonService:
                 artifact["summary"] if artifact else flow.fallback_summary(request)
             ),
             "provider": provider,
+            "pointsReward": request.get("pointsReward"),
             "progress": self._progress_projection(request),
             "createdAt": request["createdAt"],
             "updatedAt": request["updatedAt"],
@@ -1019,6 +1275,7 @@ class WalkingSkeletonService:
         return {
             **progress,
             "events": list(events[-8:]),
+            "pointsReward": request.get("pointsReward"),
             "currentProvider": (
                 _public_provider(self.provider_of(request, request["currentProviderId"]))
                 if request.get("currentProviderId")

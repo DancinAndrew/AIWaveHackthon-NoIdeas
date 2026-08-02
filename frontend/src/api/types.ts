@@ -14,6 +14,10 @@ export type WorkflowStage =
   | "waiting_resident_information"
   | "rematching"
   | "provider_confirmed"
+  // Shared completion handshake: the provider reports the work as done and the
+  // resident has to accept before the case closes.
+  | "awaiting_resident_acceptance"
+  | "completed"
   // Utility repair only.
   | "safety_hold"
   // Product purchase only.
@@ -112,6 +116,59 @@ export interface ProgressEvent {
   at: string;
 }
 
+/** 對應 mms_order_record.point_status：01 待發放 / 02 已發放 / 03 不發放 / 04 已取消 */
+export type PointStatus = "01" | "02" | "03" | "04";
+
+export interface PointsReward {
+  program: "OPENPOINT";
+  status: PointStatus;
+  statusLabel: string;
+  /** 訂單成立時揭露的預估點數，發放後仍保留供比較。 */
+  estimatedPoints: number;
+  /** 住戶驗收發放後才有值；未發放為 null。 */
+  grantedPoints: number | null;
+  earnRate: string;
+  earnRateBasisPoints: number;
+  /** 目前的計算基礎；發放後等於完工金額。 */
+  basisAmount: number;
+  estimatedBasisAmount: number;
+  /**
+   * 計算基礎的來源：廠商回報金額、平台類別估算，或商品訂單由伺服器從目錄算出的
+   * 實付金額（`order_final_amount`）。商品訂單不接受廠商回報金額。
+   */
+  amountSource:
+    | "provider_reported"
+    | "issue_type_baseline"
+    | "order_final_amount";
+  amountSourceLabel: string;
+  capped: boolean;
+  maxPointsPerOrder: number;
+  /** 完工金額使實際點數與預估不同時為 true。 */
+  amountAdjusted: boolean;
+  grantCondition: string;
+  isDemoLedger: boolean;
+  disclosure: string;
+  estimatedAt: string;
+  grantedAt: string | null;
+}
+
+export interface ProviderActiveCase {
+  serviceRequestId: string;
+  stage: WorkflowStage;
+  displayLabel: string;
+  summary: string;
+  arrivalWindow: string | null;
+  estimatedAmount: number | null;
+  canReportCompletion: boolean;
+  updatedAt: string;
+}
+
+export interface ProviderCompletionRequest {
+  message?: string;
+  /** 完工實付金額（新台幣元）；未填則沿用訂單成立時的計算基礎。 */
+  finalAmount?: number;
+}
+
 export interface WorkflowProgress {
   serviceRequestId: string;
   stage: WorkflowStage;
@@ -120,6 +177,7 @@ export interface WorkflowProgress {
   residentActionRequired: boolean;
   latestEventAt: string;
   events?: ProgressEvent[];
+  pointsReward?: PointsReward | null;
   currentProvider?: ProviderSummary | null;
 }
 
@@ -142,6 +200,7 @@ export interface ServiceRequestProjection {
   serviceName: string;
   summary: string;
   provider: ProviderSummary | null;
+  pointsReward: PointsReward | null;
   progress: WorkflowProgress;
   safetyHold: boolean;
   createdAt: string;
@@ -206,6 +265,11 @@ export interface ProviderTaskResponse {
   arrivalWindow?: string;
   /** Required when a product supplier accepts. */
   estimatedShipDate?: string;
+  /**
+   * 廠商回報的預估實付金額（新台幣元），作為回饋點數的計算基礎；未填則用類別估算。
+   * 只適用於服務類案件：商品訂單金額由伺服器從目錄算出，供應商不回報金額。
+   */
+  estimatedAmount?: number;
 }
 
 /**

@@ -849,6 +849,21 @@ class ProductPurchaseFlow:
         if not str(payload.get("estimatedShipDate") or "").strip():
             raise ValidationError("供應商接受時 estimatedShipDate 為必填")
 
+    def reward_basis(
+        self, request: dict[str, Any], payload: dict[str, Any]
+    ) -> tuple[int, str] | None:
+        """The order already has a server-computed amount, so use it.
+
+        A supplier-reported figure is deliberately ignored: the platform priced
+        this order from the catalogue, so estimating it would replace a known
+        number with a guess.
+        """
+
+        from . import points
+
+        quote = self.catalog.quote(request["selectedSku"], int(request["quantity"]))
+        return quote.final_amount, points.AMOUNT_SOURCE_ORDER_FINAL
+
     def apply_accept(
         self,
         request: dict[str, Any],

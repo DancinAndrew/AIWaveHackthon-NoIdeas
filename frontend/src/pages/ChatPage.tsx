@@ -22,6 +22,16 @@ interface Message {
   artifact?: ServiceRequestArtifact;
 }
 
+const CONVERSATION_STORAGE_KEY = "aiwave-conversation-id";
+
+/**
+ * 舊的 conversation id 不代表後端掛掉。Demo 的 store 在記憶體，後端一重啟舊
+ * 對話就不存在；把它誤判成連線失敗會讓輸入框永久停用而且無法自救。
+ */
+function isStaleConversation(error: unknown): boolean {
+  return error instanceof ApiError && (error.status === 404 || error.status === 403);
+}
+
 const WELCOME_MESSAGE: Message = {
   id: "local-welcome",
   role: "assistant",
@@ -75,7 +85,7 @@ export default function ChatPage() {
     const requestedConversation = forceNew
       ? null
       : searchParams.get("conversation") ??
-        window.localStorage.getItem("aiwave-conversation-id");
+        window.localStorage.getItem(CONVERSATION_STORAGE_KEY);
     try {
       // Resuming is best-effort. A stored conversation disappears whenever the
       // backend restarts in in-memory mode, and that is not a connection
@@ -88,7 +98,7 @@ export default function ChatPage() {
       setMessages([toMessage(created.assistantMessage)]);
       setConversationId(created.conversationId);
       window.localStorage.setItem(
-        "aiwave-conversation-id",
+        CONVERSATION_STORAGE_KEY,
         created.conversationId,
       );
     } catch {
@@ -108,6 +118,7 @@ export default function ChatPage() {
       );
       setMessages(history.items.map(toMessage));
       setConversationId(conversation);
+      window.localStorage.setItem(CONVERSATION_STORAGE_KEY, conversation);
       const requests = await apiClient.listServiceRequests();
       const activeRequest = requests.items.find(
         (item) => item.conversationId === conversation,
@@ -119,12 +130,16 @@ export default function ChatPage() {
       }
       return true;
     } catch (error) {
-      const status = error instanceof ApiError ? error.status : 0;
-      if (status === 404 || status === 403) {
-        window.localStorage.removeItem("aiwave-conversation-id");
-        return false;
-      }
-      throw error;
+      if (!isStaleConversation(error)) throw error;
+      // 後端已不認得這個對話：丟掉它並開新對話，而不是把使用者鎖在一個永遠救不
+      // 回來的錯誤狀態裡。殘留的案件與點數投影會誤導新對話，一併清掉。
+      window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+      seenServerMessageIds.current.clear();
+      setServiceRequestId(null);
+      setProgress(null);
+      setServiceRequest(null);
+      setSelectionError(null);
+      return false;
     }
   };
 
@@ -138,9 +153,11 @@ export default function ChatPage() {
     setConversationId(null);
     setServiceRequestId(null);
     setProgress(null);
+    // serviceRequest 帶著 pointsReward 與商品候選，progress 帶著 pointsReward，
+    // 兩個都要清掉，否則新對話會殘留上一輪的點數與候選卡片。
     setServiceRequest(null);
     setSelectionError(null);
-    window.localStorage.removeItem("aiwave-conversation-id");
+    window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
     if (searchParams.has("conversation")) {
       const nextParams = new URLSearchParams(searchParams);
       nextParams.delete("conversation");
@@ -187,8 +204,16 @@ export default function ChatPage() {
           );
           if (!cancelled && latest) setServiceRequest(latest);
         }
-      } catch {
-        // Polling is read-only and best-effort; the next cycle retries.
+      } catch (error) {
+        if (isStaleConversation(error) && !cancelled) {
+          // 後端在頁面開著時重啟。靜默重試會永遠失敗，直接換一個新對話。
+          cancelled = true;
+          window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+          setConversationId(null);
+          void initializeConversation();
+          return;
+        }
+        // 其他錯誤：輪詢是唯讀且允許失敗，下一輪再試。
       }
     };
     const timer = window.setInterval(() => void poll(), 3000);
@@ -196,6 +221,9 @@ export default function ChatPage() {
       cancelled = true;
       window.clearInterval(timer);
     };
+    // initializeConversation 只在對話失效時作為一次性復原路徑呼叫，
+    // 放進 deps 會讓每次 render 重建輪詢計時器。
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, serviceRequestId]);
 
   const sendMessage = async () => {

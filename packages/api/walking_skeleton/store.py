@@ -32,6 +32,9 @@ class InMemoryStore:
         self.progress: dict[str, dict[str, Any]] = {}
         self.tasks: dict[str, dict[str, Any]] = {}
         self.events: dict[str, list[dict[str, Any]]] = {}
+        # Append-only 點數流水帳，以 ledgerId 為鍵。RdsJsonStore 要求每個持久化
+        # 欄位都是 JSON object，所以用 dict 而不是 list。
+        self.point_ledger: dict[str, dict[str, Any]] = {}
         self.idempotency: dict[tuple[str, str, str], dict[str, Any]] = {}
 
     def idempotent(

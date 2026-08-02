@@ -7,6 +7,7 @@ module rather than a second copy that can drift away from the Flask Lambda.
 
 from __future__ import annotations
 
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -96,3 +97,119 @@ class StagedAgentRuntimeCodeTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class StagedApiCodeTests(unittest.TestCase):
+    """The Flask artifact must carry the catalogue data it reads at import time.
+
+    `default_flows()` constructs `ProductPurchaseFlow()`, which loads
+    `data/mock/master` while `create_app()` is still running. That directory sits
+    outside `packages/api`, so without staging the Lambda raises on cold start and
+    every endpoint returns 500 - including the utility flow, which does not use
+    the catalogue at all.
+    """
+
+    def setUp(self) -> None:
+        self._temporary_directory = tempfile.TemporaryDirectory()
+        self.root = Path(self._temporary_directory.name)
+        self.api_code = self.root / "api"
+        self.runtime_code = self.root / "runtime"
+        self.catalog_data = self.root / "data" / "mock" / "master"
+        self.api_code.mkdir()
+        self.runtime_code.mkdir()
+        self.catalog_data.mkdir(parents=True)
+
+        (self.api_code / "lambda_handler.py").write_text("x = 1\n", encoding="utf-8")
+        (self.api_code / "bedrock_safety.py").write_text("y = 2\n", encoding="utf-8")
+        (self.runtime_code / "agent_runtime.py").write_text(
+            "print('fixture')\n", encoding="utf-8"
+        )
+        (self.catalog_data / "products.json").write_text("[]\n", encoding="utf-8")
+        (self.catalog_data / "product_inventory.json").write_text(
+            "[]\n", encoding="utf-8"
+        )
+
+    def tearDown(self) -> None:
+        self._temporary_directory.cleanup()
+
+    def _assets(self) -> DeploymentAssets:
+        return DeploymentAssets(
+            api_code=self.api_code,
+            agent_runtime_code=self.runtime_code,
+            bundle=False,
+            staging_root=self.root / "staging",
+            catalog_data=self.catalog_data,
+        )
+
+    def test_catalogue_data_travels_with_the_api_code(self) -> None:
+        staged = self._assets().staged_api_code()
+
+        self.assertNotEqual(staged, self.api_code)
+        self.assertTrue((staged / "lambda_handler.py").is_file())
+        # The relative path has to match what product_catalog resolves at runtime.
+        self.assertTrue(
+            (staged / "data" / "mock" / "master" / "products.json").is_file()
+        )
+        self.assertTrue(
+            (staged / "data" / "mock" / "master" / "product_inventory.json").is_file()
+        )
+
+    def test_staging_is_repeatable_and_drops_stale_files(self) -> None:
+        assets = self._assets()
+        staged = assets.staged_api_code()
+        (staged / "left_over.py").write_text("stale\n", encoding="utf-8")
+
+        staged_again = assets.staged_api_code()
+
+        self.assertEqual(staged, staged_again)
+        self.assertFalse((staged_again / "left_over.py").exists())
+
+    def test_tests_and_caches_are_not_shipped(self) -> None:
+        (self.api_code / "tests").mkdir()
+        (self.api_code / "tests" / "test_x.py").write_text("", encoding="utf-8")
+        (self.api_code / "__pycache__").mkdir()
+
+        staged = self._assets().staged_api_code()
+
+        self.assertFalse((staged / "tests").exists())
+        self.assertFalse((staged / "__pycache__").exists())
+
+    def test_missing_catalogue_falls_back_to_the_api_directory(self) -> None:
+        shutil.rmtree(self.catalog_data)
+
+        staged = self._assets().staged_api_code()
+
+        self.assertEqual(staged, self.api_code)
+
+    def test_repository_assets_point_at_the_real_catalogue(self) -> None:
+        assets = DeploymentAssets.from_repository()
+
+        self.assertIsNotNone(assets.catalog_data)
+        self.assertTrue(assets.catalog_data.is_dir())
+        self.assertTrue((assets.catalog_data / "products.json").is_file())
+
+
+class CatalogLookupContractTests(unittest.TestCase):
+    """Shipping the data is only half the fix; it also has to be findable.
+
+    `default_catalog_dir()` walks three levels up from the module, which resolves
+    the repository layout and nothing else. Inside a flattened Lambda artifact the
+    same walk lands on the filesystem root, so the deployment states the location
+    explicitly instead.
+    """
+
+    def test_artifact_path_is_stated_relative_to_the_lambda_task_root(self) -> None:
+        from infra.aiwave_stack import CATALOG_ARTIFACT_SUBPATH, LAMBDA_TASK_ROOT
+
+        self.assertEqual(CATALOG_ARTIFACT_SUBPATH, "data/mock/master")
+        self.assertEqual(LAMBDA_TASK_ROOT, "/var/task")
+
+    def test_the_override_the_deployment_relies_on_exists(self) -> None:
+        api_root = Path(__file__).resolve().parents[2] / "packages" / "api"
+        source = (api_root / "walking_skeleton" / "product_catalog.py").read_text(
+            encoding="utf-8"
+        )
+
+        # If this override is renamed the Lambda silently falls back to the
+        # repository-relative walk and dies on cold start again.
+        self.assertIn("PRODUCT_CATALOG_DIR", source)

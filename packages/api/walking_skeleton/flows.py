@@ -27,7 +27,16 @@ BASE_STAGE_LABELS: dict[str, str] = {
     "waiting_resident_information": "廠商需要住戶補充資訊",
     "rematching": "正在改派下一位廠商",
     "provider_confirmed": "廠商已確認，可依約到場",
+    # The completion handshake is shared: every category needs the provider to
+    # report the work done and the resident to accept before anything closes.
+    # Declared here rather than per flow so `set_progress` cannot reject a stage
+    # for a category that simply forgot to add the label.
+    "awaiting_resident_acceptance": "廠商已回報完工，待住戶驗收",
+    "completed": "服務已完成，點數已入帳",
 }
+
+# 驗收語句刻意保持明確，避免「好」「可以」這類泛用回覆意外觸發點數發放。
+ACCEPTANCE_PHRASES = ("驗收", "確認完工", "確認完成", "施工沒問題")
 
 
 class UnsupportedServiceTypeError(RuntimeError):
@@ -162,6 +171,22 @@ class ServiceFlow(Protocol):
 
     def validate_accept(self, payload: dict[str, Any]) -> None:
         """Raise ValidationError when an accept is missing required fields."""
+
+    def reward_basis(
+        self, request: dict[str, Any], payload: dict[str, Any]
+    ) -> tuple[int, str] | None:
+        """Amount the points estimate is calculated from, and where it came from.
+
+        Per category because the honest basis differs: a repair has no price
+        until a technician quotes it, so the provider reports an estimate or the
+        platform falls back to a category baseline. A product order already has
+        a server-computed amount, so estimating one would invent a number the
+        platform can already state exactly.
+
+        Return None to disclose no reward for this category.
+        """
+
+        return None
 
     def apply_accept(
         self, request: dict[str, Any], provider: dict[str, Any], payload: dict[str, Any]

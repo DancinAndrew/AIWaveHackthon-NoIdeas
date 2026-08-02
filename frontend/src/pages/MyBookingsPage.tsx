@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import { apiClient } from "../api/client";
 import type { ServiceRequestProjection } from "../api/types";
-import { bookingStatusPresentation, orderStatusLabel } from "../api/viewModels";
+import {
+  bookingStatusPresentation,
+  orderStatusLabel,
+  pointsRewardPresentation,
+} from "../api/viewModels";
 import "./MyBookingsPage.css";
 
 
@@ -139,7 +143,7 @@ export default function MyBookingsPage() {
             className={`filter-tab ${filter === "completed" ? "active" : ""}`}
             onClick={() => setFilter("completed")}
           >
-            已確認
+            已完成
           </button>
         </div>
 
@@ -160,6 +164,9 @@ export default function MyBookingsPage() {
             filteredBookings.map((booking) => {
               const status = bookingStatusPresentation(booking.progress.stage);
               const latestEvent = booking.progress.events?.at(-1);
+              const reward = booking.pointsReward
+                ? pointsRewardPresentation(booking.pointsReward)
+                : null;
               return (
                 <button
                   key={booking.serviceRequestId}
@@ -183,6 +190,29 @@ export default function MyBookingsPage() {
                       <ProductBookingDetails booking={booking} />
                     ) : (
                       <UtilityBookingDetails booking={booking} />
+                    )}
+                    {/* 點數揭露對兩類服務都適用，所以放在分類子元件之外的共用
+                        位置，否則商品訂單看不到自己的回饋。 */}
+                    {reward && (
+                      <div
+                        className={`booking-points${reward.granted ? " granted" : ""}`}
+                      >
+                        <div className="booking-points-head">
+                          <span className="booking-points-program">
+                            {reward.program}
+                          </span>
+                          <span className="booking-points-value">
+                            {reward.headline}
+                          </span>
+                          <span className="booking-points-status">
+                            {reward.statusLabel}
+                          </span>
+                        </div>
+                        <div className="booking-points-basis">
+                          {reward.basis}
+                        </div>
+                        <div className="booking-points-note">{reward.note}</div>
+                      </div>
                     )}
                     <div className="booking-progress-label">
                       {booking.progress.residentActionRequired ? "⚠️ " : "● "}

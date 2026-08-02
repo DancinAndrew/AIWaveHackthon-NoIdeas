@@ -49,6 +49,10 @@ LOGICAL_AGENTS = (
 # gate and model allowlist instead of a second copy that can drift.
 SHARED_RUNTIME_MODULES = ("bedrock_safety.py",)
 EXCLUDED_RUNTIME_ARTIFACT_NAMES = ("tests", "__pycache__")
+EXCLUDED_API_ARTIFACT_NAMES = ("tests", "__pycache__", "op_agent", "static", "scripts")
+# Where the catalogue lands inside the artifact, and where Lambda unpacks it.
+CATALOG_ARTIFACT_SUBPATH = "data/mock/master"
+LAMBDA_TASK_ROOT = "/var/task"
 
 
 @dataclass(frozen=True)
@@ -59,6 +63,7 @@ class DeploymentAssets:
     agent_runtime_code: Path
     bundle: bool = True
     staging_root: Path | None = None
+    catalog_data: Path | None = None
 
     @classmethod
     def from_repository(cls) -> "DeploymentAssets":
@@ -67,7 +72,46 @@ class DeploymentAssets:
             api_code=repository_root / "packages" / "api",
             agent_runtime_code=repository_root / "infra" / "runtime",
             staging_root=repository_root / "infra" / "cdk.out" / "asset-staging",
+            catalog_data=repository_root / "data" / "mock" / "master",
         )
+
+    def staged_api_code(self) -> Path:
+        """Assemble the Flask artifact, including the catalogue it reads on import.
+
+        `default_flows()` builds `ProductPurchaseFlow()` during `create_app()`, and
+        that loads `data/mock/master`. The directory lives outside `packages/api`,
+        so an unstaged artifact raises on cold start and every endpoint returns
+        500, including the utility flow that never touches the catalogue.
+
+        Copied in at synth time rather than committed into `packages/api`, which
+        would create a second source of truth for generator output, and rather
+        than fetched from S3 at runtime, which the upload allowlist forbids.
+        """
+
+        if (
+            self.staging_root is None
+            or self.catalog_data is None
+            or not self.catalog_data.is_dir()
+        ):
+            return self.api_code
+
+        target = self.staging_root / "api"
+        if target.exists():
+            shutil.rmtree(target)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(
+            self.api_code,
+            target,
+            ignore=shutil.ignore_patterns(*EXCLUDED_API_ARTIFACT_NAMES),
+        )
+        # Mirrors the repository layout so `product_catalog.default_catalog_dir()`
+        # resolves the same relative path inside the artifact.
+        shutil.copytree(
+            self.catalog_data,
+            target.joinpath(*CATALOG_ARTIFACT_SUBPATH.split("/")),
+            ignore=shutil.ignore_patterns("__pycache__"),
+        )
+        return target
 
     def staged_agent_runtime_code(self) -> Path:
         """Assemble the Runtime source tree, including the shared safety module.
@@ -420,10 +464,11 @@ class AiwaveStagingStack(Stack):
         self,
         assets: DeploymentAssets,
     ) -> lambda_.Code:
+        api_code = assets.staged_api_code()
         if not assets.bundle:
-            return lambda_.Code.from_asset(str(assets.api_code))
+            return lambda_.Code.from_asset(str(api_code))
         return lambda_.Code.from_asset(
-            str(assets.api_code),
+            str(api_code),
             bundling=BundlingOptions(
                 image=lambda_.Runtime.PYTHON_3_12.bundling_image,
                 command=[
@@ -458,6 +503,11 @@ class AiwaveStagingStack(Stack):
             "ARTIFACT_BUCKET_NAME": artifact_bucket.bucket_name,
             "SERVICE_REQUEST_STATE_MACHINE_ARN": workflow.state_machine_arn,
             "BEDROCK_MODEL_ID": NOVA_MODEL_ID,
+            # `default_catalog_dir()` resolves the repository layout by walking
+            # three levels up from the module, which is not the artifact layout.
+            # Stated explicitly so a flattened artifact does not send the lookup
+            # to the filesystem root and fail `create_app()` on cold start.
+            "PRODUCT_CATALOG_DIR": f"{LAMBDA_TASK_ROOT}/{CATALOG_ARTIFACT_SUBPATH}",
         }
         function_kwargs = {
             "runtime": lambda_.Runtime.PYTHON_3_12,

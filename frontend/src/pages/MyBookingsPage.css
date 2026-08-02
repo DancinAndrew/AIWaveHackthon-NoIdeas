@@ -191,3 +191,84 @@
   font-size: 12px;
   cursor: pointer;
 }
+
+/* OPENPOINT 回饋點數 */
+.booking-points {
+  margin-top: 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: 1px solid #ffe0b2;
+  background: #fff8e1;
+}
+
+.booking-points-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.booking-points-program {
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  background: #f57c00;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.3px;
+}
+
+.booking-points-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: #e65100;
+}
+
+.booking-points-status {
+  font-size: 10px;
+  font-weight: 600;
+  color: #8d6e63;
+  background: #ffecb3;
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.booking-points-basis {
+  margin-top: 5px;
+  font-size: 11px;
+  color: #795548;
+}
+
+.booking-points-note {
+  margin-top: 3px;
+  font-size: 10px;
+  color: #a1887f;
+  line-height: 1.4;
+}
+
+/* 已入帳（point_status 02）改用綠色，與「待發放」在視覺上分得開 */
+.booking-points.granted {
+  border-color: #a5d6a7;
+  background: #f1f8e9;
+}
+
+.booking-points.granted .booking-points-program {
+  background: #2e7d32;
+}
+
+.booking-points.granted .booking-points-value {
+  color: #1b5e20;
+}
+
+.booking-points.granted .booking-points-status {
+  background: #c8e6c9;
+  color: #2e7d32;
+}
+
+.booking-points.granted .booking-points-basis {
+  color: #33691e;
+}
+
+.booking-points.granted .booking-points-note {
+  color: #7cb342;
+}
