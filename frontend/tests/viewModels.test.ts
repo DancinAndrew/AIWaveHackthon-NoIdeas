@@ -3,6 +3,7 @@ import test from "node:test";
 
 import {
   bookingStatusPresentation,
+  pointsRewardPresentation,
   providerTaskPresentation,
 } from "../src/api/viewModels.ts";
 
@@ -44,4 +45,55 @@ test("provider dashboard preserves task version for optimistic concurrency", () 
   assert.equal(view.expectedVersion, 3);
   assert.equal(view.serviceName, "水電修繕");
   assert.match(view.note, /總水閥可關閉/);
+});
+
+test("booking card states the points basis and the demo ledger boundary", () => {
+  const view = pointsRewardPresentation({
+    program: "OPENPOINT",
+    status: "01",
+    statusLabel: "待發放",
+    estimatedPoints: 50,
+    earnRate: "1%",
+    earnRateBasisPoints: 100,
+    basisAmount: 5000,
+    amountSource: "provider_reported",
+    amountSourceLabel: "廠商回報預估金額",
+    capped: false,
+    maxPointsPerOrder: 500,
+    grantCondition: "服務完成並經住戶驗收後發放",
+    isDemoLedger: true,
+    disclosure: "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶",
+    estimatedAt: "2026-08-02T10:00:00+00:00",
+  });
+
+  assert.equal(view.headline, "預計回饋 50 點");
+  assert.equal(view.statusLabel, "待發放");
+  assert.match(view.basis, /廠商回報預估金額 NT\$5,000 × 1%/);
+  // 住戶必須看得到「還沒發」與「不是正式帳戶」兩件事。
+  assert.match(view.note, /驗收後發放/);
+  assert.match(view.note, /尚未連動 OPENPOINT 正式帳戶/);
+  assert.equal(view.demoLedger, true);
+});
+
+test("capped rewards say so instead of silently trimming the number", () => {
+  const view = pointsRewardPresentation({
+    program: "OPENPOINT",
+    status: "01",
+    statusLabel: "待發放",
+    estimatedPoints: 500,
+    earnRate: "1%",
+    earnRateBasisPoints: 100,
+    basisAmount: 1000000,
+    amountSource: "provider_reported",
+    amountSourceLabel: "廠商回報預估金額",
+    capped: true,
+    maxPointsPerOrder: 500,
+    grantCondition: "服務完成並經住戶驗收後發放",
+    isDemoLedger: true,
+    disclosure: "Demo 平台內記帳，尚未連動 OPENPOINT 正式帳戶",
+    estimatedAt: "2026-08-02T10:00:00+00:00",
+  });
+
+  assert.equal(view.headline, "預計回饋 500 點");
+  assert.match(view.basis, /已套用單筆上限 500 點/);
 });

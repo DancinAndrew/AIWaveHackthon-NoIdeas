@@ -21,6 +21,7 @@ const DEMO_PROVIDERS = [
 interface ProcessedTask {
   task: ProviderTask;
   action: "accepted" | "declined" | "needs_information" | "expired";
+  estimatedPoints?: number;
 }
 
 export default function DashboardPage() {
@@ -38,6 +39,9 @@ export default function DashboardPage() {
   const [arrivalWindows, setArrivalWindows] = useState<Record<string, string>>(
     {},
   );
+  const [estimatedAmounts, setEstimatedAmounts] = useState<
+    Record<string, string>
+  >({});
 
   useEffect(() => {
     let cancelled = false;
@@ -74,10 +78,20 @@ export default function DashboardPage() {
       setError("請先輸入要詢問住戶的問題。 ");
       return;
     }
+    const rawAmount = estimatedAmounts[task.taskId]?.trim();
+    let estimatedAmount: number | undefined;
+    if (action === "accept" && rawAmount) {
+      const parsed = Number(rawAmount);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 1_000_000) {
+        setError("預估金額請填 1 到 1,000,000 之間的整數（新台幣元）。 ");
+        return;
+      }
+      estimatedAmount = parsed;
+    }
     setBusyTaskId(task.taskId);
     setError(null);
     try {
-      await api.respondToProviderTask(task.taskId, {
+      const result = await api.respondToProviderTask(task.taskId, {
         action,
         expectedVersion: task.version,
         message:
@@ -87,6 +101,7 @@ export default function DashboardPage() {
               ? "目前滿單，請平台改派。"
               : "到場先檢測問題與報價，住戶確認後才施工。",
         arrivalWindow: action === "accept" ? arrivalWindow : undefined,
+        estimatedAmount,
       });
       setProcessed((current) => [
         {
@@ -97,6 +112,7 @@ export default function DashboardPage() {
               : action === "decline"
                 ? "declined"
                 : "needs_information",
+          estimatedPoints: result.pointsReward?.estimatedPoints,
         },
         ...current.filter((item) => item.task.taskId !== task.taskId),
       ]);
@@ -246,6 +262,24 @@ export default function DashboardPage() {
                           placeholder="2026-08-03 14:00-17:00"
                         />
                       </label>
+                      <label className="dashboard-field">
+                        <span>預估金額（選填，計算回饋點數）</span>
+                        <input
+                          type="number"
+                          min={1}
+                          max={1000000}
+                          step={1}
+                          inputMode="numeric"
+                          value={estimatedAmounts[task.taskId] ?? ""}
+                          onChange={(event) =>
+                            setEstimatedAmounts((current) => ({
+                              ...current,
+                              [task.taskId]: event.target.value,
+                            }))
+                          }
+                          placeholder="2800；未填則以類別估算"
+                        />
+                      </label>
                     </div>
                     <div className="request-actions four-actions">
                       <button
@@ -286,7 +320,7 @@ export default function DashboardPage() {
                   <h3 className="list-section-title">
                     本次已處理（{processed.length}）
                   </h3>
-                  {processed.map(({ task, action }) => (
+                  {processed.map(({ task, action, estimatedPoints }) => (
                     <div
                       key={task.taskId}
                       className={`request-card ${action === "accepted" ? "accepted" : "rejected"}`}
@@ -309,6 +343,14 @@ export default function DashboardPage() {
                         <h4 className="request-service">
                           {task.brief?.summary ?? "水電修繕需求"}
                         </h4>
+                        {estimatedPoints !== undefined && (
+                          <div className="request-detail">
+                            <span>
+                              🎁 已告知住戶預計回饋 {estimatedPoints} 點
+                              OPENPOINT（待發放）
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

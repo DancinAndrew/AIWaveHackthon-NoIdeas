@@ -31,6 +31,27 @@ export interface ProgressEvent {
   at: string;
 }
 
+/** 對應 mms_order_record.point_status：01 待發放 / 02 已發放 / 03 不發放 / 04 已取消 */
+export type PointStatus = "01" | "02" | "03" | "04";
+
+export interface PointsReward {
+  program: "OPENPOINT";
+  status: PointStatus;
+  statusLabel: string;
+  estimatedPoints: number;
+  earnRate: string;
+  earnRateBasisPoints: number;
+  basisAmount: number;
+  amountSource: "provider_reported" | "issue_type_baseline";
+  amountSourceLabel: string;
+  capped: boolean;
+  maxPointsPerOrder: number;
+  grantCondition: string;
+  isDemoLedger: boolean;
+  disclosure: string;
+  estimatedAt: string;
+}
+
 export interface WorkflowProgress {
   serviceRequestId: string;
   stage: WorkflowStage;
@@ -39,6 +60,7 @@ export interface WorkflowProgress {
   residentActionRequired: boolean;
   latestEventAt: string;
   events?: ProgressEvent[];
+  pointsReward?: PointsReward | null;
   currentProvider?: ProviderSummary | null;
 }
 
@@ -65,6 +87,7 @@ export interface ServiceRequestProjection {
   preferredTime: string | null;
   safetyHold: boolean;
   provider: ProviderSummary | null;
+  pointsReward: PointsReward | null;
   progress: WorkflowProgress;
   createdAt: string;
   updatedAt: string;
@@ -108,4 +131,6 @@ export interface ProviderTaskResponse {
   expectedVersion: number;
   message?: string;
   arrivalWindow?: string;
+  /** 廠商回報的預估實付金額（新台幣元），作為回饋點數的計算基礎；未填則用類別估算。 */
+  estimatedAmount?: number;
 }

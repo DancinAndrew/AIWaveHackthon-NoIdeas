@@ -2,6 +2,7 @@ import type {
   ApiMessage,
   ChatTurn,
   ConversationCreated,
+  PointsReward,
   ProviderTask,
   ProviderTaskResponse,
   ServiceRequestProjection,
@@ -163,6 +164,7 @@ export function createApiClient(options: ClientOptions = {}) {
         serviceRequestId: string;
         progress: WorkflowProgress;
         providerTask?: ProviderTask;
+        pointsReward?: PointsReward | null;
       }>(
         `/api/v1/provider-service-requests/${encodeURIComponent(taskId)}/responses`,
         "PROVIDER",

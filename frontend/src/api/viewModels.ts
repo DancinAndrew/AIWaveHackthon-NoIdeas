@@ -1,4 +1,4 @@
-import type { ProviderTask, WorkflowStage } from "./types.ts";
+import type { PointsReward, ProviderTask, WorkflowStage } from "./types.ts";
 
 
 export interface BookingStatusPresentation {
@@ -75,5 +75,37 @@ export function providerTaskPresentation(
       ? `住戶補充：${task.residentInformation}`
       : `需求文件版本：v${task.brief?.version ?? 1}`,
     createdAt: task.createdAt,
+  };
+}
+
+export interface PointsRewardPresentation {
+  program: string;
+  headline: string;
+  statusLabel: string;
+  basis: string;
+  note: string;
+  /** true 代表平台內 Demo 記帳，UI 必須明示尚未連動 OPENPOINT 正式帳戶。 */
+  demoLedger: boolean;
+}
+
+/**
+ * 回饋點數的住戶端呈現。金額來源要講清楚，否則住戶會把「平台估算」誤認為報價。
+ */
+export function pointsRewardPresentation(
+  reward: PointsReward,
+): PointsRewardPresentation {
+  const amount = `NT$${reward.basisAmount.toLocaleString("zh-TW")}`;
+  const capped = reward.capped
+    ? `，已套用單筆上限 ${reward.maxPointsPerOrder} 點`
+    : "";
+  return {
+    program: reward.program,
+    headline: `預計回饋 ${reward.estimatedPoints.toLocaleString("zh-TW")} 點`,
+    statusLabel: reward.statusLabel,
+    basis: `${reward.amountSourceLabel} ${amount} × ${reward.earnRate}${capped}`,
+    note: reward.isDemoLedger
+      ? `${reward.grantCondition} · ${reward.disclosure}`
+      : reward.grantCondition,
+    demoLedger: reward.isDemoLedger,
   };
 }

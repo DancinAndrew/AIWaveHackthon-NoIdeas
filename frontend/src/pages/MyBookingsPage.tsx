@@ -3,7 +3,10 @@ import { useNavigate } from "react-router-dom";
 
 import { apiClient } from "../api/client";
 import type { ServiceRequestProjection } from "../api/types";
-import { bookingStatusPresentation } from "../api/viewModels";
+import {
+  bookingStatusPresentation,
+  pointsRewardPresentation,
+} from "../api/viewModels";
 import "./MyBookingsPage.css";
 
 
@@ -100,6 +103,9 @@ export default function MyBookingsPage() {
             filteredBookings.map((booking) => {
               const status = bookingStatusPresentation(booking.progress.stage);
               const latestEvent = booking.progress.events?.at(-1);
+              const reward = booking.pointsReward
+                ? pointsRewardPresentation(booking.pointsReward)
+                : null;
               return (
                 <button
                   key={booking.serviceRequestId}
@@ -130,6 +136,25 @@ export default function MyBookingsPage() {
                         🧑‍🔧 媒合廠商：{booking.provider?.name ?? "尚未委派"}
                       </span>
                     </div>
+                    {reward && (
+                      <div className="booking-points">
+                        <div className="booking-points-head">
+                          <span className="booking-points-program">
+                            {reward.program}
+                          </span>
+                          <span className="booking-points-value">
+                            {reward.headline}
+                          </span>
+                          <span className="booking-points-status">
+                            {reward.statusLabel}
+                          </span>
+                        </div>
+                        <div className="booking-points-basis">
+                          {reward.basis}
+                        </div>
+                        <div className="booking-points-note">{reward.note}</div>
+                      </div>
+                    )}
                     <div className="booking-progress-label">
                       {booking.progress.residentActionRequired ? "⚠️ " : "● "}
                       {booking.progress.displayLabel}

@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
+from . import points
 from .errors import ConflictError, ForbiddenError, NotFoundError, ValidationError
 from .orchestration import DeterministicDemoOrchestrator, SupervisorOrchestrator
 from .store import InMemoryStore
@@ -232,6 +233,8 @@ class WalkingSkeletonService:
             # Validate before entering the transaction so an invalid accept can
             # never consume or version-bump the pending task.
             raise ValidationError("廠商接受時 arrivalWindow 為必填")
+        # 同理：金額格式錯誤不得消耗任務，也不得讓點數引擎算出錯誤基礎金額。
+        estimated_amount = points.normalize_reported_amount(payload.get("estimatedAmount"))
 
         operation = f"provider-response:{task_id}"
         return self.store.idempotent(
@@ -246,6 +249,7 @@ class WalkingSkeletonService:
                 expected_version=expected_version,
                 message=(message or "").strip(),
                 arrival_window=arrival_window,
+                estimated_amount=estimated_amount,
             ),
         )
 
@@ -304,6 +308,8 @@ class WalkingSkeletonService:
             "currentTaskId": None,
             "providerQuestion": None,
             "providerAnswer": None,
+            "estimatedAmount": None,
+            "pointsReward": None,
             "createdAt": now,
             "updatedAt": now,
         }
@@ -473,6 +479,7 @@ class WalkingSkeletonService:
         expected_version: int,
         message: str,
         arrival_window: str,
+        estimated_amount: int | None = None,
     ) -> dict[str, Any]:
         with self.store.lock:
             task = self.store.tasks.get(task_id)
@@ -512,12 +519,28 @@ class WalkingSkeletonService:
             provider = self._provider(provider_id)
             request["confirmedArrivalWindow"] = arrival_window
             request["providerConfirmationMessage"] = message
+            request["estimatedAmount"] = estimated_amount
+            # 訂單成立即揭露預計回饋，狀態停在「01 待發放」；實際發放屬於後續的
+            # 服務完成流程，這裡不動用任何外部帳務。
+            reward = points.estimate_reward(
+                service_type=request["serviceType"],
+                issue_type=request["issueType"],
+                reported_amount=estimated_amount,
+                estimated_at=_now(),
+            )
+            request["pointsReward"] = reward
             request["updatedAt"] = _now()
             self._event(request, "provider_confirmed", "廠商已確認到場時段")
+            self._event(
+                request,
+                "points_reward_estimated",
+                f"預計回饋 {reward['estimatedPoints']} 點 {reward['program']}（{reward['statusLabel']}）",
+            )
             self._set_progress(request, "provider_confirmed", waiting_for=None)
             final_content = (
                 f"{provider['name']} 已在平台內確認可於 {arrival_window} 到場。"
                 f"注意事項：{message or '到場後先勘查，確認範圍與費用後才施工。'}"
+                f"{points.reward_disclosure_sentence(reward)}"
                 "這是 Demo 的平台內確認，不代表外部付款或不可逆交易已完成。"
             )
             assistant = self._append_assistant(
@@ -527,6 +550,7 @@ class WalkingSkeletonService:
                 "serviceRequestId": request["serviceRequestId"],
                 "progress": self._progress_projection(request),
                 "provider": _public_provider(provider),
+                "pointsReward": reward,
                 "assistantMessage": assistant,
             }
 
@@ -698,6 +722,7 @@ class WalkingSkeletonService:
             "preferredTime": request["preferredTime"],
             "safetyHold": request["safetyHold"],
             "provider": provider,
+            "pointsReward": request.get("pointsReward"),
             "progress": self._progress_projection(request),
             "createdAt": request["createdAt"],
             "updatedAt": request["updatedAt"],
@@ -709,6 +734,7 @@ class WalkingSkeletonService:
         return {
             **progress,
             "events": list(events[-8:]),
+            "pointsReward": request.get("pointsReward"),
             "currentProvider": (
                 _public_provider(self._provider(request["currentProviderId"]))
                 if request.get("currentProviderId")

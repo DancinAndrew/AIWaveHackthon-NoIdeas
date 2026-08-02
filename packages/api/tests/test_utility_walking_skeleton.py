@@ -293,6 +293,125 @@ class UtilityWalkingSkeletonContractTest(unittest.TestCase):
         self.assertEqual(queue[0]["taskId"], task_id)
         self.assertEqual(queue[0]["version"], 1)
 
+    def _accept(self, task_id: str, provider_id: str, key: str, **extra):
+        headers = {
+            "Content-Type": "application/json",
+            "X-Demo-Provider-Id": provider_id,
+            "X-Demo-Role": "PROVIDER",
+            "Idempotency-Key": key,
+        }
+        return self.client.post(
+            f"/api/v1/provider-service-requests/{task_id}/responses",
+            json={
+                "action": "accept",
+                "expectedVersion": 1,
+                "arrivalWindow": "2026-08-03 14:00-17:00",
+                **extra,
+            },
+            headers=headers,
+        )
+
+    def test_order_established_discloses_reported_amount_reward(self) -> None:
+        conversation_id, request_id, task_id, provider_id = self._confirmed_request()
+
+        accepted = self._accept(
+            task_id, provider_id, "accept-reward-reported", estimatedAmount=5000
+        )
+        self.assertEqual(accepted.status_code, 200)
+        reward = accepted.get_json()["data"]["pointsReward"]
+        self.assertEqual(reward["program"], "OPENPOINT")
+        self.assertEqual(reward["estimatedPoints"], 50)
+        self.assertEqual(reward["basisAmount"], 5000)
+        self.assertEqual(reward["amountSource"], "provider_reported")
+        # 訂單成立只揭露「預計」，狀態必須停在 mms_order_record 的 01 待發放。
+        self.assertEqual(reward["status"], "01")
+        self.assertFalse(reward["capped"])
+
+        content = self.client.get(
+            f"/api/v1/conversations/{conversation_id}/messages",
+            headers=RESIDENT_HEADERS,
+        ).get_json()["data"]["items"][-1]["content"]
+        self.assertIn("50 點 OPENPOINT", content)
+        self.assertIn("待發放", content)
+        self.assertIn("尚未連動 OPENPOINT 正式帳戶", content)
+
+        progress = self.client.get(
+            f"/api/v1/service-requests/{request_id}/progress",
+            headers=RESIDENT_HEADERS,
+        ).get_json()["data"]
+        self.assertEqual(progress["pointsReward"]["estimatedPoints"], 50)
+        self.assertIn(
+            "points_reward_estimated",
+            [event["eventType"] for event in progress["events"]],
+        )
+
+    def test_my_bookings_shows_reward_from_issue_type_baseline(self) -> None:
+        _, request_id, task_id, provider_id = self._confirmed_request()
+
+        # 廠商未回報金額時改用類別基準（leak = 2800），並誠實標示來源。
+        accepted = self._accept(task_id, provider_id, "accept-reward-baseline")
+        self.assertEqual(accepted.status_code, 200)
+
+        bookings = self.client.get(
+            "/api/v1/service-requests", headers=RESIDENT_HEADERS
+        ).get_json()["data"]["items"]
+        booking = next(
+            item for item in bookings if item["serviceRequestId"] == request_id
+        )
+        self.assertEqual(booking["pointsReward"]["estimatedPoints"], 28)
+        self.assertEqual(booking["pointsReward"]["basisAmount"], 2800)
+        self.assertEqual(booking["pointsReward"]["amountSource"], "issue_type_baseline")
+
+    def test_reward_applies_single_order_cap(self) -> None:
+        _, _, task_id, provider_id = self._confirmed_request()
+
+        accepted = self._accept(
+            task_id, provider_id, "accept-reward-capped", estimatedAmount=1_000_000
+        )
+
+        reward = accepted.get_json()["data"]["pointsReward"]
+        self.assertEqual(reward["estimatedPoints"], 500)
+        self.assertTrue(reward["capped"])
+
+    def test_invalid_estimated_amount_does_not_consume_task(self) -> None:
+        _, _, task_id, provider_id = self._confirmed_request()
+        headers = {
+            "Content-Type": "application/json",
+            "X-Demo-Provider-Id": provider_id,
+            "X-Demo-Role": "PROVIDER",
+            "Idempotency-Key": "invalid-amount",
+        }
+
+        for bad_amount in (0, -100, "abc", True, 1_000_001):
+            invalid = self.client.post(
+                f"/api/v1/provider-service-requests/{task_id}/responses",
+                json={
+                    "action": "accept",
+                    "expectedVersion": 1,
+                    "arrivalWindow": "2026-08-03 14:00-17:00",
+                    "estimatedAmount": bad_amount,
+                },
+                headers=headers,
+            )
+            self.assertEqual(invalid.status_code, 422, msg=f"amount={bad_amount!r}")
+
+        queue = self.client.get(
+            "/api/v1/provider-service-requests", headers=headers
+        ).get_json()["data"]["items"]
+        self.assertEqual(queue[0]["taskId"], task_id)
+        self.assertEqual(queue[0]["version"], 1)
+
+    def test_reward_is_not_disclosed_before_the_order_is_established(self) -> None:
+        _, request_id, _, _ = self._confirmed_request()
+
+        booking = self.client.get(
+            "/api/v1/service-requests", headers=RESIDENT_HEADERS
+        ).get_json()["data"]["items"][0]
+
+        self.assertEqual(booking["serviceRequestId"], request_id)
+        self.assertEqual(booking["progress"]["stage"], "waiting_provider_response")
+        self.assertIsNone(booking["pointsReward"])
+
     def test_body_actor_fields_cannot_override_trusted_headers(self) -> None:
         created = self.client.post(
             "/api/v1/conversations",
