@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { apiClient } from "../api/client";
+import { ApiError, apiClient } from "../api/client";
 import type {
   ApiMessage,
   ServiceRequestArtifact,
@@ -17,6 +17,16 @@ interface Message {
   timestamp: Date;
   agent?: string | null;
   artifact?: ServiceRequestArtifact;
+}
+
+const CONVERSATION_STORAGE_KEY = "aiwave-conversation-id";
+
+/**
+ * 舊的 conversation id 不代表後端掛掉。Demo 的 store 在記憶體，後端一重啟舊
+ * 對話就不存在；把它誤判成連線失敗會讓輸入框永久停用而且無法自救。
+ */
+function isStaleConversation(error: unknown): boolean {
+  return error instanceof ApiError && (error.status === 404 || error.status === 403);
 }
 
 const WELCOME_MESSAGE: Message = {
@@ -57,31 +67,45 @@ export default function ChatPage() {
     setConnectionError(null);
     const requestedConversation =
       searchParams.get("conversation") ??
-      window.localStorage.getItem("aiwave-conversation-id");
+      window.localStorage.getItem(CONVERSATION_STORAGE_KEY);
     try {
       if (requestedConversation) {
-        const history = await apiClient.listMessages(requestedConversation);
-        history.items.forEach((message) =>
-          seenServerMessageIds.current.add(message.messageId),
-        );
-        setMessages(history.items.map(toMessage));
-        setConversationId(requestedConversation);
-        const requests = await apiClient.listServiceRequests();
-        const activeRequest = requests.items.find(
-          (item) => item.conversationId === requestedConversation,
-        );
-        if (activeRequest) {
-          setServiceRequestId(activeRequest.serviceRequestId);
-          setProgress(activeRequest.progress);
+        try {
+          const history = await apiClient.listMessages(requestedConversation);
+          history.items.forEach((message) =>
+            seenServerMessageIds.current.add(message.messageId),
+          );
+          setMessages(history.items.map(toMessage));
+          setConversationId(requestedConversation);
+          window.localStorage.setItem(
+            CONVERSATION_STORAGE_KEY,
+            requestedConversation,
+          );
+          const requests = await apiClient.listServiceRequests();
+          const activeRequest = requests.items.find(
+            (item) => item.conversationId === requestedConversation,
+          );
+          if (activeRequest) {
+            setServiceRequestId(activeRequest.serviceRequestId);
+            setProgress(activeRequest.progress);
+          }
+          return;
+        } catch (error) {
+          if (!isStaleConversation(error)) throw error;
+          // 後端已不認得這個對話：丟掉它並開新對話，而不是把使用者鎖在
+          // 一個永遠救不回來的錯誤狀態裡。
+          window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+          seenServerMessageIds.current.clear();
+          setServiceRequestId(null);
+          setProgress(null);
         }
-        return;
       }
       const created = await apiClient.createConversation();
       seenServerMessageIds.current.add(created.assistantMessage.messageId);
       setMessages([toMessage(created.assistantMessage)]);
       setConversationId(created.conversationId);
       window.localStorage.setItem(
-        "aiwave-conversation-id",
+        CONVERSATION_STORAGE_KEY,
         created.conversationId,
       );
     } catch {
@@ -123,8 +147,16 @@ export default function ChatPage() {
           const latestProgress = await apiClient.getProgress(serviceRequestId);
           if (!cancelled) setProgress(latestProgress);
         }
-      } catch {
-        // Polling is read-only and best-effort; the next cycle retries.
+      } catch (error) {
+        if (isStaleConversation(error) && !cancelled) {
+          // 後端在頁面開著時重啟。靜默重試會永遠失敗，直接換一個新對話。
+          cancelled = true;
+          window.localStorage.removeItem(CONVERSATION_STORAGE_KEY);
+          setConversationId(null);
+          void initializeConversation();
+          return;
+        }
+        // 其他錯誤：輪詢是唯讀且允許失敗，下一輪再試。
       }
     };
     const timer = window.setInterval(() => void poll(), 3000);
@@ -132,6 +164,9 @@ export default function ChatPage() {
       cancelled = true;
       window.clearInterval(timer);
     };
+    // initializeConversation 只在對話失效時作為一次性復原路徑呼叫，
+    // 放進 deps 會讓每次 render 重建輪詢計時器。
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, serviceRequestId]);
 
   const sendMessage = async () => {
