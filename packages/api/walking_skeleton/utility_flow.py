@@ -419,13 +419,14 @@ class UtilityRepairFlow:
         else:
             svc.set_progress(request, "collecting_details", waiting_for="resident")
             if notes.get("outOfScopeArea"):
+                # The demo service scope is a fact this flow states itself.
                 text = f"{self._out_of_scope_text()}{SAFETY_SCREEN_QUESTION}"
-            elif turn is not None and turn.assistant_message:
-                text = turn.assistant_message
             else:
-                text = (
+                text = svc.choose_reply(
                     "我已交給水電 Agent。先確認用電安全：現場是否有漏電、裸線、冒煙焦味，"
-                    "或水已接近插座／形成大量積水？"
+                    "或水已接近插座／形成大量積水？",
+                    turn,
+                    model_may_rephrase=True,
                 )
         assistant = svc.append_assistant(
             conversation["conversationId"], text, agent=AGENT_NAME
@@ -554,8 +555,9 @@ class UtilityRepairFlow:
             # The document version and summary are facts Flask owns.
             model_wording_allowed = False
 
-        if model_wording_allowed and turn is not None and turn.assistant_message:
-            text = turn.assistant_message
+        text = svc.choose_reply(
+            text, turn, model_may_rephrase=model_wording_allowed
+        )
 
         svc.touch(request)
         assistant = svc.append_assistant(

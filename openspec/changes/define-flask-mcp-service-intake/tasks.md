@@ -90,4 +90,4 @@
 
 ## 12. 個人化長期記憶增量
 
-- [ ] 12.1 將 `op_agent/` 的會員長期記憶接回 walking skeleton 執行路徑，每輪可讀 `mms_member_address`、`mms_member_appliance` 與 `mms_member_preference`，並在觀察到長期偏好時以 merge 寫回；驗證：已登錄的家電與慣用地址不再重複詢問、`blockedVendorIds` 於媒合被排除、`priceSensitivity` 影響排序權重、寫回為欄位層 merge 而非整列覆蓋，且記憶讀寫不將明文 PII 帶入 prompt 與 trace。
+- [x] 12.1 將 `op_agent/` 的會員長期記憶接回 walking skeleton 執行路徑，每輪可讀 `mms_member_address`、`mms_member_appliance` 與 `mms_member_preference`，並在觀察到長期偏好時以 merge 寫回；驗證：已登錄的家電與慣用地址不再重複詢問、`blockedVendorIds` 於媒合被排除、`priceSensitivity` 影響排序權重、寫回為欄位層 merge 而非整列覆蓋，且記憶讀寫不將明文 PII 帶入 prompt 與 trace。

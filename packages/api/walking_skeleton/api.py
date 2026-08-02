@@ -8,6 +8,7 @@ from uuid import uuid4
 from flask import Flask, g, jsonify, request
 
 from .errors import ApplicationError, ValidationError
+from .member_memory import create_member_memory_store_from_environment
 from .orchestration import create_orchestrator_from_environment
 from .service import WalkingSkeletonService
 from .store import create_store_from_environment
@@ -23,6 +24,7 @@ def create_app(*, testing: bool = False) -> Flask:
     service = WalkingSkeletonService(
         store=create_store_from_environment(),
         orchestrator=create_orchestrator_from_environment(),
+        member_memory=create_member_memory_store_from_environment(),
     )
     app.extensions["walking_skeleton_service"] = service
 

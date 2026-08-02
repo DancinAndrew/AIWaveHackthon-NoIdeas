@@ -58,6 +58,35 @@ def _id(prefix: str) -> str:
     return f"{prefix}_{uuid4().hex[:16]}"
 
 
+# Interrogatives only. Bare politeness ("請", "可以") is deliberately excluded:
+# it also appears in statements such as "可以了，我幫你送出" that carry no ask.
+_ASK_MARKERS = (
+    "？",
+    "?",
+    "嗎",
+    "呢",
+    "哪",
+    "什麼",
+    "幾",
+    "多少",
+    "是否",
+    "請問",
+    "請告訴",
+    "請提供",
+    "麻煩告訴",
+    "麻煩提供",
+)
+MIN_ASK_LENGTH = 8
+
+
+def _carries_an_ask(text: str) -> bool:
+    """Whether an agent reply actually asks the resident for something."""
+
+    if len(text) < MIN_ASK_LENGTH:
+        return False
+    return any(marker in text for marker in _ASK_MARKERS)
+
+
 def _public_provider(provider: dict[str, Any]) -> dict[str, Any]:
     return {
         "providerId": provider["providerId"],
@@ -493,6 +522,33 @@ class WalkingSkeletonService:
                 service_districts=tuple(DISTRICTS),
             )
         )
+
+    def choose_reply(
+        self,
+        flow_text: str,
+        turn: AgentTurn | None,
+        *,
+        model_may_rephrase: bool,
+    ) -> str:
+        """Pick between the flow's wording and the agent's wording.
+
+        The flow owns *what* must be conveyed, the agent owns *how*. Two gates,
+        both of which fail back to the flow's wording:
+
+        * ``model_may_rephrase`` is the flow's call. Fixed safety wording, a
+          document version, a summary or a matched provider name are facts the
+          flow states itself.
+        * the agent's reply must actually carry an ask. A model that answers a
+          field question with "好的。" would otherwise leave the resident with no
+          idea what to provide next.
+        """
+
+        if not model_may_rephrase or turn is None:
+            return flow_text
+        candidate = (turn.assistant_message or "").strip()
+        if not _carries_an_ask(candidate):
+            return flow_text
+        return candidate
 
     def record_observed_preference(
         self, request: dict[str, Any], patch: dict[str, Any] | None

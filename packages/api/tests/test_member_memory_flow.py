@@ -8,6 +8,7 @@ merges into the preference row instead of replacing it.
 
 from __future__ import annotations
 
+import os
 import sys
 import unittest
 from dataclasses import replace
@@ -201,19 +202,64 @@ class RememberedFieldsTests(unittest.TestCase):
 
 
 class PiiBoundaryTests(unittest.TestCase):
+    """Address detail must not leave the store.
+
+    Asserting on the bare token "detail" was too broad: it collides with the
+    `collecting_details` stage name and would pass or fail for reasons unrelated
+    to PII. These assertions name the leak instead: street-level tokens, and the
+    fact that the projection has nowhere to carry one.
+    """
+
+    # Tokens that only appear in a street-level address, never in a district name.
+    STREET_TOKENS = ("號", "路", "街", "巷", "弄", "樓", "室")
+
     def test_no_street_detail_can_reach_the_agent_or_the_turn_payload(self) -> None:
-        service, orchestrator, _ = _service(_memory(), [])
+        service, orchestrator, _ = _service(
+            _memory(
+                addresses=(
+                    MemberAddress(
+                        county_code="01",
+                        district_code="010",
+                        district_name="內湖區",
+                        label="住家",
+                        is_default=True,
+                    ),
+                )
+            ),
+            [],
+        )
 
         conversation_id = service.create_conversation(RESIDENT)["conversationId"]
         first = service.add_resident_message(
             conversation_id, RESIDENT, "熱水器沒有熱水"
         )
 
-        serialised = repr(orchestrator.requests[0]) + repr(first)
-        self.assertNotIn("detail", serialised)
-        self.assertNotIn("號", serialised)
-        for value in orchestrator.requests[0].known_fields.values():
-            self.assertNotIn("路", str(value))
+        request_payload = orchestrator.requests[0]
+        for token in self.STREET_TOKENS:
+            for value in request_payload.known_fields.values():
+                self.assertNotIn(token, str(value), f"street token {token} in prompt")
+            self.assertNotIn(token, repr(first["serviceRequest"]))
+
+    def test_the_memory_projection_has_nowhere_to_hold_a_street_detail(self) -> None:
+        service, orchestrator, _ = _service(_memory(), [])
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        service.add_resident_message(conversation_id, RESIDENT, "熱水器沒有熱水")
+
+        # Remembered keys are an allowlist, so a future field cannot leak in by
+        # simply being added to the address record.
+        self.assertEqual(
+            set(orchestrator.requests[0].known_fields)
+            - {
+                "issueType",
+                "districtName",
+                "preferredTime",
+                "urgency",
+                "riskScreened",
+            },
+            {"rememberedDistrictName", "rememberedAppliance"},
+        )
+        self.assertNotIn("detail", MemberAddress.__slots__)
 
 
 class PreferenceDrivenMatchingTests(unittest.TestCase):
@@ -414,3 +460,131 @@ class MemoryIsADefaultNotAnAuthorityTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ReplyWordingOwnershipTests(unittest.TestCase):
+    """Who owns the sentence when the flow has something specific to ask.
+
+    The flow decides *what* must be conveyed; the agent may only decide *how* it
+    is phrased. An agent reply that carries no ask must not replace a question,
+    otherwise the resident is left with "好的。" and no idea what to provide.
+    """
+
+    def test_acknowledgement_only_reply_does_not_replace_the_question(self) -> None:
+        service, _, _ = _service(_memory(), [_turn(assistant_message="好的。")])
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        service.add_resident_message(conversation_id, RESIDENT, "熱水器沒有熱水")
+        second = service.add_resident_message(
+            conversation_id, RESIDENT, "沒有漏電也沒有冒煙"
+        )
+
+        self.assertIn("時段", second["assistantMessage"]["content"])
+
+    def test_a_genuine_question_from_the_agent_is_used(self) -> None:
+        service, _, _ = _service(
+            _memory(),
+            [
+                _turn(),
+                _turn(assistant_message="了解，你希望師傅哪一天過去比較方便？"),
+            ],
+        )
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        service.add_resident_message(conversation_id, RESIDENT, "熱水器沒有熱水")
+        second = service.add_resident_message(
+            conversation_id, RESIDENT, "沒有漏電也沒有冒煙"
+        )
+
+        self.assertEqual(
+            second["assistantMessage"]["content"],
+            "了解，你希望師傅哪一天過去比較方便？",
+        )
+
+    def test_a_statement_that_merely_contains_a_polite_word_is_rejected(self) -> None:
+        service, _, _ = _service(
+            _memory(),
+            [_turn(), _turn(assistant_message="可以了，我幫你直接送出。")],
+        )
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        service.add_resident_message(conversation_id, RESIDENT, "熱水器沒有熱水")
+        second = service.add_resident_message(
+            conversation_id, RESIDENT, "沒有漏電也沒有冒煙"
+        )
+
+        self.assertIn("時段", second["assistantMessage"]["content"])
+        self.assertNotIn("直接送出", second["assistantMessage"]["content"])
+
+    def test_a_bare_interrogative_particle_is_too_short_to_count(self) -> None:
+        service, _, _ = _service(
+            _memory(), [_turn(), _turn(assistant_message="好嗎？")]
+        )
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        service.add_resident_message(conversation_id, RESIDENT, "熱水器沒有熱水")
+        second = service.add_resident_message(
+            conversation_id, RESIDENT, "沒有漏電也沒有冒煙"
+        )
+
+        self.assertIn("時段", second["assistantMessage"]["content"])
+
+    def test_safety_wording_is_never_rephrased_by_the_agent(self) -> None:
+        service, _, _ = _service(
+            _memory(),
+            [_turn(assistant_message="這聽起來還好，請問是哪一台熱水器呢？")],
+        )
+
+        conversation_id = service.create_conversation(RESIDENT)["conversationId"]
+        first = service.add_resident_message(
+            conversation_id, RESIDENT, "插座冒煙還有焦味"
+        )
+
+        self.assertIn("119", first["assistantMessage"]["content"])
+        self.assertNotIn("還好", first["assistantMessage"]["content"])
+
+
+class AppFactoryWiringTests(unittest.TestCase):
+    """The memory store has to be reachable from `create_app()`.
+
+    Without this the feature is fully implemented and fully tested yet cannot be
+    demonstrated, because the running application never constructs a store.
+    """
+
+    def setUp(self) -> None:
+        from walking_skeleton.api import create_app
+
+        self._create_app = create_app
+        self._previous = os.environ.get("MEMBER_MEMORY_BACKEND")
+
+    def tearDown(self) -> None:
+        if self._previous is None:
+            os.environ.pop("MEMBER_MEMORY_BACKEND", None)
+        else:
+            os.environ["MEMBER_MEMORY_BACKEND"] = self._previous
+
+    def _service(self):
+        app = self._create_app(testing=True)
+        return app.extensions["walking_skeleton_service"]
+
+    def test_default_keeps_memory_switched_off(self) -> None:
+        os.environ.pop("MEMBER_MEMORY_BACKEND", None)
+
+        self.assertEqual(self._service().member_memory.backend, "none")
+
+    def test_demo_backend_is_reachable_from_the_app_factory(self) -> None:
+        os.environ["MEMBER_MEMORY_BACKEND"] = "demo"
+
+        service = self._service()
+
+        self.assertEqual(service.member_memory.backend, "in-memory")
+        self.assertEqual(
+            service.member_memory.load(RESIDENT).default_address.district_name,
+            "內湖區",
+        )
+
+    def test_an_unsupported_backend_fails_closed(self) -> None:
+        os.environ["MEMBER_MEMORY_BACKEND"] = "dynamodb"
+
+        with self.assertRaises(ValueError):
+            self._create_app(testing=True)
