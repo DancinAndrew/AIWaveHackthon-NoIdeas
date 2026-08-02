@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Lint frontend on save",
+      "trigger": "PostFileSave",
+      "description": "Runs oxlint when a frontend source file is saved. Uses npm.cmd because this machine's PowerShell execution policy blocks npm.ps1.",
+      "matcher": "frontend[\\\\/]src[\\\\/].*\\.(ts|tsx)$",
+      "action": {
+        "type": "command",
+        "command": "npm.cmd --prefix frontend run lint",
+        "timeout": 120
+      }
+    }
+  ]
+}

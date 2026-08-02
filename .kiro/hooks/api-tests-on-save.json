@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Run API tests on Python save",
+      "trigger": "PostFileSave",
+      "description": "Runs the packages/api unittest suite whenever a backend Python file is saved. Uses the Windows venv path and -t . so infra.* / packages.api.* imports resolve.",
+      "matcher": "packages[\\\\/]api[\\\\/].*\\.py$",
+      "action": {
+        "type": "command",
+        "command": ".venv\\Scripts\\python.exe -m unittest discover -s packages/api/tests -t .",
+        "timeout": 120
+      }
+    }
+  ]
+}
