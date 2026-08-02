@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Full verification after a spec task",
+      "trigger": "PostTaskExec",
+      "description": "After a spec task is marked completed, runs the project's declared checks end to end: API unittest suite, compileall, frontend tests, tsc build and oxlint.",
+      "action": {
+        "type": "command",
+        "command": ".venv\\Scripts\\python.exe -m unittest discover -s packages/api/tests -t . && .venv\\Scripts\\python.exe -m compileall -q packages\\api\\walking_skeleton packages\\api\\app.py && npm.cmd --prefix frontend test && npm.cmd --prefix frontend run build && npm.cmd --prefix frontend run lint",
+        "timeout": 600
+      }
+    }
+  ]
+}
