@@ -3,8 +3,68 @@ import { useNavigate } from "react-router-dom";
 
 import { apiClient } from "../api/client";
 import type { ServiceRequestProjection } from "../api/types";
-import { bookingStatusPresentation } from "../api/viewModels";
+import { bookingStatusPresentation, orderStatusLabel } from "../api/viewModels";
 import "./MyBookingsPage.css";
+
+
+function isProduct(booking: ServiceRequestProjection): boolean {
+  return booking.serviceType === "product_purchase";
+}
+
+function UtilityBookingDetails({
+  booking,
+}: {
+  booking: ServiceRequestProjection;
+}) {
+  return (
+    <>
+      <div className="booking-info">
+        <span>📍 服務地區：{booking.districtName ?? "確認中"}</span>
+      </div>
+      <div className="booking-info">
+        <span>📅 希望時段：{booking.preferredTime ?? "確認中"}</span>
+      </div>
+      <div className="booking-info">
+        <span>🧑‍🔧 媒合廠商：{booking.provider?.name ?? "尚未委派"}</span>
+      </div>
+    </>
+  );
+}
+
+function ProductBookingDetails({
+  booking,
+}: {
+  booking: ServiceRequestProjection;
+}) {
+  const orderLabel = orderStatusLabel(booking.orderStatus);
+  const outOfStock = booking.progress.stage === "out_of_stock";
+  return (
+    <>
+      <div className="booking-info">
+        <span>📍 收貨地區：{booking.districtName ?? "確認中"}</span>
+      </div>
+      <div className="booking-info">
+        <span>🔢 數量：{booking.quantity ?? 1}</span>
+      </div>
+      <div className="booking-info">
+        <span>🏪 供應商：{booking.provider?.name ?? "尚未委派"}</span>
+      </div>
+      {/* An order only exists after the resident confirms, so an out-of-stock or
+          still-selecting case must never look like money has been committed. */}
+      {booking.orderNo && orderLabel ? (
+        <div className="booking-info">
+          <span>
+            🧾 訂單：{booking.orderNo}（{orderLabel}）
+          </span>
+        </div>
+      ) : (
+        <div className="booking-info">
+          <span>🧾 {outOfStock ? "缺貨，尚未建立訂單" : "尚未建立訂單"}</span>
+        </div>
+      )}
+    </>
+  );
+}
 
 
 export default function MyBookingsPage() {
@@ -109,7 +169,7 @@ export default function MyBookingsPage() {
                   }
                 >
                   <div className="booking-card-header">
-                    <span className="booking-type">水電修繕</span>
+                    <span className="booking-type">{booking.serviceName}</span>
                     <span
                       className="booking-status"
                       style={{ background: status.color }}
@@ -119,17 +179,11 @@ export default function MyBookingsPage() {
                   </div>
                   <div className="booking-card-body">
                     <h4 className="booking-service">{booking.summary}</h4>
-                    <div className="booking-info">
-                      <span>📍 服務地區：{booking.districtName ?? "確認中"}</span>
-                    </div>
-                    <div className="booking-info">
-                      <span>📅 希望時段：{booking.preferredTime ?? "確認中"}</span>
-                    </div>
-                    <div className="booking-info">
-                      <span>
-                        🧑‍🔧 媒合廠商：{booking.provider?.name ?? "尚未委派"}
-                      </span>
-                    </div>
+                    {isProduct(booking) ? (
+                      <ProductBookingDetails booking={booking} />
+                    ) : (
+                      <UtilityBookingDetails booking={booking} />
+                    )}
                     <div className="booking-progress-label">
                       {booking.progress.residentActionRequired ? "⚠️ " : "● "}
                       {booking.progress.displayLabel}

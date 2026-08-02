@@ -30,6 +30,13 @@ APPROVED_REASON_CODES = frozenset(
         "unsupported_domain",
     }
 )
+_SERVICE_TYPE_BY_AGENT = {agent: service for service, agent in APPROVED_ROUTES}
+
+# Reason codes that legitimately carry no route. The Supervisor answers with one
+# of these instead of guessing a domain, so they are a normal outcome rather than
+# a protocol failure.
+UNROUTED_REASON_CODES = frozenset({"ambiguous_domains", "unsupported_domain"})
+
 MAX_HISTORY_ENTRIES = 12
 MAX_ASSISTANT_MESSAGE_LENGTH = 2_000
 MAX_KNOWLEDGE_REFERENCES = 5
@@ -39,11 +46,21 @@ MAX_SUPPRESSED_KNOWLEDGE_RECORDS = 10
 
 @dataclass(frozen=True, slots=True)
 class Delegation:
-    """Supervisor decision consumed by the transport-independent core."""
+    """Supervisor decision consumed by the transport-independent core.
+
+    `needs_clarification` distinguishes "I could not route this" from "this
+    could be two different services". Only the latter should ask the resident to
+    choose; silently picking one would create a case in the wrong domain.
+    """
 
     service_type: str | None
     target_agent: str | None
     mode: str
+    needs_clarification: bool = False
+    candidate_service_types: tuple[str, ...] = ()
+    # Why the Supervisor chose this route. Surfaced so the demo can distinguish a
+    # keyword hit from a model classification instead of both looking identical.
+    reason_code: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -102,6 +119,12 @@ class AgentTurn:
     knowledge_base_queried: bool = False
     live_value_topics: tuple[str, ...] = ()
     suppressed_knowledge: tuple[Mapping[str, Any], ...] = ()
+    # Mirrored from the routing decision. `turn()` is the only call the routing
+    # path makes now, so dropping these here would silently disable the
+    # "this could be two services, ask first" branch.
+    needs_clarification: bool = False
+    candidate_service_types: tuple[str, ...] = ()
+    reason_code: str | None = None
 
     @property
     def model_backed(self) -> bool:
@@ -131,6 +154,7 @@ class DeterministicDemoOrchestrator:
 
     mode = "deterministic-demo"
 
+    # Symptom vocabulary: something is broken and needs fixing.
     _utility_terms = (
         "水管",
         "漏水",
@@ -144,13 +168,59 @@ class DeterministicDemoOrchestrator:
         "火花",
         "熱水器",
         "水電",
+        "修繕",
+        "維修",
+        # Failure verbs rather than appliance nouns. "想買冷氣" must stay a pure
+        # purchase, while "冷氣壞了想買新的" must be treated as ambiguous.
+        "壞了",
+        "壞掉",
+        "故障",
+        "不會動",
+        "沒反應",
+    )
+
+    # Purchase-intent vocabulary. Deliberately intent verbs rather than the 38
+    # catalogue item types: the product flow resolves the item type from the
+    # catalogue, so the supervisor does not need to know the product vocabulary.
+    _product_terms = (
+        "買",
+        "購買",
+        "採購",
+        "訂購",
+        "選購",
+        "下單",
+        "有沒有賣",
+        "缺貨",
+        "到貨",
+        "運費",
+        "宅配",
+        "超商取貨",
     )
 
     def delegate(self, message: str) -> Delegation:
-        if any(term in message for term in self._utility_terms):
+        utility = any(term in message for term in self._utility_terms)
+        product = any(term in message for term in self._product_terms)
+
+        if utility and product:
+            # e.g. 「冷氣壞了想直接買一台新的還是修比較好」. Choosing one here would
+            # create a case the resident never asked for, so ask instead.
+            return Delegation(
+                service_type=None,
+                target_agent=None,
+                mode=self.mode,
+                needs_clarification=True,
+                candidate_service_types=("utility_repair", "product_purchase"),
+            )
+        if utility:
             return Delegation(
                 service_type="utility_repair",
                 target_agent="utility_repair_agent",
+                mode=self.mode,
+            )
+        if product:
+            return Delegation(
+                service_type="product_purchase",
+                target_agent="product_agent",
                 mode=self.mode,
             )
         return Delegation(service_type=None, target_agent=None, mode=self.mode)
@@ -162,12 +232,16 @@ class DeterministicDemoOrchestrator:
         which keeps the offline demo working without claiming a model was used.
         """
 
-        if request.active_agent == "utility_repair_agent":
+        if request.active_agent:
+            # A turn inside an existing case never re-routes. The active agent is
+            # authoritative, so the keyword table must not pull the resident into
+            # another domain mid-conversation.
             return AgentTurn(
-                service_type="utility_repair",
+                service_type=_SERVICE_TYPE_BY_AGENT.get(request.active_agent),
                 target_agent=request.active_agent,
                 mode=self.mode,
                 reasoning_mode="rule-fallback",
+                reason_code="active_agent_continuation",
             )
         delegation = self.delegate(request.message)
         return AgentTurn(
@@ -175,6 +249,15 @@ class DeterministicDemoOrchestrator:
             target_agent=delegation.target_agent,
             mode=self.mode,
             reasoning_mode="rule-fallback",
+            needs_clarification=delegation.needs_clarification,
+            candidate_service_types=delegation.candidate_service_types,
+            reason_code=(
+                "ambiguous_domains"
+                if delegation.needs_clarification
+                else "domain_keyword_match"
+                if delegation.target_agent
+                else "unsupported_domain"
+            ),
         )
 
 
@@ -259,11 +342,25 @@ class AgentCoreSupervisorOrchestrator:
             raise AgentCoreOrchestrationError("AgentCore route or trace is malformed")
         service_type = route.get("serviceType")
         target_agent = route.get("agent")
-        if service_type is None and target_agent is None and not trace:
-            return Delegation(
-                service_type=None,
-                target_agent=None,
-                mode=self.mode,
+        reason_code = route.get("reasonCode")
+        if reason_code is not None and reason_code not in APPROVED_REASON_CODES:
+            raise AgentCoreOrchestrationError("AgentCore reported an unapproved reason code")
+        if service_type is None and target_agent is None:
+            # An unrouted turn is a legitimate answer, not a malformed response.
+            # The model classification path attaches a `model_invoke` trace entry
+            # even when it declines to route, so requiring an empty trace here
+            # rejected valid "ambiguous" and "unsupported" replies and turned an
+            # honest clarification into a 500.
+            if reason_code in UNROUTED_REASON_CODES or not trace:
+                return Delegation(
+                    service_type=None,
+                    target_agent=None,
+                    mode=self.mode,
+                    needs_clarification=reason_code == "ambiguous_domains",
+                    reason_code=reason_code,
+                )
+            raise AgentCoreOrchestrationError(
+                "AgentCore returned no route without an approved reason code"
             )
         if (service_type, target_agent) not in APPROVED_ROUTES:
             raise AgentCoreOrchestrationError("AgentCore selected an unapproved route")
@@ -282,6 +379,7 @@ class AgentCoreSupervisorOrchestrator:
             service_type=str(service_type),
             target_agent=str(target_agent),
             mode=self.mode,
+            reason_code=reason_code,
         )
 
 
@@ -290,11 +388,16 @@ def _agent_turn_from_payload(payload: object, delegation: Delegation) -> AgentTu
 
     agent_turn = payload.get("agentTurn") if isinstance(payload, Mapping) else None
     if not isinstance(agent_turn, Mapping):
+        # An unrouted turn has no agentTurn by design, so this is also the path
+        # that carries a clarification back to the caller.
         return AgentTurn(
             service_type=delegation.service_type,
             target_agent=delegation.target_agent,
             mode=delegation.mode,
             reasoning_mode="rule-fallback",
+            needs_clarification=delegation.needs_clarification,
+            candidate_service_types=delegation.candidate_service_types,
+            reason_code=delegation.reason_code,
         )
 
     reasoning = agent_turn.get("reasoning")
@@ -341,6 +444,9 @@ def _agent_turn_from_payload(payload: object, delegation: Delegation) -> AgentTu
         suppressed_knowledge=_suppressed_knowledge(
             reasoning.get("suppressedKnowledge")
         ),
+        needs_clarification=delegation.needs_clarification,
+        candidate_service_types=delegation.candidate_service_types,
+        reason_code=delegation.reason_code,
     )
 
 

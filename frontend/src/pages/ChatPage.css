@@ -318,3 +318,192 @@
   background: #e8f5e9;
   color: #2e7d32;
 }
+
+/* ===== Product candidate cards ===== */
+
+.candidate-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 4px 0 8px;
+}
+
+.candidate-error {
+  background: #fdecea;
+  color: #c0392b;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border-left: 3px solid #e74c3c;
+}
+
+.candidate-card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.candidate-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.candidate-rank {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.candidate-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.candidate-name {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.35;
+}
+
+.candidate-meta {
+  display: block;
+  font-size: 11px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.candidate-promo {
+  flex-shrink: 0;
+  background: #fff3e0;
+  color: #e64a19;
+  border: 1px solid #ffcc80;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.candidate-specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin: 8px 0 0;
+}
+
+.candidate-spec {
+  display: flex;
+  gap: 3px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 10px;
+}
+
+.candidate-spec dt {
+  color: #888;
+  margin: 0;
+}
+
+.candidate-spec dd {
+  color: #333;
+  font-weight: 600;
+  margin: 0;
+}
+
+.candidate-amounts {
+  margin-top: 10px;
+  border-top: 1px dashed #e8e8e8;
+  padding-top: 8px;
+}
+
+.candidate-amount-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #555;
+  padding: 2px 0;
+}
+
+.candidate-amount-row.discount {
+  color: #e64a19;
+}
+
+.candidate-amount-row.subtotal {
+  color: #333;
+  font-weight: 600;
+  border-top: 1px dotted #e8e8e8;
+  padding-top: 4px;
+}
+
+.candidate-amount-row.total {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid #eee;
+  font-size: 15px;
+  font-weight: 800;
+  color: #2e7d32;
+}
+
+.candidate-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #666;
+}
+
+.candidate-reasons {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  font-size: 11px;
+  color: #2e7d32;
+  line-height: 1.5;
+}
+
+.candidate-select-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  background: #2e7d32;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.candidate-select-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.candidate-select-btn:active:not(:disabled) {
+  background: #1b5e20;
+}
+
+/* Order chip inside the workflow banner */
+.order-chip {
+  background: rgba(255, 255, 255, 0.22);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}

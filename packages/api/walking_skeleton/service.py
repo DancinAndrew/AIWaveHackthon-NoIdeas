@@ -1,125 +1,53 @@
+"""Transport-independent application service for the walking skeleton.
+
+This module owns only what is identical across service types:
+
+* conversations, messages and the resident/provider/admin authorization checks
+* service request creation, artifact versioning and the progress projection
+* provider task dispatch, rematching, idempotency and optimistic locking
+
+Everything that differs per service type lives behind `flows.ServiceFlow`.
+Adding a new category means registering a new flow, not adding branches here.
+
+Methods called by flow implementations are public on purpose; they are the
+seam between the shared skeleton and per-category rules.
+"""
+
 from __future__ import annotations
 
-import re
 from collections.abc import Sequence
 from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
 from .errors import ConflictError, ForbiddenError, NotFoundError, ValidationError
-from .orchestration import (
-    AgentTurn,
-    AgentTurnRequest,
-    DeterministicDemoOrchestrator,
-    SupervisorOrchestrator,
-)
+from .flows import ServiceFlow, UnsupportedServiceTypeError
+from .geo import DISTRICTS
 from .member_memory import (
     EMPTY_MEMORY,
     MemberMemory,
     MemberMemoryStore,
     NullMemberMemoryStore,
 )
+from .orchestration import (
+    AgentTurn,
+    AgentTurnRequest,
+    DeterministicDemoOrchestrator,
+    SupervisorOrchestrator,
+)
+from .product_flow import ProductPurchaseFlow
 from .store import InMemoryStore
+from .utility_flow import UtilityRepairFlow
 
-
-SERVICE_TYPE = "utility_repair"
-ACTIVE_AGENT = "utility_repair_agent"
-
-# IDs and names come from data/mock/master/providers.json. Service areas come
-# from data/mock/master/provider_service_areas.json. The local skeleton embeds
-# only two rows so the Lambda package does not need the entire generation set.
-DEMO_PROVIDERS: tuple[dict[str, Any], ...] = (
-    {
-        "providerId": "31324fe0-9899-5382-8211-d0122c20bda0",
-        "name": "京鑫水電工程行",
-        "rating": 3.9,
-        "responseSlaHours": 1,
-        "capabilities": ["gas_certified", "weekend_available"],
-        "districts": ["松山區", "大同區", "信義區", "北投區", "內湖區"],
-        # inspection_fee + min_charge from the same providers.json record. Used
-        # only to order candidates by member price sensitivity, never quoted.
-        "entryCost": 1800,
-        "source": "data/mock/master/providers.json",
-    },
-    {
-        "providerId": "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
-        "name": "新旺水電工程行",
-        "rating": 3.6,
-        "responseSlaHours": 4,
-        "capabilities": ["emergency_24h", "night_shift", "waterproofing"],
-        "districts": ["內湖區", "南港區", "大安區", "中山區", "士林區"],
-        "entryCost": 1200,
-        "source": "data/mock/master/providers.json",
-    },
-)
-
-DISTRICTS: dict[str, tuple[str, str]] = {
-    "大安區": ("01", "007"),
-    "內湖區": ("01", "010"),
-    "南港區": ("01", "008"),
-    "中山區": ("01", "003"),
-    "士林區": ("01", "011"),
-    "信義區": ("01", "005"),
-    "松山區": ("01", "006"),
-    "大同區": ("01", "002"),
-    "北投區": ("01", "009"),
-}
-
-HIGH_RISK_TERMS = ("冒煙", "火花", "焦味", "裸線", "觸電", "漏電", "大量積水", "淹水")
-NEGATED_RISK_PHRASES = (
-    "沒有漏電",
-    "無漏電",
-    "沒有冒煙",
-    "無冒煙",
-    "沒有積水",
-    "無積水",
-    "水量不大",
-)
-CONFIRM_PHRASES = ("確認送出", "確認建立", "內容正確", "可以送出")
-
-# Closed allowlist for the model extraction the Runtime returns. Everything the
-# agent sends is re-validated here before it can reach stored state, so an
-# unexpected key, type or enum value is dropped instead of trusted.
-ISSUE_TYPES = ("electrical", "toilet", "drain", "water_heater", "leak", "other")
-URGENCY_LEVELS = ("routine", "soon", "urgent", "emergency")
-HAZARD_FLAG_KEYS = (
-    "electricShockRisk",
-    "exposedWires",
-    "smokeOrBurningSmell",
-    "activeFlooding",
-)
-MAX_PREFERRED_TIME_LENGTH = 100
+# Conversation history sent to the agent for context. Bounded so a long thread
+# can not grow the prompt without limit.
 MAX_HISTORY_ENTRIES = 8
 
-# Fixed safety wording. The agent never authors this text, and the stop-work rule
-# below is deliberately present here as well as in the Runtime so neither a model
-# nor a knowledge base miss becomes a single point of failure.
-SAFETY_HOLD_TEXT = (
-    "這有觸電或火災風險，請先不要觸碰設備、插座或積水，也不要自行拆修。"
-    "若能在不接近危險處的前提下安全斷電才操作總開關；"
-    "持續冒煙、火花或有人受傷請立即聯絡 119／台電。"
-)
-SAFETY_SCREEN_QUESTION = (
-    "我需要先確認安全：是否有漏電、裸線、冒煙焦味，或大量積水接近插座？"
-)
-DISTRICT_QUESTION = (
-    "請告訴我服務地區（例如台北市內湖區），詳細門牌不需要在 AI 對話中提供。"
-)
-PREFERRED_TIME_QUESTION = "你希望廠商什麼日期與時段到場？例如明天下午兩點到五點。"
-OUT_OF_SCOPE_TEMPLATE = (
-    "目前示範的服務範圍只涵蓋台北市{districts}。"
-    "請改提供這些行政區之一，我才能幫你委派合格廠商。"
-)
 
-STAGE_LABELS = {
-    "collecting_details": "水電 Agent 正在確認需求",
-    "safety_hold": "偵測到高風險，請先確保人身安全",
-    "awaiting_resident_confirmation": "需求文件待住戶確認",
-    "waiting_provider_response": "已媒合廠商，等待回覆",
-    "waiting_resident_information": "廠商需要住戶補充資訊",
-    "rematching": "正在改派下一位廠商",
-    "provider_confirmed": "廠商已確認，可依約到場",
-}
+def default_flows() -> tuple[ServiceFlow, ...]:
+    """Service types this build can handle, in supervisor routing order."""
+
+    return (UtilityRepairFlow(), ProductPurchaseFlow())
 
 
 def _now() -> str:
@@ -128,60 +56,6 @@ def _now() -> str:
 
 def _id(prefix: str) -> str:
     return f"{prefix}_{uuid4().hex[:16]}"
-
-
-_TURN_GOALS_BY_STAGE = {
-    "collecting_details": "collect_missing_fields",
-    "awaiting_resident_confirmation": "confirm_brief",
-    "waiting_resident_information": "answer_provider_question",
-    "waiting_provider_response": "answer_progress_question",
-    "provider_confirmed": "answer_progress_question",
-    "rematching": "answer_progress_question",
-}
-
-
-PREFERENCE_PATCH_KEYS = (
-    "priceSensitivity",
-    "preferredContactTime",
-    "preferredVendorTags",
-    "blockedVendorIds",
-    "note",
-)
-
-
-def _price_score(
-    provider: dict[str, Any],
-    candidates: Sequence[dict[str, Any]],
-) -> float:
-    """1.0 for the cheapest entry cost among the candidates, 0.0 for the dearest."""
-
-    costs = [candidate["entryCost"] for candidate in candidates]
-    cheapest, dearest = min(costs), max(costs)
-    if dearest == cheapest:
-        return 1.0
-    return (dearest - provider["entryCost"]) / (dearest - cheapest)
-
-
-def _service_score(
-    provider: dict[str, Any],
-    candidates: Sequence[dict[str, Any]],
-) -> float:
-    """Response speed and rating, normalised across the candidates."""
-
-    hours = [candidate["responseSlaHours"] for candidate in candidates]
-    fastest, slowest = min(hours), max(hours)
-    speed = 1.0 if slowest == fastest else (slowest - provider["responseSlaHours"]) / (
-        slowest - fastest
-    )
-    return 0.6 * speed + 0.4 * (provider["rating"] / 5.0)
-
-
-def _preference_patch(value: Any) -> dict[str, Any]:
-    """Keep only allowlisted preference keys the agent may report."""
-
-    if not isinstance(value, dict):
-        return {}
-    return {key: value[key] for key in PREFERENCE_PATCH_KEYS if key in value}
 
 
 def _public_provider(provider: dict[str, Any]) -> dict[str, Any]:
@@ -199,6 +73,7 @@ class WalkingSkeletonService:
         self,
         store: InMemoryStore | None = None,
         orchestrator: SupervisorOrchestrator | None = None,
+        flows: Sequence[ServiceFlow] | None = None,
         member_memory: MemberMemoryStore | None = None,
     ) -> None:
         self.store = store or InMemoryStore()
@@ -206,6 +81,14 @@ class WalkingSkeletonService:
         # Defaults to off: a member the platform knows nothing about must get
         # exactly the previous turn-by-turn flow.
         self.member_memory = member_memory or NullMemberMemoryStore()
+        registered = tuple(default_flows() if flows is None else flows)
+        self.flows: dict[str, ServiceFlow] = {
+            flow.service_type: flow for flow in registered
+        }
+
+    # ------------------------------------------------------------------
+    # Resident conversation API
+    # ------------------------------------------------------------------
 
     def create_conversation(self, resident_id: str) -> dict[str, Any]:
         now = _now()
@@ -221,7 +104,7 @@ class WalkingSkeletonService:
         greeting = self._message(
             conversation_id,
             "assistant",
-            "您好！我是 OPEN POINT 智慧助理。你可以直接告訴我家中水電遇到什麼狀況，我會交給水電 Agent 一步一步確認。",
+            self._greeting(),
             agent="supervisor",
         )
         with self.store.lock:
@@ -249,9 +132,9 @@ class WalkingSkeletonService:
             memory = self.member_memory.load(resident_id)
             request_id = conversation.get("serviceRequestId")
             if not request_id:
-                result = self._start_utility_request(conversation, content, memory)
+                result = self._route_new_request(conversation, content, memory)
             else:
-                result = self._continue_utility_request(conversation, content, memory)
+                result = self._continue_request(conversation, content, memory)
             conversation["updatedAt"] = _now()
             return result
 
@@ -299,6 +182,31 @@ class WalkingSkeletonService:
                     )
             return {"items": reminders}
 
+    # ------------------------------------------------------------------
+    # Provider and admin API
+    # ------------------------------------------------------------------
+
+    def list_demo_providers(self) -> list[dict[str, Any]]:
+        """Every provider across registered flows, for demo role switching.
+
+        Non-sensitive by construction: it only surfaces identifiers and display
+        names that already exist in the public catalogue fixtures.
+        """
+
+        items: list[dict[str, Any]] = []
+        for flow in self.flows.values():
+            for provider in flow.list_providers():
+                items.append(
+                    {
+                        "providerId": provider["providerId"],
+                        "name": provider["name"],
+                        "serviceType": flow.service_type,
+                        "serviceName": flow.service_name,
+                    }
+                )
+        items.sort(key=lambda item: (item["serviceType"], item["name"]))
+        return items
+
     def list_provider_tasks(self, provider_id: str) -> dict[str, Any]:
         with self.store.lock:
             items = [
@@ -325,6 +233,7 @@ class WalkingSkeletonService:
                 raise NotFoundError("找不到廠商任務")
             if task["providerId"] != provider_id:
                 raise ForbiddenError()
+            flow = self._flow_for(self.store.service_requests[task["serviceRequestId"]])
         action = payload.get("action")
         if action not in {"accept", "decline", "needs_information"}:
             raise ValidationError("action 必須是 accept、decline 或 needs_information")
@@ -336,11 +245,11 @@ class WalkingSkeletonService:
             raise ValidationError("message 必須是 1000 字以內的文字")
         if action == "needs_information" and not (isinstance(message, str) and message.strip()):
             raise ValidationError("要求補件時 message 為必填")
-        arrival_window = str(payload.get("arrivalWindow") or "").strip()
-        if action == "accept" and not arrival_window:
+        if action == "accept":
             # Validate before entering the transaction so an invalid accept can
-            # never consume or version-bump the pending task.
-            raise ValidationError("廠商接受時 arrivalWindow 為必填")
+            # never consume or version-bump the pending task. Required accept
+            # fields differ per service type, so the flow owns this check.
+            flow.validate_accept(payload)
 
         operation = f"provider-response:{task_id}"
         return self.store.idempotent(
@@ -354,9 +263,72 @@ class WalkingSkeletonService:
                 action=action,
                 expected_version=expected_version,
                 message=(message or "").strip(),
-                arrival_window=arrival_window,
+                payload=payload,
             ),
         )
+
+    def select_option(
+        self,
+        *,
+        service_request_id: str,
+        resident_id: str,
+        payload: dict[str, Any],
+        idempotency_key: str,
+    ) -> dict[str, Any]:
+        """Record a resident's choice among candidates.
+
+        Only accepts the candidate identifier and an expected version. Any price
+        or shipping field a client sends is ignored: amounts are always
+        recomputed server-side by the flow.
+        """
+
+        with self.store.lock:
+            request = self._request_for_resident(service_request_id, resident_id)
+            flow = self._flow_for(request)
+            if not getattr(flow, "supports_selection", False):
+                raise ValidationError(
+                    f"{flow.service_name}不需要選擇選項，此端點不適用"
+                )
+
+        sku = payload.get("sku")
+        if not isinstance(sku, str) or not sku.strip():
+            raise ValidationError("sku 為必填文字")
+        expected_version = payload.get("expectedVersion")
+        if not isinstance(expected_version, int):
+            raise ValidationError("expectedVersion 必須是整數")
+
+        # Only the fields the server trusts enter the idempotency fingerprint.
+        fingerprint = {"sku": sku.strip(), "expectedVersion": expected_version}
+        return self.store.idempotent(
+            actor_id=resident_id,
+            operation=f"select-option:{service_request_id}",
+            key=idempotency_key,
+            payload=fingerprint,
+            command=lambda: self._apply_selection(
+                service_request_id=service_request_id,
+                resident_id=resident_id,
+                sku=sku.strip(),
+                expected_version=expected_version,
+            ),
+        )
+
+    def _apply_selection(
+        self,
+        *,
+        service_request_id: str,
+        resident_id: str,
+        sku: str,
+        expected_version: int,
+    ) -> dict[str, Any]:
+        with self.store.lock:
+            request = self._request_for_resident(service_request_id, resident_id)
+            flow = self._flow_for(request)
+            result = flow.select(
+                self, request, sku=sku, expected_version=expected_version
+            )
+            conversation = self.store.conversations[request["conversationId"]]
+            conversation["updatedAt"] = _now()
+            return result
 
     def simulate_timeout(
         self,
@@ -378,66 +350,167 @@ class WalkingSkeletonService:
             command=lambda: self._apply_timeout(task_id, admin_id, reason),
         )
 
-    def _agent_turn(
+    # ------------------------------------------------------------------
+    # Flow dispatch
+    # ------------------------------------------------------------------
+
+    def _flow_for_type(self, service_type: object) -> ServiceFlow | None:
+        if not isinstance(service_type, str):
+            return None
+        return self.flows.get(service_type)
+
+    def _flow_for(self, request: dict[str, Any]) -> ServiceFlow:
+        flow = self._flow_for_type(request.get("serviceType"))
+        if flow is None:
+            raise UnsupportedServiceTypeError(request.get("serviceType"))
+        return flow
+
+    def _route_new_request(
+        self,
+        conversation: dict[str, Any],
+        content: str,
+        memory: MemberMemory = EMPTY_MEMORY,
+    ) -> dict[str, Any]:
+        # `turn()` rather than `delegate()`: the Supervisor routes and the routed
+        # agent understands the same sentence in one Runtime call, so the fields
+        # a resident volunteered up front are not thrown away and asked again.
+        turn = self.orchestrator.turn(
+            AgentTurnRequest(
+                message=content,
+                turn_goal="route_new_request",
+                known_fields=dict(memory.to_known_fields()),
+                history=self.history(conversation["conversationId"]),
+                service_districts=tuple(DISTRICTS),
+            )
+        )
+        if turn.needs_clarification:
+            assistant = self.append_assistant(
+                conversation["conversationId"],
+                self._clarification_reply(turn.candidate_service_types),
+                agent="supervisor",
+            )
+            return self.turn_payload(
+                conversation,
+                assistant,
+                trace_agent="supervisor",
+                trace_target=None,
+                turn=turn,
+            )
+
+        flow = self._flow_for_type(turn.service_type)
+        if flow is None:
+            assistant = self.append_assistant(
+                conversation["conversationId"],
+                self._unsupported_reply(),
+                agent="supervisor",
+            )
+            return self.turn_payload(
+                conversation,
+                assistant,
+                trace_agent="supervisor",
+                trace_target=None,
+                turn=turn,
+            )
+
+        request_id = _id("sr")
+        now = _now()
+        request: dict[str, Any] = {
+            "serviceRequestId": request_id,
+            "conversationId": conversation["conversationId"],
+            "residentId": conversation["residentId"],
+            "serviceType": flow.service_type,
+            "candidateProviderIds": [],
+            "candidateIndex": -1,
+            "currentProviderId": None,
+            "currentTaskId": None,
+            "createdAt": now,
+            "updatedAt": now,
+        }
+        flow.init_request(request, content)
+        conversation["serviceRequestId"] = request_id
+        conversation["activeAgent"] = flow.agent_name
+        self.store.service_requests[request_id] = request
+        self.store.events[request_id] = []
+        return flow.start(self, conversation, request, turn=turn, memory=memory)
+
+    def _continue_request(
+        self,
+        conversation: dict[str, Any],
+        content: str,
+        memory: MemberMemory = EMPTY_MEMORY,
+    ) -> dict[str, Any]:
+        request = self.store.service_requests[conversation["serviceRequestId"]]
+        flow = self._flow_for(request)
+        stage = self.current_stage(request)
+        turn = self.agent_turn(
+            conversation,
+            content,
+            flow=flow,
+            request=request,
+            stage=stage,
+            memory=memory,
+        )
+        return flow.continue_turn(
+            self, conversation, request, content, turn=turn, memory=memory
+        )
+
+    # ------------------------------------------------------------------
+    # Model-backed turn seam
+    # ------------------------------------------------------------------
+
+    def agent_turn(
         self,
         conversation: dict[str, Any],
         content: str,
         *,
+        flow: ServiceFlow,
         request: dict[str, Any] | None,
         stage: str | None,
-        turn_goal: str,
         memory: MemberMemory = EMPTY_MEMORY,
-    ) -> AgentTurn:
+    ) -> AgentTurn | None:
         """Ask the routed domain agent to understand this turn.
 
-        Flask decides the goal and the ordered list of fields still missing, so the
-        stage machine stays deterministic while the agent handles the language.
-        Remembered values travel as PII-masked known fields so the agent confirms
-        instead of asking again.
+        Flask decides the goal and the ordered list of fields still missing, so
+        the stage machine stays deterministic while the agent handles language.
+        The field vocabulary comes from the flow, never from this module.
+
+        Returns None when the flow declares this stage model-free, so a stage that
+        must answer from fixed wording never spends a model call.
         """
 
+        turn_goal = flow.turn_goal(request, stage)
+        if turn_goal is None:
+            return None
         return self.orchestrator.turn(
             AgentTurnRequest(
                 message=content,
                 active_agent=conversation.get("activeAgent"),
                 workflow_stage=stage,
                 turn_goal=turn_goal,
-                known_fields={
-                    **self._known_fields(request),
-                    **memory.to_known_fields(),
-                },
-                missing_fields=self._missing_fields(request),
-                history=self._history(conversation["conversationId"]),
+                known_fields=flow.known_fields(request, memory),
+                missing_fields=flow.missing_fields(request),
+                history=self.history(conversation["conversationId"]),
                 service_districts=tuple(DISTRICTS),
             )
         )
 
-    @staticmethod
-    def _known_fields(request: dict[str, Any] | None) -> dict[str, Any]:
-        if not request:
-            return {}
-        return {
-            "issueType": request["issueType"],
-            "districtName": request["districtName"],
-            "preferredTime": request["preferredTime"],
-            "urgency": request["urgency"],
-            "riskScreened": request["riskScreened"],
-        }
+    def record_observed_preference(
+        self, request: dict[str, Any], patch: dict[str, Any] | None
+    ) -> None:
+        """Merge an observed long-term preference, field by field.
 
-    @staticmethod
-    def _missing_fields(request: dict[str, Any] | None) -> tuple[str, ...]:
-        if not request:
-            return ("riskScreening", "district", "preferredTime")
-        missing: list[str] = []
-        if not request["riskScreened"]:
-            missing.append("riskScreening")
-        if not request["districtName"]:
-            missing.append("district")
-        if not request["preferredTime"]:
-            missing.append("preferredTime")
-        return tuple(missing)
+        A merge rather than a row replace: one observed signal must not erase
+        preferences learned on earlier turns.
+        """
 
-    def _history(self, conversation_id: str) -> tuple[dict[str, str], ...]:
+        if not isinstance(patch, dict) or not patch:
+            return
+        self.member_memory.merge_preference(request["residentId"], patch)
+        self.event(request, "member_preference_updated", "已更新會員長期偏好")
+
+    def history(self, conversation_id: str) -> tuple[dict[str, str], ...]:
+        """Recent turns, oldest first, excluding the message being handled now."""
+
         # The resident message for this turn is already stored, so it is excluded
         # here and sent as the current message instead.
         messages = self.store.messages.get(conversation_id, [])[:-1]
@@ -449,417 +522,261 @@ class WalkingSkeletonService:
             for message in messages[-MAX_HISTORY_ENTRIES:]
         )
 
-    def _merge_agent_extraction(
-        self,
-        request: dict[str, Any],
-        turn: AgentTurn,
-    ) -> dict[str, Any]:
-        """Apply validated model output and report what needs a Flask answer.
-
-        Only allowlisted keys with contract-valid values are applied. Hazard flags
-        are unioned, never cleared, so a model can not undo a deterministic hit.
-        """
-
-        extracted = turn.extracted_fields or {}
-        notes: dict[str, Any] = {
-            "outOfScopeArea": None,
-            "riskScreenAnswered": extracted.get("riskScreenAnswered") is True,
-            "confirmsBrief": extracted.get("confirmsBrief") is True,
-            "observedPreference": _preference_patch(
-                extracted.get("observedPreference")
-            ),
-        }
-
-        issue_type = extracted.get("issueType")
-        if issue_type in ISSUE_TYPES:
-            request["issueType"] = issue_type
-
-        urgency = extracted.get("urgency")
-        if urgency in URGENCY_LEVELS:
-            request["urgency"] = urgency
-
-        preferred_time = extracted.get("preferredTime")
-        if isinstance(preferred_time, str) and preferred_time.strip():
-            request["preferredTime"] = preferred_time.strip()[
-                :MAX_PREFERRED_TIME_LENGTH
-            ]
-
-        district_name = extracted.get("districtName")
-        if isinstance(district_name, str) and district_name.strip():
-            candidate = district_name.strip()
-            codes = DISTRICTS.get(candidate)
-            if codes is None:
-                # The resident named an area, but it is outside the demo master
-                # data. Recording it would create an unmatchable case.
-                notes["outOfScopeArea"] = candidate[:40]
-            else:
-                request["countyCode"], request["districtCode"] = codes
-                request["districtName"] = candidate
-
-        hazard_flags = extracted.get("hazardFlags")
-        if isinstance(hazard_flags, dict) and all(
-            isinstance(hazard_flags.get(key), bool) for key in HAZARD_FLAG_KEYS
-        ):
-            for key in HAZARD_FLAG_KEYS:
-                request["hazardFlags"][key] = (
-                    request["hazardFlags"].get(key, False) or hazard_flags[key]
-                )
-
-        return notes
-
-    def _high_risk(self, content: str, turn: AgentTurn) -> bool:
-        """Union of the deterministic check and the agent assessment."""
-
-        return self._has_high_risk(content) or turn.risk_level == "high"
-
-    @staticmethod
-    def _out_of_scope_text() -> str:
-        return OUT_OF_SCOPE_TEMPLATE.format(districts="、".join(DISTRICTS))
-
-    def _apply_member_memory(
-        self,
-        request: dict[str, Any],
-        memory: MemberMemory,
-    ) -> None:
-        """Seed the case from memory, validating every remembered value.
-
-        Memory is a default, not an authority: a remembered district still has to
-        exist in the controlled district table before it is written, otherwise a
-        stale profile could create an unmatchable case.
-        """
-
-        address = memory.default_address
-        if address is not None and not request["districtName"]:
-            codes = DISTRICTS.get(address.district_name)
-            if codes is not None:
-                request["countyCode"], request["districtCode"] = codes
-                request["districtName"] = address.district_name
-                request["districtSource"] = "member_memory"
-
-        appliance = memory.appliance_for()
-        if appliance is not None and not request.get("rememberedAppliance"):
-            request["rememberedAppliance"] = appliance.describe()
-
-    def _record_observed_preference(
-        self,
-        request: dict[str, Any],
-        resident_id: str,
-        notes: dict[str, Any],
-    ) -> None:
-        patch = notes.get("observedPreference")
-        if not isinstance(patch, dict) or not patch:
-            return
-        self.member_memory.merge_preference(resident_id, patch)
-        self._event(request, "member_preference_updated", "已更新會員長期偏好")
-
-    def _start_utility_request(
-        self,
-        conversation: dict[str, Any],
-        content: str,
-        memory: MemberMemory = EMPTY_MEMORY,
-    ) -> dict[str, Any]:
-        turn = self._agent_turn(
-            conversation,
-            content,
-            request=None,
-            stage=None,
-            turn_goal="route_new_request",
-            memory=memory,
-        )
-        if turn.service_type != SERVICE_TYPE:
-            assistant = self._append_assistant(
-                conversation["conversationId"],
-                "這個 walking skeleton 目前先示範水電修繕。請描述漏水、排水、馬桶、熱水器或用電異常，我會交給水電 Agent。",
-                agent="supervisor",
-            )
-            return self._turn_payload(
-                conversation, assistant, trace_agent="supervisor", turn=turn
-            )
-
-        request_id = _id("sr")
-        now = _now()
-        request = {
-            "serviceRequestId": request_id,
-            "conversationId": conversation["conversationId"],
-            "residentId": conversation["residentId"],
-            "serviceType": SERVICE_TYPE,
-            "issueType": self._issue_type(content),
-            "symptoms": content,
-            "riskScreened": False,
-            "hazardFlags": self._hazard_flags(content),
-            "safetyHold": self._has_high_risk(content),
-            "countyCode": None,
-            "districtCode": None,
-            "districtName": None,
-            "preferredTime": None,
-            "urgency": "soon" if any(term in content for term in ("一直", "持續", "嚴重")) else "routine",
-            "candidateProviderIds": [],
-            "candidateIndex": -1,
-            "currentProviderId": None,
-            "currentTaskId": None,
-            "providerQuestion": None,
-            "providerAnswer": None,
-            "createdAt": now,
-            "updatedAt": now,
-        }
-        conversation["serviceRequestId"] = request_id
-        conversation["activeAgent"] = ACTIVE_AGENT
-        self.store.service_requests[request_id] = request
-        self.store.events[request_id] = []
-
-        notes = self._merge_agent_extraction(request, turn)
-        # Memory fills only what this turn did not already establish.
-        self._apply_member_memory(request, memory)
-        self._record_observed_preference(
-            request, conversation["residentId"], notes
-        )
-        request["safetyHold"] = self._high_risk(content, turn)
-
-        if request["safetyHold"]:
-            self._set_progress(request, "safety_hold", waiting_for="resident")
-            assistant_text = SAFETY_HOLD_TEXT
-        else:
-            self._set_progress(request, "collecting_details", waiting_for="resident")
-            if notes["outOfScopeArea"]:
-                assistant_text = f"{self._out_of_scope_text()}{SAFETY_SCREEN_QUESTION}"
-            elif turn.assistant_message:
-                assistant_text = turn.assistant_message
-            else:
-                assistant_text = (
-                    "我已交給水電 Agent。先確認用電安全：現場是否有漏電、裸線、冒煙焦味，"
-                    "或水已接近插座／形成大量積水？"
-                )
-
-        assistant = self._append_assistant(
-            conversation["conversationId"], assistant_text, agent=ACTIVE_AGENT
-        )
-        return self._turn_payload(
-            conversation, assistant, trace_agent="supervisor", turn=turn
+    def _greeting(self) -> str:
+        return (
+            "您好！我是 OPEN POINT 智慧助理。"
+            f"你可以直接告訴我{self._supported_hints()}，我會交給對應的 Agent 一步一步確認。"
         )
 
-    def _continue_utility_request(
-        self,
-        conversation: dict[str, Any],
-        content: str,
-        memory: MemberMemory = EMPTY_MEMORY,
-    ) -> dict[str, Any]:
-        request = self.store.service_requests[conversation["serviceRequestId"]]
-        stage = self.store.progress[request["serviceRequestId"]]["stage"]
-
-        if stage == "safety_hold":
-            assistant = self._append_assistant(
-                conversation["conversationId"],
-                "目前仍維持安全暫停，不會自動派工。請先遠離危險區並聯絡緊急單位；確認現場已由專業人員排除立即風險後，再重新建立一般修繕需求。",
-                agent=ACTIVE_AGENT,
-            )
-            return self._turn_payload(conversation, assistant)
-
-        turn_goal = _TURN_GOALS_BY_STAGE.get(stage, "collect_missing_fields")
-        if stage == "collecting_details" and not request["riskScreened"]:
-            turn_goal = "screen_safety"
-        turn = self._agent_turn(
-            conversation,
-            content,
-            request=request,
-            stage=stage,
-            turn_goal=turn_goal,
-            memory=memory,
+    def _unsupported_reply(self) -> str:
+        names = "、".join(flow.service_name for flow in self.flows.values())
+        return (
+            f"這個 walking skeleton 目前先示範{names or '尚未啟用的服務'}。"
+            f"請描述{self._supported_hints()}，我會交給對應的 Agent。"
         )
 
-        if stage == "waiting_resident_information":
-            request["providerAnswer"] = content
-            request["updatedAt"] = _now()
-            self._event(request, "resident_information_added", "住戶已補充廠商所需資訊")
-            task = self._create_provider_task(
-                request, request["currentProviderId"], reason="resident_information_added"
-            )
-            self._set_progress(request, "waiting_provider_response", waiting_for="provider")
-            assistant = self._append_assistant(
-                conversation["conversationId"],
-                "收到，我已把補充內容回傳給原廠商，現在等待廠商確認。你可以在「我的預約」查看最新進度。",
-                agent=ACTIVE_AGENT,
-            )
-            return self._turn_payload(
-                conversation, assistant, provider_task=task, turn=turn
-            )
+    def _clarification_reply(self, candidates: tuple[str, ...]) -> str:
+        """Ask which service the resident meant instead of guessing."""
 
-        if stage == "awaiting_resident_confirmation":
-            notes = self._merge_agent_extraction(request, turn)
-            if any(phrase in content for phrase in CONFIRM_PHRASES) or notes[
-                "confirmsBrief"
-            ]:
-                return self._confirm_and_match(
-                    conversation, request, turn=turn, memory=memory
-                )
-            self._apply_detail_extractors(request, content)
-            # Re-applied after the fixed patterns so a validated model value wins
-            # over a coarser regex hit on the same correction.
-            self._merge_agent_extraction(request, turn)
-            self._render_artifact(request, supersede=True)
-            assistant = self._append_assistant(
-                conversation["conversationId"],
-                "我已依你的修改產生新版需求文件。請確認內容，正確的話回覆「確認送出」。",
-                agent=ACTIVE_AGENT,
-            )
-            return self._turn_payload(
-                conversation,
-                assistant,
-                artifact=self.store.artifacts[request["serviceRequestId"]],
-                turn=turn,
-            )
-
-        if stage in {"waiting_provider_response", "provider_confirmed"}:
-            assistant = self._append_assistant(
-                conversation["conversationId"],
-                "案件已送出，你可以在「我的預約」查看媒合與廠商確認進度。若廠商需要補充，我會回到這個對話詢問你。",
-                agent=ACTIVE_AGENT,
-            )
-            return self._turn_payload(conversation, assistant, turn=turn)
-
-        # Deterministic extractors run first so the offline demo keeps working;
-        # validated model values then fill in what the fixed patterns miss.
-        self._apply_detail_extractors(request, content)
-        notes = self._merge_agent_extraction(request, turn)
-        self._apply_member_memory(request, memory)
-        self._record_observed_preference(
-            request, conversation["residentId"], notes
+        names = [
+            self.flows[service_type].service_name
+            for service_type in candidates
+            if service_type in self.flows
+        ]
+        options = "、".join(names) if names else "多個服務"
+        return (
+            f"你的描述同時可能是{options}，我不確定要幫你處理哪一種，"
+            "所以先不建立案件。請告訴我你想要的是哪一項，或用一句話說明目的。"
         )
-        scope_text = self._out_of_scope_text() if notes["outOfScopeArea"] else ""
-        model_wording_allowed = not scope_text
 
-        safety_hold_triggered = False
-        screened_this_turn = False
-        if not request["riskScreened"]:
-            # 「沒有漏電、冒煙或積水」是對整串風險的否定；先辨識這種
-            # 安全篩檢回答，避免只靠關鍵字把否定句誤判為高風險。
-            negated_screen_answer = self._is_risk_screen_answer(content) and not any(
-                conjunction in content
-                for conjunction in ("但是", "但有", "可是", "仍然")
-            )
-            # Only the negation heuristic may suppress a deterministic hit. The
-            # agent saying the resident answered is not permission to stand down.
-            deterministic_high = (
-                self._has_high_risk(content) and not negated_screen_answer
-            )
-            if deterministic_high or turn.risk_level == "high":
-                safety_hold_triggered = True
-                request["safetyHold"] = True
-                self._raise_hazard_flags(request, self._hazard_flags(content))
-                self._set_progress(request, "safety_hold", waiting_for="resident")
-            elif negated_screen_answer or notes["riskScreenAnswered"]:
-                request["riskScreened"] = True
-                screened_this_turn = True
+    def _supported_hints(self) -> str:
+        hints = [flow.routing_hint for flow in self.flows.values() if flow.routing_hint]
+        return "，或".join(hints) if hints else "你的需求"
 
-        # Safety is settled first, so a turn that supplies the last missing field
-        # can advance in the same turn instead of asking one question per field.
-        acknowledgement = "安全狀況了解。" if screened_this_turn else ""
-        if safety_hold_triggered:
-            assistant_text = SAFETY_HOLD_TEXT
-            model_wording_allowed = False
-        elif not request["riskScreened"]:
-            assistant_text = f"{scope_text}{SAFETY_SCREEN_QUESTION}"
-        elif not request["districtName"]:
-            assistant_text = f"{scope_text}{acknowledgement}{DISTRICT_QUESTION}"
-        elif not request["preferredTime"]:
-            assistant_text = f"{scope_text}{acknowledgement}{PREFERRED_TIME_QUESTION}"
-        else:
-            artifact = self._render_artifact(request)
-            self._set_progress(request, "awaiting_resident_confirmation", waiting_for="resident")
-            assistant_text = (
-                f"我已整理第 {artifact['version']} 版水電需求文件：{artifact['summary']}。"
-                "請確認內容，正確的話回覆「確認送出」；確認前不會委派廠商。"
-            )
-            # The document version and summary are facts Flask owns.
-            model_wording_allowed = False
+    # ------------------------------------------------------------------
+    # Seams used by flow implementations
+    # ------------------------------------------------------------------
 
-        if model_wording_allowed and turn.assistant_message:
-            assistant_text = turn.assistant_message
-
+    def touch(self, request: dict[str, Any]) -> None:
         request["updatedAt"] = _now()
-        assistant = self._append_assistant(
-            conversation["conversationId"], assistant_text, agent=ACTIVE_AGENT
-        )
-        return self._turn_payload(
-            conversation,
-            assistant,
-            artifact=self.store.artifacts.get(request["serviceRequestId"]),
-            turn=turn,
-        )
 
-    @staticmethod
-    def _raise_hazard_flags(
-        request: dict[str, Any], detected: dict[str, bool]
+    def current_stage(self, request: dict[str, Any]) -> str:
+        return self.store.progress[request["serviceRequestId"]]["stage"]
+
+    def current_artifact(self, request: dict[str, Any]) -> dict[str, Any] | None:
+        return self.store.artifacts.get(request["serviceRequestId"])
+
+    def set_progress(
+        self, request: dict[str, Any], stage: str, *, waiting_for: str | None
     ) -> None:
-        """Raise flags only. A hazard already recorded is never cleared."""
-
-        for key in HAZARD_FLAG_KEYS:
-            request["hazardFlags"][key] = (
-                request["hazardFlags"].get(key, False) or detected.get(key, False)
+        labels = self._flow_for(request).stage_labels
+        if stage not in labels:
+            raise UnsupportedServiceTypeError(
+                f"{request.get('serviceType')} has no label for stage {stage!r}"
             )
+        self.store.progress[request["serviceRequestId"]] = {
+            "serviceRequestId": request["serviceRequestId"],
+            "stage": stage,
+            "waitingFor": waiting_for,
+            "displayLabel": labels[stage],
+            "residentActionRequired": waiting_for == "resident",
+            "latestEventAt": _now(),
+        }
 
-    def _confirm_and_match(
-        self,
-        conversation: dict[str, Any],
-        request: dict[str, Any],
-        *,
-        turn: AgentTurn | None = None,
-        memory: MemberMemory = EMPTY_MEMORY,
+    def render_artifact(
+        self, request: dict[str, Any], *, supersede: bool = False
     ) -> dict[str, Any]:
+        flow = self._flow_for(request)
+        prior = self.store.artifacts.get(request["serviceRequestId"])
+        version = (
+            (prior["version"] + 1)
+            if prior and supersede
+            else (prior or {}).get("version", 1)
+        )
+        if prior and supersede:
+            prior["status"] = "superseded"
+        artifact = {
+            "artifactId": _id("artifact"),
+            "serviceRequestId": request["serviceRequestId"],
+            "serviceType": flow.service_type,
+            "schemaVersion": flow.schema_version,
+            "version": version,
+            "status": "draft",
+            "summary": flow.build_summary(request),
+            "canonical": flow.build_canonical(request),
+            "createdBy": flow.agent_name,
+            "createdAt": _now(),
+        }
+        self.store.artifacts[request["serviceRequestId"]] = artifact
+        versions = self.store.artifact_versions.setdefault(request["serviceRequestId"], [])
+        if not versions or versions[-1]["artifactId"] != artifact["artifactId"]:
+            versions.append(artifact)
+        return artifact
+
+    def confirm_artifact(self, request: dict[str, Any]) -> dict[str, Any]:
         artifact = self.store.artifacts[request["serviceRequestId"]]
         artifact["status"] = "confirmed"
         artifact["confirmedAt"] = _now()
-        preference = memory.preference
-        candidates = [
-            provider
-            for provider in DEMO_PROVIDERS
-            if request["districtName"] in provider["districts"]
-            and provider["providerId"] not in preference.blocked_vendor_ids
-        ]
-        if preference.is_unset:
-            candidates.sort(
-                key=lambda provider: (
-                    provider["responseSlaHours"],
-                    -provider["rating"],
-                    provider["providerId"],
-                )
-            )
-        else:
-            # A price-sensitive member gets the cheaper entry cost first; an
-            # insensitive one keeps the fastest, best-rated candidate first.
-            # Provider ID is the final tiebreak so the order stays reproducible.
-            sensitivity = preference.price_sensitivity
-            candidates.sort(
-                key=lambda provider: (
-                    -(
-                        sensitivity * _price_score(provider, candidates)
-                        + (1 - sensitivity) * _service_score(provider, candidates)
-                    ),
-                    provider["providerId"],
-                )
-            )
-            request["matchRuleVersion"] = "preference-weighted-1"
-            request["matchReason"] = (
-                "依會員價格敏感度排序"
-                if sensitivity >= 0.5
-                else "依回覆速度與評分排序"
-            )
-        if not candidates:
-            raise ConflictError("目前服務地區沒有符合硬條件的水電廠商")
+        return artifact
+
+    def dispatch_first_candidate(
+        self,
+        request: dict[str, Any],
+        candidates: Sequence[dict[str, Any]],
+        *,
+        reason: str,
+        event_type: str,
+        event_label: str,
+    ) -> dict[str, Any]:
         request["candidateProviderIds"] = [p["providerId"] for p in candidates]
         request["candidateIndex"] = 0
         request["currentProviderId"] = candidates[0]["providerId"]
-        request["updatedAt"] = _now()
-        task = self._create_provider_task(request, request["currentProviderId"], reason="initial_match")
-        self._event(request, "provider_matched", "已依地區與回覆 SLA 委派第一順位廠商")
-        self._set_progress(request, "waiting_provider_response", waiting_for="provider")
-        assistant = self._append_assistant(
-            conversation["conversationId"],
-            f"需求文件已確認。我已依服務地區與回覆速度委派 {task['provider']['name']}，現在等待廠商回覆；目前不需要你操作。",
-            agent=ACTIVE_AGENT,
+        self.touch(request)
+        task = self._create_provider_task(
+            request, request["currentProviderId"], reason=reason
         )
-        return self._turn_payload(
-            conversation, assistant, artifact=artifact, provider_task=task, turn=turn
+        self.event(request, event_type, event_label)
+        self.set_progress(request, "waiting_provider_response", waiting_for="provider")
+        return task
+
+    def accept_resident_information(
+        self,
+        conversation: dict[str, Any],
+        request: dict[str, Any],
+        content: str,
+        *,
+        agent: str,
+        reply: str,
+        turn: AgentTurn | None = None,
+    ) -> dict[str, Any]:
+        request["providerAnswer"] = content
+        self.touch(request)
+        self.event(request, "resident_information_added", "住戶已補充廠商所需資訊")
+        task = self._create_provider_task(
+            request, request["currentProviderId"], reason="resident_information_added"
         )
+        self.set_progress(request, "waiting_provider_response", waiting_for="provider")
+        assistant = self.append_assistant(
+            conversation["conversationId"], reply, agent=agent
+        )
+        return self.turn_payload(
+            conversation, assistant, provider_task=task, turn=turn
+        )
+
+    def event(self, request: dict[str, Any], event_type: str, label: str) -> None:
+        self.store.events.setdefault(request["serviceRequestId"], []).append(
+            {"eventType": event_type, "label": label, "at": _now()}
+        )
+
+    def append_assistant(
+        self,
+        conversation_id: str,
+        content: str,
+        *,
+        agent: str,
+        kind: str = "message",
+    ) -> dict[str, Any]:
+        message = self._message(
+            conversation_id, "assistant", content, agent=agent, kind=kind
+        )
+        self.store.messages[conversation_id].append(message)
+        return message
+
+    def turn_payload(
+        self,
+        conversation: dict[str, Any],
+        assistant: dict[str, Any],
+        *,
+        trace_agent: str | None = None,
+        trace_target: str | None = "",
+        artifact: dict[str, Any] | None = None,
+        provider_task: dict[str, Any] | None = None,
+        turn: AgentTurn | None = None,
+    ) -> dict[str, Any]:
+        request_id = conversation.get("serviceRequestId")
+        active_agent = conversation.get("activeAgent")
+        agent = trace_agent or active_agent or "supervisor"
+        # `trace_target` defaults to the sentinel "" so callers can pass None to
+        # mean "nothing was delegated" without it being confused with "unset".
+        target = active_agent if trace_target == "" else trace_target
+        result: dict[str, Any] = {
+            "conversationId": conversation["conversationId"],
+            "orchestrationMode": self.orchestrator.mode,
+            "activeAgent": active_agent,
+            "assistantMessage": assistant,
+            "trace": [
+                {
+                    "agent": agent,
+                    "action": "delegate" if agent == "supervisor" else "continue_turn",
+                    "target": target if agent == "supervisor" else None,
+                    # Why the Supervisor picked this target. Without it a keyword
+                    # hit and a model classification look identical, so there is
+                    # no way to show that routing is actually reasoning.
+                    "reasonCode": turn.reason_code if turn else None,
+                    "at": _now(),
+                }
+            ],
+            # Reported so the UI and the demo can tell a real model turn from an
+            # honest deterministic fallback instead of guessing.
+            "reasoning": {
+                "mode": turn.reasoning_mode if turn else "rule-fallback",
+                "modelId": turn.model_id if turn else None,
+                "knowledgeBaseQueried": bool(turn and turn.knowledge_base_queried),
+                # Surfaced so a resident can see the platform declined to answer a
+                # live question from static knowledge, rather than that being silent.
+                "liveValueTopics": list(turn.live_value_topics if turn else ()),
+                "suppressedKnowledge": [
+                    dict(record)
+                    for record in (turn.suppressed_knowledge if turn else ())
+                ],
+            },
+            "knowledge": [
+                dict(reference) for reference in (turn.knowledge if turn else ())
+            ],
+        }
+        if request_id:
+            request = self.store.service_requests[request_id]
+            result["serviceRequest"] = self._service_request_projection(request)
+            result["progress"] = self._progress_projection(request)
+        if artifact:
+            result["artifact"] = artifact
+        if provider_task:
+            result["providerTask"] = provider_task
+        return result
+
+    def _apply_accept(
+        self,
+        flow: ServiceFlow,
+        request: dict[str, Any],
+        provider: dict[str, Any],
+        payload: dict[str, Any],
+    ) -> str:
+        """Call `apply_accept`, passing the service only to flows that want it.
+
+        Flows needing a guarded state transition (product orders) accept an extra
+        `svc` keyword; simpler flows keep the three-argument signature.
+        """
+
+        if getattr(flow, "accept_needs_service", False):
+            return flow.apply_accept(request, provider, payload, svc=self)
+        return flow.apply_accept(request, provider, payload)
+
+    def provider_of(self, request: dict[str, Any], provider_id: str) -> dict[str, Any]:
+        provider = next(
+            (
+                item
+                for item in self._flow_for(request).list_providers()
+                if item["providerId"] == provider_id
+            ),
+            None,
+        )
+        if not provider:
+            raise NotFoundError("找不到廠商")
+        return provider
+
+    # ------------------------------------------------------------------
+    # Shared provider lifecycle
+    # ------------------------------------------------------------------
 
     def _apply_provider_response(
         self,
@@ -869,7 +786,7 @@ class WalkingSkeletonService:
         action: str,
         expected_version: int,
         message: str,
-        arrival_window: str,
+        payload: dict[str, Any],
     ) -> dict[str, Any]:
         with self.store.lock:
             task = self.store.tasks.get(task_id)
@@ -882,6 +799,7 @@ class WalkingSkeletonService:
             if task["version"] != expected_version:
                 raise ConflictError("任務版本已更新，請重新整理")
             request = self.store.service_requests[task["serviceRequestId"]]
+            flow = self._flow_for(request)
             task["status"] = action
             task["version"] += 1
             task["message"] = message
@@ -889,12 +807,14 @@ class WalkingSkeletonService:
 
             if action == "needs_information":
                 request["providerQuestion"] = message
-                self._event(request, "provider_needs_information", "廠商已提出補充問題")
-                self._set_progress(request, "waiting_resident_information", waiting_for="resident")
-                assistant = self._append_assistant(
+                self.event(request, "provider_needs_information", "廠商已提出補充問題")
+                self.set_progress(
+                    request, "waiting_resident_information", waiting_for="resident"
+                )
+                assistant = self.append_assistant(
                     request["conversationId"],
                     f"廠商想再確認一件事：{message}",
-                    agent=ACTIVE_AGENT,
+                    agent=flow.agent_name,
                 )
                 return {
                     "serviceRequestId": request["serviceRequestId"],
@@ -903,22 +823,19 @@ class WalkingSkeletonService:
                 }
 
             if action == "decline":
-                self._event(request, "provider_declined", message or "廠商婉拒")
+                self.event(request, "provider_declined", message or "廠商婉拒")
                 return self._rematch(request, reason="provider_declined")
 
-            provider = self._provider(provider_id)
-            request["confirmedArrivalWindow"] = arrival_window
-            request["providerConfirmationMessage"] = message
-            request["updatedAt"] = _now()
-            self._event(request, "provider_confirmed", "廠商已確認到場時段")
-            self._set_progress(request, "provider_confirmed", waiting_for=None)
-            final_content = (
-                f"{provider['name']} 已在平台內確認可於 {arrival_window} 到場。"
-                f"注意事項：{message or '到場後先勘查，確認範圍與費用後才施工。'}"
-                "這是 Demo 的平台內確認，不代表外部付款或不可逆交易已完成。"
-            )
-            assistant = self._append_assistant(
-                request["conversationId"], final_content, agent=ACTIVE_AGENT, kind="final"
+            provider = self.provider_of(request, provider_id)
+            final_content = self._apply_accept(flow, request, provider, payload)
+            self.touch(request)
+            self.event(request, "provider_confirmed", "廠商已確認到場時段")
+            self.set_progress(request, "provider_confirmed", waiting_for=None)
+            assistant = self.append_assistant(
+                request["conversationId"],
+                final_content,
+                agent=flow.agent_name,
+                kind="final",
             )
             return {
                 "serviceRequestId": request["serviceRequestId"],
@@ -938,7 +855,7 @@ class WalkingSkeletonService:
             task["version"] += 1
             task["completedAt"] = _now()
             request = self.store.service_requests[task["serviceRequestId"]]
-            self._event(
+            self.event(
                 request,
                 "admin_simulated_timeout",
                 f"ADMIN {admin_id} 模擬逾時：{reason}",
@@ -948,14 +865,14 @@ class WalkingSkeletonService:
     def _rematch(self, request: dict[str, Any], reason: str) -> dict[str, Any]:
         request["candidateIndex"] += 1
         if request["candidateIndex"] >= len(request["candidateProviderIds"]):
-            self._set_progress(request, "rematching", waiting_for="admin")
+            self.set_progress(request, "rematching", waiting_for="admin")
             raise ConflictError("候選廠商已用完，需要管理員人工處理")
         provider_id = request["candidateProviderIds"][request["candidateIndex"]]
         request["currentProviderId"] = provider_id
-        request["updatedAt"] = _now()
+        self.touch(request)
         task = self._create_provider_task(request, provider_id, reason=reason)
-        self._event(request, "provider_rematched", "已依原排序改派下一位廠商")
-        self._set_progress(request, "waiting_provider_response", waiting_for="provider")
+        self.event(request, "provider_rematched", "已依原排序改派下一位廠商")
+        self.set_progress(request, "waiting_provider_response", waiting_for="provider")
         return {
             "serviceRequestId": request["serviceRequestId"],
             "progress": self._progress_projection(request),
@@ -965,7 +882,7 @@ class WalkingSkeletonService:
     def _create_provider_task(
         self, request: dict[str, Any], provider_id: str, *, reason: str
     ) -> dict[str, Any]:
-        provider = self._provider(provider_id)
+        self.provider_of(request, provider_id)
         task_id = _id("task")
         task = {
             "taskId": task_id,
@@ -981,6 +898,18 @@ class WalkingSkeletonService:
         request["currentTaskId"] = task_id
         return self._task_projection(task)
 
+    # ------------------------------------------------------------------
+    # Projections
+    # ------------------------------------------------------------------
+
+    # Public aliases so flow implementations can build responses without
+    # reaching into private methods.
+    def progress_projection(self, request: dict[str, Any]) -> dict[str, Any]:
+        return self._progress_projection(request)
+
+    def service_request_projection(self, request: dict[str, Any]) -> dict[str, Any]:
+        return self._service_request_projection(request)
+
     def _task_projection(self, task: dict[str, Any]) -> dict[str, Any]:
         request = self.store.service_requests[task["serviceRequestId"]]
         artifact = self.store.artifacts.get(request["serviceRequestId"])
@@ -990,7 +919,9 @@ class WalkingSkeletonService:
             "status": task["status"],
             "version": task["version"],
             "createdAt": task["createdAt"],
-            "provider": _public_provider(self._provider(task["providerId"])),
+            "provider": _public_provider(
+                self.provider_of(request, task["providerId"])
+            ),
             "brief": (
                 {
                     "version": artifact["version"],
@@ -1003,100 +934,11 @@ class WalkingSkeletonService:
             "residentInformation": request.get("providerAnswer"),
         }
 
-    def _render_artifact(
-        self, request: dict[str, Any], *, supersede: bool = False
-    ) -> dict[str, Any]:
-        prior = self.store.artifacts.get(request["serviceRequestId"])
-        version = (prior["version"] + 1) if prior and supersede else (prior or {}).get("version", 1)
-        if prior and supersede:
-            prior["status"] = "superseded"
-        summary = (
-            f"{request['districtName']}｜{request['symptoms']}｜"
-            f"希望時段：{request['preferredTime']}｜風險篩檢：未發現立即危險"
-        )
-        artifact = {
-            "artifactId": _id("artifact"),
-            "serviceRequestId": request["serviceRequestId"],
-            "serviceType": SERVICE_TYPE,
-            "schemaVersion": "1.0.0",
-            "version": version,
-            "status": "draft",
-            "summary": summary,
-            "canonical": {
-                "issueType": request["issueType"],
-                "symptoms": request["symptoms"],
-                "location": {
-                    "countyCode": request["countyCode"],
-                    "districtCode": request["districtCode"],
-                    "districtName": request["districtName"],
-                },
-                "urgency": request["urgency"],
-                "hazardFlags": dict(request["hazardFlags"]),
-                "preferredTime": request["preferredTime"],
-            },
-            "createdBy": ACTIVE_AGENT,
-            "createdAt": _now(),
-        }
-        self.store.artifacts[request["serviceRequestId"]] = artifact
-        versions = self.store.artifact_versions.setdefault(request["serviceRequestId"], [])
-        if not versions or versions[-1]["artifactId"] != artifact["artifactId"]:
-            versions.append(artifact)
-        return artifact
-
-    def _turn_payload(
-        self,
-        conversation: dict[str, Any],
-        assistant: dict[str, Any],
-        *,
-        trace_agent: str = ACTIVE_AGENT,
-        artifact: dict[str, Any] | None = None,
-        provider_task: dict[str, Any] | None = None,
-        turn: AgentTurn | None = None,
-    ) -> dict[str, Any]:
-        request_id = conversation.get("serviceRequestId")
-        result: dict[str, Any] = {
-            "conversationId": conversation["conversationId"],
-            "orchestrationMode": self.orchestrator.mode,
-            "activeAgent": conversation.get("activeAgent"),
-            "assistantMessage": assistant,
-            "trace": [
-                {
-                    "agent": trace_agent,
-                    "action": "delegate" if trace_agent == "supervisor" else "continue_turn",
-                    "target": ACTIVE_AGENT if trace_agent == "supervisor" else None,
-                    "at": _now(),
-                }
-            ],
-            # Reported so the UI and the demo can tell a real model turn from an
-            # honest deterministic fallback instead of guessing.
-            "reasoning": {
-                "mode": turn.reasoning_mode if turn else "rule-fallback",
-                "modelId": turn.model_id if turn else None,
-                "knowledgeBaseQueried": bool(turn and turn.knowledge_base_queried),
-                # Surfaced so a resident can see the platform declined to answer a
-                # live question from static knowledge, rather than that being silent.
-                "liveValueTopics": list(turn.live_value_topics if turn else ()),
-                "suppressedKnowledge": [
-                    dict(record)
-                    for record in (turn.suppressed_knowledge if turn else ())
-                ],
-            },
-            "knowledge": [dict(reference) for reference in (turn.knowledge if turn else ())],
-        }
-        if request_id:
-            request = self.store.service_requests[request_id]
-            result["serviceRequest"] = self._service_request_projection(request)
-            result["progress"] = self._progress_projection(request)
-        if artifact:
-            result["artifact"] = artifact
-        if provider_task:
-            result["providerTask"] = provider_task
-        return result
-
     def _service_request_projection(self, request: dict[str, Any]) -> dict[str, Any]:
+        flow = self._flow_for(request)
         artifact = self.store.artifacts.get(request["serviceRequestId"])
         provider = (
-            _public_provider(self._provider(request["currentProviderId"]))
+            _public_provider(self.provider_of(request, request["currentProviderId"]))
             if request.get("currentProviderId")
             else None
         )
@@ -1104,16 +946,15 @@ class WalkingSkeletonService:
             "serviceRequestId": request["serviceRequestId"],
             "conversationId": request["conversationId"],
             "serviceType": request["serviceType"],
-            "serviceName": "水電修繕",
-            "issueType": request["issueType"],
-            "summary": artifact["summary"] if artifact else request["symptoms"],
-            "districtName": request["districtName"],
-            "preferredTime": request["preferredTime"],
-            "safetyHold": request["safetyHold"],
+            "serviceName": flow.service_name,
+            "summary": (
+                artifact["summary"] if artifact else flow.fallback_summary(request)
+            ),
             "provider": provider,
             "progress": self._progress_projection(request),
             "createdAt": request["createdAt"],
             "updatedAt": request["updatedAt"],
+            **flow.projection_fields(request),
         }
 
     def _progress_projection(self, request: dict[str, Any]) -> dict[str, Any]:
@@ -1123,29 +964,15 @@ class WalkingSkeletonService:
             **progress,
             "events": list(events[-8:]),
             "currentProvider": (
-                _public_provider(self._provider(request["currentProviderId"]))
+                _public_provider(self.provider_of(request, request["currentProviderId"]))
                 if request.get("currentProviderId")
                 else None
             ),
         }
 
-    def _set_progress(
-        self, request: dict[str, Any], stage: str, *, waiting_for: str | None
-    ) -> None:
-        now = _now()
-        self.store.progress[request["serviceRequestId"]] = {
-            "serviceRequestId": request["serviceRequestId"],
-            "stage": stage,
-            "waitingFor": waiting_for,
-            "displayLabel": STAGE_LABELS[stage],
-            "residentActionRequired": waiting_for == "resident",
-            "latestEventAt": now,
-        }
-
-    def _event(self, request: dict[str, Any], event_type: str, label: str) -> None:
-        self.store.events.setdefault(request["serviceRequestId"], []).append(
-            {"eventType": event_type, "label": label, "at": _now()}
-        )
+    # ------------------------------------------------------------------
+    # Authorization helpers
+    # ------------------------------------------------------------------
 
     def _conversation_for_resident(
         self, conversation_id: str, resident_id: str
@@ -1185,88 +1012,3 @@ class WalkingSkeletonService:
             "kind": kind,
             "createdAt": _now(),
         }
-
-    def _append_assistant(
-        self,
-        conversation_id: str,
-        content: str,
-        *,
-        agent: str,
-        kind: str = "message",
-    ) -> dict[str, Any]:
-        message = self._message(
-            conversation_id, "assistant", content, agent=agent, kind=kind
-        )
-        self.store.messages[conversation_id].append(message)
-        return message
-
-    @staticmethod
-    def _provider(provider_id: str) -> dict[str, Any]:
-        provider = next(
-            (item for item in DEMO_PROVIDERS if item["providerId"] == provider_id),
-            None,
-        )
-        if not provider:
-            raise NotFoundError("找不到廠商")
-        return provider
-
-    @staticmethod
-    def _issue_type(content: str) -> str:
-        if any(term in content for term in ("插座", "跳電", "電線", "漏電", "火花")):
-            return "electrical"
-        if "馬桶" in content:
-            return "toilet"
-        if any(term in content for term in ("排水", "堵塞")):
-            return "drain"
-        if "熱水器" in content:
-            return "water_heater"
-        if any(term in content for term in ("漏水", "水管", "水龍頭")):
-            return "leak"
-        return "other"
-
-    @staticmethod
-    def _has_high_risk(content: str) -> bool:
-        cleaned = content
-        for phrase in NEGATED_RISK_PHRASES:
-            cleaned = cleaned.replace(phrase, "")
-        return any(term in cleaned for term in HIGH_RISK_TERMS)
-
-    @staticmethod
-    def _hazard_flags(content: str) -> dict[str, bool]:
-        high_risk = WalkingSkeletonService._has_high_risk(content)
-        return {
-            "electricShockRisk": high_risk and any(term in content for term in ("觸電", "漏電", "火花")),
-            "exposedWires": high_risk and "裸線" in content,
-            "smokeOrBurningSmell": high_risk and any(term in content for term in ("冒煙", "焦味")),
-            "activeFlooding": high_risk and any(term in content for term in ("大量積水", "淹水")),
-        }
-
-    @staticmethod
-    def _is_risk_screen_answer(content: str) -> bool:
-        return any(
-            phrase in content
-            for phrase in (
-                "沒有",
-                "都沒有",
-                "無異常",
-                "水量不大",
-                "沒有危險",
-                "已確認安全",
-            )
-        )
-
-    def _apply_detail_extractors(self, request: dict[str, Any], content: str) -> None:
-        for district_name, codes in DISTRICTS.items():
-            if district_name in content:
-                request["countyCode"], request["districtCode"] = codes
-                request["districtName"] = district_name
-                break
-        time_match = re.search(
-            r"((?:今天|明天|後天|週[一二三四五六日天]|\d{1,2}[/-]\d{1,2})[^。！？]{0,20}(?:上午|下午|晚上|早上|中午)[^。！？]{0,20})",
-            content,
-        )
-        if time_match:
-            request["preferredTime"] = time_match.group(1).strip()
-        elif any(term in content for term in ("上午", "下午", "晚上", "早上")):
-            request["preferredTime"] = content
-        request["updatedAt"] = _now()

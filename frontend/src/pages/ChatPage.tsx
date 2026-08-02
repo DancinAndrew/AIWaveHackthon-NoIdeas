@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-import { apiClient } from "../api/client";
+import { ApiError, apiClient } from "../api/client";
 import type {
   ApiMessage,
+  ProductCandidate,
   ServiceRequestArtifact,
+  ServiceRequestProjection,
   WorkflowProgress,
 } from "../api/types";
+import { formatTwd, orderStatusLabel } from "../api/viewModels";
 import "./ChatPage.css";
 
 
@@ -27,6 +30,16 @@ const WELCOME_MESSAGE: Message = {
   timestamp: new Date(),
   agent: "supervisor",
 };
+
+const AGENT_LABELS: Record<string, string> = {
+  utility_repair_agent: "水電 Agent",
+  product_agent: "商品 Agent",
+  supervisor: "智慧助理",
+};
+
+function agentLabel(agent: string): string {
+  return AGENT_LABELS[agent] ?? "智慧助理";
+}
 
 function toMessage(message: ApiMessage): Message {
   return {
@@ -49,6 +62,10 @@ export default function ChatPage() {
   const [conversationId, setConversationId] = useState<string | null>(null);
   const [serviceRequestId, setServiceRequestId] = useState<string | null>(null);
   const [progress, setProgress] = useState<WorkflowProgress | null>(null);
+  const [serviceRequest, setServiceRequest] =
+    useState<ServiceRequestProjection | null>(null);
+  const [selectingSku, setSelectingSku] = useState<string | null>(null);
+  const [selectionError, setSelectionError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const seenServerMessageIds = useRef(new Set<string>());
 
@@ -60,21 +77,10 @@ export default function ChatPage() {
       : searchParams.get("conversation") ??
         window.localStorage.getItem("aiwave-conversation-id");
     try {
-      if (requestedConversation) {
-        const history = await apiClient.listMessages(requestedConversation);
-        history.items.forEach((message) =>
-          seenServerMessageIds.current.add(message.messageId),
-        );
-        setMessages(history.items.map(toMessage));
-        setConversationId(requestedConversation);
-        const requests = await apiClient.listServiceRequests();
-        const activeRequest = requests.items.find(
-          (item) => item.conversationId === requestedConversation,
-        );
-        if (activeRequest) {
-          setServiceRequestId(activeRequest.serviceRequestId);
-          setProgress(activeRequest.progress);
-        }
+      // Resuming is best-effort. A stored conversation disappears whenever the
+      // backend restarts in in-memory mode, and that is not a connection
+      // problem, so it must not surface as one.
+      if (requestedConversation && (await tryResume(requestedConversation))) {
         return;
       }
       const created = await apiClient.createConversation();
@@ -93,6 +99,35 @@ export default function ChatPage() {
     }
   };
 
+  /** Returns false when the conversation is gone and a new one should start. */
+  const tryResume = async (conversation: string): Promise<boolean> => {
+    try {
+      const history = await apiClient.listMessages(conversation);
+      history.items.forEach((message) =>
+        seenServerMessageIds.current.add(message.messageId),
+      );
+      setMessages(history.items.map(toMessage));
+      setConversationId(conversation);
+      const requests = await apiClient.listServiceRequests();
+      const activeRequest = requests.items.find(
+        (item) => item.conversationId === conversation,
+      );
+      if (activeRequest) {
+        setServiceRequestId(activeRequest.serviceRequestId);
+        setProgress(activeRequest.progress);
+        setServiceRequest(activeRequest);
+      }
+      return true;
+    } catch (error) {
+      const status = error instanceof ApiError ? error.status : 0;
+      if (status === 404 || status === 403) {
+        window.localStorage.removeItem("aiwave-conversation-id");
+        return false;
+      }
+      throw error;
+    }
+  };
+
   // Past conversations stay reachable from 我的預約, so starting a new one only
   // needs to drop the local pointers to the previous conversation.
   const startNewConversation = async () => {
@@ -103,6 +138,8 @@ export default function ChatPage() {
     setConversationId(null);
     setServiceRequestId(null);
     setProgress(null);
+    setServiceRequest(null);
+    setSelectionError(null);
     window.localStorage.removeItem("aiwave-conversation-id");
     if (searchParams.has("conversation")) {
       const nextParams = new URLSearchParams(searchParams);
@@ -142,6 +179,13 @@ export default function ChatPage() {
         if (serviceRequestId) {
           const latestProgress = await apiClient.getProgress(serviceRequestId);
           if (!cancelled) setProgress(latestProgress);
+          // The candidate list and order status live on the projection, so it
+          // has to be refreshed too for the cards to stay in sync.
+          const requests = await apiClient.listServiceRequests();
+          const latest = requests.items.find(
+            (item) => item.serviceRequestId === serviceRequestId,
+          );
+          if (!cancelled && latest) setServiceRequest(latest);
         }
       } catch {
         // Polling is read-only and best-effort; the next cycle retries.
@@ -176,8 +220,10 @@ export default function ChatPage() {
         artifact: turn.artifact,
       };
       setMessages((current) => [...current, assistantMessage]);
+      setSelectionError(null);
       if (turn.serviceRequest) {
         setServiceRequestId(turn.serviceRequest.serviceRequestId);
+        setServiceRequest(turn.serviceRequest);
       }
       if (turn.progress) setProgress(turn.progress);
     } catch {
@@ -202,6 +248,47 @@ export default function ChatPage() {
       void sendMessage();
     }
   };
+
+  /**
+   * Sends only the SKU and the candidate list version. Amounts shown on the
+   * card come from the backend and are never echoed back, so the server stays
+   * the only source of pricing.
+   */
+  const selectCandidate = async (candidate: ProductCandidate) => {
+    if (!serviceRequestId || !serviceRequest || selectingSku) return;
+    setSelectingSku(candidate.sku);
+    setSelectionError(null);
+    try {
+      const result = await apiClient.selectProduct(
+        serviceRequestId,
+        candidate.sku,
+        serviceRequest.candidatesVersion ?? 1,
+      );
+      seenServerMessageIds.current.add(result.assistantMessage.messageId);
+      setMessages((current) => [
+        ...current,
+        { ...toMessage(result.assistantMessage), artifact: result.artifact },
+      ]);
+      setProgress(result.progress);
+      setServiceRequest(result.serviceRequest);
+    } catch (error) {
+      const conflict = error instanceof ApiError && error.status === 409;
+      setSelectionError(
+        conflict
+          ? "候選清單已更新，請往下看最新的商品清單再選擇。"
+          : error instanceof ApiError
+            ? error.message
+            : "選擇失敗，請再試一次。",
+      );
+    } finally {
+      setSelectingSku(null);
+    }
+  };
+
+  const candidates = serviceRequest?.candidates ?? [];
+  const showCandidates =
+    progress?.stage === "awaiting_resident_selection" && candidates.length > 0;
+  const orderLabel = orderStatusLabel(serviceRequest?.orderStatus);
 
   return (
     <div className="phone-frame">
@@ -230,6 +317,11 @@ export default function ChatPage() {
           >
             <span className="workflow-dot" />
             <span>{progress.displayLabel}</span>
+            {orderLabel && (
+              <span className="order-chip">
+                {serviceRequest?.orderNo} · {orderLabel}
+              </span>
+            )}
             <span className="workflow-link">查看進度 ›</span>
           </button>
         )}
@@ -249,17 +341,15 @@ export default function ChatPage() {
               )}
               <div className={`bubble ${message.role}`}>
                 {message.role === "assistant" && message.agent && (
-                  <span className="agent-label">
-                    {message.agent === "utility_repair_agent"
-                      ? "水電 Agent"
-                      : "智慧助理"}
-                  </span>
+                  <span className="agent-label">{agentLabel(message.agent)}</span>
                 )}
                 <p>{message.content}</p>
                 {message.artifact && (
                   <div className="artifact-preview">
                     <div className="artifact-title">
-                      📄 水電需求文件 v{message.artifact.version}
+                      {message.artifact.serviceType === "product_purchase"
+                        ? `🧾 訂單摘要 v${message.artifact.version}`
+                        : `📄 水電需求文件 v${message.artifact.version}`}
                     </div>
                     <div className="artifact-summary">
                       {message.artifact.summary}
@@ -292,6 +382,111 @@ export default function ChatPage() {
                 <span className="dot" />
                 <span className="dot" />
               </div>
+            </div>
+          )}
+
+          {showCandidates && (
+            <div className="candidate-list">
+              {selectionError && (
+                <div className="candidate-error">{selectionError}</div>
+              )}
+              {candidates.map((candidate, index) => (
+                <article className="candidate-card" key={candidate.sku}>
+                  <header className="candidate-head">
+                    <span className="candidate-rank">{index + 1}</span>
+                    <div className="candidate-title">
+                      <span className="candidate-name">{candidate.name}</span>
+                      <span className="candidate-meta">
+                        {candidate.brand} · 評分 {candidate.rating} ·{" "}
+                        {candidate.supplierName}
+                      </span>
+                    </div>
+                    {candidate.promotionApplied && candidate.promotionLabel && (
+                      <span className="candidate-promo">
+                        {candidate.promotionLabel}
+                      </span>
+                    )}
+                  </header>
+
+                  <dl className="candidate-specs">
+                    {Object.entries(candidate.specs).map(([name, value]) => (
+                      <div className="candidate-spec" key={name}>
+                        <dt>{name}</dt>
+                        <dd>{value}</dd>
+                      </div>
+                    ))}
+                  </dl>
+
+                  {/* Rows are ordered so they visibly add up:
+                      定價 − 折扣 = 小計, 小計 + 運費 = 實付. The base row is the
+                      catalogue list price, not the already-discounted unit
+                      price, or the discount row would look unapplied. */}
+                  <div className="candidate-amounts">
+                    <div className="candidate-amount-row">
+                      <span>
+                        定價
+                        {candidate.quantity > 1 &&
+                          ` ${formatTwd(candidate.listPrice)} × ${candidate.quantity}`}
+                      </span>
+                      <span>{formatTwd(candidate.originalAmount)}</span>
+                    </div>
+                    {candidate.discountAmount > 0 && (
+                      <>
+                        <div className="candidate-amount-row discount">
+                          <span>折扣{candidate.promotionLabel && `（${candidate.promotionLabel}）`}</span>
+                          <span>-{formatTwd(candidate.discountAmount)}</span>
+                        </div>
+                        <div className="candidate-amount-row subtotal">
+                          <span>小計</span>
+                          <span>
+                            {formatTwd(
+                              candidate.originalAmount - candidate.discountAmount,
+                            )}
+                          </span>
+                        </div>
+                      </>
+                    )}
+                    <div className="candidate-amount-row">
+                      <span>
+                        運費
+                        {candidate.freeShippingSource === "promotion"
+                          ? "（本檔促銷免運）"
+                          : candidate.freeShippingSource === "threshold"
+                            ? "（已達免運門檻）"
+                            : `（未達 ${formatTwd(candidate.freeShippingThreshold)}）`}
+                      </span>
+                      <span>{formatTwd(candidate.shippingFeeAmount)}</span>
+                    </div>
+                    <div className="candidate-amount-row total">
+                      <span>實付</span>
+                      <span>{formatTwd(candidate.finalAmount)}</span>
+                    </div>
+                  </div>
+
+                  <div className="candidate-facts">
+                    <span>
+                      🚚 {candidate.deliveryLabel} 約 {candidate.estimatedDays}{" "}
+                      個工作天
+                    </span>
+                    <span>📦 可售 {candidate.available}</span>
+                    <span>🔁 {candidate.returnPolicyLabel}</span>
+                  </div>
+
+                  <ul className="candidate-reasons">
+                    {candidate.reasons.slice(0, 3).map((reason) => (
+                      <li key={reason}>{reason}</li>
+                    ))}
+                  </ul>
+
+                  <button
+                    className="candidate-select-btn"
+                    onClick={() => void selectCandidate(candidate)}
+                    disabled={selectingSku !== null}
+                  >
+                    {selectingSku === candidate.sku ? "處理中…" : "選這個"}
+                  </button>
+                </article>
+              ))}
             </div>
           )}
 

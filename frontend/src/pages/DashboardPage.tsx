@@ -1,22 +1,42 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { createApiClient } from "../api/client";
-import type { ProviderTask } from "../api/types";
+import { apiClient, createApiClient } from "../api/client";
+import type { DemoProvider, ProviderTask } from "../api/types";
 import { providerTaskPresentation } from "../api/viewModels";
 import "./DashboardPage.css";
 
 
-const DEMO_PROVIDERS = [
+/**
+ * Fallback so the dashboard still works if the demo provider list cannot be
+ * fetched. The live list comes from the backend, which derives suppliers from
+ * the catalogue, so these two utility providers are only a safety net.
+ */
+const FALLBACK_PROVIDERS: DemoProvider[] = [
   {
     providerId: "31324fe0-9899-5382-8211-d0122c20bda0",
     name: "京鑫水電工程行",
+    serviceType: "utility_repair",
+    serviceName: "水電修繕",
   },
   {
     providerId: "29722c58-1d40-5dd9-9bf3-4cfcdfefb60a",
     name: "新旺水電工程行",
+    serviceType: "utility_repair",
+    serviceName: "水電修繕",
   },
-] as const;
+];
+
+/** Two business days out, matching the placeholder suppliers usually pick. */
+function defaultShipDate(): string {
+  const date = new Date();
+  date.setDate(date.getDate() + 2);
+  return date.toISOString().slice(0, 10);
+}
+
+function shortProviderName(name: string): string {
+  return name.replace("水電工程行", "").replace("選品商城", "");
+}
 
 interface ProcessedTask {
   task: ProviderTask;
@@ -25,8 +45,10 @@ interface ProcessedTask {
 
 export default function DashboardPage() {
   const navigate = useNavigate();
+  const [providers, setProviders] =
+    useState<DemoProvider[]>(FALLBACK_PROVIDERS);
   const [providerId, setProviderId] = useState<string>(
-    DEMO_PROVIDERS[0].providerId,
+    FALLBACK_PROVIDERS[0].providerId,
   );
   const api = useMemo(() => createApiClient({ providerId }), [providerId]);
   const [tasks, setTasks] = useState<ProviderTask[]>([]);
@@ -38,6 +60,7 @@ export default function DashboardPage() {
   const [arrivalWindows, setArrivalWindows] = useState<Record<string, string>>(
     {},
   );
+  const [shipDates, setShipDates] = useState<Record<string, string>>({});
 
   useEffect(() => {
     let cancelled = false;
@@ -63,13 +86,42 @@ export default function DashboardPage() {
     };
   }, [api]);
 
+  useEffect(() => {
+    let cancelled = false;
+    const loadProviders = async () => {
+      try {
+        const result = await apiClient.listDemoProviders();
+        if (!cancelled && result.items.length > 0) setProviders(result.items);
+      } catch {
+        // Keep the fallback list; role switching still works for utility.
+      }
+    };
+    void loadProviders();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const providersByService = useMemo(() => {
+    const grouped: Record<string, DemoProvider[]> = {};
+    for (const provider of providers) {
+      (grouped[provider.serviceName] ??= []).push(provider);
+    }
+    return grouped;
+  }, [providers]);
+
   const respond = async (
     task: ProviderTask,
     action: "accept" | "decline" | "needs_information",
   ) => {
     const question = questions[task.taskId]?.trim();
+    // Accepting requires a different field per service type: utility providers
+    // commit to an arrival window, product suppliers to a ship date.
+    const isProduct = task.brief?.serviceType === "product_purchase";
     const arrivalWindow =
       arrivalWindows[task.taskId]?.trim() || "2026-08-03 14:00-17:00";
+    const estimatedShipDate =
+      shipDates[task.taskId]?.trim() || defaultShipDate();
     if (action === "needs_information" && !question) {
       setError("請先輸入要詢問住戶的問題。 ");
       return;
@@ -85,8 +137,13 @@ export default function DashboardPage() {
             ? question
             : action === "decline"
               ? "目前滿單，請平台改派。"
-              : "到場先檢測問題與報價，住戶確認後才施工。",
-        arrivalWindow: action === "accept" ? arrivalWindow : undefined,
+              : isProduct
+                ? "確認庫存與地址無誤，將依約出貨。"
+                : "到場先檢測問題與報價，住戶確認後才施工。",
+        arrivalWindow:
+          action === "accept" && !isProduct ? arrivalWindow : undefined,
+        estimatedShipDate:
+          action === "accept" && isProduct ? estimatedShipDate : undefined,
       });
       setProcessed((current) => [
         {
@@ -174,15 +231,22 @@ export default function DashboardPage() {
 
         <div className="provider-switcher">
           <span className="provider-switcher-label">Demo 登入：</span>
-          {DEMO_PROVIDERS.map((provider) => (
-            <button
-              key={provider.providerId}
-              className={providerId === provider.providerId ? "active" : ""}
-              onClick={() => setProviderId(provider.providerId)}
-            >
-              {provider.name.replace("水電工程行", "")}
-            </button>
-          ))}
+          <select
+            className="provider-select"
+            value={providerId}
+            onChange={(event) => setProviderId(event.target.value)}
+            aria-label="選擇要登入的廠商或供應商"
+          >
+            {Object.entries(providersByService).map(([serviceName, group]) => (
+              <optgroup key={serviceName} label={serviceName}>
+                {group.map((provider) => (
+                  <option key={provider.providerId} value={provider.providerId}>
+                    {shortProviderName(provider.name)}
+                  </option>
+                ))}
+              </optgroup>
+            ))}
+          </select>
         </div>
 
         {error && <div className="dashboard-error">{error}</div>}
@@ -233,19 +297,35 @@ export default function DashboardPage() {
                           placeholder="例如：總水閥是否能關閉？"
                         />
                       </label>
-                      <label className="dashboard-field">
-                        <span>可到場時段</span>
-                        <input
-                          value={arrivalWindows[task.taskId] ?? ""}
-                          onChange={(event) =>
-                            setArrivalWindows((current) => ({
-                              ...current,
-                              [task.taskId]: event.target.value,
-                            }))
-                          }
-                          placeholder="2026-08-03 14:00-17:00"
-                        />
-                      </label>
+                      {request.serviceType === "product_purchase" ? (
+                        <label className="dashboard-field">
+                          <span>預計出貨日</span>
+                          <input
+                            value={shipDates[task.taskId] ?? ""}
+                            onChange={(event) =>
+                              setShipDates((current) => ({
+                                ...current,
+                                [task.taskId]: event.target.value,
+                              }))
+                            }
+                            placeholder={defaultShipDate()}
+                          />
+                        </label>
+                      ) : (
+                        <label className="dashboard-field">
+                          <span>可到場時段</span>
+                          <input
+                            value={arrivalWindows[task.taskId] ?? ""}
+                            onChange={(event) =>
+                              setArrivalWindows((current) => ({
+                                ...current,
+                                [task.taskId]: event.target.value,
+                              }))
+                            }
+                            placeholder="2026-08-03 14:00-17:00"
+                          />
+                        </label>
+                      )}
                     </div>
                     <div className="request-actions four-actions">
                       <button
