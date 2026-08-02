@@ -177,6 +177,8 @@ infra/node_modules/.bin/cdk destroy AiwaveStaging
 
 維護原則：產品邊界改變時先更新 `SPEC.md`；功能或契約改變時建立／更新 OpenSpec change；架構選擇改變時新增 ADR。詳細欄位、錯誤碼與驗收情境只放 OpenSpec，`SPEC.md` 保留摘要與連結，避免兩邊各維護一份細節。
 
+實務操作流程、如何新增一個服務類別、本機環境已知坑與目前的部署阻礙，見 [`docs/development-workflow.md`](docs/development-workflow.md)。
+
 目前流程：
 
 1. 先確認 `SPEC.md` 的產品邊界。
