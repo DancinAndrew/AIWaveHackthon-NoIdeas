@@ -1,12 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3000" height="1700" viewBox="0 0 3000 1700" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3200" height="1700" viewBox="0 0 3200 1700" role="img" aria-labelledby="title desc">
   <title id="title">AI 生活管家 AWS AgentCore 正式架構</title>
-  <desc id="desc">以官方 AWS Architecture Icons 繪製的 us-west-2 staging 架構，顯示 Amplify、API Gateway、Flask Lambda、AgentCore Runtime、五個邏輯 Agent、RDS、Knowledge Base、S3 Vectors、Step Functions 與安全邊界。</desc>
+  <desc id="desc">以官方 AWS Architecture Icons 繪製的 us-west-2 staging 架構，顯示 Amplify、API Gateway、Flask Lambda、AgentCore Runtime（Supervisor＋五個邏輯 Agent）、Bedrock Nova 2 Lite 每輪推理、Managed Knowledge Base 檢索、RDS、S3 Vectors、Step Functions 與安全邊界；水電修繕與商品購買兩個領域已完成線上閉環。</desc>
   <defs>
     <marker id="arrow-solid" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
       <path d="M0 0 L12 6 L0 12 Z" fill="#37475a"/>
     </marker>
     <marker id="arrow-planned" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
       <path d="M0 0 L12 6 L0 12 Z" fill="#8a94a3"/>
+    </marker>
+    <marker id="arrow-observe" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#6b5cff"/>
     </marker>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#232f3e" flood-opacity="0.14"/>
@@ -29,7 +32,7 @@
       .arrow-label{font:700 16px Arial,"PingFang TC","Noto Sans CJK TC",sans-serif;fill:#37475a;paint-order:stroke;stroke:#fff;stroke-width:7px;stroke-linejoin:round}
       .solid{fill:none;stroke:#37475a;stroke-width:4;marker-end:url(#arrow-solid)}
       .planned-line{fill:none;stroke:#8a94a3;stroke-width:4;stroke-dasharray:14 11;marker-end:url(#arrow-planned)}
-      .observe-line{fill:none;stroke:#8a94a3;stroke-width:3;stroke-dasharray:4 9;marker-end:url(#arrow-planned)}
+      .observe-line{fill:none;stroke:#6b5cff;stroke-width:3;stroke-dasharray:3 8;marker-end:url(#arrow-observe)}
       .cloud{fill:#fff;stroke:#232f3e;stroke-width:4}
       .region{fill:#fff;stroke:#147eba;stroke-width:3}
       .vpc{fill:#fbfff9;stroke:#248814;stroke-width:4}
@@ -53,250 +56,296 @@
     </style>
   </defs>
 
-  <rect width="3000" height="1700" fill="#f3f5f7"/>
+  <rect width="3200" height="1700" fill="#f3f5f7"/>
   <text x="70" y="65" class="title">AI 生活管家｜AWS AgentCore 正式架構</text>
-  <text x="70" y="100" class="subtitle">Staging · us-west-2 · 水電修繕 walking skeleton＋五領域 Agent 契約</text>
+  <text x="70" y="100" class="subtitle">Staging · us-west-2 · 水電修繕＋商品購買雙領域上線 · Runtime 內模型多輪理解 · 完工驗收與 OPENPOINT Demo 記帳</text>
 
-  <line x1="1990" y1="65" x2="2070" y2="65" class="solid"/>
-  <text x="2090" y="72" class="subtitle">目前線上路徑</text>
-  <line x1="2290" y1="65" x2="2370" y2="65" class="planned-line"/>
-  <text x="2390" y="72" class="subtitle">已部署，主流程待接</text>
-  <rect x="2690" y="43" width="105" height="32" class="pill-live"/>
-  <text x="2743" y="65" text-anchor="middle" class="pill-text-live">LIVE E2E</text>
+  <line x1="1810" y1="65" x2="1890" y2="65" class="solid"/>
+  <text x="1910" y="72" class="subtitle">目前線上路徑</text>
+  <line x1="2100" y1="65" x2="2180" y2="65" class="planned-line"/>
+  <text x="2200" y="72" class="subtitle">已部署，主流程待接</text>
+  <line x1="2450" y1="65" x2="2530" y2="65" class="observe-line"/>
+  <text x="2550" y="72" class="subtitle">可觀測性</text>
+  <rect x="2700" y="43" width="110" height="32" class="pill-live"/>
+  <text x="2755" y="65" text-anchor="middle" class="pill-text-live">LIVE E2E</text>
 
-  <!-- AWS Cloud and Region boundaries -->
-  <rect x="190" y="125" width="2740" height="1500" class="cloud"/>
+  <!-- ============================================================
+       Layer 1: boundaries. Drawn first so the connection layer can
+       paint over their fills; node cards then paint over the lines
+       and give every arrow a clean termination at the card edge.
+       ============================================================ -->
+  <rect x="190" y="125" width="2950" height="1500" class="cloud"/>
   <image x="210" y="145" width="48" height="48" xlink:href="icons/aws-cloud.svg"/>
   <text x="280" y="180" class="cloud-title">AWS Cloud</text>
 
-  <rect x="260" y="205" width="2600" height="1340" class="region"/>
+  <rect x="260" y="205" width="2810" height="1350" class="region"/>
   <image x="280" y="225" width="42" height="42" xlink:href="icons/region.svg"/>
   <text x="340" y="257" class="region-title">Region: us-west-2 (Oregon)</text>
 
-  <!-- Connection layer: current path -->
-  <path d="M125 405 H370" class="solid"/>
-  <path d="M125 805 H285 V430 H370" class="solid"/>
-  <path d="M125 1115 H300 V450 H370" class="solid"/>
-  <path d="M470 490 V720" class="solid"/>
-  <path d="M595 800 H790" class="solid"/>
-  <path d="M1120 500 H1170 V680 H1220" class="solid"/>
-  <path d="M1520 680 H1645 V535 H1700" class="solid"/>
-  <path d="M1120 530 H1220" class="solid"/>
-  <path d="M970 595 V1285 H2520 V875 H2550" class="solid"/>
-  <path d="M930 595 V1065 H1700" class="solid"/>
-  <path d="M1980 565 H2040 V753 H2080" class="solid"/>
-  <path d="M2550 425 H2440 V1085 H2240" class="solid"/>
-  <path d="M2470 1085 H2520 V640 H2550" class="solid"/>
+  <rect x="320" y="285" width="300" height="1075" class="section"/>
+  <text x="345" y="325" class="section-title">公開入口</text>
 
-  <!-- Connection layer: deployed but pending main-flow wiring -->
-  <path d="M470 650 V490" class="planned-line"/>
-  <path d="M2080 753 H2020 V1105 H1970" class="planned-line"/>
-  <path d="M1970 1095 H1635 V972 H1120" class="planned-line"/>
-  <path d="M2080 753 H2280 V1020" class="planned-line"/>
-  <path d="M1810 1020 V990" class="planned-line"/>
-  <path d="M860 1110 H760 V1320 H2000 V1245 H2580" class="planned-line"/>
-  <path d="M570 1180 H720 V530 H790" class="observe-line"/>
-  <path d="M570 1180 H1640 V430 H1700" class="observe-line"/>
-  <path d="M570 1180 H1680" class="observe-line"/>
-  <path d="M2580 1215 H2495 V525 H2480" class="observe-line"/>
+  <rect x="680" y="285" width="960" height="1075" class="vpc"/>
+  <image x="700" y="305" width="42" height="42" xlink:href="icons/vpc.svg"/>
+  <text x="760" y="338" class="vpc-title">VPC · 2 Availability Zones · 無 NAT Gateway</text>
 
-  <!-- External actors -->
+  <rect x="730" y="365" width="815" height="440" class="az"/>
+  <text x="750" y="398" class="az-title">Availability Zone A</text>
+  <rect x="760" y="415" width="760" height="355" class="subnet"/>
+  <image x="780" y="430" width="34" height="34" xlink:href="icons/private-subnet.svg"/>
+  <text x="826" y="457" class="subnet-title">Private isolated subnet</text>
+
+  <rect x="730" y="845" width="570" height="300" class="az"/>
+  <text x="750" y="878" class="az-title">Availability Zone B</text>
+  <rect x="760" y="890" width="510" height="230" class="subnet"/>
+  <image x="780" y="905" width="34" height="34" xlink:href="icons/private-subnet.svg"/>
+  <text x="826" y="932" class="subnet-title">Private isolated subnet</text>
+
+  <text x="1730" y="325" class="section-title">Managed AI／Workflow</text>
+  <rect x="1730" y="350" width="870" height="660" class="runtime"/>
+  <image x="1755" y="372" width="78" height="78" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
+  <text x="1855" y="400" class="node-title">Amazon Bedrock AgentCore Runtime</text>
+  <text x="1855" y="431" class="node-text">一個 Runtime：Supervisor＋五個邏輯 Agent</text>
+
+  <text x="2680" y="325" class="section-title">知識・資料・安全</text>
+
+  <!-- ============================================================
+       Layer 2: connections.
+       ============================================================ -->
+  <!-- Current online path -->
+  <path d="M125 405 H336" class="solid"/>
+  <path d="M125 805 H285 V430 H336" class="solid"/>
+  <path d="M125 1115 H300 V455 H336" class="solid"/>
+  <path d="M470 495 V533" class="solid"/>
+  <path d="M595 600 H778" class="solid"/>
+  <path d="M1120 520 H1148" class="solid"/>
+  <path d="M1120 620 H1140 V690 H1148" class="solid"/>
+  <path d="M1500 690 H1650 V582 H1758" class="solid"/>
+  <path d="M2020 569 H2063" class="solid"/>
+  <path d="M2020 620 H2045 V725 H2063" class="solid"/>
+  <path d="M2468 1010 V1038" class="solid"/>
+  <path d="M2604 617 H2668" class="solid"/>
+  <path d="M2815 500 V528" class="solid"/>
+  <path d="M2815 695 V723" class="solid"/>
+  <path d="M782 628 H700 V1385 H2640 V993 H2668" class="solid"/>
+
+  <!-- Deployed, main-flow wiring still pending -->
+  <path d="M470 745 V707" class="planned-line"/>
+  <path d="M2165 1010 V1038" class="planned-line"/>
+  <path d="M2165 1219 V1255 H1000 V1117" class="planned-line"/>
+  <path d="M1330 750 V1170 H1718" class="planned-line"/>
+
+  <!-- Observability -->
+  <path d="M782 652 H672 V1180 H604" class="observe-line"/>
+
+  <!-- ============================================================
+       Layer 3: external actors and node cards.
+       ============================================================ -->
   <image x="40" y="335" width="84" height="84" xlink:href="icons/users.svg"/>
   <text x="82" y="448" text-anchor="middle" class="node-title">住戶</text>
-  <text x="82" y="477" text-anchor="middle" class="small">AI 對話／進度</text>
+  <text x="82" y="477" text-anchor="middle" class="small">對話／選品／驗收</text>
 
   <image x="40" y="735" width="84" height="84" xlink:href="icons/users.svg"/>
-  <text x="82" y="848" text-anchor="middle" class="node-title">廠商</text>
-  <text x="82" y="877" text-anchor="middle" class="small">補問／接單／拒絕</text>
+  <text x="82" y="848" text-anchor="middle" class="node-title">廠商／供應商</text>
+  <text x="82" y="877" text-anchor="middle" class="small">接單／出貨／完工回報</text>
 
   <image x="40" y="1045" width="84" height="84" xlink:href="icons/users.svg"/>
   <text x="82" y="1158" text-anchor="middle" class="node-title">管理員</text>
   <text x="82" y="1187" text-anchor="middle" class="small">管理／模擬逾時</text>
 
-  <!-- Public entry services -->
-  <rect x="320" y="285" width="300" height="1140" class="section"/>
-  <text x="345" y="325" class="section-title">公開入口</text>
+  <!-- Public entry -->
+  <rect x="345" y="350" width="250" height="145" class="node-live"/>
+  <image x="365" y="375" width="70" height="70" xlink:href="icons/aws-amplify.svg"/>
+  <text x="450" y="396" class="node-title">AWS Amplify</text>
+  <text x="450" y="424" class="node-text">React SPA</text>
+  <text x="365" y="458" class="small">AI 對話・我的預約・後台管理</text>
+  <rect x="475" y="468" width="100" height="24" class="pill-live"/>
+  <text x="525" y="485" text-anchor="middle" class="pill-text-live">LIVE E2E</text>
 
-  <rect x="345" y="350" width="250" height="140" class="node-live"/>
-  <image x="365" y="375" width="74" height="74" xlink:href="icons/aws-amplify.svg"/>
-  <text x="450" y="400" class="node-title">AWS Amplify</text>
-  <text x="450" y="429" class="node-text">React SPA</text>
-  <text x="450" y="456" class="small">AI 對話／預約／後台</text>
-  <rect x="475" y="465" width="95" height="24" class="pill-live"/>
-  <text x="523" y="482" text-anchor="middle" class="pill-text-live">LIVE E2E</text>
+  <rect x="345" y="545" width="250" height="150" class="node-live"/>
+  <image x="365" y="570" width="66" height="66" xlink:href="icons/amazon-api-gateway.svg"/>
+  <text x="446" y="592" class="node-title">API Gateway</text>
+  <text x="446" y="620" class="node-text">HTTP API v2</text>
+  <text x="365" y="658" class="small">Amplify-only CORS</text>
+  <text x="365" y="682" class="tiny">demo actor headers（Cognito 待接）</text>
 
-  <rect x="345" y="540" width="250" height="110" class="node-planned"/>
-  <image x="365" y="560" width="62" height="62" xlink:href="icons/amazon-cognito.svg"/>
-  <text x="440" y="580" class="node-title">Amazon Cognito</text>
-  <text x="440" y="607" class="small">三個群組已建立</text>
-  <text x="440" y="632" class="tiny">SPA JWT 待接</text>
+  <rect x="345" y="745" width="250" height="115" class="node-planned"/>
+  <image x="365" y="762" width="54" height="54" xlink:href="icons/amazon-cognito.svg"/>
+  <text x="432" y="784" class="card-title">Amazon Cognito</text>
+  <text x="432" y="808" class="small">三個群組已建立</text>
+  <text x="365" y="840" class="tiny">SPA／API Gateway JWT 待接</text>
 
-  <rect x="345" y="720" width="250" height="150" class="node-live"/>
-  <image x="365" y="750" width="72" height="72" xlink:href="icons/amazon-api-gateway.svg"/>
-  <text x="450" y="770" class="node-title">API Gateway</text>
-  <text x="450" y="801" class="node-text">HTTP API</text>
-  <text x="450" y="829" class="small">Amplify-only CORS</text>
-  <text x="450" y="854" class="tiny">demo actor headers</text>
+  <rect x="345" y="1110" width="250" height="150" class="node-live"/>
+  <image x="365" y="1132" width="64" height="64" xlink:href="icons/amazon-cloudwatch.svg"/>
+  <text x="446" y="1160" class="node-title">CloudWatch</text>
+  <text x="365" y="1206" class="node-text">Logs / Traces</text>
+  <text x="365" y="1230" class="small">Flask・Tool Lambda・Runtime</text>
+  <text x="365" y="1252" class="tiny">request ID・PII 遮蔽</text>
 
-  <rect x="345" y="1110" width="250" height="140" class="node-live"/>
-  <image x="365" y="1138" width="70" height="70" xlink:href="icons/amazon-cloudwatch.svg"/>
-  <text x="450" y="1160" class="node-title">CloudWatch</text>
-  <text x="450" y="1190" class="node-text">Logs／request ID</text>
-  <text x="450" y="1218" class="small">Lambda／Runtime trace</text>
+  <!-- Availability Zone A workloads -->
+  <rect x="790" y="470" width="330" height="220" class="node-live"/>
+  <image x="812" y="490" width="64" height="64" xlink:href="icons/aws-lambda.svg"/>
+  <text x="890" y="516" class="node-title">Flask Lambda</text>
+  <text x="890" y="542" class="small">共用 application core</text>
+  <text x="812" y="588" class="node-text">驗證式合併・確定性安全 union</text>
+  <text x="812" y="614" class="node-text">媒合・訂單狀態機・冪等</text>
+  <text x="812" y="640" class="node-text">OPENPOINT 點數・流水帳</text>
+  <text x="812" y="668" class="small">會員長期記憶・商品目錄 300 SKU</text>
 
-  <!-- VPC and AZs -->
-  <rect x="680" y="285" width="950" height="1140" class="vpc"/>
-  <image x="700" y="305" width="42" height="42" xlink:href="icons/vpc.svg"/>
-  <text x="760" y="338" class="vpc-title">VPC · 2 Availability Zones · 無 NAT Gateway</text>
+  <rect x="1160" y="440" width="340" height="170" class="node-live"/>
+  <image x="1182" y="460" width="58" height="58" xlink:href="icons/amazon-rds.svg"/>
+  <text x="1252" y="482" class="node-title">RDS PostgreSQL</text>
+  <text x="1252" y="509" class="node-text">private · encrypted</text>
+  <text x="1182" y="546" class="small">aiwave_demo_state：案件・任務・事件</text>
+  <text x="1182" y="570" class="small">mms_member_*：地址・家電・偏好</text>
+  <text x="1182" y="594" class="small">point_ledger：append-only 點數流水帳</text>
 
-  <rect x="730" y="365" width="850" height="420" class="az"/>
-  <text x="750" y="398" class="az-title">Availability Zone A</text>
-  <rect x="760" y="415" width="790" height="335" class="subnet"/>
-  <image x="780" y="430" width="36" height="36" xlink:href="icons/private-subnet.svg"/>
-  <text x="830" y="459" class="subnet-title">Private isolated subnet</text>
+  <rect x="1160" y="630" width="340" height="120" class="node-live"/>
+  <image x="1182" y="648" width="56" height="56" xlink:href="icons/vpc-endpoints.svg"/>
+  <text x="1252" y="670" class="node-title">VPC Endpoints</text>
+  <text x="1252" y="696" class="node-text">AgentCore／Bedrock</text>
+  <text x="1182" y="732" class="small">S3 Gateway・Secrets・Step Functions</text>
 
-  <rect x="790" y="480" width="330" height="115" class="node-live"/>
-  <image x="810" y="500" width="72" height="72" xlink:href="icons/aws-lambda.svg"/>
-  <text x="900" y="516" class="node-title">Flask Lambda</text>
-  <text x="900" y="545" class="node-text">REST＋Shared Python core</text>
-  <text x="900" y="572" class="small">追問／安全 gate／媒合／冪等</text>
+  <!-- Availability Zone B workloads -->
+  <rect x="790" y="955" width="340" height="150" class="node-planned"/>
+  <image x="812" y="975" width="60" height="60" xlink:href="icons/aws-lambda.svg"/>
+  <text x="888" y="998" class="node-title">Gateway Tool Lambda</text>
+  <text x="888" y="1023" class="small">resident operations target</text>
+  <text x="812" y="1060" class="small">已部署；Runtime MCP call 待接</text>
+  <text x="812" y="1084" class="tiny">與 Flask 共用同一 application core</text>
 
-  <rect x="1220" y="480" width="300" height="115" class="node-live"/>
-  <image x="1240" y="500" width="72" height="72" xlink:href="icons/amazon-rds.svg"/>
-  <text x="1330" y="516" class="node-title">RDS PostgreSQL</text>
-  <text x="1330" y="545" class="node-text">request／task／message</text>
-  <text x="1330" y="572" class="small">private · encrypted · demo single-AZ</text>
+  <rect x="1350" y="900" width="270" height="150" class="note"/>
+  <text x="1372" y="930" class="card-title">OPENPOINT 回饋</text>
+  <text x="1372" y="960" class="small">廠商完工 → 住戶驗收後入帳</text>
+  <text x="1372" y="984" class="small">依完工金額重算，非沿用預估</text>
+  <text x="1372" y="1008" class="small">append-only ledger 防重複發放</text>
+  <text x="1372" y="1032" class="tiny">平台內 Demo 記帳，未連動正式帳戶</text>
 
-  <rect x="1220" y="625" width="300" height="115" class="node-live"/>
-  <image x="1240" y="646" width="66" height="66" xlink:href="icons/vpc-endpoints.svg"/>
-  <text x="1320" y="652" class="node-title">VPC Endpoints</text>
-  <text x="1320" y="681" class="node-text">AgentCore／Bedrock</text>
-  <text x="1320" y="708" class="small">S3／Secrets／Step Functions</text>
+  <rect x="790" y="1275" width="760" height="70" class="security-note"/>
+  <text x="815" y="1302" class="node-text">網路安全：RDS 5432 僅開放 workload SG；無 public RDS、無 wide-open ingress。</text>
+  <text x="815" y="1328" class="small">Lambda 掛載兩個 isolated subnets；S3 走 Gateway Endpoint，AgentCore／Bedrock 走 Interface Endpoint。</text>
 
-  <rect x="730" y="830" width="850" height="400" class="az"/>
-  <text x="750" y="863" class="az-title">Availability Zone B</text>
-  <rect x="760" y="880" width="790" height="315" class="subnet"/>
-  <image x="780" y="895" width="36" height="36" xlink:href="icons/private-subnet.svg"/>
-  <text x="830" y="924" class="subnet-title">Private isolated subnet</text>
+  <!-- AgentCore Runtime internals -->
+  <rect x="1770" y="505" width="250" height="155" class="node-live"/>
+  <image x="1792" y="524" width="60" height="60" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
+  <text x="1866" y="558" class="node-title">Supervisor</text>
+  <text x="1792" y="606" class="node-text">關鍵字路由＋模型分類</text>
+  <text x="1792" y="630" class="small">fail-closed・不臆造領域</text>
+  <text x="1792" y="652" class="tiny">APPROVED_ROUTES allowlist</text>
 
-  <rect x="790" y="945" width="330" height="125" class="node-planned"/>
-  <image x="810" y="970" width="72" height="72" xlink:href="icons/aws-lambda.svg"/>
-  <text x="900" y="980" class="node-title">Gateway Tool Lambda</text>
-  <text x="900" y="1010" class="node-text">resident operations target</text>
-  <text x="900" y="1038" class="small">已部署；Runtime tool call 待接</text>
+  <rect x="2075" y="462" width="490" height="58" class="agent"/>
+  <text x="2320" y="498" text-anchor="middle" class="agent-text">餐廳訂位 Agent｜路由與欄位契約</text>
 
-  <rect x="1190" y="945" width="330" height="125" class="security-note"/>
-  <text x="1210" y="980" class="node-title">網路安全</text>
-  <text x="1210" y="1010" class="node-text">RDS 5432 僅 workload SG</text>
-  <text x="1210" y="1038" class="small">無 public RDS／無 wide-open ingress</text>
+  <rect x="2075" y="530" width="490" height="78" class="agent-live"/>
+  <text x="2290" y="562" text-anchor="middle" class="agent-text">商品購買 Agent</text>
+  <text x="2290" y="588" text-anchor="middle" class="small">選品・確定性定價・mock 授權・供應商委派</text>
+  <rect x="2470" y="548" width="74" height="26" class="pill-live"/>
+  <text x="2507" y="566" text-anchor="middle" class="pill-text-live">LIVE</text>
 
-  <rect x="790" y="1105" width="730" height="60" class="note"/>
-  <text x="815" y="1142" class="node-text">Lambda VPC attachment 選用兩個 isolated subnets；S3 走 Gateway Endpoint。</text>
+  <rect x="2075" y="618" width="490" height="58" class="agent"/>
+  <text x="2320" y="654" text-anchor="middle" class="agent-text">家事服務 Agent｜路由與欄位契約</text>
 
-  <!-- AgentCore and managed AI services -->
-  <text x="1700" y="325" class="section-title">Managed AI／Workflow</text>
-  <rect x="1700" y="350" width="780" height="640" class="runtime"/>
-  <image x="1725" y="372" width="78" height="78" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
-  <text x="1825" y="400" class="node-title">Amazon Bedrock AgentCore Runtime</text>
-  <text x="1825" y="431" class="node-text">一個 Runtime：Supervisor＋五個邏輯 Agent</text>
+  <rect x="2075" y="686" width="490" height="78" class="agent-live"/>
+  <text x="2290" y="718" text-anchor="middle" class="agent-text">水電修繕 Agent</text>
+  <text x="2290" y="744" text-anchor="middle" class="small">多輪追問・高風險安全 gate・確定性媒合</text>
+  <rect x="2470" y="704" width="74" height="26" class="pill-live"/>
+  <text x="2507" y="722" text-anchor="middle" class="pill-text-live">LIVE</text>
 
-  <rect x="1750" y="505" width="230" height="125" class="node-live"/>
-  <image x="1770" y="530" width="68" height="68" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
-  <text x="1855" y="547" class="node-title">Supervisor</text>
-  <text x="1855" y="576" class="node-text">工具式領域委派</text>
-  <text x="1855" y="603" class="small">deterministic route</text>
+  <rect x="2075" y="774" width="490" height="58" class="agent"/>
+  <text x="2320" y="810" text-anchor="middle" class="agent-text">社區服務諮詢 Agent｜路由與欄位契約</text>
 
-  <rect x="2080" y="465" width="320" height="64" class="agent"/>
-  <text x="2240" y="505" text-anchor="middle" class="agent-text">餐廳訂位 Agent｜契約</text>
-  <rect x="2080" y="545" width="320" height="64" class="agent"/>
-  <text x="2240" y="585" text-anchor="middle" class="agent-text">商品購買 Agent｜契約</text>
-  <rect x="2080" y="625" width="320" height="64" class="agent"/>
-  <text x="2240" y="665" text-anchor="middle" class="agent-text">家事服務 Agent｜契約</text>
-  <rect x="2080" y="705" width="320" height="78" class="agent-live"/>
-  <text x="2240" y="738" text-anchor="middle" class="agent-text">水電修繕 Agent</text>
-  <text x="2240" y="765" text-anchor="middle" class="small">walking skeleton 路由已上線</text>
-  <rect x="2080" y="799" width="320" height="64" class="agent"/>
-  <text x="2240" y="839" text-anchor="middle" class="agent-text">社區服務諮詢 Agent｜契約</text>
+  <rect x="1760" y="855" width="810" height="135" class="note"/>
+  <text x="1785" y="884" class="small">每輪：Runtime 內以 Nova 2 Lite（Converse 強制單一工具）抽取結構化欄位與風險訊號，</text>
+  <text x="1785" y="910" class="small">並以 service_type filter 檢索 Knowledge Base；價格・庫存・時段・案件狀態不得由靜態文件作答。</text>
+  <text x="1785" y="936" class="small">Flask 重新驗證每個欄位、確定性安全 union、狀態機與媒合仍留在共用 application core。</text>
+  <text x="1785" y="962" class="tiny">模型或契約驗證失敗 → reasoning.mode = rule-fallback 誠實降級；deterministic demo 不發任何 Bedrock 請求。</text>
 
-  <rect x="1740" y="892" width="690" height="70" class="note"/>
-  <text x="1765" y="921" class="small">現況：Runtime 完成 Supervisor 委派；水電多輪、需求文件與媒合狀態機由 Flask shared core 執行。</text>
-  <text x="1765" y="947" class="tiny">目標：領域 Agent 直接透過 Gateway tools 與 Knowledge Base 完成工作。</text>
+  <!-- Managed workflow and model services -->
+  <rect x="1730" y="1050" width="265" height="165" class="node-planned"/>
+  <image x="1752" y="1064" width="50" height="50" xlink:href="icons/aws-step-functions.svg"/>
+  <text x="1752" y="1142" class="card-title">Step Functions</text>
+  <text x="1752" y="1166" class="small">Standard workflow</text>
+  <text x="1752" y="1188" class="small">start boundary 已建立</text>
+  <text x="1752" y="1208" class="tiny">task-token callback 待接</text>
 
-  <rect x="1700" y="1020" width="230" height="150" class="node-planned"/>
-  <image x="1720" y="1043" width="66" height="66" xlink:href="icons/aws-step-functions.svg"/>
-  <text x="1798" y="1057" class="card-title">Step Functions</text>
-  <text x="1805" y="1082" class="node-text">Standard workflow</text>
-  <text x="1805" y="1110" class="small">start boundary 已建立</text>
-  <text x="1805" y="1138" class="tiny">task-token callback 待接</text>
+  <rect x="2033" y="1050" width="265" height="165" class="node-planned"/>
+  <image x="2055" y="1064" width="50" height="50" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
+  <text x="2055" y="1142" class="card-title">AgentCore Gateway</text>
+  <text x="2055" y="1166" class="small">Lambda target・IAM auth</text>
+  <text x="2055" y="1188" class="small">五個領域 tool group</text>
+  <text x="2055" y="1208" class="tiny">Runtime MCP call 待接</text>
 
-  <rect x="1970" y="1020" width="230" height="150" class="node-planned"/>
-  <image x="1990" y="1043" width="66" height="66" xlink:href="icons/amazon-bedrock-agentcore.svg"/>
-  <text x="2068" y="1057" class="card-title">AgentCore Gateway</text>
-  <text x="2075" y="1082" class="node-text">Lambda target</text>
-  <text x="2075" y="1110" class="small">IAM auth 已建立</text>
-  <text x="2075" y="1138" class="tiny">Runtime MCP call 待接</text>
+  <rect x="2336" y="1050" width="264" height="165" class="node-live"/>
+  <image x="2358" y="1064" width="50" height="50" xlink:href="icons/amazon-bedrock.svg"/>
+  <text x="2358" y="1142" class="card-title">Amazon Bedrock</text>
+  <text x="2358" y="1166" class="small">Nova 2 Lite（唯一核准模型）</text>
+  <text x="2358" y="1188" class="small">共用 request gate ≥ 1.05s</text>
+  <text x="2358" y="1208" class="tiny">Flask 與 Runtime 同一 gate 模組</text>
 
-  <rect x="2240" y="1020" width="230" height="150" class="node-planned"/>
-  <image x="2260" y="1043" width="66" height="66" xlink:href="icons/amazon-bedrock.svg"/>
-  <text x="2338" y="1057" class="card-title">Amazon Bedrock</text>
-  <text x="2345" y="1082" class="node-text">Knowledge Base</text>
-  <text x="2345" y="1110" class="small">Titan Embed v2 已索引</text>
-  <text x="2345" y="1138" class="tiny">Runtime retrieval 待接</text>
+  <!-- Knowledge, data and security -->
+  <rect x="2680" y="355" width="270" height="145" class="node-live"/>
+  <image x="2702" y="378" width="64" height="64" xlink:href="icons/amazon-s3.svg"/>
+  <text x="2782" y="400" class="node-title">Private S3</text>
+  <text x="2782" y="428" class="node-text">Knowledge source</text>
+  <text x="2702" y="468" class="small">五類正文＋metadata sidecar</text>
+  <text x="2702" y="492" class="tiny">Block Public Access</text>
 
-  <!-- Managed data and security services -->
-  <text x="2550" y="325" class="section-title">資料／安全</text>
+  <rect x="2680" y="540" width="270" height="155" class="node-live"/>
+  <image x="2702" y="562" width="64" height="64" xlink:href="icons/amazon-bedrock.svg"/>
+  <text x="2782" y="584" class="node-title">Amazon Bedrock</text>
+  <text x="2782" y="612" class="node-text">Knowledge Base</text>
+  <text x="2702" y="652" class="small">service_type equals filter</text>
+  <text x="2702" y="676" class="tiny">never_authoritative_for 邊界</text>
 
-  <rect x="2550" y="355" width="250" height="150" class="node-live"/>
-  <image x="2570" y="385" width="70" height="70" xlink:href="icons/amazon-s3.svg"/>
-  <text x="2655" y="403" class="node-title">Private S3</text>
-  <text x="2655" y="433" class="node-text">Knowledge source</text>
-  <text x="2655" y="461" class="small">5 docs＋5 metadata</text>
-  <text x="2655" y="486" class="tiny">Block Public Access</text>
+  <rect x="2680" y="735" width="270" height="145" class="node-live"/>
+  <image x="2702" y="758" width="64" height="64" xlink:href="icons/s3-vectors.svg"/>
+  <text x="2782" y="780" class="node-title">S3 Vectors</text>
+  <text x="2782" y="808" class="node-text">1024-d COSINE</text>
+  <text x="2702" y="848" class="small">Titan Embed v2 已索引</text>
+  <text x="2702" y="872" class="tiny">合成非敏感資料</text>
 
-  <rect x="2550" y="565" width="250" height="150" class="node-live"/>
-  <image x="2570" y="595" width="70" height="70" xlink:href="icons/s3-vectors.svg"/>
-  <text x="2655" y="613" class="node-title">S3 Vectors</text>
-  <text x="2655" y="643" class="node-text">1024-d COSINE</text>
-  <text x="2655" y="671" class="small">retrieval 已驗證</text>
-  <text x="2655" y="696" class="tiny">synthetic KB data</text>
+  <rect x="2680" y="920" width="270" height="145" class="node-live"/>
+  <image x="2702" y="943" width="64" height="64" xlink:href="icons/amazon-s3.svg"/>
+  <text x="2782" y="965" class="node-title">Private S3</text>
+  <text x="2782" y="993" class="node-text">Resident artifacts</text>
+  <text x="2702" y="1033" class="small">版本化需求文件／訂單摘要</text>
+  <text x="2702" y="1057" class="tiny">與 KB bucket 分離</text>
 
-  <rect x="2550" y="775" width="250" height="150" class="node-live"/>
-  <image x="2570" y="805" width="70" height="70" xlink:href="icons/amazon-s3.svg"/>
-  <text x="2655" y="823" class="node-title">Private S3</text>
-  <text x="2655" y="853" class="node-text">Resident artifacts</text>
-  <text x="2655" y="881" class="small">版本化需求文件</text>
-  <text x="2655" y="906" class="tiny">與 KB bucket 分離</text>
+  <rect x="2680" y="1105" width="270" height="175" class="node-live"/>
+  <image x="2702" y="1128" width="60" height="60" xlink:href="icons/aws-secrets-manager.svg"/>
+  <image x="2782" y="1128" width="60" height="60" xlink:href="icons/aws-kms.svg"/>
+  <text x="2815" y="1218" text-anchor="middle" class="node-title">Secrets Manager＋KMS</text>
+  <text x="2815" y="1246" text-anchor="middle" class="node-text">DB credentials／encryption</text>
+  <text x="2815" y="1270" text-anchor="middle" class="small">RDS・S3・Secrets</text>
 
-  <rect x="2550" y="985" width="250" height="185" class="node-live"/>
-  <image x="2570" y="1010" width="66" height="66" xlink:href="icons/aws-secrets-manager.svg"/>
-  <image x="2650" y="1010" width="66" height="66" xlink:href="icons/aws-kms.svg"/>
-  <text x="2675" y="1100" text-anchor="middle" class="node-title">Secrets Manager＋KMS</text>
-  <text x="2675" y="1130" text-anchor="middle" class="node-text">DB credentials／encryption</text>
-  <text x="2675" y="1157" text-anchor="middle" class="small">RDS／S3／Secrets</text>
-
-  <!-- Numbered flow badges -->
+  <!-- ============================================================
+       Layer 4: flow badges, labels and footer.
+       ============================================================ -->
   <g><rect x="245" y="385" width="38" height="38" class="badge-box"/><text x="264" y="411" text-anchor="middle" class="badge-text">1</text></g>
-  <g><rect x="480" y="650" width="38" height="38" class="badge-box"/><text x="499" y="676" text-anchor="middle" class="badge-text">2</text></g>
-  <g><rect x="480" y="670" width="38" height="38" class="badge-box"/><text x="499" y="696" text-anchor="middle" class="badge-text">3</text></g>
-  <g><rect x="660" y="780" width="38" height="38" class="badge-box"/><text x="679" y="806" text-anchor="middle" class="badge-text">4</text></g>
-  <g><rect x="1585" y="515" width="38" height="38" class="badge-box"/><text x="1604" y="541" text-anchor="middle" class="badge-text">5</text></g>
-  <g><rect x="2010" y="728" width="38" height="38" class="badge-box"/><text x="2029" y="754" text-anchor="middle" class="badge-text">6</text></g>
-  <g><rect x="1905" y="978" width="38" height="38" class="badge-box"/><text x="1924" y="1004" text-anchor="middle" class="badge-text">7</text></g>
-  <g><rect x="1160" y="500" width="38" height="38" class="badge-box"/><text x="1179" y="526" text-anchor="middle" class="badge-text">8</text></g>
-  <g><rect x="2495" y="405" width="38" height="38" class="badge-box"/><text x="2514" y="431" text-anchor="middle" class="badge-text">9</text></g>
-  <g><rect x="1460" y="1045" width="38" height="38" class="badge-box"/><text x="1479" y="1071" text-anchor="middle" class="badge-text">10</text></g>
-  <g><rect x="260" y="790" width="38" height="38" class="badge-box"/><text x="279" y="816" text-anchor="middle" class="badge-text">11</text></g>
-  <g><rect x="645" y="1160" width="38" height="38" class="badge-box"/><text x="664" y="1186" text-anchor="middle" class="badge-text">12</text></g>
+  <g><rect x="620" y="608" width="38" height="38" class="badge-box"/><text x="639" y="634" text-anchor="middle" class="badge-text">2</text></g>
+  <g><rect x="1655" y="600" width="38" height="38" class="badge-box"/><text x="1674" y="626" text-anchor="middle" class="badge-text">3</text></g>
+  <g><rect x="2028" y="520" width="38" height="38" class="badge-box"/><text x="2047" y="546" text-anchor="middle" class="badge-text">4</text></g>
+  <g><rect x="2490" y="1004" width="38" height="38" class="badge-box"/><text x="2509" y="1030" text-anchor="middle" class="badge-text">5</text></g>
+  <g><rect x="2618" y="574" width="38" height="38" class="badge-box"/><text x="2637" y="600" text-anchor="middle" class="badge-text">6</text></g>
+  <g><rect x="1082" y="478" width="38" height="38" class="badge-box"/><text x="1101" y="504" text-anchor="middle" class="badge-text">7</text></g>
+  <g><rect x="1126" y="540" width="38" height="38" class="badge-box"/><text x="1145" y="566" text-anchor="middle" class="badge-text">8</text></g>
+  <g><rect x="2596" y="948" width="38" height="38" class="badge-box"/><text x="2615" y="974" text-anchor="middle" class="badge-text">9</text></g>
+  <g><rect x="2187" y="1004" width="38" height="38" class="badge-box"/><text x="2206" y="1030" text-anchor="middle" class="badge-text">10</text></g>
+  <g><rect x="1672" y="1178" width="38" height="38" class="badge-box"/><text x="1691" y="1204" text-anchor="middle" class="badge-text">11</text></g>
+  <g><rect x="628" y="1140" width="38" height="38" class="badge-box"/><text x="647" y="1166" text-anchor="middle" class="badge-text">12</text></g>
+  <g><rect x="1332" y="950" width="38" height="38" class="badge-box"/><text x="1351" y="976" text-anchor="middle" class="badge-text">13</text></g>
 
-  <!-- Flow labels and footer -->
-  <text x="585" y="776" class="arrow-label">REST／polling</text>
-  <text x="1525" y="650" class="arrow-label">Invoke Runtime</text>
-  <text x="1120" y="484" class="arrow-label">transaction state</text>
-  <text x="2020" y="968" class="arrow-label">MCP tools</text>
-  <text x="2415" y="1002" class="arrow-label">RAG</text>
-  <text x="1420" y="1268" class="arrow-label">versioned artifact</text>
+  <text x="620" y="588" class="arrow-label">REST／polling</text>
+  <text x="1655" y="562" class="arrow-label">Invoke Runtime</text>
+  <text x="2340" y="1036" class="arrow-label">Converse 抽取欄位</text>
+  <text x="2604" y="656" class="arrow-label">retrieve</text>
+  <text x="1360" y="1248" class="arrow-label">MCP tools（待接）</text>
+  <text x="1400" y="1162" class="arrow-label">callback（待接）</text>
+  <text x="2320" y="1375" class="arrow-label">versioned artifact</text>
+  <text x="610" y="1108" class="arrow-label">logs／trace</text>
 
-  <rect x="320" y="1450" width="2480" height="70" class="security-note"/>
-  <text x="345" y="1480" class="node-text">流程摘要：1–6 對話與領域委派｜7 Gateway 工具｜8 交易與需求文件｜9 Knowledge Base｜10 非同步等待邊界｜11 廠商／管理員更新｜12 可觀測性</text>
-  <text x="345" y="1508" class="small">安全限制：private RDS · S3 Block Public Access · no NAT/EC2 · least-privilege SG/IAM · Bedrock client gate &lt; 1 RPS · 只使用合成非敏感資料</text>
+  <rect x="320" y="1420" width="2750" height="110" class="security-note"/>
+  <text x="345" y="1452" class="node-text">流程摘要：1 使用者入口｜2 API Gateway → Flask｜3 呼叫 Runtime｜4 Supervisor 路由｜5 Nova 2 Lite 抽取｜6 KB 檢索｜7 驗證式合併與狀態機｜8 RDS 交易・記憶・點數｜9 版本化文件｜10 MCP tools（待接）｜11 SFN callback（待接）｜12 可觀測性｜13 驗收與點數入帳</text>
+  <text x="345" y="1482" class="small">已上線領域：水電修繕（多輪追問 → 安全 gate → 需求文件 → 確定性媒合 → 廠商承接 → 完工回報 → 住戶驗收 → 點數入帳）、商品購買（選品 → 確定性定價 → mock 付款授權 → 供應商承接 → 完工回報 → 住戶驗收 → 點數入帳）。餐廳訂位、家事服務、社區服務諮詢目前只有路由、欄位與 tool allowlist 契約。</text>
+  <text x="345" y="1510" class="small">安全限制：private RDS · S3 Block Public Access · 無 NAT／EC2 · least-privilege SG／IAM · Bedrock request gate ≥ 1.05s · 只使用合成非敏感資料 · 金額、庫存與點數皆由伺服器整數規則計算，不由模型產生 · 對話不蒐集門牌／電話／Email · OPENPOINT 為平台內 Demo 記帳，未連動正式帳戶</text>
 </svg>
