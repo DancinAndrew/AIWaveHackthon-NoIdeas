@@ -4,11 +4,15 @@
 
 ## 圖檔
 
+- [`aws-agentcore-official-architecture.svg`](aws-agentcore-official-architecture.svg)：依 AWS 官方架構圖視覺規範製作的可編輯向量版；使用 AWS Cloud／Region／VPC／Availability Zone／private subnet 邊界、官方服務圖示與編號流程。
+- [`aws-agentcore-official-architecture.png`](aws-agentcore-official-architecture.png)：3000×1700 的正式簡報版，建議優先使用。
 - [`aws-agentcore-async-platform.mmd`](aws-agentcore-async-platform.mmd)：可編輯 Mermaid 來源。
 - [`aws-agentcore-async-platform.svg`](aws-agentcore-async-platform.svg)：向量版正式圖。
 - [`aws-agentcore-async-platform.png`](aws-agentcore-async-platform.png)：簡報與文件用點陣圖。
 
 圖中的實線是目前線上 E2E 已驗證的路徑；虛線是已建立但尚未進入主流程，或下一階段才會完成的接線。
+
+新版正式圖參考使用者提供的 AWS 網路拓撲圖版面語言，圖示則來自 AWS 官方 [Architecture Icons](https://aws.amazon.com/architecture/icons/) 的 `Icon-package_04302026`（Q2 2026）。本資料夾的 [`icons/`](icons/) 只保留本圖實際使用的官方 SVG，不引入第三方或過期圖示庫。
 
 ## 已部署的水電 walking skeleton
 
