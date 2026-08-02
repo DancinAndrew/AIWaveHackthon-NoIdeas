@@ -2,8 +2,10 @@ import type {
   ApiMessage,
   ChatTurn,
   ConversationCreated,
+  DemoProvider,
   ProviderTask,
   ProviderTaskResponse,
+  SelectionResult,
   ServiceRequestProjection,
   WorkflowProgress,
 } from "./types.ts";
@@ -138,6 +140,29 @@ export function createApiClient(options: ClientOptions = {}) {
         "RESIDENT",
       ),
 
+    /**
+     * Choose one candidate for a service request.
+     *
+     * Deliberately accepts no amount: the backend recomputes price, discount
+     * and shipping from the catalogue, and ignores any money field a client
+     * sends. `expectedVersion` is the candidate list version, so a stale list
+     * fails with 409 instead of silently ordering the wrong thing.
+     */
+    selectProduct: (
+      serviceRequestId: string,
+      sku: string,
+      expectedVersion: number,
+    ) =>
+      requestJson<SelectionResult>(
+        `/api/v1/service-requests/${encodeURIComponent(serviceRequestId)}/selections`,
+        "RESIDENT",
+        {
+          method: "POST",
+          body: JSON.stringify({ sku, expectedVersion }),
+          headers: { "Idempotency-Key": newIdempotencyKey() },
+        },
+      ),
+
     listReminders: () =>
       requestJson<{
         items: Array<{
@@ -148,6 +173,13 @@ export function createApiClient(options: ClientOptions = {}) {
           updatedAt: string;
         }>;
       }>("/api/v1/reminders", "RESIDENT"),
+
+    /** Demo-only: providers the operator can impersonate in the dashboard. */
+    listDemoProviders: () =>
+      requestJson<{ items: DemoProvider[] }>(
+        "/api/v1/demo/providers",
+        "RESIDENT",
+      ),
 
     listProviderTasks: () =>
       requestJson<{ items: ProviderTask[] }>(

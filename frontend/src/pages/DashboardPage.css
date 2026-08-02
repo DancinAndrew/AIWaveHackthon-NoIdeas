@@ -315,3 +315,22 @@
   opacity: 0.5;
   cursor: wait;
 }
+
+/* Provider/supplier role switcher */
+.provider-select {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid #ccd;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  color: #1a237e;
+  cursor: pointer;
+}
+
+.provider-select:focus {
+  outline: 2px solid #1a237e;
+  outline-offset: 1px;
+}

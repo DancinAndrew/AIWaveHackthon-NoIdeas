@@ -50,6 +50,7 @@ def create_app(*, testing: bool = False) -> Flask:
                 "X-Demo-Provider-Id, X-Demo-Admin-Id, X-Demo-Role"
             )
             response.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+
         return response
 
     @app.errorhandler(ApplicationError)
@@ -126,10 +127,36 @@ def create_app(*, testing: bool = False) -> Flask:
         resident_id = _actor("RESIDENT", "X-Demo-Resident-Id")
         return _ok(service.get_progress(service_request_id, resident_id))
 
+    @app.post("/api/v1/service-requests/<service_request_id>/selections")
+    def select_option(service_request_id: str):
+        resident_id = _actor("RESIDENT", "X-Demo-Resident-Id")
+        body = _json_object()
+        return _ok(
+            service.select_option(
+                service_request_id=service_request_id,
+                resident_id=resident_id,
+                payload=body,
+                idempotency_key=_idempotency_key(),
+            )
+        )
+
     @app.get("/api/v1/reminders")
     def reminders():
         resident_id = _actor("RESIDENT", "X-Demo-Resident-Id")
         return _ok(service.list_reminders(resident_id))
+
+    @app.get("/api/v1/demo/providers")
+    def demo_providers():
+        """Demo-only: providers the operator can impersonate in the dashboard.
+
+        This exists so the demo UI does not have to hardcode provider and
+        supplier identifiers. It returns only data already present in the public
+        catalogue fixtures (identifier, display name, service type) and never
+        credentials, so it carries no authorization weight. A production build
+        would derive the operator's provider membership from Cognito instead.
+        """
+
+        return _ok({"items": service.list_demo_providers()})
 
     @app.get("/api/v1/provider-service-requests")
     def provider_tasks():

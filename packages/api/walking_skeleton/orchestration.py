@@ -23,11 +23,18 @@ APPROVED_ROUTES = frozenset(
 
 @dataclass(frozen=True, slots=True)
 class Delegation:
-    """Supervisor decision consumed by the transport-independent core."""
+    """Supervisor decision consumed by the transport-independent core.
+
+    `needs_clarification` distinguishes "I could not route this" from "this
+    could be two different services". Only the latter should ask the resident to
+    choose; silently picking one would create a case in the wrong domain.
+    """
 
     service_type: str | None
     target_agent: str | None
     mode: str
+    needs_clarification: bool = False
+    candidate_service_types: tuple[str, ...] = ()
 
 
 class SupervisorOrchestrator(Protocol):
@@ -51,6 +58,7 @@ class DeterministicDemoOrchestrator:
 
     mode = "deterministic-demo"
 
+    # Symptom vocabulary: something is broken and needs fixing.
     _utility_terms = (
         "水管",
         "漏水",
@@ -64,13 +72,59 @@ class DeterministicDemoOrchestrator:
         "火花",
         "熱水器",
         "水電",
+        "修繕",
+        "維修",
+        # Failure verbs rather than appliance nouns. "想買冷氣" must stay a pure
+        # purchase, while "冷氣壞了想買新的" must be treated as ambiguous.
+        "壞了",
+        "壞掉",
+        "故障",
+        "不會動",
+        "沒反應",
+    )
+
+    # Purchase-intent vocabulary. Deliberately intent verbs rather than the 38
+    # catalogue item types: the product flow resolves the item type from the
+    # catalogue, so the supervisor does not need to know the product vocabulary.
+    _product_terms = (
+        "買",
+        "購買",
+        "採購",
+        "訂購",
+        "選購",
+        "下單",
+        "有沒有賣",
+        "缺貨",
+        "到貨",
+        "運費",
+        "宅配",
+        "超商取貨",
     )
 
     def delegate(self, message: str) -> Delegation:
-        if any(term in message for term in self._utility_terms):
+        utility = any(term in message for term in self._utility_terms)
+        product = any(term in message for term in self._product_terms)
+
+        if utility and product:
+            # e.g. 「冷氣壞了想直接買一台新的還是修比較好」. Choosing one here would
+            # create a case the resident never asked for, so ask instead.
+            return Delegation(
+                service_type=None,
+                target_agent=None,
+                mode=self.mode,
+                needs_clarification=True,
+                candidate_service_types=("utility_repair", "product_purchase"),
+            )
+        if utility:
             return Delegation(
                 service_type="utility_repair",
                 target_agent="utility_repair_agent",
+                mode=self.mode,
+            )
+        if product:
+            return Delegation(
+                service_type="product_purchase",
+                target_agent="product_agent",
                 mode=self.mode,
             )
         return Delegation(service_type=None, target_agent=None, mode=self.mode)
